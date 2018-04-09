@@ -43,6 +43,7 @@ public class BaseActivity extends SwipeBackActivity implements TakePhoto.TakeRes
     protected MaterialDialog dialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         context = this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
@@ -63,7 +64,6 @@ public class BaseActivity extends SwipeBackActivity implements TakePhoto.TakeRes
         dialog = new MaterialDialog.Builder(this)
                 .content("加载中...")
                 .progress(true, 0).build();
-        super.onCreate(savedInstanceState);
     }
     @Override
     protected void onSaveInstanceState(Bundle outState) {

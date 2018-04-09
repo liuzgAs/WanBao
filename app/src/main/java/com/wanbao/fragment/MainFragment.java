@@ -89,7 +89,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        wlMain.setRefreshing(false);
+                        if (wlMain!=null){
+                            wlMain.setRefreshing(false);
+                        }
                     }
                 }, 1200);
             }

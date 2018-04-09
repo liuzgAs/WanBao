@@ -26,6 +26,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_20"
+        android:id="@+id/qdsg"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/dp_20"
         android:layout_weight="1">

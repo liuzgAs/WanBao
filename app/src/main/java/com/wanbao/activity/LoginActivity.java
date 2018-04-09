@@ -6,9 +6,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.wanbao.R;
-import com.wanbao.base.activity.PSActivity;
+import com.wanbao.base.activity.BaseActivity;
 
-public class LoginActivity extends PSActivity {
+public class LoginActivity extends BaseActivity {
 
 
     @Override
@@ -25,6 +25,5 @@ public class LoginActivity extends PSActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        dialog.show();
     }
 }
