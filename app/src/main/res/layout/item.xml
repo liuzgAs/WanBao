@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_height="@dimen/dp_33">
+    <View
+        android:layout_width="@dimen/dp_53"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/new_underline"></View>
+    <TextView
+        android:id="@+id/dixian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/new_secondary_text"
+        android:textSize="@dimen/sp_12"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:text="已到底线了"/>
+    <View
+        android:layout_width="@dimen/dp_53"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/new_underline"></View>
+</LinearLayout>

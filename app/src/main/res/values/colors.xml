@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_text">#ffffffff</color>
+    <color name="colorPrimary">#299AF6</color>
+    <color name="colorPrimaryDark">#299AF6</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="light_gray">#cfcfcf</color>
+
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="light_green">#2bd084</color>
+
+
+    <color name="transparent">#00000000</color>
+
+    <color name="new_bule">#299AF6</color>
+    <color name="new_red">#F53131</color>
+    <color name="new_grey">#50E7E7E7</color>
+    <color name="new_green">#40D811</color>
+    <color name="new_main_colors">#fe9b20</color>
+    <color name="new_auxiliary_color">#9a9a9a</color>
+    <color name="new_text_price">#fe4300</color>
+    <color name="new_small_text1">#5796dc</color>
+    <color name="new_small_text2">#5dc02c</color>
+    <color name="new_main_background">#f5f5f5</color>
+    <color name="new_title_text">#606470</color>
+    <color name="new_title_banckground">#f8f8f8</color>
+    <color name="new_underline">#dddddd</color>
+    <color name="new_important_text">#454545</color>
+    <color name="new_secondary_text">#96989e</color>
+    <color name="new_dark_orange">#ff5014</color>
+    <color name="new_main_bule">#0B6AC4</color>
+    <color name="new_bg_bule">#5EBAF9</color>
+    <color name="new_price">#F65655</color>
+    <color name="new_login_bg">#FF7900</color>
+
+    <color name="background">#f2f2f2</color>
+
+</resources>

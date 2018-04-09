@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:orientation="vertical"
+    tools:context="com.wanbao.activity.MainActivity">
+    <com.wanbao.ui.NoScrollViewPager
+        android:id="@+id/vpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/ctlayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_54"
+        android:background="@color/white"
+        tl:tl_iconHeight="@dimen/dp_23"
+        tl:tl_iconWidth="@dimen/dp_23"
+        tl:tl_indicator_color="@color/new_red"
+        tl:tl_indicator_height="0dp"
+        tl:tl_textSelectColor="@color/new_red"
+        tl:tl_textUnselectColor="#66000000"
+        tl:tl_textsize="@dimen/sp_12"
+        tl:tl_underline_color="#DDDDDD"
+        tl:tl_underline_height="1dp"/>
+</LinearLayout>
