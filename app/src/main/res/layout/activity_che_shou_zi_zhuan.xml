@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wanbao.activity.CheShouZiZhuanActivity">
+
+    <include layout="@layout/newtitle"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_weight="1"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_8"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_140"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.wanbao.ui.CircleImageView
+                    android:layout_width="@dimen/dp_58"
+                    android:layout_height="@dimen/dp_58"
+                    app:srcCompat="@mipmap/wode_chedui" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="名字"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_17" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_8"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="性别" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:text="女" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="年龄" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:text="23" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="职业" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:text="设计师" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="工作单位" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:text="厦门" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="兴趣标签" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:text="旅游" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/background"
+                android:textColor="@color/new_secondary_text"
+                android:textSize="@dimen/sp_14"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="@dimen/dp_10"
+                android:text="实名认证"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="真实姓名" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="身份证号" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="银行卡号" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline">
+            </View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:gravity="center_vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/background"
+                    android:layout_height="@dimen/dp_80">
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/dp_19"
+                        app:srcCompat="@mipmap/acda_zhengjian"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_marginBottom="@dimen/dp_19"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/new_important_text"
+                        android:text="身份证正面"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@color/background"
+                    android:layout_height="@dimen/dp_80">
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/dp_19"
+                        app:srcCompat="@mipmap/acda_zhengjian"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_marginBottom="@dimen/dp_19"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/new_important_text"
+                        android:text="身份证反面"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="驾驶证准驾车型" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_16"
+                    android:text="驾驶证有效期" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_15"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_23"
+                    android:layout_height="@dimen/dp_23"
+                    app:srcCompat="@mipmap/next_btn" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@color/new_underline"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:gravity="center_vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/background"
+                    android:layout_height="@dimen/dp_80">
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/dp_19"
+                        app:srcCompat="@mipmap/acda_zhengjian"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_marginBottom="@dimen/dp_19"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/new_important_text"
+                        android:text="驾驶证正页"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@color/background"
+                    android:layout_height="@dimen/dp_80">
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/dp_19"
+                        app:srcCompat="@mipmap/acda_zhengjian"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/sp_14"
+                        android:layout_marginBottom="@dimen/dp_19"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/new_important_text"
+                        android:text="驾驶证副页"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:text="提交"
+        android:textSize="@dimen/sp_15"
+        android:textColor="@color/white"
+        android:background="#343434"/>
+</LinearLayout>

@@ -27,7 +27,15 @@
             android:theme="@style/AppThemeNoTranslucent"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.ZhuCeActivity" />
-        <activity android:name=".activity.WangJiMiMaActivity"></activity>
+        <activity android:name=".activity.WangJiMiMaActivity" />
+        <activity android:name=".activity.CheShouZiZhuanActivity" />
+        <activity android:name=".activity.AiCheDangAnActivity" />
+        <activity android:name=".activity.TianJiaCheLiangActivity" />
+        <activity android:name=".activity.TiYanZhongXinActivity" />
+        <activity android:name=".activity.PeiZhiXinXiActivity" />
+        <activity android:name=".activity.BaoYangChouCeActivity" />
+        <activity android:name=".activity.XuanZheCheXActivity" />
+        <activity android:name=".activity.WeiXiuBYActivity"></activity>
     </application>
 
 </manifest>
