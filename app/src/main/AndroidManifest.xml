@@ -35,7 +35,11 @@
         <activity android:name=".activity.PeiZhiXinXiActivity" />
         <activity android:name=".activity.BaoYangChouCeActivity" />
         <activity android:name=".activity.XuanZheCheXActivity" />
-        <activity android:name=".activity.WeiXiuBYActivity"></activity>
+        <activity android:name=".activity.WeiXiuBYActivity" />
+        <activity android:name=".activity.MianFeiYCActivity" />
+        <activity android:name=".activity.LiJiZhiFuActivity" />
+        <activity android:name=".activity.WeiBaoDDActivity" />
+        <activity android:name=".activity.WBDingDanXQActivity"></activity>
     </application>
 
 </manifest>

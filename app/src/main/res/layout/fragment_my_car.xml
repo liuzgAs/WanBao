@@ -228,7 +228,7 @@
             android:id="@+id/aichetiyan"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:background="@drawable/layout_selector_white_system_gray"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <ImageView

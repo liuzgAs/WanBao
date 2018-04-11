@@ -17,6 +17,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -38,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:text="选择车辆"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -48,7 +49,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请选择"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_23"
@@ -76,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:text="选择里程"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请选择"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_23"
@@ -114,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:text="选择4S店"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,7 +125,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请选择"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_23"
@@ -152,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:text="选择预约项目"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -162,7 +163,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请选择"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_23"
@@ -190,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:text="预约时间"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -200,7 +201,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请选择"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_23"
@@ -228,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:text="服务人员"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16" />
+                    android:textSize="@dimen/sp_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -238,7 +239,7 @@
                     android:gravity="right|center_vertical"
                     android:hint="请选择"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_23"
@@ -250,6 +251,157 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
                 android:background="@color/background"></View>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="@dimen/dp_140"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    app:srcCompat="@mipmap/wxby_tcnr" />
+                <ExpandableListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预计完成时间"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:hint="程序自动计算"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_32"
+                android:textSize="@dimen/sp_12"
+                android:textColor="@color/new_secondary_text"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="@dimen/dp_10"
+                android:text="支付方式："
+                android:background="@color/background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="线上支付"
+                    android:layout_weight="1"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/new_underline"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="前台支付"
+                    android:layout_weight="1"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_8"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否保险"
+                    android:layout_weight="1"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_8"
+                android:background="@color/background"></View>
         </LinearLayout>
+
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:background="@mipmap/wxby_anjian">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="立即支付"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/white"
+            android:background="@null"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="免费养车"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/white"
+            android:background="@null"
+            />
+    </LinearLayout>
 </LinearLayout>
