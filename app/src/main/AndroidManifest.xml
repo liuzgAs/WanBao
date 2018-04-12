@@ -39,7 +39,9 @@
         <activity android:name=".activity.MianFeiYCActivity" />
         <activity android:name=".activity.LiJiZhiFuActivity" />
         <activity android:name=".activity.WeiBaoDDActivity" />
-        <activity android:name=".activity.WBDingDanXQActivity"></activity>
+        <activity android:name=".activity.WBDingDanXQActivity" />
+        <activity android:name=".activity.QueRenWeiBaoXMActivity" />
+        <activity android:name=".activity.ShiChengShiJiaActivity"></activity>
     </application>
 
 </manifest>
