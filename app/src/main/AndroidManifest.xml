@@ -5,9 +5,9 @@
     <application
         android:name=".base.AppContext"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -41,7 +41,11 @@
         <activity android:name=".activity.WeiBaoDDActivity" />
         <activity android:name=".activity.WBDingDanXQActivity" />
         <activity android:name=".activity.QueRenWeiBaoXMActivity" />
-        <activity android:name=".activity.ShiChengShiJiaActivity"></activity>
+        <activity android:name=".activity.ShiChengShiJiaActivity" />
+        <activity android:name=".activity.LuRuXXActivity" />
+        <activity android:name=".activity.FaSongWZActivity" />
+        <activity android:name=".activity.LiJiPPActivity" />
+        <activity android:name=".activity.SheZhiActivity"></activity>
     </application>
 
 </manifest>

@@ -24,4 +24,11 @@
         //设置为true，背景就是灰色的了，反正你一看就知道是设置什么的
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+        <style name="Dialog_Fullscreen">
+            <item name="android:windowBackground">@color/white</item>
+            <item name="android:windowNoTitle">true</item>
+            <item name="android:windowFullscreen">true</item>
+            <item name="android:windowIsTranslucent">true</item>
+            <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        </style>
 </resources>
