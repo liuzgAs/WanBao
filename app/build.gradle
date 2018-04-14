@@ -6,7 +6,7 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
+        versionCode 2
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -29,11 +29,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.zhy:autolayout:1.4.5'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile('com.afollestad.material-dialogs:core:0.9.5.0') {
         exclude group: 'com.android.support' //exclude 可以解决 lib冲突的问题。
     }
+    implementation 'com.google.android:flexbox:0.3.2'
     compile 'me.imid.swipebacklayout.lib:library:1.1.0'
     compile 'org.greenrobot:eventbus:3.1.1'
     compile 'com.jude:easyrecyclerview:4.4.2'
