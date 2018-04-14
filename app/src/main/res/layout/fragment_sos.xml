@@ -27,6 +27,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_20"
         android:id="@+id/qdsg"
+        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/dp_20"
         android:layout_weight="1">

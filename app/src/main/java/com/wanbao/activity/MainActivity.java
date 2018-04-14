@@ -41,7 +41,7 @@ public class MainActivity extends PSActivity {
     private int[] mIconSelectIds = {
             R.mipmap.icon_shouye_red, R.mipmap.icon_faxian_red,
             R.mipmap.icon_sos_red, R.mipmap.icon_zhuanqian_red,R.mipmap.icon_wode_red};
-
+    MyPagerAdapter myPagerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,8 @@ public class MainActivity extends PSActivity {
         mFragments.add(SosFragment.newInstance());
         mFragments.add(MakeMoneyFragment.newInstance());
         mFragments.add(MyCarFragment.newInstance());
-        vpager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        myPagerAdapter=new MyPagerAdapter(getSupportFragmentManager());
+        vpager.setAdapter(myPagerAdapter);
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
@@ -108,7 +109,6 @@ public class MainActivity extends PSActivity {
         public int getCount() {
             return mFragments.size();
         }
-
         @Override
         public CharSequence getPageTitle(int position) {
             return mTitles[position];

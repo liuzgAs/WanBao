@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wanbao.R;
+import com.wanbao.base.fragment.PSFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FindFragment extends Fragment {
+public class FindFragment extends PSFragment {
 
 
     public static FindFragment newInstance() {
@@ -28,4 +29,8 @@ public class FindFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_find, container, false);
     }
 
+    @Override
+    public void fetchData() {
+
+    }
 }
