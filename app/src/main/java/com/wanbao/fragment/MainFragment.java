@@ -74,7 +74,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setRefreshingColorResources(R.color.new_bule);
+        recyclerView.setRefreshingColorResources(R.color.light_red,R.color.deep_red);
         DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_5), 0, 0);
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);

@@ -42,4 +42,8 @@
     <color name="tranblack">#66000000</color>
     <color name="gray_white">#dcd5d5</color>
 
+    <color name="light_red">#ff5b52</color>
+    <color name="deep_red">#f53132</color>
+
+
 </resources>

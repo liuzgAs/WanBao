@@ -31,5 +31,6 @@
         tl:tl_textUnselectColor="#66000000"
         tl:tl_textsize="@dimen/sp_12"
         tl:tl_underline_color="#DDDDDD"
-        tl:tl_underline_height="1dp"/>
+        tl:tl_underline_height="1dp"
+        />
 </LinearLayout>
