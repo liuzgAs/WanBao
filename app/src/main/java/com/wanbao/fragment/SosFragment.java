@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.wanbao.R;
-import com.wanbao.activity.WangJiMiMaActivity;
+import com.wanbao.activity.CheLiangGZActivity;
 import com.wanbao.base.fragment.PSFragment;
 
 import butterknife.BindView;
@@ -54,7 +54,7 @@ public class SosFragment extends PSFragment {
     @OnClick(R.id.qdsg)
     public void onViewClicked() {
         Intent intent = new Intent();
-        intent.setClass(context, WangJiMiMaActivity.class);
+        intent.setClass(context, CheLiangGZActivity.class);
         startActivity(intent);
     }
 

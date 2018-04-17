@@ -23,7 +23,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_65"
+        android:layout_height="@dimen/dp_60"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
@@ -175,7 +175,7 @@
         android:paddingRight="@dimen/dp_10"
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_height="@dimen/dp_30">
+        android:layout_height="@dimen/dp_28">
 
         <ImageView
             android:id="@+id/imageView11"
@@ -192,21 +192,26 @@
             android:text="当前车辆位置" />
     </LinearLayout>
     <TextView
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_15"
         android:paddingRight="@dimen/dp_10"
         android:paddingLeft="@dimen/dp_40"
         android:maxLines="1"
+        android:background="?android:attr/selectableItemBackground"
         android:textColor="@color/new_important_text"
-        android:text="厦门"/>
-    <LinearLayout
+        android:text="定位中.."/>
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/dp_5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"></LinearLayout>
+        android:layout_height="match_parent"/>
     <com.wanbao.base.ui.StateButton
+        android:id="@+id/fasong"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
+        android:layout_height="@dimen/dp_44"
         app:normalBackgroundColor="@color/new_red"
         app:pressedBackgroundColor="@color/new_secondary_text"
         android:text="发送地址"

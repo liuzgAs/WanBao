@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/sos_beij"
+    tools:context="com.wanbao.activity.CheLiangGZActivity">
+
+    <include layout="@layout/sos_title"></include>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewHuiYuan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_136"
+        app:cardCornerRadius="@dimen/dp_10"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/ll_dianhua"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    app:srcCompat="@mipmap/sos_dianhua" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="拨打电话"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/dp_12"
+                    android:text="请先拨打救援电话"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:id="@+id/ll_weizhi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    app:srcCompat="@mipmap/sos_weizhi" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="发送位置"/>
+                <TextView
+                    android:layout_width="@dimen/dp_150"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/dp_12"
+                    android:maxLines="2"
+                    android:gravity="center"
+                    android:text="拨打电话后，请发送你的位置以方便救援人员找到你"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

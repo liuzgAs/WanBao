@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/tranblack"
     android:fitsSystemWindows="true"
     android:gravity="bottom"
     android:id="@+id/viewBar"
@@ -13,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
-        android:background="@color/white">
+        >
 
         <ImageView
             android:id="@+id/imageback"
@@ -23,22 +22,17 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_8"
-            android:padding="@dimen/dp_8"
+            android:padding="@dimen/dp_3"
             android:background="?android:attr/selectableItemBackground"
-            app:srcCompat="@mipmap/back" />
+            app:srcCompat="@drawable/btn_back_normal" />
 
         <TextView
-            android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="标题"
-            android:textColor="@color/new_important_text"
+            android:text="车辆启动故障"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_17" />
     </RelativeLayout>
-    <TextView
-        android:background="#f0f0f0"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
 </LinearLayout>
