@@ -29,6 +29,26 @@ public class WangJiMiMaActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initViews() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
     @OnClick(R.id.imageback)
     public void onViewClicked() {
         finish();

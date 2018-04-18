@@ -22,8 +22,24 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initViews() {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

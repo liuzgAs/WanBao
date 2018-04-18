@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jph.takephoto.app.TakePhotoActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.event.QuitEvent;
+import com.wanbao.base.util.AppConstants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,11 +23,13 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
  * Created by Administrator on 2018/1/17.
  */
 
-public class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
     protected Context context;
     private SwipeBackLayout mSwipeBackLayout;
     private static final String TAG = TakePhotoActivity.class.getName();
     protected MaterialDialog dialog;
+    public int changeControl = 2016;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +66,30 @@ public class BaseActivity extends SwipeBackActivity {
             EventBus.getDefault().unregister(this);
         }
         super.onDestroy();
+    }
+
+    public void init() {
+        changeControl = AppConstants.changeControl - 1;
+        initSP();
+        initIntent();
+        initViews();
+    }
+
+    protected abstract void initSP();
+
+    protected abstract void initIntent();
+
+    protected abstract void initViews();
+
+    protected abstract void initData();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (changeControl != AppConstants.changeControl) {
+            initData();
+            changeControl++;
+        }
     }
 
     @Subscribe

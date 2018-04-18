@@ -14,6 +14,7 @@ import com.wanbao.base.fragment.PSFragment;
  * A simple {@link Fragment} subclass.
  */
 public class FindFragment extends PSFragment {
+    private View view;
 
 
     public static FindFragment newInstance() {
@@ -26,7 +27,10 @@ public class FindFragment extends PSFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_find, container, false);
+        if (view==null){
+            view=inflater.inflate(R.layout.fragment_find, container, false);
+        }
+        return view;
     }
 
     @Override

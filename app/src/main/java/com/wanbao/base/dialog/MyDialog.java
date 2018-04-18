@@ -1,6 +1,6 @@
 package com.wanbao.base.dialog;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +13,7 @@ import com.wanbao.R;
  * @author ZhangJieBo
  */
 
-public class MyDialog extends Dialog{
+public class MyDialog extends AlertDialog{
     public MyDialog(@NonNull Context context) {
         super(context,R.style.Dialog_Fullscreen);
     }

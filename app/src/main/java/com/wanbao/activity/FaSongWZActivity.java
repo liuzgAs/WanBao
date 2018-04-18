@@ -52,11 +52,33 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fa_song_wz);
         ButterKnife.bind(this);
+        mMapView.onCreate(savedInstanceState);
+        init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
+        mMapView.onDestroy();
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initViews() {
         titleText.setText("发送位置");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mMapView.onCreate(savedInstanceState);
                 dialog.show();
                 if (aMap == null) {
                     aMap = mMapView.getMap();
@@ -67,10 +89,8 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
-        mMapView.onDestroy();
+    protected void initData() {
+
     }
 
     @Override

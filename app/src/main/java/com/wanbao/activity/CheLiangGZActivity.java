@@ -31,6 +31,26 @@ public class CheLiangGZActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initViews() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
     @OnClick({R.id.imageback, R.id.ll_dianhua, R.id.ll_weizhi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
