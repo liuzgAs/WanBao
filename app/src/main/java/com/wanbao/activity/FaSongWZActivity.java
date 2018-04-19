@@ -6,11 +6,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.MyLocationStyle;
@@ -37,7 +37,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     @BindView(R.id.titleText)
     TextView titleText;
     @BindView(R.id.viewBar)
-    LinearLayout viewBar;
+    View viewBar;
     @BindView(R.id.address)
     TextView address;
     @BindView(R.id.map)
@@ -72,7 +72,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     protected void initIntent() {
 
     }
-
+    AMapOptions aMapOptions;
     @Override
     protected void initViews() {
         titleText.setText("发送位置");
