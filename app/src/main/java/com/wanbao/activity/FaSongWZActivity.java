@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.MyLocationStyle;
@@ -72,14 +70,14 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     protected void initIntent() {
 
     }
-    AMapOptions aMapOptions;
+
     @Override
     protected void initViews() {
         titleText.setText("发送位置");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                dialog.show();
+                showDialog("定位中...");
                 if (aMap == null) {
                     aMap = mMapView.getMap();
                 }
@@ -130,7 +128,6 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
                         if (aBoolean) {
                             setDingw();
                         } else {
-                            Toast.makeText(context, "拒绝权限,点击重新申请！", Toast.LENGTH_SHORT).show();
                             address.setText("定位失败，点击重试");
                         }
                     }
@@ -173,6 +170,8 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
             case R.id.address:
                 getAddressPermissions();
                 break;
+            default:
+                break;
         }
     }
 
@@ -181,26 +180,26 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     @Override
     public void onMyLocationChange(Location location) {
         if (location != null) {
-                if (geocoderSearch == null) {
-                    geocoderSearch = new GeocodeSearch(this);
-                    geocoderSearch.setOnGeocodeSearchListener(this);
-                }
-                geocoderSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(location.getLatitude(),
-                        location.getLongitude()), 200, GeocodeSearch.AMAP));
+            if (geocoderSearch == null) {
+                geocoderSearch = new GeocodeSearch(this);
+                geocoderSearch.setOnGeocodeSearchListener(this);
+            }
+            geocoderSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(location.getLatitude(),
+                    location.getLongitude()), 200, GeocodeSearch.AMAP));
         } else {
             address.setText("定位失败，点击重试");
-            dialog.dismiss();
+            dismissDialog();
         }
     }
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-        if (i==1000){
+        if (i == 1000) {
             address.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
-        }else {
+        } else {
             address.setText("定位失败，点击重试");
         }
-        dialog.dismiss();
+        dismissDialog();
     }
 
     @Override

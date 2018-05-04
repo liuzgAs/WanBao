@@ -1,15 +1,17 @@
 package com.wanbao.base.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jph.takephoto.app.TakePhotoActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.event.QuitEvent;
 import com.wanbao.base.util.AppConstants;
@@ -26,7 +28,6 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
 public abstract class BaseActivity extends SwipeBackActivity {
     protected Context context;
     private SwipeBackLayout mSwipeBackLayout;
-    private static final String TAG = TakePhotoActivity.class.getName();
     protected MaterialDialog dialog;
     public int changeControl = 2016;
 
@@ -49,9 +50,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        dialog = new MaterialDialog.Builder(this)
-                .content("加载中...")
-                .progress(true, 0).build();
     }
 
     @Override
@@ -99,5 +97,41 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public void onEventMainThread(QuitEvent event) {
         finish();
     }
+    public void showDialog(String content){
+        if (TextUtils.isEmpty(content)){
+            content="加载中...";
+        }
+        try {
+            if (dialog==null){
+                dialog = new MaterialDialog.Builder(context)
+                        .content(content)
+                        .canceledOnTouchOutside(false)
+                        .progress(true, 0).build();
+                dialog.show();
+                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                            dialog.dismiss();
+                           finish();
+                        }
+                        return false;
+                    }
+                });
+            }else {
+                dialog.show();
+            }
+        }catch (Exception e){
 
+        }
+    }
+    public void dismissDialog(){
+        try {
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+                dialog = null;
+            }
+        } catch (Exception e) {
+        }
+    }
 }

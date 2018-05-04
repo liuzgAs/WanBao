@@ -1,27 +1,24 @@
 package com.wanbao.activity;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.wanbao.R;
 import com.wanbao.base.activity.PSActivity;
+import com.wanbao.base.tools.DeviceUtils;
 import com.wanbao.entity.TabEntity;
 import com.wanbao.fragment.FindFragment;
 import com.wanbao.fragment.MainFragment;
 import com.wanbao.fragment.MakeMoneyFragment;
 import com.wanbao.fragment.MyCarFragment;
 import com.wanbao.fragment.SosFragment;
+import com.wanbao.ui.NoScrollViewPager;
 
 import java.util.ArrayList;
 
@@ -31,7 +28,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends PSActivity {
 
     @BindView(R.id.vpager)
-    ViewPager vpager;
+    NoScrollViewPager vpager;
     @BindView(R.id.ctlayout)
     CommonTabLayout ctlayout;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -49,19 +46,7 @@ public class MainActivity extends PSActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
+        DeviceUtils.setFullScreenTran(this);
         initViews();
     }
 
@@ -72,6 +57,7 @@ public class MainActivity extends PSActivity {
         mFragments.add(MakeMoneyFragment.newInstance());
         mFragments.add(MyCarFragment.newInstance());
         myPagerAdapter=new MyPagerAdapter(getSupportFragmentManager());
+        vpager.setNoScroll(true);
         vpager.setAdapter(myPagerAdapter);
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));

@@ -61,12 +61,12 @@ public class MyCarFragment extends PSFragment {
 
     @Override
     public void fetchData() {
-        dialog.show();
+        showDialog();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                dialog.dismiss();
+                dismissDialog();
             }
-        }, 1200);
+        }, 4200);
     }
 }

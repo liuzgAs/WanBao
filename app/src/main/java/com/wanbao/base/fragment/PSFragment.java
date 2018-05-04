@@ -1,9 +1,11 @@
 package com.wanbao.base.fragment;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jph.takephoto.app.TakePhotoFragment;
@@ -13,19 +15,17 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public abstract class PSFragment extends Fragment {
-    public Context context;
+    public Activity context;
     private static final String TAG = TakePhotoFragment.class.getName();
     protected MaterialDialog dialog;
     protected boolean isViewInitiated;
     protected boolean isVisibleToUser;
     protected boolean isDataInitiated;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         context = getActivity();
-        dialog = new MaterialDialog.Builder(getActivity())
-                .content("加载中...")
-                .progress(true, 0).build();
         EventBus.getDefault().register(this);
         super.onCreate(savedInstanceState);
     }
@@ -75,4 +75,41 @@ public abstract class PSFragment extends Fragment {
         }
         return false;
     }
+
+
+    public void showDialog(){
+        try {
+            if (dialog==null){
+                dialog = new MaterialDialog.Builder(getActivity())
+                        .content("加载中...")
+                        .canceledOnTouchOutside(false)
+                        .progress(true, 0).build();
+                dialog.show();
+                dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                            dialog.dismiss();
+                            context.finish();
+                        }
+                        return false;
+                    }
+                });
+            }else {
+                dialog.show();
+            }
+        }catch (Exception e){
+
+        }
+    }
+   public void dismissDialog(){
+       try {
+           if (dialog != null && dialog.isShowing()) {
+               dialog.dismiss();
+               dialog = null;
+           }
+       } catch (Exception e) {
+       }
+   }
+
 }
