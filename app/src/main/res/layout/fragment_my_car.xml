@@ -22,9 +22,10 @@
             android:layout_marginTop="@dimen/dp_20"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
+            android:paddingRight="@dimen/dp_5">
 
             <com.wanbao.ui.CircleImageView
+                android:id="@+id/imageViewTouX"
                 android:layout_width="@dimen/dp_38"
                 android:layout_height="@dimen/dp_38"
                 app:srcCompat="@mipmap/wode_chedui" />
@@ -39,14 +40,20 @@
                 android:textSize="@dimen/sp_15" />
 
             <ImageView
-                android:layout_width="@dimen/dp_23"
-                android:layout_height="@dimen/dp_23"
-                android:layout_marginRight="@dimen/dp_10"
+                android:id="@+id/imageViewXX"
+                android:layout_width="@dimen/dp_33"
+                android:layout_height="@dimen/dp_33"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_marginRight="@dimen/dp_5"
+                android:padding="@dimen/dp_5"
                 android:src="@mipmap/wode_xiaoxi" />
 
             <ImageView
-                android:layout_width="@dimen/dp_23"
-                android:layout_height="@dimen/dp_23"
+                android:id="@+id/imageViewSheZ"
+                android:layout_width="@dimen/dp_33"
+                android:layout_height="@dimen/dp_33"
+                android:padding="@dimen/dp_5"
+                android:background="?android:attr/selectableItemBackground"
                 android:src="@mipmap/wode_shezhi" />
         </LinearLayout>
         <LinearLayout
@@ -94,7 +101,9 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/viewQBDD"
             android:layout_width="0px"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -114,8 +123,10 @@
                 android:text="全部订单" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewDZF"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -134,8 +145,10 @@
                 android:text="待支付" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewDQR"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -154,8 +167,10 @@
                 android:text="待确认" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewDPJ"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -203,8 +218,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/viewWXBY"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -226,9 +243,9 @@
             android:layout_width="0px"
             android:layout_weight="1"
             android:id="@+id/aichetiyan"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <ImageView
@@ -245,8 +262,10 @@
                 android:text="爱车体验" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewYZESC"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -272,8 +291,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/viewSCSJ"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -292,8 +313,10 @@
                 android:text="试乘试驾" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewPTGC"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -309,11 +332,13 @@
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textColor="#505050"
-                android:text="平团购车" />
+                android:text="拼团购车" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewGDFW"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -346,6 +371,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:id="@+id/viewACDA"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44"
                 android:background="@mipmap/wxby_beijing"
@@ -377,10 +403,12 @@
                 android:layout_height="@dimen/dp_2"
                 android:background="@color/background"></View>
             <LinearLayout
+                android:id="@+id/viewWDCD"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44"
                 android:paddingRight="@dimen/dp_10"
                 android:paddingLeft="@dimen/dp_10"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <ImageView

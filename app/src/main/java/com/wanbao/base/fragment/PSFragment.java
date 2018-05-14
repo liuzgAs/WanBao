@@ -5,10 +5,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jph.takephoto.app.TakePhotoFragment;
+import com.wanbao.R;
 import com.wanbao.base.event.BaseEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,11 +79,15 @@ public abstract class PSFragment extends Fragment {
     }
 
 
-    public void showDialog(){
+    public void showDialog(String content){
+        if (TextUtils.isEmpty(content)){
+            content="加载中...";
+        }
         try {
             if (dialog==null){
                 dialog = new MaterialDialog.Builder(getActivity())
-                        .content("加载中...")
+                        .content(content)
+                        .widgetColorRes(R.color.light_red)
                         .canceledOnTouchOutside(false)
                         .progress(true, 0).build();
                 dialog.show();

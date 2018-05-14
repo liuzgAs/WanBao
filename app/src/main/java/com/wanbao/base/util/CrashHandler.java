@@ -80,7 +80,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		if (ex == null) {
 			return false;
 		}
-		Log.e("huacaoproject", Log.getStackTraceString(ex));
+		Log.e("wanbaoproject", Log.getStackTraceString(ex));
 		// 使用Toast来显示异常信�?
 		new Thread() {
 			@Override

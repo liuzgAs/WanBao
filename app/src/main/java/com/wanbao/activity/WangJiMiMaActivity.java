@@ -23,7 +23,6 @@ public class WangJiMiMaActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-//        SetTitleColor.FlymeSetStatusBarLightMode(getWindow(), false);
         setContentView(R.layout.activity_wang_ji_mi_ma);
         ButterKnife.bind(this);
     }

@@ -23,8 +23,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/viewGsc"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -43,8 +45,10 @@
                 android:text="逛商场" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewWxby"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -63,8 +67,10 @@
                 android:text="维修保养" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewSsfy"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -83,8 +89,10 @@
                 android:text="赛事风云" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewAcrj"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -103,15 +111,17 @@
                 android:text="爱车日记" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/viewPmzc"
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="@dimen/dp_44"
-                android:layout_height="@dimen/dp_44"
+                android:layout_width="wrap_content"
+                android:layout_height="47dp"
                 app:srcCompat="@mipmap/shouye_pmzc" />
 
             <TextView
@@ -159,6 +169,8 @@
         <RelativeLayout
             android:layout_width="0px"
             android:layout_weight="1"
+            android:id="@+id/viewScsj"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="@dimen/dp_73">
             <ImageView
                 android:layout_width="@dimen/dp_40"
@@ -199,6 +211,8 @@
         <RelativeLayout
             android:layout_width="0px"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/viewHdxx"
             android:layout_height="@dimen/dp_73">
             <ImageView
                 android:layout_width="@dimen/dp_40"

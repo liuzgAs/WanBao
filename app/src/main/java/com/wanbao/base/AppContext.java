@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import com.blankj.utilcode.util.Utils;
 import com.wanbao.base.util.CrashHandler;
+import com.zhouyou.http.EasyHttp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,11 @@ public class AppContext extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        CrashHandler handler = CrashHandler.getInstance();
-        handler.init(instance);
+        CrashHandler.getInstance().init(this);
+        Utils.init(this);
+        EasyHttp.init(this);
     }
+
 
 
     /**

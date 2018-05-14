@@ -2,6 +2,7 @@ package com.wanbao.fragment;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,9 +29,13 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
+import com.wanbao.activity.AiCheDangAnActivity;
+import com.wanbao.activity.ShiChengShiJiaActivity;
+import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.viewholder.IndexViewHolder;
+import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +50,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRefreshListener,AMapLocationListener {
+public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRefreshListener, AMapLocationListener {
 
 
     @BindView(R.id.lv_main)
@@ -87,7 +92,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
-        getAddressPermissions();
+//        getAddressPermissions();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -113,15 +118,79 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             }
         });
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
+            private Banner banner;
+            private View viewGsc;
+            private View viewWxby;
+            private View viewSsfy;
+            private View viewAcrj;
+            private View viewPmzc;
+            private View viewScsj;
+            private View viewHdxx;
+
             @Override
             public View onCreateView(ViewGroup parent) {
                 View view = LayoutInflater.from(context).inflate(R.layout.header_shouye, null);
+                banner = view.findViewById(R.id.banner);
+                viewGsc = view.findViewById(R.id.viewGsc);
+                viewWxby = view.findViewById(R.id.viewWxby);
+                viewSsfy = view.findViewById(R.id.viewSsfy);
+                viewAcrj = view.findViewById(R.id.viewAcrj);
+                viewPmzc = view.findViewById(R.id.viewPmzc);
+                viewScsj = view.findViewById(R.id.viewScsj);
+                viewHdxx = view.findViewById(R.id.viewHdxx);
                 return view;
             }
 
             @Override
             public void onBindView(View headerView) {
+                viewGsc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                    }
+                });
+                viewWxby.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, WeiXiuBYActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                viewSsfy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                viewAcrj.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, AiCheDangAnActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                viewPmzc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                viewScsj.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, ShiChengShiJiaActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                viewHdxx.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
             }
         });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
@@ -158,7 +227,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         onRefresh();
     }
 
-    private void getAddressPermissions(){
+    private void getAddressPermissions() {
         RxPermissions rxPermissions = new RxPermissions(getActivity());
         rxPermissions
                 .request(Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -170,9 +239,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        if(aBoolean){
+                        if (aBoolean) {
                             setDingw();
-                        }else {
+                        } else {
                             Toast.makeText(context, "拒绝权限,点击重新申请！", Toast.LENGTH_SHORT).show();
                             address.setText("定位失败，点击重试");
                         }
@@ -190,7 +259,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 });
     }
 
-    private void setDingw(){
+    private void setDingw() {
         address.setText("定位中..");
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
@@ -210,6 +279,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 break;
             case R.id.imageSousuo:
                 break;
+            default:
+                break;
         }
     }
 
@@ -217,12 +288,14 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
-                 //可在其中解析amapLocation获取相应内容。
-                address.setText(amapLocation.getAddress());
-            }else {
+                //可在其中解析amapLocation获取相应内容。
+//                address.setText(amapLocation.getAddress());
+                address.setText(amapLocation.getStreet() + amapLocation.getStreetNum());
+
+            } else {
                 address.setText("定位失败，点击重试");
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                Log.e("AmapError","location Error, ErrCode:"
+                Log.e("AmapError", "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
                         + amapLocation.getErrorInfo());
             }
@@ -232,7 +305,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mLocationClient!=null){
+        if (mLocationClient != null) {
             mLocationClient.stopLocation();
             mLocationClient.onDestroy();
         }
