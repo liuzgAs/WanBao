@@ -11,14 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
+import com.wanbao.activity.CheShouZiZhuanActivity;
 import com.wanbao.activity.SheZhiActivity;
 import com.wanbao.activity.ShiChengShiJiaActivity;
 import com.wanbao.activity.TiYanZhongXinActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.ui.CircleImageView;
 
@@ -66,6 +69,8 @@ public class MyCarFragment extends PSFragment {
     LinearLayout viewWDCD;
     @BindView(R.id.cardViewHuiYuan)
     CardView cardViewHuiYuan;
+    @BindView(R.id.textCheShouZZ)
+    TextView textCheShouZZ;
     private View view;
 
     public static MyCarFragment newInstance() {
@@ -102,10 +107,14 @@ public class MyCarFragment extends PSFragment {
         }, 1200);
     }
 
-    @OnClick({R.id.aichetiyan,R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
+    @OnClick({R.id.textCheShouZZ,R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.textCheShouZZ:
+                intent.setClass(getActivity(), CheShouZiZhuanActivity.class);
+                startActivity(intent);
+                break;
             case R.id.aichetiyan:
                 intent.setClass(getActivity(), TiYanZhongXinActivity.class);
                 startActivity(intent);
@@ -123,16 +132,24 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewDZF:
+                intent.setClass(getActivity(), WeiBaoDDActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewDQR:
+                intent.setClass(getActivity(), WeiBaoDDActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewDPJ:
+                intent.setClass(getActivity(), WeiBaoDDActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewWXBY:
                 intent.setClass(getActivity(), WeiXiuBYActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewYZESC:
+                intent.setClass(getActivity(), XuanZheCheXActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewSCSJ:
                 intent.setClass(getActivity(), ShiChengShiJiaActivity.class);

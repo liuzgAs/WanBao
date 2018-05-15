@@ -94,7 +94,6 @@ public class MainActivity extends PSActivity {
 
             }
         });
-
         vpager.setCurrentItem(0);
     }
     private class MyPagerAdapter extends FragmentPagerAdapter {

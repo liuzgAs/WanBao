@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,15 +28,22 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.jude.easyrecyclerview.decoration.SpaceDecoration;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.ShiChengShiJiaActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.tools.DpUtils;
+import com.wanbao.ui.MyEasyRecyclerView;
+import com.wanbao.viewholder.IndexItemViewHolder;
 import com.wanbao.viewholder.IndexViewHolder;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,11 +76,14 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
-
+    ArrayList<String> images=new ArrayList<>();
+    List<String> info = new ArrayList<>();
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
         return mf;
     }
+    private RecyclerArrayAdapter<Integer> hadapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,11 +97,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onRefresh() {
 //        getAddressPermissions();
         new Handler().postDelayed(new Runnable() {
@@ -98,10 +104,11 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             public void run() {
                 adapter.clear();
                 adapter.add("底线了");
+                recyclerView.scrollTo(0,0);
+                recyclerView.scrollToPosition(0);
             }
         }, 1200);
     }
-
 
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -126,6 +133,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             private View viewPmzc;
             private View viewScsj;
             private View viewHdxx;
+            private MarqueeView marqueeView;
+            private MyEasyRecyclerView hrecyclerView;
+
 
             @Override
             public View onCreateView(ViewGroup parent) {
@@ -138,11 +148,64 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewPmzc = view.findViewById(R.id.viewPmzc);
                 viewScsj = view.findViewById(R.id.viewScsj);
                 viewHdxx = view.findViewById(R.id.viewHdxx);
+                marqueeView=view.findViewById(R.id.marqueeView);
+                hrecyclerView=view.findViewById(R.id.recyclerView);
+                hrecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Integer>(context) {
+
+                    @Override
+                    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+                        int layout = R.layout.item_index_item;
+                        return new IndexItemViewHolder(parent, layout);
+                    }
+                });
+                SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(12, context));
+                spaceDecoration.setPaddingEdgeSide(false);
+                hrecyclerView.addItemDecoration(spaceDecoration);
+                hrecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                    }
+                });
+
+                hrecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recycler, int dx, int dy) {
+                        super.onScrolled(recycler, dx, dy);
+                        hrecyclerView.setScroll(true);
+                    }
+                });
+                hrecyclerView.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
+                    @Override
+                    public void daoDiLe() {
+                    }
+                });
                 return view;
             }
 
             @Override
             public void onBindView(View headerView) {
+                hadapter.clear();
+                hadapter.add(1);
+                hadapter.add(2);
+                hadapter.add(3);
+                hadapter.notifyDataSetChanged();
+                //设置图片加载器
+                banner.setImageLoader(new GlideImageLoader());
+                //设置图片集合
+                banner.setImages(images);
+                //banner设置方法全部调用完毕时最后调用
+                //设置轮播时间
+                banner.setDelayTime(3000);
+                banner.start();
+                marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
+                banner.setOnBannerListener(new OnBannerListener() {
+                    @Override
+                    public void OnBannerClick(int position) {
+
+                    }
+                });
                 viewGsc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -212,17 +275,26 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void fetchData() {
+        initRecycler();
+        images.clear();
+        images.add("1");
+        images.add("2");
+        info.clear();
+        info.add("400匹全时四驱到底有多快？两小伙阿迪发动");
+        info.add("500匹全时四驱到底有多快？两小伙阿迪发动");
+        info.add("600匹全时四驱到底有多快？两小伙阿迪发动");
+
         //初始化定位
         mLocationClient = new AMapLocationClient(AppContext.getIntance());
         //初始化AMapLocationClientOption对象
         mLocationOption = new AMapLocationClientOption();
         //设置定位回调监听
         mLocationClient.setLocationListener(MainFragment.this);
-        initRecycler();
         mList = new ArrayList<>();
         if (mList.size() == 0) {
             mList.add("已到底线了");
         }
+        showDialog("定位中..");
         getAddressPermissions();
         onRefresh();
     }
@@ -242,6 +314,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                         if (aBoolean) {
                             setDingw();
                         } else {
+                            dismissDialog();
                             Toast.makeText(context, "拒绝权限,点击重新申请！", Toast.LENGTH_SHORT).show();
                             address.setText("定位失败，点击重试");
                         }
@@ -290,9 +363,11 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             if (amapLocation.getErrorCode() == 0) {
                 //可在其中解析amapLocation获取相应内容。
 //                address.setText(amapLocation.getAddress());
+                dismissDialog();
                 address.setText(amapLocation.getStreet() + amapLocation.getStreetNum());
 
             } else {
+                dismissDialog();
                 address.setText("定位失败，点击重试");
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"

@@ -10,20 +10,14 @@ import android.view.ViewGroup;
 import com.wanbao.R;
 import com.wanbao.base.fragment.PSFragment;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MakeMoneyFragment extends PSFragment {
+public class WeiBaoDDFragment extends PSFragment {
 
+    private View view;
 
-    Unbinder unbinder;
-
-    public static MakeMoneyFragment newInstance() {
-        MakeMoneyFragment mf = new MakeMoneyFragment();
-        return mf;
+    public WeiBaoDDFragment() {
     }
 
 
@@ -31,8 +25,9 @@ public class MakeMoneyFragment extends PSFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_make_money, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        if (view==null){
+            view=inflater.inflate(R.layout.fragment_wei_bao_dd, container, false);
+        }
         return view;
     }
 
@@ -40,11 +35,4 @@ public class MakeMoneyFragment extends PSFragment {
     public void fetchData() {
 
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
 }

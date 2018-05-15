@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/wl_main"
+    android:descendantFocusability="blocksDescendants"
     android:background="@color/background"
     tools:context="com.wanbao.fragment.MainFragment">
     <include layout="@layout/newtitle_shouye"></include>
@@ -12,5 +13,6 @@
         android:id="@+id/lv_main"
         android:layout_width="match_parent"
         app:layout_progress="@layout/mydialog"
+        app:scrollbarStyle="insideOverlay"
         android:layout_height="match_parent"></com.jude.easyrecyclerview.EasyRecyclerView>
 </LinearLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="status_text">#ffffffff</color>
-    <color name="colorPrimary">#299AF6</color>
-    <color name="colorPrimaryDark">#299AF6</color>
+    <color name="colorPrimary">#f53132</color>
+    <color name="colorPrimaryDark">#f53132</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="light_gray">#cfcfcf</color>

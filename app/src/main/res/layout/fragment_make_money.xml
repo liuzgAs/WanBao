@@ -8,35 +8,6 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <ViewSwitcher
-        android:id="@+id/viewSwitcher"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_132"
-        android:layout_marginTop="@dimen/dp_45">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/dp_4"
-                android:drawableRight="@mipmap/ic_launcher"
-                android:hint="hint1" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/sos_weizhi" />
-
-    </ViewSwitcher>
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
 
 
 

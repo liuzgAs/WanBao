@@ -70,6 +70,7 @@
         android:layout_marginLeft="@dimen/dp_23"
         android:background="@color/background"></View>
     <LinearLayout
+        android:id="@+id/clbt"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:orientation="horizontal"
@@ -116,6 +117,7 @@
         android:layout_marginLeft="@dimen/dp_23"
         android:background="@color/background"></View>
     <LinearLayout
+        android:id="@+id/myl"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:orientation="horizontal"
@@ -166,6 +168,7 @@
         android:layout_height="0px"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp_20"
+        android:id="@+id/jtsg"
         android:gravity="center_vertical"
         android:layout_marginBottom="@dimen/dp_26"
         android:paddingRight="@dimen/dp_20"

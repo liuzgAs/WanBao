@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewBar"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/tranblack"
     android:fitsSystemWindows="true"
     android:gravity="bottom"
-    android:id="@+id/viewBar"
     android:minHeight="?attr/actionBarSize"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,8 +23,8 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_3"
-            android:padding="@dimen/dp_8"
             android:background="?android:attr/selectableItemBackground"
+            android:padding="@dimen/dp_8"
             app:srcCompat="@mipmap/back" />
 
         <TextView
@@ -36,20 +36,19 @@
             android:text="标题"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_17" />
-        <ImageView
-            android:id="@+id/imageRight"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/dp_12"
-            android:visibility="invisible"
-            android:background="?android:attr/selectableItemBackground"
-            app:srcCompat="@mipmap/acda_zhengjian" />
+
     </RelativeLayout>
-    <TextView
-        android:background="#f0f0f0"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/deep_red"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f0f0f0" />
 </LinearLayout>

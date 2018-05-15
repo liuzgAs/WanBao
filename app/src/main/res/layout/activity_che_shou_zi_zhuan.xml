@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="性别" />
 
                 <TextView
@@ -69,7 +69,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:text="女" />
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="年龄" />
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:text="23" />
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="职业" />
 
                 <TextView
@@ -143,7 +143,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:text="设计师" />
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="工作单位" />
 
                 <TextView
@@ -180,7 +180,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:text="厦门" />
@@ -209,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="兴趣标签" />
 
                 <TextView
@@ -217,7 +217,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:text="旅游" />
@@ -249,7 +249,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="真实姓名" />
 
                 <TextView
@@ -257,7 +257,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     />
@@ -286,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="身份证号" />
 
                 <TextView
@@ -294,7 +294,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     />
@@ -323,7 +323,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="银行卡号" />
 
                 <TextView
@@ -331,7 +331,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     />
@@ -371,7 +371,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_13"
                         android:layout_marginBottom="@dimen/dp_19"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_centerHorizontal="true"
@@ -396,7 +396,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_13"
                         android:layout_marginBottom="@dimen/dp_19"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_centerHorizontal="true"
@@ -417,7 +417,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="驾驶证准驾车型" />
 
                 <TextView
@@ -425,7 +425,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     />
@@ -453,7 +453,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:text="驾驶证有效期" />
 
                 <TextView
@@ -461,7 +461,7 @@
                     android:layout_height="match_parent"
                     android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
+                    android:textSize="@dimen/sp_13"
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     />
@@ -500,7 +500,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_13"
                         android:layout_marginBottom="@dimen/dp_19"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_centerHorizontal="true"
@@ -525,7 +525,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp_14"
+                        android:textSize="@dimen/sp_13"
                         android:layout_marginBottom="@dimen/dp_19"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_centerHorizontal="true"
@@ -540,7 +540,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_43"
         android:text="提交"
-        android:textSize="@dimen/sp_15"
+        android:textSize="@dimen/sp_13"
         android:textColor="@color/white"
         android:background="#343434"/>
 </LinearLayout>
