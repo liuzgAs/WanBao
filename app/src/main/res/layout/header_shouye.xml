@@ -120,9 +120,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
-                app:srcCompat="@mipmap/shouye_pmzc" />
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_44"
+                app:srcCompat="@mipmap/souye_pmzc" />
 
             <TextView
                 android:layout_width="wrap_content"

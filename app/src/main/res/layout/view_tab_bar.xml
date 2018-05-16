@@ -36,6 +36,17 @@
             android:text="标题"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_17" />
+        <ImageView
+            android:id="@+id/imageRight"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_12"
+            android:visibility="invisible"
+            android:background="?android:attr/selectableItemBackground"
+            app:srcCompat="@mipmap/bysc_bj" />
 
     </RelativeLayout>
 

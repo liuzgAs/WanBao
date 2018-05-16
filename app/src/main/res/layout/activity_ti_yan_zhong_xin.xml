@@ -23,14 +23,14 @@
             android:layout_height="@dimen/dp_45">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imageBack"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:padding="@dimen/dp_6"
+                android:layout_marginLeft="@dimen/dp_2"
+                android:padding="@dimen/dp_8"
                 app:srcCompat="@mipmap/back" />
 
             <TextView
@@ -108,29 +108,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_140"
                 android:layout_marginTop="@dimen/dp_10">
-                <com.wanbao.base.view.SeekCircle
-                    android:id="@+id/arcProgressBar"
-                    android:layout_width="@dimen/dp_132"
+                <ImageView
+                    android:id="@+id/imageFenShu"
+                    android:layout_width="@dimen/dp_155"
                     android:layout_height="@dimen/dp_132"
-                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    app:min="0"
-                    app:max="100"
-                    app:progress="25"/>
-                <!--<com.wanbao.base.view.ArcProgressBar-->
-                    <!--android:id="@+id/arcProgressBar"-->
-                    <!--android:layout_width="@dimen/dp_132"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--app:dottedDefaultColor="@color/new_secondary_text"-->
-                    <!--app:arcBgColor="@color/transparent"-->
-                    <!--app:progressMax="100"-->
-                    <!--app:arcDistance="320"-->
-                    <!--app:dottedLineCount="25"-->
-                    <!--app:progressTextSize="35"-->
-                    <!--app:dottedLineWidth="30"-->
-                    <!--app:dottedLineHeight="35"-->
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:layout_height="@dimen/dp_132" />-->
+                    android:background="@drawable/fenshu"
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -647,6 +631,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
+                        android:id="@+id/viewBYSC"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
                         <TextView

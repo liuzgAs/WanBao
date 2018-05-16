@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item
+        android:drawable="@mipmap/yuanhu0"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu1"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu2"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu3"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu4"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu5"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu6"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu7"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu8"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu9"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu10"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu11"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu12"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu13"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu14"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu15"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu16"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu17"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu18"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu19"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu20"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu21"
+        android:duration="80" />
+    <item
+        android:drawable="@mipmap/yuanhu22"
+        android:duration="80" />
+</animation-list>

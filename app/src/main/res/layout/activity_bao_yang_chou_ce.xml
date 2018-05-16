@@ -5,15 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.wanbao.activity.BaoYangChouCeActivity">
-<include layout="@layout/newtitle"></include>
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/tl_3"
+    android:background="@color/background"
+    tools:context="com.wanbao.activity.WeiBaoDDActivity">
+    <include layout="@layout/view_tab_bar"></include>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        app:tl_textAllCaps="true"
-        app:tl_textSelectColor="@color/new_red"
-        app:tl_textUnselectColor="@color/new_secondary_text"
-        app:tl_textBold="BOTH"
-        app:tl_textsize="@dimen/dp_14"/>
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 </LinearLayout>
