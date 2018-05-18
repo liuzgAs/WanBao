@@ -105,7 +105,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/layout_selector_white_system_gray"
+            android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/new_secondary_text"
             android:textSize="@dimen/sp_14"
             android:text="取消订单"/>

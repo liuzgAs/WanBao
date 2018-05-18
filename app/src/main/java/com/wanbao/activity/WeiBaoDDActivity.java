@@ -64,6 +64,7 @@ public class WeiBaoDDActivity extends BaseActivity {
         list.add("待评价");
         viewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
         tablayout.setupWithViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(4);
         tablayout.removeAllTabs();
         for (int i = 0; i < list.size(); i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_tablayout, null);

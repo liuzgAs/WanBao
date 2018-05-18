@@ -45,5 +45,8 @@
     <color name="light_red">#ff5b52</color>
     <color name="deep_red">#f53132</color>
 
+    <color name="light_fenshu">#ffbe4a</color>
+    <color name="deep_fenshu">#fe8d41</color>
+
 
 </resources>

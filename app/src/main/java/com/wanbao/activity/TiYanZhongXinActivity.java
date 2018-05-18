@@ -25,6 +25,9 @@ public class TiYanZhongXinActivity extends BaseActivity {
     @BindView(R.id.imageFenShu)
     ImageView imageFenShu;
     private AnimationDrawable anim;
+    int[] images={R.mipmap.yuanhu0,R.mipmap.yuanhu1,R.mipmap.yuanhu2,R.mipmap.yuanhu3,R.mipmap.yuanhu4,R.mipmap.yuanhu5,R.mipmap.yuanhu6,R.mipmap.yuanhu7,R.mipmap.yuanhu8,R.mipmap.yuanhu9
+            ,R.mipmap.yuanhu10,R.mipmap.yuanhu11,R.mipmap.yuanhu12,R.mipmap.yuanhu13,R.mipmap.yuanhu14,R.mipmap.yuanhu15,R.mipmap.yuanhu16,R.mipmap.yuanhu17,R.mipmap.yuanhu18
+            ,R.mipmap.yuanhu19,R.mipmap.yuanhu20,R.mipmap.yuanhu21,R.mipmap.yuanhu22};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +48,22 @@ public class TiYanZhongXinActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        anim = (AnimationDrawable) imageFenShu.getBackground();
+        anim=new AnimationDrawable();
+        for (int i=0;i<10;i++){
+            anim.addFrame(getResources().getDrawable(images[i]), 150);
+        }
+        // 设置为循环播放
+        anim.setOneShot(true);
+
+        // 设置ImageView的背景为AnimationDrawable
+        imageFenShu.setBackgroundDrawable(anim);
     }
 
     @Override
     protected void initData() {
-        anim.getDuration(7);
-        anim.start();
+        if (anim != null && !anim.isRunning()) {
+            anim.start();
+        }
     }
 
     @OnClick({R.id.imageBack, R.id.viewBYSC})

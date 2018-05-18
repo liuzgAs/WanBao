@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/dp_10"
     android:layout_marginRight="@dimen/dp_10"
-    android:background="@color/white"
+    android:background="@drawable/layout_selector_white_system_gray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -161,9 +161,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:background="?android:attr/selectableItemBackground"
             android:padding="@dimen/dp_4"
-            android:text="爱车体验中心"
+            android:text="爱车体检中心"
             android:textColor="@color/deep_red"
             android:textSize="@dimen/sp_14" />
 
@@ -177,7 +177,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
+            android:background="?android:attr/selectableItemBackground"
             android:padding="@dimen/dp_4"
             android:text="详细配置信息"
             android:textColor="@color/deep_red"
