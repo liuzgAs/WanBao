@@ -9,9 +9,13 @@
     <include layout="@layout/newtitle">
     </include>
     <com.jude.easyrecyclerview.EasyRecyclerView
-        android:layout_width="match_parent"
         android:id="@+id/recyclerView"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        app:scrollbarStyle="insideOverlay"
+        android:layout_height="match_parent">
     </com.jude.easyrecyclerview.EasyRecyclerView>
 
 </LinearLayout>

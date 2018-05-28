@@ -16,6 +16,9 @@ import com.wanbao.base.event.BaseEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 public abstract class PSFragment extends Fragment {
     public Activity context;
     private static final String TAG = TakePhotoFragment.class.getName();
@@ -23,6 +26,7 @@ public abstract class PSFragment extends Fragment {
     protected boolean isViewInitiated;
     protected boolean isVisibleToUser;
     protected boolean isDataInitiated;
+    private CompositeDisposable compositeDisposable;
 
 
     @Override
@@ -55,6 +59,7 @@ public abstract class PSFragment extends Fragment {
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+        dispose();
         super.onDestroy();
     }
 
@@ -69,6 +74,7 @@ public abstract class PSFragment extends Fragment {
     public void onEventMainThread(BaseEvent event) {
     }
 
+
     public boolean prepareFetchData(boolean forceUpdate) {
         if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
             fetchData();
@@ -76,6 +82,20 @@ public abstract class PSFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+
+    public void addDisposable(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
+
+    public void dispose() {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+        }
     }
 
 

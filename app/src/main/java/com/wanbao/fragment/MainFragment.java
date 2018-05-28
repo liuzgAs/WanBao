@@ -24,6 +24,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -38,7 +40,9 @@ import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
+import com.wanbao.modle.OkObject;
 import com.wanbao.ui.MyEasyRecyclerView;
 import com.wanbao.viewholder.IndexItemViewHolder;
 import com.wanbao.viewholder.IndexViewHolder;
@@ -46,6 +50,7 @@ import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -104,8 +109,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             public void run() {
                 adapter.clear();
                 adapter.add("底线了");
-                recyclerView.scrollTo(0,0);
-                recyclerView.scrollToPosition(0);
+//                recyclerView.scrollTo(0,0);
+//                recyclerView.scrollToPosition(0);
             }
         }, 1200);
     }
@@ -298,6 +303,43 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         getAddressPermissions();
         onRefresh();
     }
+    private void getMain(){
+        HttpApi.post(context,getOkObjectSms(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("加载中");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.json("发现", s);
+                ToastUtils.setBgColor(getResources().getColor(R.color.deep_fenshu));
+                ToastUtils.showShort("请求成功！");
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectSms() {
+        String url = "http://test.qizhibq.com/Index/findIndex";
+        HashMap<String, String> params = new HashMap<>();
+        params.put("p", String.valueOf(1));
+        return new OkObject(params, url);
+    }
 
     private void getAddressPermissions() {
         RxPermissions rxPermissions = new RxPermissions(getActivity());
@@ -351,6 +393,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 getAddressPermissions();
                 break;
             case R.id.imageSousuo:
+                getMain();
                 break;
             default:
                 break;

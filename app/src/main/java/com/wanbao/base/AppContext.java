@@ -7,7 +7,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.blankj.utilcode.util.Utils;
 import com.wanbao.base.util.CrashHandler;
-import com.zhouyou.http.EasyHttp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,6 @@ public class AppContext extends Application {
         instance = this;
         CrashHandler.getInstance().init(this);
         Utils.init(this);
-        EasyHttp.init(this);
     }
 
 

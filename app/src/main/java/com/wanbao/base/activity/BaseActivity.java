@@ -19,6 +19,8 @@ import com.wanbao.base.util.AppConstants;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 /**
@@ -63,6 +65,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+        dispose();
         super.onDestroy();
     }
 
@@ -90,19 +93,36 @@ public abstract class BaseActivity extends SwipeBackActivity {
         }
     }
 
+    private CompositeDisposable compositeDisposable;
+
+    public void addDisposable(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
+
+    public void dispose() {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
+        }
+    }
+
     @Subscribe
     public void onEventMainThread(BaseEvent event) {
 
     }
+
     public void onEventMainThread(QuitEvent event) {
         finish();
     }
-    public void showDialog(String content){
-        if (TextUtils.isEmpty(content)){
-            content="加载中...";
+
+    public void showDialog(String content) {
+        if (TextUtils.isEmpty(content)) {
+            content = "加载中...";
         }
         try {
-            if (dialog==null){
+            if (dialog == null) {
                 dialog = new MaterialDialog.Builder(context)
                         .content(content)
                         .canceledOnTouchOutside(false)
@@ -113,19 +133,20 @@ public abstract class BaseActivity extends SwipeBackActivity {
                     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
                             dialog.dismiss();
-                           finish();
+                            finish();
                         }
                         return false;
                     }
                 });
-            }else {
+            } else {
                 dialog.show();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
-    public void dismissDialog(){
+
+    public void dismissDialog() {
         try {
             if (dialog != null && dialog.isShowing()) {
                 dialog.dismiss();
