@@ -3,7 +3,6 @@ package com.wanbao.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -13,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.CheShouZiZhuanActivity;
@@ -23,12 +25,18 @@ import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.http.Constant;
+import com.wanbao.base.http.HttpApi;
+import com.wanbao.modle.OkObject;
 import com.wanbao.ui.CircleImageView;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.disposables.Disposable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,13 +106,7 @@ public class MyCarFragment extends PSFragment {
 
     @Override
     public void fetchData() {
-        showDialog("加载中..");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismissDialog();
-            }
-        }, 1200);
+        getMyCar();
     }
 
     @OnClick({R.id.textCheShouZZ,R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
@@ -170,5 +172,44 @@ public class MyCarFragment extends PSFragment {
             default:
                 break;
         }
+    }
+
+    private void getMyCar() {
+        HttpApi.post(context, getOkObjectMyCar(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.e("我的爱车",s);
+                dismissDialog();
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
+        });
+    }
+
+    private OkObject getOkObjectMyCar() {
+        String url = Constant.HOST+Constant.Url.User_My;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid)+"");
+        return new OkObject(params, url);
     }
 }

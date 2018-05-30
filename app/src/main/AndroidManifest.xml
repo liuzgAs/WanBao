@@ -43,13 +43,7 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppThemeNoTranslucent"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
@@ -75,7 +69,16 @@
         <activity android:name=".activity.FaSongWZActivity" />
         <activity android:name=".activity.LiJiPPActivity" />
         <activity android:name=".activity.SheZhiActivity" />
-        <activity android:name=".activity.CheLiangGZActivity"></activity>
+        <activity android:name=".activity.CheLiangGZActivity" />
+        <activity android:name=".activity.XuanZheCSActivity" />
+        <activity android:name=".activity.HuanYinActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.XuanZheCLActivity"></activity>
     </application>
 
 </manifest>

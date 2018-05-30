@@ -2,6 +2,7 @@ package com.wanbao.base.event;
 
 public class BaseEvent {
 	public final static String ADD_SHOP = "AddShop";
+	public final static String Car_Id = "CarId";
 
 
 

@@ -37,6 +37,7 @@
     <color name="new_bg_bule">#5EBAF9</color>
     <color name="new_price">#F65655</color>
     <color name="new_login_bg">#FF7900</color>
+    <color name="gray_deep">#5c5c5c</color>
 
     <color name="background">#f2f2f2</color>
     <color name="tranblack">#66000000</color>
@@ -47,6 +48,8 @@
 
     <color name="light_fenshu">#ffbe4a</color>
     <color name="deep_fenshu">#fe8d41</color>
+    <color name="alpha_gray">#CC646464</color>
+    <color name="line_gray">#f0f0f0</color>
 
 
 </resources>

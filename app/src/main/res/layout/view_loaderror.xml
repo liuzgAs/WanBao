@@ -35,7 +35,7 @@
 
         <TextView
             android:layout_marginLeft="5dp"
-            android:textColor="@color/deep_red"
+            android:textColor="@color/light_red"
             android:textSize="@dimen/sp_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

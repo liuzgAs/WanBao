@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_80"
+    android:layout_height="@dimen/dp_70"
+    android:paddingLeft="@dimen/dp_5"
+    android:paddingRight="@dimen/dp_5"
+    android:gravity="center"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/imageCheXi"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:src="@mipmap/logo" />
+    <TextView
+        android:id="@+id/textCheMing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="奥迪"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_5"
+        android:textColor="@color/new_important_text"
+        android:textSize="@dimen/sp_12" />
+</LinearLayout>

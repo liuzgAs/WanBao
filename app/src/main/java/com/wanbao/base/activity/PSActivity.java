@@ -10,7 +10,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jph.takephoto.app.TakePhotoActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.event.QuitEvent;
 
@@ -23,7 +22,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class PSActivity extends AppCompatActivity {
     protected Context context;
-    private static final String TAG = TakePhotoActivity.class.getName();
     protected MaterialDialog dialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

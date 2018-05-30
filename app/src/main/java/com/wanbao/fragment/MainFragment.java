@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,7 +24,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -35,13 +34,17 @@ import com.sunfusheng.marqueeview.MarqueeView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
+import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.ShiChengShiJiaActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.XuanZheCSActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
+import com.wanbao.base.util.UpgradeUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.ui.MyEasyRecyclerView;
 import com.wanbao.viewholder.IndexItemViewHolder;
@@ -81,12 +84,14 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
-    ArrayList<String> images=new ArrayList<>();
+    ArrayList<String> images = new ArrayList<>();
     List<String> info = new ArrayList<>();
+
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
         return mf;
     }
+
     private RecyclerArrayAdapter<Integer> hadapter;
 
 
@@ -103,16 +108,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
-//        getAddressPermissions();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                adapter.clear();
-                adapter.add("底线了");
-//                recyclerView.scrollTo(0,0);
-//                recyclerView.scrollToPosition(0);
-            }
-        }, 1200);
+        getMain();
     }
 
     private void initRecycler() {
@@ -153,8 +149,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewPmzc = view.findViewById(R.id.viewPmzc);
                 viewScsj = view.findViewById(R.id.viewScsj);
                 viewHdxx = view.findViewById(R.id.viewHdxx);
-                marqueeView=view.findViewById(R.id.marqueeView);
-                hrecyclerView=view.findViewById(R.id.recyclerView);
+                marqueeView = view.findViewById(R.id.marqueeView);
+                hrecyclerView = view.findViewById(R.id.recyclerView);
                 hrecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                 hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Integer>(context) {
 
@@ -220,9 +216,15 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewWxby.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent();
-                        intent.setClass(context, WeiXiuBYActivity.class);
-                        startActivity(intent);
+                        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClass(context, WeiXiuBYActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 });
                 viewSsfy.setOnClickListener(new View.OnClickListener() {
@@ -273,13 +275,16 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 
     private List<String> mList;
 
     @Override
     public void fetchData() {
+        LogUtils.getConfig().setLogSwitch(true);
         initRecycler();
         images.clear();
         images.add("1");
@@ -303,11 +308,11 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         getAddressPermissions();
         onRefresh();
     }
-    private void getMain(){
-        HttpApi.post(context,getOkObjectSms(), new HttpApi.CallBack() {
+
+    private void getMain() {
+        HttpApi.post(context, getOkObjectSms(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
-                showDialog("加载中");
             }
 
             @Override
@@ -317,27 +322,46 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
             @Override
             public void onSuccess(String s) {
-                LogUtils.json("发现", s);
-                ToastUtils.setBgColor(getResources().getColor(R.color.deep_fenshu));
-                ToastUtils.showShort("请求成功！");
+                adapter.clear();
+                adapter.add("底线了");
+                LogUtils.getConfig().setBorderSwitch(false);
+                LogUtils.e("主页", s);
             }
 
             @Override
             public void onError() {
-                dismissDialog();
+                showError("网络异常");
             }
 
             @Override
             public void onComplete() {
-                dismissDialog();
+            }
+
+            /**
+             * 错误显示
+             * @param msg
+             */
+            private void showError(String msg) {
+                View viewLoader = LayoutInflater.from(context).inflate(R.layout.view_loaderror, null);
+                TextView textMsg = viewLoader.findViewById(R.id.textMsg);
+                textMsg.setText(msg);
+                viewLoader.findViewById(R.id.buttonReLoad).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        recyclerView.showProgress();
+                        onRefresh();
+                    }
+                });
+                recyclerView.setErrorView(viewLoader);
+                recyclerView.showError();
             }
         });
     }
 
     private OkObject getOkObjectSms() {
-        String url = "http://test.qizhibq.com/Index/findIndex";
+        String url = Constant.HOST + Constant.Url.Home;
         HashMap<String, String> params = new HashMap<>();
-        params.put("p", String.valueOf(1));
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
     }
 
@@ -388,12 +412,18 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     @OnClick({R.id.address, R.id.imageSousuo})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.address:
-                getAddressPermissions();
+//                getAddressPermissions();
+                intent.setClass(context, XuanZheCSActivity.class);
+                startActivity(intent);
                 break;
             case R.id.imageSousuo:
-                getMain();
+                UpgradeUtils.checkUpgrade(context);
+//                Intent intent1 = new Intent();
+//                intent1.setClass(context, LoginActivity.class);
+//                startActivity(intent1);
                 break;
             default:
                 break;
@@ -407,7 +437,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 //可在其中解析amapLocation获取相应内容。
 //                address.setText(amapLocation.getAddress());
                 dismissDialog();
-                address.setText(amapLocation.getStreet() + amapLocation.getStreetNum());
+                address.setText(amapLocation.getCity().toString() + amapLocation.getDistrict().toString() + amapLocation.getStreet().toString()
+                        + amapLocation.getStreetNum().toString());
 
             } else {
                 dismissDialog();

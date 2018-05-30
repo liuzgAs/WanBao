@@ -22,7 +22,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_3"
+            android:layout_marginLeft="@dimen/dp_1"
             android:padding="@dimen/dp_8"
             android:background="?android:attr/selectableItemBackground"
             app:srcCompat="@mipmap/back" />

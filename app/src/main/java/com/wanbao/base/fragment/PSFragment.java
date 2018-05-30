@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jph.takephoto.app.TakePhotoFragment;
 import com.wanbao.R;
 import com.wanbao.base.event.BaseEvent;
 
@@ -21,7 +20,6 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class PSFragment extends Fragment {
     public Activity context;
-    private static final String TAG = TakePhotoFragment.class.getName();
     protected MaterialDialog dialog;
     protected boolean isViewInitiated;
     protected boolean isVisibleToUser;
@@ -106,8 +104,8 @@ public abstract class PSFragment extends Fragment {
         try {
             if (dialog==null){
                 dialog = new MaterialDialog.Builder(getActivity())
-                        .content(content)
                         .widgetColorRes(R.color.light_red)
+                        .content(content)
                         .canceledOnTouchOutside(false)
                         .progress(true, 0).build();
                 dialog.show();

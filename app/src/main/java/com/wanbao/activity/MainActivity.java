@@ -10,7 +10,7 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.wanbao.R;
-import com.wanbao.base.activity.PSActivity;
+import com.wanbao.base.activity.BaseNoLeftActivity;
 import com.wanbao.base.tools.DeviceUtils;
 import com.wanbao.entity.TabEntity;
 import com.wanbao.fragment.FindFragment;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends PSActivity {
+public class MainActivity extends BaseNoLeftActivity {
 
     @BindView(R.id.vpager)
     NoScrollViewPager vpager;
@@ -47,10 +47,21 @@ public class MainActivity extends PSActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         DeviceUtils.setFullScreenTran(this);
-        initViews();
+        init();
     }
 
-    private void initViews(){
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initViews() {
         mFragments.add(MainFragment.newInstance());
         mFragments.add(FindFragment.newInstance());
         mFragments.add(SosFragment.newInstance());
@@ -63,6 +74,11 @@ public class MainActivity extends PSActivity {
             mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
         tl_2();
+    }
+
+
+    @Override
+    protected void initData() {
     }
 
     private void tl_2() {

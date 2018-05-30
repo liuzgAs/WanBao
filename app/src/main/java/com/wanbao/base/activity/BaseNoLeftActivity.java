@@ -6,13 +6,13 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.wanbao.R;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.event.QuitEvent;
 import com.wanbao.base.util.AppConstants;
@@ -22,15 +22,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 /**
  * Created by Administrator on 2018/1/17.
  */
 
-public abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseNoLeftActivity extends AppCompatActivity {
     protected Context context;
-    private SwipeBackLayout mSwipeBackLayout;
     protected MaterialDialog dialog;
     public int changeControl = 2016;
 
@@ -47,9 +45,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //禁止横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mSwipeBackLayout = getSwipeBackLayout();
-        // 设置滑动方向，可设置EDGE_LEFT, EDGE_RIGHT, EDGE_ALL, EDGE_BOTTOM
-        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -126,7 +121,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
             if (dialog == null) {
                 dialog = new MaterialDialog.Builder(context)
                         .content(content)
-                        .widgetColorRes(R.color.light_red)
                         .canceledOnTouchOutside(false)
                         .progress(true, 0).build();
                 dialog.show();
