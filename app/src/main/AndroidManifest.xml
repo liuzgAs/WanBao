@@ -43,7 +43,7 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppThemeNoTranslucent"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
@@ -78,7 +78,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.XuanZheCLActivity"></activity>
+        <activity android:name=".activity.XuanZheCLActivity" />
+        <activity android:name=".activity.BanDingCLActivity"></activity>
     </application>
 
 </manifest>

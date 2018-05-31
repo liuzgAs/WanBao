@@ -60,7 +60,11 @@ public class Car_CarParam {
          * name : 一汽奥迪
          * img : http://api.adwb.com/Uploads/car_brand/0.png
          */
-
+        public HotbrandBean(int id,String name,String img){
+            this.id=id;
+            this.name=name;
+            this.img=img;
+        }
         private int id;
         private String name;
         private String img;

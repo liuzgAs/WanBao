@@ -19,6 +19,7 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
@@ -136,6 +137,19 @@ public class XuanZheCLActivity extends BaseActivity implements SwipeRefreshLayou
                         return new ReMenCheHolder(parent, layout);
                     }
                 });
+                hadapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        getCheXid(String.valueOf(hadapter.getItem(position).getId()));
+                        GlideApp.with(context)
+                                .asBitmap()
+                                .load(hadapter.getItem(position).getImg())
+                                .placeholder(R.mipmap.ic_empty)
+                                .into(imageCheXi);
+                        textCheMing.setText(hadapter.getItem(position).getName());
+                        drawerLayout.openDrawer(GravityCompat.END);
+                    }
+                });
                 return view;
             }
 
@@ -164,6 +178,11 @@ public class XuanZheCLActivity extends BaseActivity implements SwipeRefreshLayou
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_xuanzhechexi;
                 return new XzCarCarParamDHolder(parent, layout);
+            }
+        });
+        adaptercx.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
             }
         });
     }
@@ -248,9 +267,17 @@ public class XuanZheCLActivity extends BaseActivity implements SwipeRefreshLayou
     @Override
     public void onEventMainThread(BaseEvent event) {
         if (BaseEvent.Car_Id.equals(event.getAction())){
-            String carid=String.valueOf(event.getData());
-            getCheXid(carid);
-            drawerLayout.openDrawer(GravityCompat.END);
+            Car_CarParam.BrandBean.ListBean listBean=(Car_CarParam.BrandBean.ListBean)event.getData();
+            if (listBean!=null){
+                getCheXid(String.valueOf(listBean.getId()));
+                GlideApp.with(context)
+                        .asBitmap()
+                        .load(listBean.getImg())
+                        .placeholder(R.mipmap.ic_empty)
+                        .into(imageCheXi);
+                textCheMing.setText(listBean.getName());
+                drawerLayout.openDrawer(GravityCompat.END);
+            }
         }
     }
 

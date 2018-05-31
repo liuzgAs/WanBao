@@ -9,11 +9,11 @@ android {
             storePassword 'wanbao'
         }
     }
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.wanbao"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 18051701
         versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -58,11 +58,11 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.1.1'
     compile 'com.jude:easyrecyclerview:4.4.2'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:support-v4:27.0.2'
+    compile 'com.android.support:recyclerview-v7:27.0.2'
+    compile 'com.android.support:cardview-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.amap.api:location:latest.integration'
     compile 'com.amap.api:map2d:latest.integration'
@@ -71,8 +71,8 @@ dependencies {
         exclude module: 'rxjava', group: 'io.reactivex'
         exclude module: 'rxandroid', group: 'io.reactivex'
     }
-    compile 'com.github.bumptech.glide:glide:4.0.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+    compile 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     compile 'com.sunfusheng:marqueeview:1.3.3'
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.lzy.net:okrx2:2.0.2'
@@ -82,5 +82,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.2.4'
     compile('com.aliyun.ams:alicloud-android-push:3.1.2') {
         exclude group: 'com.android.support'
+    }
+    compile ('com.weiwangcn.betterspinner:library:1.1.0') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }

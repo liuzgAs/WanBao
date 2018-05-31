@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.modle.Car_CarStyle;
 
@@ -29,5 +30,10 @@ public class XzCarCarParamDHolder extends BaseViewHolder<Car_CarStyle.DataBean> 
     public void setData(Car_CarStyle.DataBean data) {
         super.setData(data);
         textCheMing.setText(data.getName());
+        GlideApp.with(getContext())
+                .asBitmap()
+                .load(data.getImg())
+                .placeholder(R.mipmap.ic_empty)
+                .into(imageCheXi);
     }
 }

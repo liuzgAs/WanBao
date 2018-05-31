@@ -7,7 +7,8 @@ package com.wanbao.base.http;
  */
 
 public class Constant {
-    public static String HOST = "http://192.168.1.181/api/";
+//    public static String HOST = "http://192.168.1.181/api/";
+    public static String HOST = "http://www.wanbaoauto.com/api/";
 
     public static class Url {
         /**
@@ -58,6 +59,14 @@ public class Constant {
          * 车辆款式
          */
         public static final String Car_CarStyle = "Car/carStyle";
+        /**
+         * 绑定现有车辆查询
+         */
+        public static final String Usercar_Query = "Usercar/query";
+        /**
+         * 爱车档案选车型
+         */
+        public static final String Car_Index = "Car/index";
 
     }
 

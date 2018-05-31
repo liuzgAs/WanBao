@@ -5,17 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background"
     tools:context="com.wanbao.activity.XuanZheCheXActivity">
     <include layout="@layout/newtitle">
     </include>
-    <com.jude.easyrecyclerview.EasyRecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_marginTop="@dimen/dp_10"
+    <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
-        app:layout_empty="@layout/view_empty"
-        app:layout_progress="@layout/view_progress"
-        app:scrollbarStyle="insideOverlay"
+        android:id="@+id/drawerLayout"
+        tools:openDrawer="right"
         android:layout_height="match_parent">
-    </com.jude.easyrecyclerview.EasyRecyclerView>
+        <com.jude.easyrecyclerview.EasyRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            app:layout_empty="@layout/view_empty"
+            app:layout_progress="@layout/view_progress"
+            app:scrollbarStyle="insideOverlay"
+            android:layout_height="match_parent">
+        </com.jude.easyrecyclerview.EasyRecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/background"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <ImageView
+                    android:id="@+id/imageCheXi"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:src="@mipmap/logo" />
+
+                <TextView
+                    android:id="@+id/textCheMing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_23"
+                    android:text="奥迪"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_18" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:text="选择车系"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+
+            <com.jude.easyrecyclerview.EasyRecyclerView
+                android:id="@+id/recyclerViewCheXi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.jude.easyrecyclerview.EasyRecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

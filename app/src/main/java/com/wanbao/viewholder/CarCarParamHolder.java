@@ -11,6 +11,7 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.modle.Car_CarParam;
@@ -59,7 +60,7 @@ public class CarCarParamHolder extends BaseViewHolder<Car_CarParam.BrandBean> {
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.Car_Id,adapter.getItem(position).getId()));
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.Car_Id,adapter.getItem(position)));
             }
         });
     }
@@ -78,6 +79,11 @@ public class CarCarParamHolder extends BaseViewHolder<Car_CarParam.BrandBean> {
         public void setData(Car_CarParam.BrandBean.ListBean data) {
             super.setData(data);
             textCheMing.setText(data.getName());
+            GlideApp.with(getContext())
+                    .asBitmap()
+                    .load(data.getImg())
+                    .placeholder(R.mipmap.ic_empty)
+                    .into(imageCheXi);
         }
     }
 

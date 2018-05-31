@@ -8,15 +8,18 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
+import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.CheShouZiZhuanActivity;
 import com.wanbao.activity.SheZhiActivity;
 import com.wanbao.activity.ShiChengShiJiaActivity;
@@ -79,6 +82,10 @@ public class MyCarFragment extends PSFragment {
     CardView cardViewHuiYuan;
     @BindView(R.id.textCheShouZZ)
     TextView textCheShouZZ;
+    @BindView(R.id.btnBangD)
+    Button btnBangD;
+    @BindView(R.id.viewSwitcher)
+    ViewSwitcher viewSwitcher;
     private View view;
 
     public static MyCarFragment newInstance() {
@@ -109,10 +116,14 @@ public class MyCarFragment extends PSFragment {
         getMyCar();
     }
 
-    @OnClick({R.id.textCheShouZZ,R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
+    @OnClick({R.id.btnBangD,R.id.textCheShouZZ, R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.btnBangD:
+                intent.setClass(getActivity(), BanDingCLActivity.class);
+                startActivity(intent);
+                break;
             case R.id.textCheShouZZ:
                 intent.setClass(getActivity(), CheShouZiZhuanActivity.class);
                 startActivity(intent);
@@ -188,7 +199,7 @@ public class MyCarFragment extends PSFragment {
 
             @Override
             public void onSuccess(String s) {
-                LogUtils.e("我的爱车",s);
+                LogUtils.e("我的爱车", s);
                 dismissDialog();
             }
 
@@ -207,9 +218,9 @@ public class MyCarFragment extends PSFragment {
     }
 
     private OkObject getOkObjectMyCar() {
-        String url = Constant.HOST+Constant.Url.User_My;
+        String url = Constant.HOST + Constant.Url.User_My;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid)+"");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
     }
 }

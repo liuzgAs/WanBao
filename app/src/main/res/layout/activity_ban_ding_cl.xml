@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context="com.wanbao.activity.BanDingCLActivity">
+    <android.support.v7.widget.CardView
+        android:id="@+id/viewBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:gravity="bottom"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/tranblack"
+        app:cardCornerRadius="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="bottom"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imageback"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_1"
+                android:padding="@dimen/dp_8"
+                android:background="?android:attr/selectableItemBackground"
+                app:srcCompat="@mipmap/back" />
+
+            <com.flyco.tablayout.SegmentTabLayout
+                android:id="@+id/tl_1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                tl:tl_bar_color="@color/white"
+                tl:tl_indicator_color="@color/light_red"
+                tl:tl_indicator_corner_radius="@dimen/dp_2"
+                app:tl_textsize="@dimen/sp_12"
+                app:tl_tab_width="@dimen/dp_123"
+                tl:tl_tab_padding="@dimen/dp_10"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <com.wanbao.ui.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.wanbao.ui.NoScrollViewPager>
+</LinearLayout>
