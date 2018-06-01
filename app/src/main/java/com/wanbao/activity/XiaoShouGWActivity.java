@@ -1,6 +1,5 @@
 package com.wanbao.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,9 +23,9 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.Index_Seller;
 import com.wanbao.modle.OkObject;
-import com.wanbao.modle.Usercar_Index;
-import com.wanbao.viewholder.AiCheDAViewHolder;
+import com.wanbao.viewholder.XiaoShouGWViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,25 +36,23 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 
-public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class XiaoShouGWActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     @BindView(R.id.imageback)
     ImageView imageback;
     @BindView(R.id.titleText)
     TextView titleText;
-    @BindView(R.id.imageRight)
-    ImageView imageRight;
     @BindView(R.id.viewBar)
     View viewBar;
     @BindView(R.id.recyclerView)
     EasyRecyclerView recyclerView;
-    private RecyclerArrayAdapter<Usercar_Index.DataBean> adapter;
-    int page = 1;
-
+    private RecyclerArrayAdapter<Index_Seller.DataBean> adapter;
+    private int page = 1;
+    private String sid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ai_che_dang_an);
+        setContentView(R.layout.activity_xiaosgw);
         ButterKnife.bind(this);
         init();
     }
@@ -67,14 +64,12 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     protected void initIntent() {
-
+        sid=getIntent().getStringExtra("sid");
     }
-
 
     @Override
     protected void initViews() {
-        titleText.setText("爱车档案");
-        imageRight.setVisibility(View.VISIBLE);
+        titleText.setText("选择销售顾问");
         initRecycler();
     }
 
@@ -83,49 +78,26 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
         onRefresh();
     }
 
-    @OnClick({R.id.imageback, R.id.imageRight})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.imageback:
-                finish();
-                break;
-            case R.id.imageRight:
-                Intent intent=new Intent();
-                intent.setClass(context,BanDingCLActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.Change_Data.equals(event.getAction())){
-            onRefresh();
-        }
-    }
-
     /**
      * 初始化recyclerview
      */
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_10), 0, 0);
+        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_1), 0, 0);
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
-        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Usercar_Index.DataBean>(AiCheDangAnActivity.this) {
+        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Index_Seller.DataBean>(XiaoShouGWActivity.this) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_aicheda;
-                return new AiCheDAViewHolder(parent, layout,AiCheDangAnActivity.this);
+                int layout = R.layout.item_xsgw;
+                return new XiaoShouGWViewHolder(parent, layout);
             }
         });
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
             @Override
             public void onMoreShow() {
-                HttpApi.post(context, getOkObjectCar(), new HttpApi.CallBack() {
+                HttpApi.post(context, getOkObjectStore(), new HttpApi.CallBack() {
                     @Override
                     public void onStart() {
                     }
@@ -139,12 +111,12 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
                     public void onSuccess(String s) {
                         try {
                             page++;
-                            Usercar_Index usercar_index = GsonUtils.parseJSON(s, Usercar_Index.class);
-                            int status = usercar_index.getStatus();
+                            Index_Seller index_store = GsonUtils.parseJSON(s, Index_Seller.class);
+                            int status = index_store.getStatus();
                             if (status == 1) {
-                                adapter.addAll(usercar_index.getData());
+                                adapter.addAll(index_store.getData());
                             } else {
-                                ToastUtils.showShort(usercar_index.getInfo());
+                                ToastUtils.showShort(index_store.getInfo());
                             }
                         } catch (Exception e) {
                             adapter.pauseMore();
@@ -192,20 +164,27 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_MyCar,adapter.getItem(position)));
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_Xsgw,adapter.getItem(position)));
                 finish();
             }
         });
         recyclerView.setRefreshListener(this);
     }
-    @Override
-    public void onRefresh() {
-        getCar();
+
+    @OnClick(R.id.imageback)
+    public void onViewClicked() {
+        finish();
     }
 
-    private void getCar() {
+    @Override
+    public void onRefresh() {
+        getStore();
+
+    }
+
+    private void getStore() {
         page = 1;
-        HttpApi.post(context, getOkObjectCar(), new HttpApi.CallBack() {
+        HttpApi.post(context, getOkObjectStore(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
             }
@@ -218,15 +197,15 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public void onSuccess(String s) {
                 try {
-                    LogUtils.e("爱车",s);
+                    LogUtils.e("顾问",s);
                     page++;
-                    Usercar_Index usercar_index = GsonUtils.parseJSON(s, Usercar_Index.class);
-                    int status = usercar_index.getStatus();
+                    Index_Seller index_seller = GsonUtils.parseJSON(s,Index_Seller.class);
+                    int status = index_seller.getStatus();
                     if (status == 1) {
                         adapter.clear();
-                        adapter.addAll(usercar_index.getData());
+                        adapter.addAll(index_seller.getData());
                     } else {
-                        ToastUtils.showShort(usercar_index.getInfo());
+                        ToastUtils.showShort(index_seller.getInfo());
                     }
                 } catch (Exception e) {
                     showError("数据异常！");
@@ -263,12 +242,12 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
 
         });
     }
-
-    private OkObject getOkObjectCar() {
-        String url = Constant.HOST + Constant.Url.Usercar_Index;
+    private OkObject getOkObjectStore() {
+        String url = Constant.HOST + Constant.Url.Index_Seller;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("p", String.valueOf(page));
+        params.put("sid", sid);
         return new OkObject(params, url);
     }
 }

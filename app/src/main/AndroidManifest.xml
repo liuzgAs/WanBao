@@ -79,7 +79,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.XuanZheCLActivity" />
-        <activity android:name=".activity.BanDingCLActivity"></activity>
+        <activity android:name=".activity.BanDingCLActivity" />
+        <activity android:name=".activity.YuYueDpActivity"></activity>
+        <activity android:name=".activity.XiaoShouGWActivity"></activity>
+
     </application>
 
 </manifest>

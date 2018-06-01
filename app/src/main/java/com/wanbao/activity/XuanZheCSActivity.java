@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.SideLetterBar;
@@ -19,6 +20,8 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.ListViewUtility;
 import com.wanbao.modle.City_List;
 import com.wanbao.modle.OkObject;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -231,7 +234,7 @@ public class XuanZheCSActivity extends BaseActivity {
             }
 
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(final int position, View convertView, ViewGroup parent) {
                 ViewHolder holder;
                 if (convertView == null) {
                     holder = new ViewHolder();
@@ -242,6 +245,13 @@ public class XuanZheCSActivity extends BaseActivity {
                     holder = (ViewHolder) convertView.getTag();
                 }
                 holder.textCity.setText(listEntityList.get(position).getName());
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_CS,listEntityList.get(position)));
+                        finish();
+                    }
+                });
                 return convertView;
             }
         }

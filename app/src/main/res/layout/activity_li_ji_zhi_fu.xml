@@ -149,6 +149,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
+                android:visibility="invisible"
                 app:srcCompat="@mipmap/wbljzf_xz" />
         </LinearLayout>
         <View
@@ -179,6 +180,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
+                android:visibility="invisible"
                 app:srcCompat="@mipmap/wbljzf_xz" />
         </LinearLayout>
     </LinearLayout>

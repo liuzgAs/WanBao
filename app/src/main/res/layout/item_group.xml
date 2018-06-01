@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:id="@+id/viewTc0"
+        android:background="#fdf1f3"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/textTc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/textJine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/viewTc"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textContent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:textSize="@dimen/sp_12"
+            android:paddingLeft="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:textColor="@color/new_secondary_text"/>
+        <com.wanbao.base.ui.ListViewForScrollView
+            android:id="@+id/listView"
+            android:divider="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.wanbao.base.ui.ListViewForScrollView>
+    </LinearLayout>
+</LinearLayout>

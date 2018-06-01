@@ -9,6 +9,7 @@
     tools:context="com.wanbao.activity.QueRenWeiBaoXMActivity">
     <include layout="@layout/newtitle"></include>
     <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
@@ -27,9 +28,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_12"
-                android:text="试乘价："
+                android:text="价格："
                 android:textColor="@color/new_secondary_text"/>
             <TextView
+                android:id="@+id/textPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_14"
@@ -41,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
+            android:id="@+id/btnSure"
             android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14"

@@ -8,7 +8,7 @@ package com.wanbao.base.http;
 
 public class Constant {
 //    public static String HOST = "http://192.168.1.181/api/";
-    public static String HOST = "http://www.wanbaoauto.com/api/";
+    public static String HOST = "https://www.wanbaoauto.com/api/";
 
     public static class Url {
         /**
@@ -67,7 +67,30 @@ public class Constant {
          * 爱车档案选车型
          */
         public static final String Car_Index = "Car/index";
-
+        /**
+         * 添加或保存车辆
+         */
+        public static final String Usercar_Add_car = "Usercar/add_car";
+        /**
+         * 爱车档案
+         */
+        public static final String Usercar_Index = "Usercar/index";
+        /**
+         * 绑定银爱车请求验证码
+         */
+        public static final String Login_BindCarSms = "Login/bindCarSms";
+        /**
+         * 选择门店
+         */
+        public static final String Index_Store = "Index/store";
+        /**
+         * 选择销售顾问
+         */
+        public static final String Index_Seller = "Index/seller";
+        /**
+         * 维修保养
+         */
+        public static final String Maintain_Index = "Maintain/index";
     }
 
     public static class SF{

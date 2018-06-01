@@ -25,6 +25,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -34,18 +35,21 @@ import com.sunfusheng.marqueeview.MarqueeView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
+import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.ShiChengShiJiaActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
-import com.wanbao.activity.XuanZheCSActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
+import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.UpgradeUtils;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.User_My;
 import com.wanbao.ui.MyEasyRecyclerView;
 import com.wanbao.viewholder.IndexItemViewHolder;
 import com.wanbao.viewholder.IndexViewHolder;
@@ -86,6 +90,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public AMapLocationClientOption mLocationOption = null;
     ArrayList<String> images = new ArrayList<>();
     List<String> info = new ArrayList<>();
+    int carNum = 0;
 
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
@@ -109,6 +114,13 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onRefresh() {
         getMain();
+        getMyCar();
+    }
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (event.getAction().equals(BaseEvent.Change_Data)) {
+            getMyCar();
+        }
     }
 
     private void initRecycler() {
@@ -221,9 +233,15 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                             intent.setClass(context, LoginActivity.class);
                             startActivity(intent);
                         } else {
-                            Intent intent = new Intent();
-                            intent.setClass(context, WeiXiuBYActivity.class);
-                            startActivity(intent);
+                            if (carNum == 0) {
+                                Intent intent = new Intent();
+                                intent.setClass(context, BanDingCLActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent();
+                                intent.setClass(context, WeiXiuBYActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 });
@@ -415,9 +433,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.address:
-//                getAddressPermissions();
-                intent.setClass(context, XuanZheCSActivity.class);
-                startActivity(intent);
+                getAddressPermissions();
+//                intent.setClass(context, XuanZheCSActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.imageSousuo:
                 UpgradeUtils.checkUpgrade(context);
@@ -458,5 +476,56 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             mLocationClient.stopLocation();
             mLocationClient.onDestroy();
         }
+    }
+
+
+    private void getMyCar() {
+        HttpApi.post(context, getOkObjectMyCar(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.e("我的爱车", s);
+                dismissDialog();
+                try {
+                    User_My user_my = GsonUtils.parseJSON(s, User_My.class);
+                    int status = user_my.getStatus();
+                    if (status == 1) {
+                        carNum = user_my.getCarNum();
+                    } else {
+                        ToastUtils.showShort(user_my.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
+        });
+    }
+
+    private OkObject getOkObjectMyCar() {
+        String url = Constant.HOST + Constant.Url.User_My;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        return new OkObject(params, url);
     }
 }

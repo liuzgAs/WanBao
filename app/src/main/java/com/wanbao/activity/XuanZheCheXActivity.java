@@ -24,6 +24,7 @@ import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
@@ -35,7 +36,8 @@ import com.wanbao.viewholder.HotCarHolder;
 import com.wanbao.viewholder.XuanZheCXViewHolder;
 import com.wanbao.viewholder.XzCarCarParamDHolder;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -65,6 +67,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
     private RecyclerArrayAdapter<Car_CarParam.HotbrandBean> hadapter;
     private RecyclerArrayAdapter<Car_CarStyle.DataBean> adaptercx;
     int page = 1;
+    private String bsid="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +228,8 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_CarX,adapter.getItem(position)));
+                finish();
             }
         });
         recyclerView.setRefreshListener(this);
@@ -247,16 +252,29 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
         adaptercx.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                bsid=String.valueOf(adaptercx.getItem(position).getId());
+                if (drawerLayout!=null){
+                    drawerLayout.closeDrawers();
+                }
+                onRefresh();
             }
         });
     }
 
-    ArrayList<Integer> integers = new ArrayList<>();
 
     @Override
     public void onRefresh() {
         getCheXi();
         getCar();
+    }
+
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.Choose_Car.equals(event.getAction())){
+            Car_CarStyle.DataBean dataBean=(Car_CarStyle.DataBean)event.getData();
+            bsid=String.valueOf(dataBean.getId());
+            onRefresh();
+        }
     }
 
     @OnClick(R.id.imageback)
@@ -374,7 +392,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
     private OkObject getOkObjectCar() {
         String url = Constant.HOST + Constant.Url.Car_Index;
         HashMap<String, String> params = new HashMap<>();
-        params.put("bsid", "");
+        params.put("bsid", bsid);
         params.put("p", String.valueOf(page));
         return new OkObject(params, url);
     }

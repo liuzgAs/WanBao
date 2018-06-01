@@ -45,6 +45,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:text="闽"
+                android:background="@color/white"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
 
@@ -183,6 +184,7 @@
                     android:background="@color/background">
                 </View>
                 <LinearLayout
+                    android:id="@+id/viewXslcw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -202,7 +204,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn"
+                        />
                 </LinearLayout>
 
                 <View
@@ -303,6 +310,7 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
                 <LinearLayout
+                    android:id="@+id/viewNsdqw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -322,7 +330,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn"
+                        />
                 </LinearLayout>
 
                 <View
@@ -332,6 +345,7 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
                 <LinearLayout
+                    android:id="@+id/viewBxdqw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -351,7 +365,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn"
+                        />
                 </LinearLayout>
 
                 <View
@@ -361,6 +380,7 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
                 <LinearLayout
+                    android:id="@+id/viewBydqw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -380,7 +400,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn"
+                        />
                 </LinearLayout>
 
                 <View
@@ -781,7 +806,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="保险到期"
+                        android:text="保养到期"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
                     <TextView
@@ -822,6 +847,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/white"
                         android:hint="请输入手机号"
+                        android:inputType="number"
                         android:layout_marginLeft="@dimen/dp_50"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />

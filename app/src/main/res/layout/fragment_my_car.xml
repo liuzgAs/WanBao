@@ -33,6 +33,7 @@
                 app:srcCompat="@mipmap/wode_chedui" />
 
             <TextView
+                android:id="@+id/textName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -375,8 +376,9 @@
     <ViewSwitcher
         android:id="@+id/viewSwitcher"
         android:layout_width="match_parent"
+        android:paddingBottom="@dimen/dp_4"
         android:layout_marginTop="@dimen/dp_105"
-        android:layout_height="@dimen/dp_150">
+        android:layout_height="@dimen/dp_155">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -399,7 +401,6 @@
                 android:text="立刻绑定"
                 android:background="@drawable/yuanjiao_bdac"/>
         </LinearLayout>
-
         <android.support.v7.widget.CardView
             android:id="@+id/cardViewHuiYuan"
             android:layout_width="match_parent"
@@ -438,7 +439,36 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"></RelativeLayout>
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/textCarName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14"/>
+                    <TextView
+                        android:id="@+id/textDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="@dimen/dp_13"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_12"/>
+                    <ImageView
+                        android:id="@+id/imageCar"
+                        android:layout_width="@dimen/dp_45"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="centerCrop"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_45" />
+                </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_2"
@@ -468,7 +498,6 @@
                         app:srcCompat="@mipmap/wode_chedui" />
                 </LinearLayout>
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
     </ViewSwitcher>
 

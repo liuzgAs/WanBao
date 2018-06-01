@@ -70,6 +70,7 @@ public class HuanYinActivity extends BaseNoLeftActivity {
                         Intent intent=new Intent();
                         intent.setClass(context,MainActivity.class);
                         startActivity(intent);
+                        finish();
                     } else {
                         ToastUtils.showShort(login_regSms.getInfo());
                     }

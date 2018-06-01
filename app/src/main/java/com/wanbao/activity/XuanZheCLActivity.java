@@ -34,6 +34,8 @@ import com.wanbao.viewholder.CarCarParamHolder;
 import com.wanbao.viewholder.ReMenCheHolder;
 import com.wanbao.viewholder.XzCarCarParamDHolder;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -183,6 +185,9 @@ public class XuanZheCLActivity extends BaseActivity implements SwipeRefreshLayou
         adaptercx.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_Car,adaptercx.getItem(position)));
+                drawerLayout.closeDrawers();
+                finish();
             }
         });
     }

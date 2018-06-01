@@ -17,6 +17,7 @@ import android.widget.ViewSwitcher;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
@@ -27,10 +28,13 @@ import com.wanbao.activity.TiYanZhongXinActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.User_My;
 import com.wanbao.ui.CircleImageView;
 
 import java.util.HashMap;
@@ -86,6 +90,14 @@ public class MyCarFragment extends PSFragment {
     Button btnBangD;
     @BindView(R.id.viewSwitcher)
     ViewSwitcher viewSwitcher;
+    @BindView(R.id.textName)
+    TextView textName;
+    @BindView(R.id.textCarName)
+    TextView textCarName;
+    @BindView(R.id.textDes)
+    TextView textDes;
+    @BindView(R.id.imageCar)
+    ImageView imageCar;
     private View view;
 
     public static MyCarFragment newInstance() {
@@ -116,7 +128,7 @@ public class MyCarFragment extends PSFragment {
         getMyCar();
     }
 
-    @OnClick({R.id.btnBangD,R.id.textCheShouZZ, R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
+    @OnClick({R.id.btnBangD, R.id.textCheShouZZ, R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -185,6 +197,13 @@ public class MyCarFragment extends PSFragment {
         }
     }
 
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (event.getAction().equals(BaseEvent.Change_Data)) {
+            getMyCar();
+        }
+    }
+
     private void getMyCar() {
         HttpApi.post(context, getOkObjectMyCar(), new HttpApi.CallBack() {
             @Override
@@ -201,6 +220,36 @@ public class MyCarFragment extends PSFragment {
             public void onSuccess(String s) {
                 LogUtils.e("我的爱车", s);
                 dismissDialog();
+                try {
+                    User_My user_my = GsonUtils.parseJSON(s, User_My.class);
+                    int status = user_my.getStatus();
+                    if (status == 1) {
+                        if (user_my.getCarNum() == 0) {
+                            viewSwitcher.setDisplayedChild(0);
+                        } else {
+                            viewSwitcher.setDisplayedChild(1);
+                            if (user_my.getData()!=null){
+                                textCarName.setText(user_my.getData().getCar_name());
+                                textDes.setText(user_my.getData().getCar_no());
+                                GlideApp.with(getContext())
+                                        .asBitmap()
+                                        .load(user_my.getData().getImg())
+                                        .placeholder(R.mipmap.ic_empty)
+                                        .into(imageCar);
+                            }
+                        }
+                        textName.setText(user_my.getNickname());
+                        GlideApp.with(getContext())
+                                .asBitmap()
+                                .load(user_my.getHeadimg())
+                                .placeholder(R.mipmap.ic_empty)
+                                .into(imageViewTouX);
+                    } else {
+                        ToastUtils.showShort(user_my.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
             }
 
             @Override
