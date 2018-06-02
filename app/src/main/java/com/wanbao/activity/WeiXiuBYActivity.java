@@ -3,17 +3,18 @@ package com.wanbao.activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -21,23 +22,20 @@ import android.widget.TimePicker;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
-import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.view.EditDialog;
 import com.wanbao.modle.Index_Seller;
 import com.wanbao.modle.Index_Store;
 import com.wanbao.modle.Maintain_Index;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Order_NewOrder;
 import com.wanbao.modle.Usercar_Index;
-import com.wanbao.viewholder.TcViewHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,8 +78,6 @@ public class WeiXiuBYActivity extends BaseActivity {
     TextView textFwry;
     @BindView(R.id.viewFwry)
     LinearLayout viewFwry;
-    @BindView(R.id.recyclerView)
-    EasyRecyclerView recyclerView;
     @BindView(R.id.textWcsj)
     TextView textWcsj;
     @BindView(R.id.radioZx)
@@ -102,6 +98,10 @@ public class WeiXiuBYActivity extends BaseActivity {
     Button btnYc;
     @BindView(R.id.textXzcl)
     TextView textXzcl;
+    @BindView(R.id.listView)
+    ListViewForScrollView listView;
+    @BindView(R.id.viewTc)
+    FrameLayout viewTc;
     private Index_Store.DataBean index_store;
     private Usercar_Index.DataBean usercar_Index;
     private Index_Seller.DataBean index_Seller;
@@ -114,9 +114,8 @@ public class WeiXiuBYActivity extends BaseActivity {
     private int isOnline;
     private int isBx;
     private Maintain_Index maintain_index;
-    private ArrayList<Maintain_Index.DataBeanX> dataBeanXES=new ArrayList<>();
-    private RecyclerArrayAdapter<Maintain_Index.DataBeanX> adapter;
-
+    private ArrayList<Maintain_Index.DataBeanX> dataBeanXES = new ArrayList<>();
+    private MyTcAdapter myTcAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +137,8 @@ public class WeiXiuBYActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("维修保养");
-        initRecycler();
+        myTcAdapter=new MyTcAdapter();
+        listView.setAdapter(myTcAdapter);
     }
 
     @Override
@@ -256,10 +256,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 isOnline(0);
                 break;
             case R.id.btnZf:
-                intent = new Intent();
-                intent.putExtra("cid", ucid);
-                intent.setClass(context, QueRenWeiBaoXMActivity.class);
-                startActivity(intent);
+                getOrder();
                 break;
             case R.id.btnYc:
                 break;
@@ -311,8 +308,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                         isBx(maintain_index.getInsurance());
                         dataBeanXES.clear();
                         dataBeanXES.addAll(maintain_index.getData());
-                        adapter.clear();
-                        adapter.addAll(dataBeanXES);
+                        myTcAdapter.notifyDataSetChanged();
                     } else {
                         ToastUtils.showShort(maintain_index.getInfo());
                     }
@@ -370,37 +366,198 @@ public class WeiXiuBYActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 初始化recyclerview
-     */
-    private void initRecycler() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_2), 0, 0);
-        itemDecoration.setDrawLastItem(false);
-        recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Maintain_Index.DataBeanX>(WeiXiuBYActivity.this) {
-            @Override
-            public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_group;
-                return new TcViewHolder(parent, layout,WeiXiuBYActivity.this);
+
+    class MyTcAdapter extends BaseAdapter {
+
+        private MyAdapter myAdapter;
+        class ViewHolder {
+            public  RadioButton radioButton;
+            public  TextView textTc;
+            public  TextView textJine;
+            public  View viewTc;
+            public  View viewTc0;
+            public  ListView listView;
+            public  TextView textContent;
+        }
+
+
+        @Override
+        public int getCount() {
+            return dataBeanXES.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = getLayoutInflater().inflate(R.layout.item_group, null);
+                holder.radioButton = (RadioButton) convertView.findViewById(R.id.radioButton);
+                holder.textTc = (TextView) convertView.findViewById(R.id.textTc);
+                holder.textJine = (TextView) convertView.findViewById(R.id.textJine);
+                holder.viewTc = (View) convertView.findViewById(R.id.viewTc);
+                holder.viewTc0 = (View) convertView.findViewById(R.id.viewTc0);
+                holder.listView = (ListView) convertView.findViewById(R.id.listView);
+                holder.textContent = (TextView) convertView.findViewById(R.id.textContent);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
             }
-        });
-        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                for (int i=0;i<dataBeanXES.size();i++){
-                    dataBeanXES.set(i,new Maintain_Index.DataBeanX(dataBeanXES.get(i).getId(),0,
-                            dataBeanXES.get(i).getTitle(),dataBeanXES.get(i).getDes(),
-                            dataBeanXES.get(i).getMoney(),dataBeanXES.get(i).getData()));
+            if (dataBeanXES.get(position).getIsc() == 1) {
+                holder.radioButton.setChecked(true);
+                holder.viewTc.setVisibility(View.VISIBLE);
+            } else {
+                holder.radioButton.setChecked(false);
+                holder.viewTc.setVisibility(View.GONE);
+            }
+            holder.textTc.setText(dataBeanXES.get(position).getTitle());
+            holder.textJine.setText(String.valueOf(dataBeanXES.get(position).getMoney()));
+            holder.textContent.setText(dataBeanXES.get(position).getDes());
+            myAdapter = new MyAdapter(dataBeanXES.get(position));
+            holder.listView.setAdapter(myAdapter);
+            myAdapter.notifyDataSetChanged();
+            holder.viewTc0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (int i = 0; i < dataBeanXES.size(); i++) {
+                        dataBeanXES.set(i, new Maintain_Index.DataBeanX(dataBeanXES.get(i).getId(), 0,
+                                dataBeanXES.get(i).getTitle(), dataBeanXES.get(i).getDes(),
+                                dataBeanXES.get(i).getMoney(), dataBeanXES.get(i).getData()));
+                    }
+                    dataBeanXES.set(position, new Maintain_Index.DataBeanX(dataBeanXES.get(position).getId(), 1,
+                            dataBeanXES.get(position).getTitle(), dataBeanXES.get(position).getDes(),
+                            dataBeanXES.get(position).getMoney(), dataBeanXES.get(position).getData()));
+                    myTcAdapter.notifyDataSetChanged();
+                    bag_id = String.valueOf(dataBeanXES.get(position).getId());
                 }
-                dataBeanXES.set(position,new Maintain_Index.DataBeanX(dataBeanXES.get(position).getId(),1,
-                        dataBeanXES.get(position).getTitle(),dataBeanXES.get(position).getDes(),
-                        dataBeanXES.get(position).getMoney(),dataBeanXES.get(position).getData()));
-                adapter.clear();
-                adapter.addAll(dataBeanXES);
-//                adapter.notifyDataSetChanged();
+            });
+            return convertView;
+        }
+    }
+
+    class MyAdapter extends BaseAdapter {
+
+        private Maintain_Index.DataBeanX dataBean;
+
+        class ViewHolder {
+            public TextView textName;
+            public TextView textJinel;
+        }
+
+        public MyAdapter(Maintain_Index.DataBeanX dataBean) {
+            this.dataBean = dataBean;
+        }
+
+        @Override
+        public int getCount() {
+            return dataBean.getData().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = getLayoutInflater().inflate(R.layout.item_child, null);
+                holder.textName = (TextView) convertView.findViewById(R.id.textName);
+                holder.textJinel = (TextView) convertView.findViewById(R.id.textJinel);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
             }
+            holder.textName.setText(dataBean.getData().get(position).getN());
+            holder.textJinel.setText(dataBean.getData().get(position).getV());
+            return convertView;
+        }
+    }
+
+    private void getOrder() {
+        HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                try {
+                    LogUtils.e("保养套餐", s);
+                    Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
+                    if (order_newOrder.getStatus() == 1) {
+                        Intent intent = new Intent();
+                        intent.putExtra("Oid",order_newOrder.getOid());
+                        intent.setClass(context, LiJiZhiFuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        ToastUtils.showShort(order_newOrder.getInfo());
+                    }
+                } catch (Exception e) {
+                    dismissDialog();
+                    ToastUtils.showShort("数据异常");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
         });
     }
 
+    private OkObject getOkObjectOrder() {
+        String url = Constant.HOST + Constant.Url.Order_NewOrder;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("sid", store_id);
+        params.put("ucid", ucid);
+        params.put("bag_id", bag_id);
+        params.put("mid", maintain_id);
+        params.put("seller_id", seller_id);
+        params.put("book_time", book_time);
+        params.put("item_id", bag_id);
+        params.put("type", "1");
+        params.put("km", textLc.getText().toString());
+        return new OkObject(params, url);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dispose();
+    }
 }

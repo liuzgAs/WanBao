@@ -9,7 +9,10 @@ package com.wanbao.base.http;
 public class Constant {
 //    public static String HOST = "http://192.168.1.181/api/";
     public static String HOST = "https://www.wanbaoauto.com/api/";
-
+    /**
+     * 微信appid
+     */
+    public static String WXAPPID = "wxe3ff03935adae0a6";
     public static class Url {
         /**
          * 开机记录设备
@@ -91,6 +94,22 @@ public class Constant {
          * 维修保养
          */
         public static final String Maintain_Index = "Maintain/index";
+        /**
+         * 确认维保项目
+         */
+        public static final String Maintain_Confirm = "Maintain/confirm";
+        /**
+         * 新建订单
+         */
+        public static final String Order_NewOrder = "Order/newOrder";
+        /**
+         * 支付首页
+         */
+        public static final String Pay_Index = "Pay/index";
+        /**
+         * 发起支付
+         */
+        public static final String Pay_New_pay = "Pay/new_pay";
     }
 
     public static class SF{

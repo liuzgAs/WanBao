@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/viewTc"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_20"
+        android:background="@drawable/yuanjiao_wbdd"
+        android:layout_marginTop="@dimen/dp_20">
+        <com.wanbao.base.ui.ListViewForScrollView
+            android:id="@+id/listView"
+            android:divider="@color/transparent"
+            android:dividerHeight="@dimen/dp_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.wanbao.base.ui.ListViewForScrollView>
+    </FrameLayout>
+    <ImageView
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="@dimen/dp_38"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
+        app:srcCompat="@mipmap/wxby_tcnr" />
+</FrameLayout>

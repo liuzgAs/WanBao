@@ -22,6 +22,7 @@ import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.CheShouZiZhuanActivity;
+import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.SheZhiActivity;
 import com.wanbao.activity.ShiChengShiJiaActivity;
 import com.wanbao.activity.TiYanZhongXinActivity;
@@ -133,14 +134,29 @@ public class MyCarFragment extends PSFragment {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.btnBangD:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), BanDingCLActivity.class);
                 startActivity(intent);
                 break;
             case R.id.textCheShouZZ:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), CheShouZiZhuanActivity.class);
                 startActivity(intent);
                 break;
             case R.id.aichetiyan:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), TiYanZhongXinActivity.class);
                 startActivity(intent);
                 break;
@@ -153,30 +169,65 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewQBDD:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDZF:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDQR:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDPJ:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewWXBY:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), WeiXiuBYActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewYZESC:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), XuanZheCheXActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewSCSJ:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), ShiChengShiJiaActivity.class);
                 startActivity(intent);
                 break;
@@ -185,6 +236,11 @@ public class MyCarFragment extends PSFragment {
             case R.id.viewGDFW:
                 break;
             case R.id.viewACDA:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(getActivity(), AiCheDangAnActivity.class);
                 startActivity(intent);
                 break;
@@ -255,7 +311,7 @@ public class MyCarFragment extends PSFragment {
             @Override
             public void onError() {
                 dismissDialog();
-                ToastUtils.showShort("网络异常！");
+//                ToastUtils.showShort("网络异常！");
             }
 
             @Override

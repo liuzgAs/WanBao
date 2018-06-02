@@ -483,7 +483,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         HttpApi.post(context, getOkObjectMyCar(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
-                showDialog("");
             }
 
             @Override
@@ -494,7 +493,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             @Override
             public void onSuccess(String s) {
                 LogUtils.e("我的爱车", s);
-                dismissDialog();
                 try {
                     User_My user_my = GsonUtils.parseJSON(s, User_My.class);
                     int status = user_my.getStatus();
@@ -510,8 +508,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
             @Override
             public void onError() {
-                dismissDialog();
-                ToastUtils.showShort("网络异常！");
+//                ToastUtils.showShort("网络异常！");
             }
 
             @Override

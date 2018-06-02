@@ -15,12 +15,15 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DeviceUtils;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Login_Index;
 import com.wanbao.modle.OkObject;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -129,6 +132,7 @@ public class LoginActivity extends BaseActivity {
         SPUtils.getInstance().put(Constant.SF.Nickname,login_index.getNickname());
         SPUtils.getInstance().put(Constant.SF.HeadImg,login_index.getHeadImg());
         ToastUtils.showShort("登录成功！");
+        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
         finish();
     }
 

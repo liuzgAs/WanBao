@@ -10,6 +10,7 @@ public class BaseEvent {
 	public final static String Choose_Dp = "Choose_Dp";
 	public final static String Choose_Xsgw = "Choose_Xsgw";
 	public final static String Choose_Tc = "Choose_Tc";
+	public final static String Wx_Pay = "Wx_Pay";
 
 
 

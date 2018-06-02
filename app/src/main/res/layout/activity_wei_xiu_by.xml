@@ -264,28 +264,9 @@
                 android:layout_height="@dimen/dp_8"
                 android:background="@color/background"></View>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/bgtc"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_30">
-
-                <ImageView
-                    android:layout_width="@dimen/dp_140"
-                    android:layout_height="@dimen/dp_38"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/white"
-                    app:srcCompat="@mipmap/wxby_tcnr" />
-
-                <com.jude.easyrecyclerview.EasyRecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginRight="@dimen/dp_20"></com.jude.easyrecyclerview.EasyRecyclerView>
-            </LinearLayout>
-
+            <include
+                layout="@layout/include_wbdd">
+            </include>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"

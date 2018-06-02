@@ -1,7 +1,5 @@
 package com.wanbao.base;
 
-import android.app.Application;
-
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -14,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
-public class AppContext extends Application {
+public class AppContext extends MultApplication {
 
     private static AppContext instance;
     public List<Long> idList = new ArrayList<>();
