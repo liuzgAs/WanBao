@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -78,6 +79,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
     private static final int SDK_PAY_FLAG = 1;
     private MyHandler myHandler;
     private IWXAPI iwxapi;
+    private int paytype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
+        paytype=getIntent().getIntExtra("paytype",0);
         Oid = getIntent().getStringExtra("Oid");
     }
 
@@ -109,8 +112,20 @@ public class LiJiZhiFuActivity extends BaseActivity {
     @Override
     public void onEventMainThread(BaseEvent event) {
         if (BaseEvent.Wx_Pay.equals(event.getAction())){
-
+            int errCode=(int)event.getData();
+            if (errCode == 0) {
+                paySuccess();
+            } else {
+                ToastUtils.showShort("支付失败！");
+            }
         }
+    }
+    private void paySuccess(){
+        Intent intent=new Intent();
+        intent.putExtra("paytype",paytype);
+        intent.setClass(context,PaySucessActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -122,6 +137,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageback:
+                finish();
                 break;
             case R.id.viewZfb:
                 zfFs(0);
@@ -163,7 +179,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
                         textDes.setText(pay_index.getDes());
                         textDes2.setText(pay_index.getDes2());
                         textOrderAmount.setText("¥" + pay_index.getOrder_amount());
-                        textOrderSn.setText(pay_index.getOrder_sn());
+                        textOrderSn.setText("订单编号："+pay_index.getOrder_sn());
                         textOrderAmount0.setText("¥" + pay_index.getOrder_amount());
                         GlideApp.with(context)
                                 .asBitmap()

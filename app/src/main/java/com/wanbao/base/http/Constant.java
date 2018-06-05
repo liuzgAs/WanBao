@@ -110,6 +110,42 @@ public class Constant {
          * 发起支付
          */
         public static final String Pay_New_pay = "Pay/new_pay";
+        /**
+         * 我的维保订单
+         */
+        public static final String User_Maintain_order = "User/maintain_order";
+        /**
+         * 取消订单
+         */
+        public static final String User_CancelOrder = "User/cancelOrder";
+        /**
+         * 确认订单
+         */
+        public static final String User_ConfirmOrder = "User/confirmOrder";
+        /**
+         * 用户删除订单
+         */
+        public static final String User_DelOrder = "User/delOrder";
+        /**
+         * 我的维保订单详情
+         */
+        public static final String User_Maintain_order_info = "User/maintain_order_info";
+        /**
+         * 试驾列表
+         */
+        public static final String Testdrive_TestDriveList = "Testdrive/testDriveList";
+        /**
+         * 试驾车辆
+         */
+        public static final String Testdrive_Details = "Testdrive/details";
+        /**
+         * 试驾人信息录入
+         */
+        public static final String TestDrive_AddTuser = "TestDrive/addTuser";
+        /**
+         * 试驾订单
+         */
+        public static final String Testdrive_TestOrder = "Testdrive/testOrder";
     }
 
     public static class SF{

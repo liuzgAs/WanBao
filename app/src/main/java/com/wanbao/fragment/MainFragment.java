@@ -37,8 +37,8 @@ import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.LoginActivity;
-import com.wanbao.activity.ShiChengShiJiaActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.XuanZheCheXSJActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.event.BaseEvent;
@@ -269,7 +269,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.setClass(context, ShiChengShiJiaActivity.class);
+                        intent.setClass(context, XuanZheCheXSJActivity.class);
                         startActivity(intent);
                     }
                 });

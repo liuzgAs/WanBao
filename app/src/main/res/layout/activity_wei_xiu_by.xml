@@ -262,7 +262,21 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
-                android:background="@color/background"></View>
+                android:background="@color/background">
+            </View>
+            <EditText
+                android:id="@+id/editmsgDes"
+                android:layout_width="match_parent"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:padding="@dimen/dp_5"
+                android:gravity="left|top"
+                android:visibility="gone"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13"
+                android:background="@drawable/yuanjiao_wxby"
+                android:layout_height="@dimen/dp_100" />
 
             <include
                 layout="@layout/include_wbdd">
@@ -278,7 +292,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="预计完成时间"
+                    android:text="预计保养时长"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_14" />
 
@@ -364,12 +378,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
+                android:visibility="gone"
                 android:background="@color/background"></View>
 
             <LinearLayout
                 android:id="@+id/viewBx"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
+                android:visibility="gone"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"

@@ -30,7 +30,9 @@ public abstract class PSFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         context = getActivity();
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -54,7 +56,7 @@ public abstract class PSFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        if (EventBus.getDefault().isRegistered(this)) {
+        if (EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().unregister(this);
         }
         dispose();

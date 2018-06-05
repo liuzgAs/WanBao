@@ -11,20 +11,23 @@ import java.util.List;
 public class Maintain_Index {
 
     /**
-     * car_name : 锐&middot;混动2.0L净速版
-     * ucid : 3
+     * car_name : Q3 2018
+     * ucid : 10
      * store_name : 测试
      * store_id : 2
      * maintain_name : 常规保养
-     * maintain_id : 1
+     * maintain_id : 4
+     * maintain : [{"id":4,"name":"常规保养"},{"id":3,"name":"外观喷漆"},{"id":2,"name":"其它服务"}]
      * seller_name : 销售1
      * seller_id : 1
-     * book_time : 2018-06-01 18:00
+     * book_time : 2018-06-04 18:00
      * bag_id : 1
-     * data : [{"id":1,"isc":1,"title":"A套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"}],"money":253},{"id":2,"isc":0,"title":"B套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"}],"money":238},{"id":3,"isc":0,"title":"C套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"机油","v":"￥15.00"}],"money":233}]
-     * end_time : 2018-06-01 21:00
+     * data : [{"id":1,"isc":1,"title":"A套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"}],"money":253},{"id":2,"isc":0,"title":"B套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"}],"money":238}]
+     * dataShow : 1
+     * end_time : 3小时
      * online_pay : 1
-     * insurance : 1
+     * msgDes : 有详细的备注，我们将更效率的为您服务！
+     * insurance : 0
      * status : 1
      * info : 返回成功！
      */
@@ -39,11 +42,14 @@ public class Maintain_Index {
     private int seller_id;
     private String book_time;
     private int bag_id;
+    private int dataShow;
     private String end_time;
     private int online_pay;
+    private String msgDes;
     private int insurance;
     private int status;
     private String info;
+    private List<MaintainBean> maintain;
     private List<DataBeanX> data;
 
     public String getCar_name() {
@@ -126,6 +132,14 @@ public class Maintain_Index {
         this.bag_id = bag_id;
     }
 
+    public int getDataShow() {
+        return dataShow;
+    }
+
+    public void setDataShow(int dataShow) {
+        this.dataShow = dataShow;
+    }
+
     public String getEnd_time() {
         return end_time;
     }
@@ -140,6 +154,14 @@ public class Maintain_Index {
 
     public void setOnline_pay(int online_pay) {
         this.online_pay = online_pay;
+    }
+
+    public String getMsgDes() {
+        return msgDes;
+    }
+
+    public void setMsgDes(String msgDes) {
+        this.msgDes = msgDes;
     }
 
     public int getInsurance() {
@@ -166,12 +188,46 @@ public class Maintain_Index {
         this.info = info;
     }
 
+    public List<MaintainBean> getMaintain() {
+        return maintain;
+    }
+
+    public void setMaintain(List<MaintainBean> maintain) {
+        this.maintain = maintain;
+    }
+
     public List<DataBeanX> getData() {
         return data;
     }
 
     public void setData(List<DataBeanX> data) {
         this.data = data;
+    }
+
+    public static class MaintainBean {
+        /**
+         * id : 4
+         * name : 常规保养
+         */
+
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public static class DataBeanX {
@@ -184,21 +240,20 @@ public class Maintain_Index {
          * money : 253
          */
 
-
         private int id;
         private int isc;
         private String title;
         private String des;
         private int money;
         private List<DataBean> data;
+        public DataBeanX(int id,int isc,String title, String des,int money,List<DataBean> data){
+            this.id=id;
+            this.isc=isc;
+            this.title=title;
+            this.des=des;
+            this.money=money;
+            this.data=data;
 
-        public DataBeanX(int id, int isc, String title, String des, int money, List<DataBean> data) {
-            this.id = id;
-            this.isc = isc;
-            this.title = title;
-            this.des = des;
-            this.money = money;
-            this.data = data;
         }
 
         public int getId() {

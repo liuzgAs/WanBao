@@ -67,6 +67,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
             EventBus.getDefault().unregister(this);
         }
         dispose();
+        dismissDialog();
         super.onDestroy();
     }
 

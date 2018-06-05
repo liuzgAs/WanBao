@@ -142,7 +142,7 @@ public class Pay_New_pay {
 
         private String pay_info;
         private String payment_name;
-        private int pay_money;
+        private float pay_money;
         private String class_name;
         private ConfigBean config;
 
@@ -162,11 +162,11 @@ public class Pay_New_pay {
             this.payment_name = payment_name;
         }
 
-        public int getPay_money() {
+        public float getPay_money() {
             return pay_money;
         }
 
-        public void setPay_money(int pay_money) {
+        public void setPay_money(float pay_money) {
             this.pay_money = pay_money;
         }
 
@@ -219,8 +219,8 @@ public class Pay_New_pay {
             private String packagevalue;
             private String subject;
             private String body;
-            private int total_fee;
-            private int total_fee_format;
+            private float total_fee;
+            private float total_fee_format;
             private String out_trade_no;
             private String notify_url;
             private String key;
@@ -314,19 +314,19 @@ public class Pay_New_pay {
                 this.body = body;
             }
 
-            public int getTotal_fee() {
+            public float getTotal_fee() {
                 return total_fee;
             }
 
-            public void setTotal_fee(int total_fee) {
+            public void setTotal_fee(float total_fee) {
                 this.total_fee = total_fee;
             }
 
-            public int getTotal_fee_format() {
+            public float getTotal_fee_format() {
                 return total_fee_format;
             }
 
-            public void setTotal_fee_format(int total_fee_format) {
+            public void setTotal_fee_format(float total_fee_format) {
                 this.total_fee_format = total_fee_format;
             }
 

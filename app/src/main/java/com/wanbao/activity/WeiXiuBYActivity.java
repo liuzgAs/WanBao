@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -102,12 +104,14 @@ public class WeiXiuBYActivity extends BaseActivity {
     ListViewForScrollView listView;
     @BindView(R.id.viewTc)
     FrameLayout viewTc;
+    @BindView(R.id.editmsgDes)
+    EditText editmsgDes;
     private Index_Store.DataBean index_store;
     private Usercar_Index.DataBean usercar_Index;
     private Index_Seller.DataBean index_Seller;
     private String ucid;
     private String store_id;
-    private String maintain_id = "1";
+    private String maintain_id;
     private String seller_id;
     private String book_time;
     private String bag_id;
@@ -116,6 +120,8 @@ public class WeiXiuBYActivity extends BaseActivity {
     private Maintain_Index maintain_index;
     private ArrayList<Maintain_Index.DataBeanX> dataBeanXES = new ArrayList<>();
     private MyTcAdapter myTcAdapter;
+    private ArrayList<String> maintainString = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +143,7 @@ public class WeiXiuBYActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("维修保养");
-        myTcAdapter=new MyTcAdapter();
+        myTcAdapter = new MyTcAdapter();
         listView.setAdapter(myTcAdapter);
     }
 
@@ -148,6 +154,9 @@ public class WeiXiuBYActivity extends BaseActivity {
 
     @Override
     public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
+            finish();
+        }
         if (BaseEvent.Choose_Dp.equals(event.getAction())) {
             index_store = (Index_Store.DataBean) event.getData();
             if (index_store != null) {
@@ -169,13 +178,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 seller_id = String.valueOf(index_Seller.getId());
             }
         }
-        if (BaseEvent.Choose_Tc.equals(event.getAction())) {
-            index_Seller = (Index_Seller.DataBean) event.getData();
-            if (index_Seller != null) {
-                textFwry.setText(index_Seller.getName());
-                seller_id = String.valueOf(index_Seller.getId());
-            }
-        }
+        getTc();
     }
 
     @OnClick({R.id.viewBx, R.id.imageback, R.id.viewXuanZheCX, R.id.viewSzlc, R.id.viewXzdp, R.id.viewYyxm, R.id.viewYysj, R.id.viewFwry, R.id.viewZx, R.id.viewQt, R.id.btnZf, R.id.btnYc})
@@ -217,6 +220,23 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewYyxm:
+                maintainString.clear();
+                for (int i = 0; i < maintain_index.getMaintain().size(); i++) {
+                    maintainString.add(maintain_index.getMaintain().get(i).getName());
+                }
+                new MaterialDialog.Builder(context)
+                        .title("选择预约项目")
+                        .items(maintainString)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textYyxm.setText(maintain_index.getMaintain().get(position).getName());
+                                maintain_id = String.valueOf(maintain_index.getMaintain().get(position).getId());
+                                getTc();
+                            }
+                        })
+                        .show();
                 break;
             case R.id.viewYysj:
                 final Calendar c1 = Calendar.getInstance();
@@ -230,6 +250,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 textYysj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute);
                                 book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
+                                getTc();
                             }
                         }, c1.get(Calendar.HOUR_OF_DAY), c1.get(Calendar.MINUTE), true);
                         dialog.show();
@@ -250,7 +271,11 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewZx:
-                isOnline(1);
+                if (maintain_index.getOnline_pay()==1) {
+                    isOnline(1);
+                } else {
+                    ToastUtils.showShort("该套餐只能前台支付！");
+                }
                 break;
             case R.id.viewQt:
                 isOnline(0);
@@ -298,6 +323,8 @@ public class WeiXiuBYActivity extends BaseActivity {
                         textYysj.setText(maintain_index.getBook_time());
                         textFwry.setText(maintain_index.getSeller_name());
                         textWcsj.setText(maintain_index.getEnd_time());
+                        textWcsj.setText(String.valueOf(maintain_index.getInsurance()));
+                        editmsgDes.setHint(maintain_index.getMsgDes());
                         ucid = String.valueOf(maintain_index.getUcid());
                         store_id = String.valueOf(maintain_index.getStore_id());
                         maintain_id = String.valueOf(maintain_index.getMaintain_id());
@@ -306,9 +333,12 @@ public class WeiXiuBYActivity extends BaseActivity {
                         bag_id = String.valueOf(maintain_index.getBag_id());
                         isOnline(maintain_index.getOnline_pay());
                         isBx(maintain_index.getInsurance());
-                        dataBeanXES.clear();
-                        dataBeanXES.addAll(maintain_index.getData());
+                        if (maintain_index.getData().size() > 0) {
+                            dataBeanXES.clear();
+                            dataBeanXES.addAll(maintain_index.getData());
+                        }
                         myTcAdapter.notifyDataSetChanged();
+                        viewMaintain(maintain_index.getOnline_pay());
                     } else {
                         ToastUtils.showShort(maintain_index.getInfo());
                     }
@@ -346,16 +376,6 @@ public class WeiXiuBYActivity extends BaseActivity {
         return new OkObject(params, url);
     }
 
-    private void isOnline(int isOnline) {
-        this.isOnline = isOnline;
-        if (isOnline == 1) {
-            radioZx.setChecked(true);
-            radioQt.setChecked(false);
-        } else {
-            radioZx.setChecked(false);
-            radioQt.setChecked(true);
-        }
-    }
 
     private void isBx(int isBx) {
         this.isBx = isBx;
@@ -370,14 +390,15 @@ public class WeiXiuBYActivity extends BaseActivity {
     class MyTcAdapter extends BaseAdapter {
 
         private MyAdapter myAdapter;
+
         class ViewHolder {
-            public  RadioButton radioButton;
-            public  TextView textTc;
-            public  TextView textJine;
-            public  View viewTc;
-            public  View viewTc0;
-            public  ListView listView;
-            public  TextView textContent;
+            public RadioButton radioButton;
+            public TextView textTc;
+            public TextView textJine;
+            public View viewTc;
+            public View viewTc0;
+            public ListView listView;
+            public TextView textContent;
         }
 
 
@@ -440,6 +461,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                             dataBeanXES.get(position).getMoney(), dataBeanXES.get(position).getData()));
                     myTcAdapter.notifyDataSetChanged();
                     bag_id = String.valueOf(dataBeanXES.get(position).getId());
+                    getTc();
                 }
             });
             return convertView;
@@ -512,10 +534,9 @@ public class WeiXiuBYActivity extends BaseActivity {
                     Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
                     if (order_newOrder.getStatus() == 1) {
                         Intent intent = new Intent();
-                        intent.putExtra("Oid",order_newOrder.getOid());
+                        intent.putExtra("Oid", order_newOrder.getOid());
                         intent.setClass(context, LiJiZhiFuActivity.class);
                         startActivity(intent);
-                        finish();
                     } else {
                         ToastUtils.showShort(order_newOrder.getInfo());
                     }
@@ -549,8 +570,9 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("mid", maintain_id);
         params.put("seller_id", seller_id);
         params.put("book_time", book_time);
-        params.put("item_id", bag_id);
+        params.put("item_id", "");
         params.put("type", "1");
+        params.put("online_pay", String.valueOf(isOnline));
         params.put("km", textLc.getText().toString());
         return new OkObject(params, url);
     }
@@ -559,5 +581,28 @@ public class WeiXiuBYActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         dispose();
+    }
+
+    private void viewMaintain(int id) {
+        if (id==1) {
+            isOnline(1);
+            viewTc.setVisibility(View.VISIBLE);
+            editmsgDes.setVisibility(View.GONE);
+        } else {
+            isOnline(0);
+            viewTc.setVisibility(View.GONE);
+            editmsgDes.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void isOnline(int isOnline) {
+        this.isOnline = isOnline;
+        if (isOnline == 1) {
+            radioZx.setChecked(true);
+            radioQt.setChecked(false);
+        } else {
+            radioZx.setChecked(false);
+            radioQt.setChecked(true);
+        }
     }
 }

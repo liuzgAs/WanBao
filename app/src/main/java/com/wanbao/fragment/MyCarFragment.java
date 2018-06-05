@@ -24,7 +24,7 @@ import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.CheShouZiZhuanActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.SheZhiActivity;
-import com.wanbao.activity.ShiChengShiJiaActivity;
+import com.wanbao.activity.ShiJiaDDActivity;
 import com.wanbao.activity.TiYanZhongXinActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
@@ -228,7 +228,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
-                intent.setClass(getActivity(), ShiChengShiJiaActivity.class);
+                intent.setClass(getActivity(), ShiJiaDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewPTGC:
