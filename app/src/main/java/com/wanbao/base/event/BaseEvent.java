@@ -18,6 +18,8 @@ public class BaseEvent {
 	public final static String Is_Confirm = "Is_Confirm";
 	public final static String Is_Evaluate = "Is_Evaluate";
 	public final static String Is_Again = "Is_Again";
+	public final static String XinShiZZM = "XinShiZZM";
+	public final static String XingShiZFY = "XingShiZFY";
 
 
 

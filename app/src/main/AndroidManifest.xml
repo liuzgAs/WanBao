@@ -139,13 +139,13 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- wechat callback -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -154,13 +154,14 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.PaySucessActivity"></activity>
+        <activity android:name=".activity.PaySucessActivity" />
         <activity
             android:name=".activity.XuanZheCheXSJActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.ShiJiaDDActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".activity.SaoMiaoActivity"></activity>
     </application>
 
 </manifest>

@@ -16,72 +16,72 @@
         android:text="请输入车牌号查询绑定"
         android:textSize="@dimen/sp_13" />
 
-    <LinearLayout
-        android:id="@+id/viewChaxun"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="车牌号码"
-                android:textColor="@color/new_important_text"
-                android:textSize="@dimen/sp_13" />
-
-            <com.weiwangcn.betterspinner.library.BetterSpinner
-                android:id="@+id/betterSpinner"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:text="闽"
-                android:background="@color/white"
-                android:textColor="@color/new_important_text"
-                android:textSize="@dimen/sp_13" />
-
-            <EditText
-                android:id="@+id/editChePai"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:background="@color/white"
-                android:hint="输入车牌号"
-                android:inputType="text"
-                android:textColor="@color/new_important_text"
-                android:textSize="@dimen/sp_13" />
-        </LinearLayout>
-
-        <com.wanbao.base.ui.StateButton
-            android:id="@+id/sbtn_chaxun"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_40"
-            android:text="立即查询"
-            android:textSize="@dimen/sp_13"
-            app:normalBackgroundColor="@color/light_red"
-            app:normalTextColor="@color/white"
-            app:pressedBackgroundColor="@color/new_secondary_text"
-            app:pressedTextColor="@color/white"
-            app:radius="@dimen/dp_4" />
-    </LinearLayout>
-
     <ViewSwitcher
         android:id="@+id/viewSwitcher"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/viewChaxun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="车牌号码"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+
+                <com.weiwangcn.betterspinner.library.BetterSpinner
+                    android:id="@+id/betterSpinner"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:background="@color/white"
+                    android:text="闽"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+
+                <EditText
+                    android:id="@+id/editChePai"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@color/white"
+                    android:hint="输入车牌号"
+                    android:inputType="text"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+
+            <com.wanbao.base.ui.StateButton
+                android:id="@+id/sbtn_chaxun"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_40"
+                android:text="立即查询"
+                android:textSize="@dimen/sp_13"
+                app:normalBackgroundColor="@color/light_red"
+                app:normalTextColor="@color/white"
+                app:pressedBackgroundColor="@color/new_secondary_text"
+                app:pressedTextColor="@color/white"
+                app:radius="@dimen/dp_4" />
+        </LinearLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -92,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
@@ -99,18 +100,16 @@
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="车牌号码"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                    <ImageView
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="@dimen/dp_18"
+                        android:src="@mipmap/icon_jbxxbd" />
 
                     <TextView
-                        android:id="@+id/textCp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="基本信息"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -118,11 +117,12 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background">
+
                 </View>
+
                 <LinearLayout
+                    android:id="@+id/viewCxxx"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -138,11 +138,19 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
-                        android:id="@+id/textCxxx"
+                        android:id="@+id/textClxx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:hint="未设置"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
+
+                    <ImageView
+                        android:id="@+id/imageCxxx"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View
@@ -154,6 +162,7 @@
                 </View>
 
                 <LinearLayout
+                    android:id="@+id/viewGcsj"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -172,8 +181,16 @@
                         android:id="@+id/textGcsj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:hint="未设置"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
+
+                    <ImageView
+                        android:id="@+id/imageGcsj"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View
@@ -183,8 +200,9 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background">
                 </View>
+
                 <LinearLayout
-                    android:id="@+id/viewXslcw"
+                    android:id="@+id/viewXslc"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -203,13 +221,105 @@
                         android:id="@+id/textxslc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:hint="未设置"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
+
                     <ImageView
+                        android:id="@+id/imagexslc"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24"
                         android:src="@mipmap/next_btn"
-                        />
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/background">
+                </View>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/background">
+                </View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="@dimen/dp_18"
+                        android:src="@mipmap/icon_xszbd" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:text="行驶证信息"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <LinearLayout
+                        android:id="@+id/viewSzy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/layout_selector_white_system_gray"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_18"
+                            android:src="@mipmap/icon_saom" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:text="扫描行驶证正页自动填写"
+                            android:textColor="@color/new_important_text"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/background"></View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="车牌号"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textCph"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="车牌号"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
                 </LinearLayout>
 
                 <View
@@ -217,8 +327,8 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
@@ -238,8 +348,11 @@
                         android:id="@+id/textFdjh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="发动机号"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
                 </LinearLayout>
 
                 <View
@@ -247,8 +360,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -269,15 +381,16 @@
                         android:id="@+id/textCjh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="车架号"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
                     android:background="@color/background"></View>
 
                 <LinearLayout
@@ -287,30 +400,51 @@
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">
 
+                    <ImageView
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="@dimen/dp_18"
+                        android:src="@mipmap/icon_cxbd" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
                         android:layout_weight="1"
-                        android:text="城市"
+                        android:text="车险信息"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
-                        android:id="@+id/textCs"
+                    <LinearLayout
+                        android:id="@+id/viewSfy"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:layout_height="match_parent"
+                        android:background="@drawable/layout_selector_white_system_gray"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_18"
+                            android:layout_height="@dimen/dp_18"
+                            android:src="@mipmap/icon_saom" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_5"
+                            android:text="扫描行驶证副页自动填写"
+                            android:textColor="@color/new_important_text"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
-                    android:id="@+id/viewNsdqw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -329,13 +463,11 @@
                         android:id="@+id/textNsdq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="年审到期"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
                 </LinearLayout>
 
                 <View
@@ -344,8 +476,8 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
-                    android:id="@+id/viewBxdqw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -364,56 +496,45 @@
                         android:id="@+id/textBxdq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="保险到期"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
-                    android:id="@+id/viewBydqw"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="保养到期"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                    <ImageView
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="@dimen/dp_18"
+                        android:src="@mipmap/icon_dxbd" />
 
                     <TextView
-                        android:id="@+id/textBydq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_weight="1"
+                        android:text="短信验证"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
+                        android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
@@ -425,484 +546,76 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="手机号"
+                        android:text="手机号码"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
-                        android:id="@+id/textsj"
+                        android:id="@+id/textSjhm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="手机号"
                         android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">
+
                     <EditText
                         android:id="@+id/editYzm"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_38"
+                        android:layout_weight="1"
                         android:background="@color/background"
-                        android:textSize="@dimen/sp_13"
-                        android:textColor="@color/new_important_text"
+                        android:gravity="center_vertical|left"
                         android:hint="请输入短信验证码"
-                        android:paddingLeft="@dimen/dp_5"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:layout_weight="1"/>
-                    <com.wanbao.base.ui.StateButton
-                        android:id="@+id/sbtnYzm"
-                        android:layout_width="wrap_content"
-                        app:normalTextColor="@color/white"
-                        app:normalBackgroundColor="@color/light_red"
-                        app:pressedBackgroundColor="@color/new_secondary_text"
-                        android:text="发送验证码"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_11"
-                        app:unableBackgroundColor="@color/new_secondary_text"
-                        android:layout_height="@dimen/dp_34" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="bottom"
-                    android:background="@color/background"
-                    android:layout_height="@dimen/dp_100">
-                    <com.wanbao.base.ui.StateButton
-                        android:id="@+id/sbtn_tijiaobd"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_45"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_40"
-                        android:text="提交绑定"
-                        android:layout_marginBottom="@dimen/dp_10"
-                        android:textSize="@dimen/sp_13"
-                        app:normalBackgroundColor="@color/light_red"
-                        app:normalTextColor="@color/white"
-                        app:pressedBackgroundColor="@color/new_secondary_text"
-                        app:pressedTextColor="@color/white"
-                        app:radius="@dimen/dp_4" />
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="车牌号"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textChePai"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_50"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:background="@color/background">
-
-                </View>
-                <LinearLayout
-                    android:id="@+id/viewCxxx"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="车型信息"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textClxx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:id="@+id/viewGcsj"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
 
                     <TextView
+                        android:id="@+id/textFs"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="购车时间"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textGcsjw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:id="@+id/viewXslc"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="行驶里程"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textxslcw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="发动机号"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <EditText
-                        android:id="@+id/editFdjh"
-                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:hint="请输入完整的发动机号"
                         android:layout_marginLeft="@dimen/dp_36"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="车架号"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <EditText
-                        android:id="@+id/editCjh"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:hint="请输入完整的车架号"
-                        android:layout_marginLeft="@dimen/dp_50"
-                        android:textColor="@color/new_important_text"
+                        android:gravity="center"
+                        android:text="获取验证码"
+                        android:textColor="@color/light_red"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:id="@+id/viewCs"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="城市"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textCsw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background"></View>
-                <LinearLayout
-                    android:id="@+id/viewNsdq"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="年审到期"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textNsdqw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:id="@+id/viewBxdq"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="保险到期"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textBxdqw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:id="@+id/viewBydq"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="保养到期"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <TextView
-                        android:id="@+id/textBydqw"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="未设置"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                    <ImageView
-                        android:layout_width="@dimen/dp_24"
-                        android:layout_height="@dimen/dp_24"
-                        android:src="@mipmap/next_btn"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="手机号"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-                    <EditText
-                        android:id="@+id/editSjhw"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:hint="请输入手机号"
-                        android:inputType="number"
-                        android:layout_marginLeft="@dimen/dp_50"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-                    <EditText
-                        android:id="@+id/editYzmw"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_34"
-                        android:background="@color/background"
-                        android:textSize="@dimen/sp_13"
-                        android:textColor="@color/new_important_text"
-                        android:hint="请输入短信验证码"
-                        android:paddingLeft="@dimen/dp_5"
-                        android:layout_marginRight="@dimen/dp_10"
-                        android:layout_weight="1"/>
-                    <com.wanbao.base.ui.StateButton
-                        android:id="@+id/sbtnYzmw"
-                        android:layout_width="wrap_content"
-                        app:normalTextColor="@color/white"
-                        app:normalBackgroundColor="@color/light_red"
-                        android:text="发送验证码"
-                        app:pressedBackgroundColor="@color/new_secondary_text"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_12"
-                        app:unableBackgroundColor="@color/new_secondary_text"
-                        android:layout_height="@dimen/dp_34" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="bottom"
+                    android:layout_height="@dimen/dp_100"
                     android:background="@color/background"
-                    android:layout_height="@dimen/dp_100">
+                    android:gravity="bottom"
+                    android:orientation="vertical">
+
                     <com.wanbao.base.ui.StateButton
                         android:id="@+id/sbtn_tijiaobdw"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
+                        android:layout_marginBottom="@dimen/dp_10"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_marginRight="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_40"
                         android:text="提交绑定"
-                        android:layout_marginBottom="@dimen/dp_10"
                         android:textSize="@dimen/sp_13"
                         app:normalBackgroundColor="@color/light_red"
                         app:normalTextColor="@color/white"
@@ -913,5 +626,4 @@
             </LinearLayout>
         </ScrollView>
     </ViewSwitcher>
-
 </LinearLayout>

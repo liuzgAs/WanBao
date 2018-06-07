@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -20,7 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
-import com.wanbao.activity.XuanZheCSActivity;
+import com.wanbao.activity.SaoMiaoActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
@@ -35,6 +36,8 @@ import com.wanbao.modle.Comment;
 import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Usercar_Query;
+import com.wanbao.modle.XinShiZZM;
+import com.wanbao.modle.XingShiZFY;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,97 +52,59 @@ import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 
 public class XianYouCLBDFragment extends PSFragment {
+    @BindView(R.id.textState)
+    TextView textState;
     @BindView(R.id.betterSpinner)
     BetterSpinner betterSpinner;
     @BindView(R.id.editChePai)
     EditText editChePai;
     @BindView(R.id.sbtn_chaxun)
     StateButton sbtnChaxun;
-    Unbinder unbinder;
-    @BindView(R.id.textState)
-    TextView textState;
-    @BindView(R.id.textCxxx)
-    TextView textCxxx;
+    @BindView(R.id.viewChaxun)
+    LinearLayout viewChaxun;
+    @BindView(R.id.textClxx)
+    TextView textClxx;
+    @BindView(R.id.imageCxxx)
+    ImageView imageCxxx;
+    @BindView(R.id.viewCxxx)
+    LinearLayout viewCxxx;
     @BindView(R.id.textGcsj)
     TextView textGcsj;
+    @BindView(R.id.imageGcsj)
+    ImageView imageGcsj;
+    @BindView(R.id.viewGcsj)
+    LinearLayout viewGcsj;
+    @BindView(R.id.textxslc)
+    TextView textxslc;
+    @BindView(R.id.imagexslc)
+    ImageView imagexslc;
+    @BindView(R.id.viewXslc)
+    LinearLayout viewXslc;
+    @BindView(R.id.viewSzy)
+    LinearLayout viewSzy;
+    @BindView(R.id.textCph)
+    TextView textCph;
     @BindView(R.id.textFdjh)
     TextView textFdjh;
     @BindView(R.id.textCjh)
     TextView textCjh;
-    @BindView(R.id.textCs)
-    TextView textCs;
-    @BindView(R.id.textsj)
-    TextView textsj;
-    @BindView(R.id.editYzm)
-    EditText editYzm;
-    @BindView(R.id.sbtnYzm)
-    StateButton sbtnYzm;
-    @BindView(R.id.sbtn_tijiaobd)
-    StateButton sbtnTijiaobd;
-    @BindView(R.id.textChePai)
-    TextView textChePai;
-    @BindView(R.id.editFdjh)
-    EditText editFdjh;
-    @BindView(R.id.editCjh)
-    EditText editCjh;
-    @BindView(R.id.editSjhw)
-    EditText editSjhw;
-    @BindView(R.id.editYzmw)
-    EditText editYzmw;
-    @BindView(R.id.sbtnYzmw)
-    StateButton sbtnYzmw;
-    @BindView(R.id.sbtn_tijiaobdw)
-    StateButton sbtnTijiaobdw;
-    @BindView(R.id.viewSwitcher)
-    ViewSwitcher viewSwitcher;
-    @BindView(R.id.viewChaxun)
-    LinearLayout viewChaxun;
-    @BindView(R.id.textCp)
-    TextView textCp;
-    @BindView(R.id.textxslc)
-    TextView textxslc;
+    @BindView(R.id.viewSfy)
+    LinearLayout viewSfy;
     @BindView(R.id.textNsdq)
     TextView textNsdq;
     @BindView(R.id.textBxdq)
     TextView textBxdq;
-    @BindView(R.id.textBydq)
-    TextView textBydq;
-    @BindView(R.id.textClxx)
-    TextView textClxx;
-    @BindView(R.id.viewCxxx)
-    LinearLayout viewCxxx;
-    @BindView(R.id.textGcsjw)
-    TextView textGcsjw;
-    @BindView(R.id.viewGcsj)
-    LinearLayout viewGcsj;
-    @BindView(R.id.textxslcw)
-    TextView textxslcw;
-    @BindView(R.id.viewXslc)
-    LinearLayout viewXslc;
-    @BindView(R.id.textCsw)
-    TextView textCsw;
-    @BindView(R.id.viewCs)
-    LinearLayout viewCs;
-    @BindView(R.id.textNsdqw)
-    TextView textNsdqw;
-    @BindView(R.id.viewNsdq)
-    LinearLayout viewNsdq;
-    @BindView(R.id.textBxdqw)
-    TextView textBxdqw;
-    @BindView(R.id.viewBxdq)
-    LinearLayout viewBxdq;
-    @BindView(R.id.textBydqw)
-    TextView textBydqw;
-    @BindView(R.id.viewBydq)
-    LinearLayout viewBydq;
-    @BindView(R.id.viewXslcw)
-    LinearLayout viewXslcw;
-    @BindView(R.id.viewNsdqw)
-    LinearLayout viewNsdqw;
-    @BindView(R.id.viewBxdqw)
-    LinearLayout viewBxdqw;
-    @BindView(R.id.viewBydqw)
-    LinearLayout viewBydqw;
+    @BindView(R.id.textSjhm)
+    TextView textSjhm;
+    @BindView(R.id.editYzm)
+    EditText editYzm;
+    @BindView(R.id.textFs)
+    TextView textFs;
+    @BindView(R.id.sbtn_tijiaobdw)
+    StateButton sbtnTijiaobdw;
+    @BindView(R.id.viewSwitcher)
+    ViewSwitcher viewSwitcher;
+    Unbinder unbinder;
     private View view;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
@@ -153,6 +118,8 @@ public class XianYouCLBDFragment extends PSFragment {
             "黔", "滇", "川"
     };
     private Usercar_Query usercar_query;
+    private XinShiZZM xinShiZZM;
+    private XingShiZFY xingShiZFY;
 
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
@@ -173,6 +140,7 @@ public class XianYouCLBDFragment extends PSFragment {
 
     @Override
     public void fetchData() {
+        viewSwitcher.setDisplayedChild(0);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.item_sheng, COUNTRIES);
         betterSpinner.setAdapter(adapter);
     }
@@ -182,147 +150,11 @@ public class XianYouCLBDFragment extends PSFragment {
         super.onDestroyView();
         unbinder.unbind();
         dispose();
-    }
-
-
-    @OnClick({R.id.viewXslcw, R.id.viewNsdqw, R.id.viewBxdqw, R.id.viewBydqw,R.id.sbtn_chaxun, R.id.sbtnYzm, R.id.sbtn_tijiaobd, R.id.sbtnYzmw, R.id.sbtn_tijiaobdw, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewCs, R.id.viewNsdq, R.id.viewBxdq, R.id.viewBydq})
-    public void onViewClicked(View view) {
-        Intent intent = new Intent();
-        switch (view.getId()) {
-            case R.id.viewXslcw:
-                final EditDialog editDialog1 = new EditDialog(context, "行驶里程（km）", "0", "确认", "取消");
-                editDialog1.setClicklistener(new EditDialog.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm(String intro) {
-                        editDialog1.dismiss();
-                        textxslc.setText(intro);
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        editDialog1.dismiss();
-                    }
-                });
-                editDialog1.show();
-                break;
-            case R.id.viewNsdqw:
-                Calendar c00 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog00 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textNsdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c00.get(Calendar.YEAR), c00.get(Calendar.MONTH), c00.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog00.show();
-                break;
-            case R.id.viewBxdqw:
-                Calendar c12 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog12 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textBxdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c12.get(Calendar.YEAR), c12.get(Calendar.MONTH), c12.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog12.show();
-                break;
-            case R.id.viewBydqw:
-                Calendar c13 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog13 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textBydq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c13.get(Calendar.YEAR), c13.get(Calendar.MONTH), c13.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog13.show();
-                break;
-            case R.id.viewCxxx:
-                intent.setClass(getActivity(), XuanZheCheXActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.viewGcsj:
-                Calendar c1 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog1 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textGcsjw.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
-                datePickerDialog1.show();
-                break;
-            case R.id.viewXslc:
-                final EditDialog editDialog = new EditDialog(context, "行驶里程（km）", "0", "确认", "取消");
-                editDialog.setClicklistener(new EditDialog.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm(String intro) {
-                        editDialog.dismiss();
-                        textxslcw.setText(intro);
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        editDialog.dismiss();
-                    }
-                });
-                editDialog.show();
-                break;
-            case R.id.viewCs:
-                intent.setClass(getActivity(), XuanZheCSActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.viewNsdq:
-                Calendar c0 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog0 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textNsdqw.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c0.get(Calendar.YEAR), c0.get(Calendar.MONTH), c0.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog0.show();
-                break;
-            case R.id.viewBxdq:
-                Calendar c = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textBxdqw.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-                break;
-            case R.id.viewBydq:
-                Calendar c11 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog11 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textBydqw.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                    }
-                }, c11.get(Calendar.YEAR), c11.get(Calendar.MONTH), c11.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog11.show();
-                break;
-            case R.id.sbtnYzm:
-                yanZM(textsj.getText().toString());
-                break;
-            case R.id.sbtn_tijiaobd:
-                usercar_Add_car(getOkObjectBD());
-                break;
-            case R.id.sbtnYzmw:
-                yanZM(editSjhw.getText().toString());
-                break;
-            case R.id.sbtn_tijiaobdw:
-                usercar_Add_car(getOkObjectBD1());
-                break;
-            case R.id.sbtn_chaxun:
-                if (TextUtils.isEmpty(editChePai.getText())) {
-                    ToastUtils.showShort("请输入车牌号！");
-                    return;
-                }
-                usercar_Query();
-                break;
-            default:
-                break;
+        if (timer != null) {
+            timer.cancel();
         }
     }
+
 
     @Override
     public void onEventMainThread(BaseEvent event) {
@@ -335,8 +167,18 @@ public class XianYouCLBDFragment extends PSFragment {
         if (BaseEvent.Choose_CS.equals(event.getAction())) {
             listBean = (City_List.CityBean.ListBean) event.getData();
             if (listBean != null) {
-                textCsw.setText(listBean.getName());
             }
+        }
+        if (BaseEvent.XinShiZZM.equals(event.getAction())) {
+            xinShiZZM = (XinShiZZM) event.getData();
+            textCph.setText(xinShiZZM.getData().getCar_no());
+            textFdjh.setText(xinShiZZM.getData().getEngine());
+            textCjh.setText(xinShiZZM.getData().getVin());
+        }
+        if (BaseEvent.XingShiZFY.equals(event.getAction())) {
+            xingShiZFY = (XingShiZFY) event.getData();
+            textNsdq.setText(xingShiZFY.getData().getYear_end());
+            textBxdq.setText(xingShiZFY.getData().getInsurance_end());
         }
     }
 
@@ -360,24 +202,31 @@ public class XianYouCLBDFragment extends PSFragment {
                     usercar_query = GsonUtils.parseJSON(s, Usercar_Query.class);
                     int status = usercar_query.getStatus();
                     if (status == 1) {
+                        viewSwitcher.setDisplayedChild(1);
                         if (usercar_query.getR() == 0) {
                             textState.setText("系统未查到该车牌车辆，请自行录入");
-                            viewChaxun.setVisibility(View.GONE);
-                            viewSwitcher.setVisibility(View.VISIBLE);
-                            viewSwitcher.setDisplayedChild(1);
-                            textChePai.setText(betterSpinner.getText().toString() + editChePai.getText().toString());
+                            imageCxxx.setVisibility(View.VISIBLE);
+                            imageGcsj.setVisibility(View.VISIBLE);
+                            imagexslc.setVisibility(View.VISIBLE);
+                            viewSzy.setVisibility(View.VISIBLE);
+                            viewSfy.setVisibility(View.VISIBLE);
+                            textSjhm.setText(usercar_query.getData().getPhone_show());
                         } else {
+                            imageCxxx.setVisibility(View.GONE);
+                            imageGcsj.setVisibility(View.GONE);
+                            imagexslc.setVisibility(View.GONE);
+                            viewSzy.setVisibility(View.GONE);
+                            viewSfy.setVisibility(View.GONE);
                             textState.setText("查询到以下车辆信息");
-                            viewChaxun.setVisibility(View.GONE);
-                            viewSwitcher.setVisibility(View.VISIBLE);
-                            viewSwitcher.setDisplayedChild(0);
-                            textCp.setText(usercar_query.getData().getCar_no());
-                            textCxxx.setText(usercar_query.getData().getCar_name());
+                            textClxx.setText(usercar_query.getData().getCar_name());
                             textGcsj.setText(usercar_query.getData().getBc_time());
+//                            textxslc.setText(usercar_query.getData().);
+                            textCph.setText(usercar_query.getData().getCar_no());
                             textFdjh.setText(usercar_query.getData().getEngine_show());
                             textCjh.setText(usercar_query.getData().getVin_show());
-                            textCs.setText(usercar_query.getData().getCity());
-                            textsj.setText(usercar_query.getData().getPhone_show());
+//                            textNsdq.setText(usercar_query.getData());
+                            textSjhm.setText(usercar_query.getData().getPhone_show());
+
                         }
                     } else {
                         ToastUtils.showShort(usercar_query.getInfo());
@@ -465,12 +314,12 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("car_no", usercar_query.getData().getCar_no());
         params.put("vin", usercar_query.getData().getVin());
         params.put("km", textxslc.getText().toString());
-        params.put("city", usercar_query.getData().getCity());
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
         params.put("insurance_end", textBxdq.getText().toString());
-        params.put("maintain_end", textBydq.getText().toString());
         params.put("code", editYzm.getText().toString());
+        params.put("address", "");
+        params.put("name", "");
         return new OkObject(params, url);
     }
 
@@ -480,17 +329,17 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("car_name", textClxx.getText().toString());
         params.put("cid", dataBean.getId() + "");
-        params.put("bc_time", textGcsjw.getText().toString());
-        params.put("engine", editFdjh.getText().toString());
-        params.put("car_no", textChePai.getText().toString());
-        params.put("vin", editCjh.getText().toString());
-        params.put("km", textxslcw.getText().toString());
-        params.put("city", textCsw.getText().toString());
-        params.put("phone", editSjhw.getText().toString());
-        params.put("year_end", textNsdqw.getText().toString());
-        params.put("insurance_end", textBxdqw.getText().toString());
-        params.put("maintain_end", textBydqw.getText().toString());
-        params.put("code", editYzmw.getText().toString());
+        params.put("bc_time", textGcsj.getText().toString());
+        params.put("engine", xinShiZZM.getData().getEngine());
+        params.put("car_no", xinShiZZM.getData().getCar_no());
+        params.put("vin", xinShiZZM.getData().getVin());
+        params.put("km", textxslc.getText().toString());
+        params.put("phone", usercar_query.getData().getPhone());
+        params.put("year_end", xingShiZFY.getData().getYear_end());
+        params.put("insurance_end", xingShiZFY.getData().getInsurance_end());
+        params.put("code", editYzm.getText().toString());
+        params.put("address", xinShiZZM.getData().getAddress());
+        params.put("name", xinShiZZM.getData().getName());
         return new OkObject(params, url);
     }
 
@@ -552,25 +401,95 @@ public class XianYouCLBDFragment extends PSFragment {
         @Override
         public void onTick(long millisUntilFinished) {
             // TODO Auto-generated method stub
-            if (usercar_query.getR()==0){
-                sbtnYzm.setEnabled(false);
-                sbtnYzm.setText(millisUntilFinished / 1000 + "秒后重发");
-            }else {
-                sbtnYzmw.setEnabled(false);
-                sbtnYzmw.setText(millisUntilFinished / 1000 + "秒后重发");
-            }
+            textFs.setEnabled(false);
+            textFs.setText(millisUntilFinished / 1000 + "秒后重发");
         }
 
         @Override
         public void onFinish() {
-            if (usercar_query.getR()==0){
-                sbtnYzm.setEnabled(true);
-                sbtnYzm.setText("重新发送");
-            }else {
-                sbtnYzmw.setEnabled(true);
-                sbtnYzmw.setText("重新发送");
-            }
+            textFs.setEnabled(true);
+            textFs.setText("重新发送");
         }
     };
 
+    @OnClick({R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw})
+    public void onViewClicked(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.textFs:
+                yanZM(usercar_query.getData().getPhone());
+                break;
+            case R.id.sbtn_chaxun:
+                if (TextUtils.isEmpty(editChePai.getText())) {
+                    ToastUtils.showShort("请输入车牌号！");
+                    return;
+                }
+                usercar_Query();
+                break;
+            case R.id.viewCxxx:
+                intent = new Intent();
+                intent.setClass(getActivity(), XuanZheCheXActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.viewGcsj:
+                Calendar c1 = Calendar.getInstance();
+                DatePickerDialog datePickerDialog1 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textGcsj.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
+                datePickerDialog1.show();
+                break;
+            case R.id.viewXslc:
+                final EditDialog editDialog1 = new EditDialog(context, "行驶里程（km）", "", "确认", "取消");
+                editDialog1.setClicklistener(new EditDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialog1.dismiss();
+                        textxslc.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialog1.dismiss();
+                    }
+                });
+                editDialog1.show();
+                break;
+            case R.id.viewSzy:
+                intent = new Intent();
+                intent.putExtra("type", "53");
+                intent.putExtra("side", "face");
+                intent.setClass(getActivity(), SaoMiaoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.viewSfy:
+                intent = new Intent();
+                intent.putExtra("type", "53");
+                intent.putExtra("side", "back");
+                intent.setClass(getActivity(), SaoMiaoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.sbtn_tijiaobdw:
+                if (usercar_query.getR() == 0) {
+                    if (xinShiZZM==null){
+                        ToastUtils.showShort("请扫描获取身份证正页信息！");
+                        return;
+                    }
+                    if (xingShiZFY==null){
+                        ToastUtils.showShort("请扫描获取身份证副面信息！");
+                        return;
+                    }
+                    usercar_Add_car(getOkObjectBD1());
+                } else if (usercar_query.getR() == 1) {
+                    usercar_Add_car(getOkObjectBD());
+                }
+                break;
+            default:
+                break;
+
+        }
+    }
 }

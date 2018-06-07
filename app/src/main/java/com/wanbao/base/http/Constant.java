@@ -146,6 +146,14 @@ public class Constant {
          * 试驾订单
          */
         public static final String Testdrive_TestOrder = "Testdrive/testOrder";
+        /**
+         * 单图上传app
+         */
+        public static final String Respond_AppImgAdd = "Respond/appImgAdd";
+        /**
+         * 图片识别文字
+         */
+        public static final String UserCar_Text_zb = "UserCar/text_zb";
     }
 
     public static class SF{
