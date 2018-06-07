@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.activity.CheLiangGZActivity;
+import com.wanbao.activity.LoginActivity;
 import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.http.Constant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,14 +77,29 @@ public class SosFragment extends PSFragment {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.clbt:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(context, CheLiangGZActivity.class);
                 startActivity(intent);
                 break;
             case R.id.myl:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(context, CheLiangGZActivity.class);
                 startActivity(intent);
                 break;
             case R.id.jtsg:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.setClass(context, CheLiangGZActivity.class);
                 startActivity(intent);
                 break;

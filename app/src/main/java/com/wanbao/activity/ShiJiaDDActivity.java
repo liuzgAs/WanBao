@@ -10,17 +10,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.http.Constant;
+import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.util.GsonUtils;
 import com.wanbao.fragment.ShiJiaDDFragment;
+import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Testdrive_TestOrder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
 
 public class ShiJiaDDActivity extends BaseActivity {
 
@@ -36,6 +47,7 @@ public class ShiJiaDDActivity extends BaseActivity {
     ViewPager viewPager;
     List<String> list = new ArrayList<>();
     private int currentItem;
+    private Testdrive_TestOrder pay_new_pay;
 
 
     @Override
@@ -59,25 +71,7 @@ public class ShiJiaDDActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("试驾订单");
-        list.add("全部");
-        list.add("待支付");
-        list.add("待试驾");
-        list.add("待评价");
-
-        viewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
-        tablayout.setupWithViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(4);
-        tablayout.removeAllTabs();
-        for (int i = 0; i < list.size(); i++) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_tablayout, null);
-            TextView textTitle = view.findViewById(R.id.textTitle);
-            textTitle.setText(list.get(i));
-            if (i == currentItem) {
-                tablayout.addTab(tablayout.newTab().setCustomView(view), true);
-            } else {
-                tablayout.addTab(tablayout.newTab().setCustomView(view), false);
-            }
-        }
+        getOrder();
     }
 
     @Override
@@ -96,25 +90,83 @@ public class ShiJiaDDActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            if (position==0){
-                return ShiJiaDDFragment.newInstance("");
-
-            }else if (position==1){
-                return ShiJiaDDFragment.newInstance("10");
-
-            }else if (position==2){
-                return ShiJiaDDFragment.newInstance("20");
-
-            }else{
-                return ShiJiaDDFragment.newInstance("40");
-            }
+                return ShiJiaDDFragment.newInstance(pay_new_pay.getType().get(position).getV());
 
         }
 
         @Override
         public int getCount() {
-            return list.size();
+            return pay_new_pay.getType().size();
         }
+    }
+
+    private void getOrder() {
+        HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                try {
+                    LogUtils.e("ShiJiaDDActivity", s);
+                    pay_new_pay = GsonUtils.parseJSON(s, Testdrive_TestOrder.class);
+                    if (pay_new_pay.getStatus() == 1) {
+                        if (pay_new_pay.getType().size()>0){
+                            for (int i=0;i<pay_new_pay.getType().size();i++){
+                                list.add(pay_new_pay.getType().get(i).getN());
+                            }
+                        }
+                        viewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
+                        tablayout.setupWithViewPager(viewPager);
+                        viewPager.setOffscreenPageLimit(4);
+                        tablayout.removeAllTabs();
+                        for (int i = 0; i < list.size(); i++) {
+                            View view = LayoutInflater.from(context).inflate(R.layout.item_tablayout, null);
+                            TextView textTitle = view.findViewById(R.id.textTitle);
+                            textTitle.setText(list.get(i));
+                            if (i == currentItem) {
+                                tablayout.addTab(tablayout.newTab().setCustomView(view), true);
+                            } else {
+                                tablayout.addTab(tablayout.newTab().setCustomView(view), false);
+                            }
+                        }
+                    } else {
+                        ToastUtils.showShort(pay_new_pay.getInfo());
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(context,"数据异常",Toast.LENGTH_SHORT).show();
+                    dismissDialog();
+                }
+            }
+
+            @Override
+            public void onError() {
+                ToastUtils.showShort("网络异常");
+                dismissDialog();
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
+        });
+    }
+
+    private OkObject getOkObjectOrder() {
+        String url = Constant.HOST + Constant.Url.User_Maintain_order;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("state", "");
+        return new OkObject(params, url);
     }
 
 }

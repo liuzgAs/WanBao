@@ -4,9 +4,12 @@ import android.Manifest;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
@@ -17,10 +20,21 @@ import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.http.Constant;
+import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.StateButton;
+import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.view.EditDialogText;
+import com.wanbao.modle.Comment;
+import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Sos_Index;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +58,22 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     StateButton fasong;
     MyLocationStyle myLocationStyle = null;
     AMap aMap = null;
+    @BindView(R.id.textCarName)
+    TextView textCarName;
+    @BindView(R.id.textCarNo)
+    TextView textCarNo;
+    @BindView(R.id.textName)
+    TextView textName;
+    @BindView(R.id.textPhone)
+    TextView textPhone;
+    @BindView(R.id.viewName)
+    LinearLayout viewName;
+    @BindView(R.id.viewSwitcher)
+    ViewSwitcher viewSwitcher;
+    private Sos_Index sos_index;
+    private String longitude;
+    private String latitude;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -59,6 +89,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mMapView.onDestroy();
+        dispose();
     }
 
     @Override
@@ -68,7 +99,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
 
     @Override
     protected void initIntent() {
-
+        sos_index = (Sos_Index) getIntent().getSerializableExtra("sos_index");
     }
 
     @Override
@@ -84,6 +115,12 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
                 getAddressPermissions();
             }
         });
+        viewSwitcher.setDisplayedChild(0);
+        if (sos_index != null) {
+            textCarName.setText(sos_index.getData().getCar_name());
+            textCarNo.setText(sos_index.getData().getCar_no());
+            textPhone.setText(sos_index.getData().getMobile());
+        }
     }
 
     @Override
@@ -159,13 +196,30 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
         aMap.setMyLocationEnabled(true);
     }
 
-    @OnClick({R.id.imageback, R.id.fasong, R.id.address})
+    @OnClick({R.id.viewName, R.id.imageback, R.id.fasong, R.id.address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.viewName:
+                final EditDialogText editDialog = new EditDialogText(context, "请输入名称", "", "确认", "取消");
+                editDialog.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialog.dismiss();
+                        textName.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialog.dismiss();
+                    }
+                });
+                editDialog.show();
+                break;
             case R.id.imageback:
                 finish();
                 break;
             case R.id.fasong:
+                getData();
                 break;
             case R.id.address:
                 getAddressPermissions();
@@ -196,6 +250,8 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
         if (i == 1000) {
             address.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
+            longitude = regeocodeResult.getRegeocodeQuery().getPoint().getLongitude() + "";
+            latitude = regeocodeResult.getRegeocodeQuery().getPoint().getLatitude() + "";
         } else {
             address.setText("定位失败，点击重试");
         }
@@ -206,4 +262,61 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
 
     }
+
+    private void getData() {
+        HttpApi.post(context, getOkObject(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("发送中..");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                Log.e("Sos_Index", s);
+                try {
+                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
+                    if (comment.getStatus() == 1) {
+                        viewSwitcher.setDisplayedChild(1);
+                    } else {
+                        ToastUtils.showShort(comment.getInfo());
+                    }
+
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据出错");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObject() {
+        String url = Constant.HOST + Constant.Url.Sos_Sos_add;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("mobile", textPhone.getText().toString());
+        params.put("name", textName.getText().toString());
+        params.put("car_name", textCarName.getText().toString());
+        params.put("car_no", textCarNo.getText().toString());
+        params.put("address", address.getText().toString());
+        params.put("longitude", longitude);
+        params.put("latitude", latitude);
+        return new OkObject(params, url);
+    }
+
 }

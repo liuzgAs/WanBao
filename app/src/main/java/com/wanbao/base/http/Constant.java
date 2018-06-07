@@ -145,7 +145,7 @@ public class Constant {
         /**
          * 试驾订单
          */
-        public static final String Testdrive_TestOrder = "Testdrive/testOrder";
+        public static final String User_Test_drive_order = "User/test_drive_order";
         /**
          * 单图上传app
          */
@@ -154,6 +154,14 @@ public class Constant {
          * 图片识别文字
          */
         public static final String UserCar_Text_zb = "UserCar/text_zb";
+        /**
+         * SOS信息查询
+         */
+        public static final String Sos_Index = "Sos/index";
+        /**
+         * SOS请求
+         */
+        public static final String Sos_Sos_add = "Sos/sos_add";
     }
 
     public static class SF{

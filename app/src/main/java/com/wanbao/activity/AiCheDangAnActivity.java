@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 
-public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.imageback)
     ImageView imageback;
@@ -51,6 +51,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
     EasyRecyclerView recyclerView;
     private RecyclerArrayAdapter<Usercar_Index.DataBean> adapter;
     int page = 1;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     protected void initIntent() {
-
+        type = getIntent().getIntExtra("type", 0);
     }
 
 
@@ -90,8 +91,8 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
                 finish();
                 break;
             case R.id.imageRight:
-                Intent intent=new Intent();
-                intent.setClass(context,BanDingCLActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(context, BanDingCLActivity.class);
                 startActivity(intent);
                 break;
             default:
@@ -101,7 +102,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.Change_Data.equals(event.getAction())){
+        if (BaseEvent.Change_Data.equals(event.getAction())) {
             onRefresh();
         }
     }
@@ -119,7 +120,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_aicheda;
-                return new AiCheDAViewHolder(parent, layout,AiCheDangAnActivity.this);
+                return new AiCheDAViewHolder(parent, layout, AiCheDangAnActivity.this);
             }
         });
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
@@ -192,12 +193,19 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_MyCar,adapter.getItem(position)));
-                finish();
+                if (type == 0) {
+                    Intent intent=new Intent();
+                    intent.setClass(context,TianJiaCheLiangActivity.class);
+                    startActivity(intent);
+                } else {
+                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_MyCar, adapter.getItem(position)));
+                    finish();
+                }
             }
         });
         recyclerView.setRefreshListener(this);
     }
+
     @Override
     public void onRefresh() {
         getCar();
@@ -218,7 +226,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public void onSuccess(String s) {
                 try {
-                    LogUtils.e("爱车",s);
+                    LogUtils.e("爱车", s);
                     page++;
                     Usercar_Index usercar_index = GsonUtils.parseJSON(s, Usercar_Index.class);
                     int status = usercar_index.getStatus();

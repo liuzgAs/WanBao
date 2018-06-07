@@ -174,6 +174,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("currentItem",0);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
@@ -183,6 +184,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("currentItem",1);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
@@ -192,6 +194,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("currentItem",2);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
@@ -201,6 +204,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("currentItem",3);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
@@ -274,7 +278,7 @@ public class MyCarFragment extends PSFragment {
 
             @Override
             public void onSuccess(String s) {
-                LogUtils.e("我的爱车", s);
+                LogUtils.e("User_My", s);
                 dismissDialog();
                 try {
                     User_My user_my = GsonUtils.parseJSON(s, User_My.class);

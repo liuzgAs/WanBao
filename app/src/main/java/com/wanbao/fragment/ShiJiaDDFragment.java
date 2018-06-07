@@ -26,7 +26,6 @@ import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Testdrive_TestOrder;
 import com.wanbao.viewholder.ShiJiaDDViewHolder;
@@ -47,7 +46,7 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
     EasyRecyclerView recyclerView;
     Unbinder unbinder;
     private View view;
-    private RecyclerArrayAdapter<Testdrive_TestOrder.InfoBean> adapter;
+    private RecyclerArrayAdapter<Testdrive_TestOrder.DataBean> adapter;
     private String state;
     int page = 1;
 
@@ -80,6 +79,9 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.Change_SjOrder.equals(event.getAction())) {
+            getOrder();
+        }
     }
 
     /**
@@ -91,60 +93,60 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
-        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Testdrive_TestOrder.InfoBean>(context) {
+        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Testdrive_TestOrder.DataBean>(context) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_sjdd;
-                return new ShiJiaDDViewHolder(parent, layout,state);
+                return new ShiJiaDDViewHolder(parent, layout, ShiJiaDDFragment.this);
             }
         });
-//        adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
-//            @Override
-//            public void onMoreShow() {
-//                adapter.pauseMore();
-////                HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
-////                    @Override
-////                    public void onStart() {
-////                    }
-////
-////                    @Override
-////                    public void onSubscribe(Disposable d) {
-////                        addDisposable(d);
-////                    }
-////
-////                    @Override
-////                    public void onSuccess(String s) {
-////                        try {
-////                            page++;
-////                            Testdrive_TestOrder usercar_index = GsonUtils.parseJSON(s, Testdrive_TestOrder.class);
-////                            int status = usercar_index.getStatus();
-////                            if (status == 1) {
-////                                adapter.addAll(usercar_index.getInfo());
-////                            } else {
-////                                adapter.pauseMore();
-////                            }
-////                        } catch (Exception e) {
-////                            adapter.pauseMore();
-////                        }
-////                    }
-////
-////                    @Override
-////                    public void onError() {
-////                        adapter.pauseMore();
-////                    }
-////
-////                    @Override
-////                    public void onComplete() {
-////                    }
-////
-////                });
-//            }
-//
-//            @Override
-//            public void onMoreClick() {
-//
-//            }
-//        });
+        adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
+            @Override
+            public void onMoreShow() {
+                HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        LogUtils.e("Testdrive_TestOrder", s);
+                        try {
+                            page++;
+                            Testdrive_TestOrder usercar_index = GsonUtils.parseJSON(s, Testdrive_TestOrder.class);
+                            int status = usercar_index.getStatus();
+                            if (status == 1) {
+                                adapter.addAll(usercar_index.getData());
+                            } else {
+                                ToastUtils.showShort(usercar_index.getInfo());
+                            }
+                        } catch (Exception e) {
+                            adapter.pauseMore();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        adapter.pauseMore();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                });
+            }
+
+            @Override
+            public void onMoreClick() {
+
+            }
+        });
         adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
             @Override
             public void onNoMoreShow() {
@@ -170,7 +172,7 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent();
-                intent.putExtra("id",String.valueOf(adapter.getItem(position).getId()));
+                intent.putExtra("id", String.valueOf(adapter.getItem(position).getId()));
                 intent.setClass(context, WBDingDanXQActivity.class);
                 startActivity(intent);
             }
@@ -204,17 +206,17 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
 
             @Override
             public void onSuccess(String s) {
+                LogUtils.e("Testdrive_TestOrder", s);
                 try {
-                    LogUtils.e("爱车", s);
                     page++;
                     Testdrive_TestOrder usercar_index = GsonUtils.parseJSON(s, Testdrive_TestOrder.class);
                     int status = usercar_index.getStatus();
                     if (status == 1) {
                         adapter.clear();
-                        adapter.addAll(usercar_index.getInfo());
+                        adapter.addAll(usercar_index.getData());
                         adapter.notifyDataSetChanged();
                     } else {
-                        showError("暂无信息！");
+                        ToastUtils.showShort(usercar_index.getInfo());
                     }
                 } catch (Exception e) {
                     showError("数据异常！");
@@ -253,7 +255,7 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
     }
 
     private OkObject getOkObjectOrder() {
-        String url = Constant.HOST + Constant.Url.Testdrive_TestOrder;
+        String url = Constant.HOST + Constant.Url.User_Test_drive_order;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("p", String.valueOf(page));
@@ -261,60 +263,4 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
         return new OkObject(params, url);
     }
 
-    private void setState(String even, String id) {
-        HttpApi.post(context, getOkObjectState(even, id), new HttpApi.CallBack() {
-            @Override
-            public void onStart() {
-                showDialog("");
-            }
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                addDisposable(d);
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                dismissDialog();
-                try {
-                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
-                    int status = comment.getStatus();
-                    if (status == 1) {
-                    } else {
-                        ToastUtils.showShort(comment.getInfo());
-                    }
-                } catch (Exception e) {
-                    ToastUtils.showShort("数据异常！");
-                }
-            }
-
-            @Override
-            public void onError() {
-                dismissDialog();
-                ToastUtils.showShort("网络异常");
-            }
-
-            @Override
-            public void onComplete() {
-                dismissDialog();
-            }
-
-
-        });
-    }
-
-    private OkObject getOkObjectState(String even, String id) {
-        String url = "";
-        if (even.equals(BaseEvent.Cancle_order)) {
-            url = Constant.HOST + Constant.Url.User_CancelOrder;
-        } else if (even.equals(BaseEvent.Del_Order)) {
-            url = Constant.HOST + Constant.Url.User_DelOrder;
-        } else if (even.equals(BaseEvent.Is_Confirm)) {
-            url = Constant.HOST + Constant.Url.User_ConfirmOrder;
-        }
-        HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("id", id);
-        return new OkObject(params, url);
-    }
 }
