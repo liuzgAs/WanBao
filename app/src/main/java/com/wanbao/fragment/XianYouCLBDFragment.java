@@ -120,6 +120,8 @@ public class XianYouCLBDFragment extends PSFragment {
     private Usercar_Query usercar_query;
     private XinShiZZM xinShiZZM;
     private XingShiZFY xingShiZFY;
+    private String face_img;
+    private String back_img;
 
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
@@ -174,11 +176,13 @@ public class XianYouCLBDFragment extends PSFragment {
             textCph.setText(xinShiZZM.getData().getCar_no());
             textFdjh.setText(xinShiZZM.getData().getEngine());
             textCjh.setText(xinShiZZM.getData().getVin());
+            face_img=xinShiZZM.getImg_id();
         }
         if (BaseEvent.XingShiZFY.equals(event.getAction())) {
             xingShiZFY = (XingShiZFY) event.getData();
             textNsdq.setText(xingShiZFY.getData().getYear_end());
             textBxdq.setText(xingShiZFY.getData().getInsurance_end());
+            back_img=xingShiZFY.getImg_id();
         }
     }
 
@@ -320,6 +324,8 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("code", editYzm.getText().toString());
         params.put("address", "");
         params.put("name", "");
+        params.put("face_img",face_img);
+        params.put("back_img", back_img);
         return new OkObject(params, url);
     }
 
@@ -340,6 +346,9 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("code", editYzm.getText().toString());
         params.put("address", xinShiZZM.getData().getAddress());
         params.put("name", xinShiZZM.getData().getName());
+        params.put("face_img",face_img);
+        params.put("back_img", back_img);
+
         return new OkObject(params, url);
     }
 

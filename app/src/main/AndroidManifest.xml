@@ -62,7 +62,7 @@
             android:name=".activity.AiCheDangAnActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activity.TianJiaCheLiangActivity"
+            android:name=".activity.XiuGaiCheLiangActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.TiYanZhongXinActivity"

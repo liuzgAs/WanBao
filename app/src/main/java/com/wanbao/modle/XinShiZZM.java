@@ -9,14 +9,24 @@ package com.wanbao.modle;
 public class XinShiZZM {
 
     /**
-     * data : {"car_no":"粤A4DX40","engine":"T18SED254689NC","car_name":"克BU1CKSGM7180LS","vin":"LSGJV52P84S244832","name":"黄沛文","address":"广东省从化市城郊街东风村十三社新和里","register_date":"2010-00-61"}
+     * img_id : 120
+     * data : {"car_no":"粤A4DX40","engine":"T18SED254689NC","car_name":"别克BU1CKSGM7180LS","vin":"LSGJV52P84S244832","name":"黄沛文","address":"广东省从化市城郊街东风村十三社新和里2","register_date":"2010-00-61"}
      * status : 1
      * info : 返回成功！
      */
 
+    private String img_id;
     private DataBean data;
     private int status;
     private String info;
+
+    public String getImg_id() {
+        return img_id;
+    }
+
+    public void setImg_id(String img_id) {
+        this.img_id = img_id;
+    }
 
     public DataBean getData() {
         return data;
@@ -46,10 +56,10 @@ public class XinShiZZM {
         /**
          * car_no : 粤A4DX40
          * engine : T18SED254689NC
-         * car_name : 克BU1CKSGM7180LS
+         * car_name : 别克BU1CKSGM7180LS
          * vin : LSGJV52P84S244832
          * name : 黄沛文
-         * address : 广东省从化市城郊街东风村十三社新和里
+         * address : 广东省从化市城郊街东风村十三社新和里2
          * register_date : 2010-00-61
          */
 

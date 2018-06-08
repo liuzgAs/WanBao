@@ -9,14 +9,24 @@ package com.wanbao.modle;
 public class XingShiZFY {
 
     /**
-     * data : {"car_no":"闽DM1R77","file_no":"350200137870","inspection_record":"检验有效期至2018年10月闽D(99)","year_end":"2018-10-01","insurance_end":"2018-10-01"}
+     * img_id : 122
+     * data : {"car_no":"","file_no":"350200137870","inspection_record":"检验有效期至2018年10月(D(99)","year_end":"2018-10-01","insurance_end":"2018-10-01"}
      * status : 1
      * info : 返回成功！
      */
 
+    private String img_id;
     private DataBean data;
     private int status;
     private String info;
+
+    public String getImg_id() {
+        return img_id;
+    }
+
+    public void setImg_id(String img_id) {
+        this.img_id = img_id;
+    }
 
     public DataBean getData() {
         return data;
@@ -44,9 +54,9 @@ public class XingShiZFY {
 
     public static class DataBean {
         /**
-         * car_no : 闽DM1R77
+         * car_no :
          * file_no : 350200137870
-         * inspection_record : 检验有效期至2018年10月闽D(99)
+         * inspection_record : 检验有效期至2018年10月(D(99)
          * year_end : 2018-10-01
          * insurance_end : 2018-10-01
          */

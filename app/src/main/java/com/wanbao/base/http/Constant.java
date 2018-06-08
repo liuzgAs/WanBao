@@ -162,6 +162,14 @@ public class Constant {
          * SOS请求
          */
         public static final String Sos_Sos_add = "Sos/sos_add";
+        /**
+         * 爱车修改请求
+         */
+        public static final String Usercar_Getinfo = "Usercar/getinfo";
+        /**
+         * 绑定新车详细
+         */
+        public static final String Usernewcar_Newcar = "Usernewcar/newcar";
     }
 
     public static class SF{
