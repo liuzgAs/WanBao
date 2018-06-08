@@ -11,8 +11,8 @@ import java.util.List;
 public class Maintain_Index {
 
     /**
-     * car_name : Q3 2018
-     * ucid : 10
+     * car_name : 奥迪A6舒适版
+     * ucid : 1
      * store_name : 测试
      * store_id : 2
      * maintain_name : 常规保养
@@ -20,7 +20,7 @@ public class Maintain_Index {
      * maintain : [{"id":4,"name":"常规保养"},{"id":3,"name":"外观喷漆"},{"id":2,"name":"其它服务"}]
      * seller_name : 销售1
      * seller_id : 1
-     * book_time : 2018-06-04 18:00
+     * book_time : 2018-06-02 18:00
      * bag_id : 1
      * data : [{"id":1,"isc":1,"title":"A套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"}],"money":253},{"id":2,"isc":0,"title":"B套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"}],"money":238}]
      * dataShow : 1
@@ -246,7 +246,7 @@ public class Maintain_Index {
         private String des;
         private int money;
         private List<DataBean> data;
-        public DataBeanX(int id,int isc,String title, String des,int money,List<DataBean> data){
+        public DataBeanX(int id,int isc,String title,String des,int money,List<DataBean> data){
             this.id=id;
             this.isc=isc;
             this.title=title;
@@ -255,7 +255,6 @@ public class Maintain_Index {
             this.data=data;
 
         }
-
         public int getId() {
             return id;
         }

@@ -46,7 +46,7 @@ public class PaySucessActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initViews() {
-        titleText.setText("支付成功");
+        titleText.setText("预约成功");
     }
 
     @Override

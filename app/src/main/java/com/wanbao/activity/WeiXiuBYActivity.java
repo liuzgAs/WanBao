@@ -533,10 +533,17 @@ public class WeiXiuBYActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
                     if (order_newOrder.getStatus() == 1) {
-                        Intent intent = new Intent();
-                        intent.putExtra("Oid", order_newOrder.getOid());
-                        intent.setClass(context, LiJiZhiFuActivity.class);
-                        startActivity(intent);
+                        if (isOnline==1){
+                            Intent intent = new Intent();
+                            intent.putExtra("Oid", order_newOrder.getOid());
+                            intent.setClass(context, LiJiZhiFuActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Intent intent = new Intent();
+                            intent.putExtra("paytype", 0);
+                            intent.setClass(context, PaySucessActivity.class);
+                            startActivity(intent);
+                        }
                     } else {
                         ToastUtils.showShort(order_newOrder.getInfo());
                     }
@@ -600,9 +607,11 @@ public class WeiXiuBYActivity extends BaseActivity {
         if (isOnline == 1) {
             radioZx.setChecked(true);
             radioQt.setChecked(false);
+            btnZf.setText("立即支付");
         } else {
             radioZx.setChecked(false);
             radioQt.setChecked(true);
+            btnZf.setText("立即预约");
         }
     }
 }

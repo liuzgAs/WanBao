@@ -170,6 +170,14 @@ public class Constant {
          * 绑定新车详细
          */
         public static final String Usernewcar_Newcar = "Usernewcar/newcar";
+        /**
+         * 绑定新车
+         */
+        public static final String Usernewcar_Trading = "Usernewcar/trading";
+        /**
+         * 个人资料
+         */
+        public static final String User_Profile = "User/profile";
     }
 
     public static class SF{

@@ -1,5 +1,9 @@
 package com.wanbao.base;
 
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -31,6 +35,7 @@ public class AppContext extends MultApplication {
         Utils.init(this);
         CrashHandler.getInstance().init(this);
         initOkGo();
+        initOcr();
     }
 
     @Override
@@ -56,5 +61,18 @@ public class AppContext extends MultApplication {
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(1);                       //全局公共参数
         // 详细说明看GitHub文档：https://github.com/jeasonlzy/
+    }
+    private void initOcr(){
+        OCR.getInstance(this).initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                // 调用成功，返回AccessToken对象
+                String token = result.getAccessToken();
+
+            }
+            @Override
+            public void onError(OCRError error) {
+            }
+        }, getApplicationContext());
     }
 }

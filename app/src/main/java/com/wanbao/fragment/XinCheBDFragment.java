@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -21,8 +22,10 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.ui.MenuGridView;
 import com.wanbao.base.ui.StateButton;
+import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
-import com.wanbao.modle.User_Maintain_order_info;
+import com.wanbao.modle.Usernewcar_Newcar;
 
 import java.util.HashMap;
 
@@ -63,7 +66,10 @@ public class XinCheBDFragment extends PSFragment {
     Unbinder unbinder;
     @BindView(R.id.sbtn_tijiao)
     StateButton sbtnTijiao;
+    @BindView(R.id.viewSwitcher)
+    ViewSwitcher viewSwitcher;
     private View view;
+    private MyAdapter myAdapter;
 
     public static XinCheBDFragment newInstance() {
         XinCheBDFragment sf = new XinCheBDFragment();
@@ -90,8 +96,11 @@ public class XinCheBDFragment extends PSFragment {
 
     @Override
     public void fetchData() {
+        viewSwitcher.setDisplayedChild(0);
         getNewcar();
     }
+
+    private Usernewcar_Newcar uNewcar;
 
     private void getNewcar() {
         HttpApi.post(context, getOkObjectNewcar(), new HttpApi.CallBack() {
@@ -110,8 +119,31 @@ public class XinCheBDFragment extends PSFragment {
                 dismissDialog();
                 LogUtils.e("Usernewcar_Newcar", s);
                 try {
+                    uNewcar = GsonUtils.parseJSON(s, Usernewcar_Newcar.class);
+                    if (uNewcar.getStatus() == 1) {
+                        viewSwitcher.setDisplayedChild(1);
+                        textCzxm.setText(uNewcar.getInfo().getNewcar().getRealname());
+                        textDh.setText(uNewcar.getInfo().getNewcar().getPhone());
+                        textZjhm.setText(uNewcar.getInfo().getNewcar().getIdcard());
+                        textCx.setText(uNewcar.getInfo().getNewcar().getCar_name());
+                        textVhm.setText(uNewcar.getInfo().getNewcar().getVin());
+                        textFdjh.setText(uNewcar.getInfo().getNewcar().getEngine());
+                        textJcrq.setText(uNewcar.getInfo().getNewcar().getTrading_time());
+                        textXsgw.setText(uNewcar.getInfo().getNewcar().getSeller_id());
+                        if (uNewcar.getInfo().getNewcar().getTrading_status() == 0) {
+                            textState.setText("待确认");
+                        } else if (uNewcar.getInfo().getNewcar().getTrading_status() == 1) {
+                            textState.setText("已确认");
+                        }
+                        myAdapter = new MyAdapter(uNewcar.getInfo());
+                        listView.setAdapter(myAdapter);
+                    } else {
+                        viewSwitcher.setDisplayedChild(0);
+
+                    }
                 } catch (Exception e) {
-                    ToastUtils.showShort("数据异常！");
+                    viewSwitcher.setDisplayedChild(0);
+
                 }
             }
 
@@ -137,32 +169,80 @@ public class XinCheBDFragment extends PSFragment {
         return new OkObject(params, url);
     }
 
+    private void getTrading() {
+        HttpApi.post(context, getOkObjectTrading(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                LogUtils.e("Usernewcar_Newcar", s);
+                try {
+                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
+                    if (comment.getStatus() == 1) {
+                        ToastUtils.showShort("绑定成功");
+                        context.finish();
+                    } else {
+                        ToastUtils.showShort(String.valueOf(comment.getInfo()));
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
+
+        });
+    }
+
+    private OkObject getOkObjectTrading() {
+        String url = Constant.HOST + Constant.Url.Usernewcar_Trading;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("id", uNewcar.getInfo().getNewcar().getId() + "");
+        return new OkObject(params, url);
+    }
+
     @OnClick(R.id.sbtn_tijiao)
     public void onViewClicked() {
+        getTrading();
     }
 
     class MyAdapter extends BaseAdapter {
 
-        private User_Maintain_order_info.DataBean dataBean;
-        private int type;
+        private Usernewcar_Newcar.InfoBean dataBean;
+        private MyGAdapter myGAdapter;
 
         class ViewHolder {
             public TextView textTitle;
             public MenuGridView gridView;
         }
 
-        public MyAdapter(User_Maintain_order_info.DataBean dataBean, int type) {
+        public MyAdapter(Usernewcar_Newcar.InfoBean dataBean) {
             this.dataBean = dataBean;
-            this.type = type;
         }
 
         @Override
         public int getCount() {
-            if (type == 0) {
-                return dataBean.getBag_des().size();
-            } else {
-                return dataBean.getDes().size();
-            }
+            return dataBean.getCate().size();
         }
 
         @Override
@@ -187,31 +267,28 @@ public class XinCheBDFragment extends PSFragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
+            holder.textTitle.setText(dataBean.getCate().get(position).getTitle());
+            myGAdapter = new MyGAdapter(dataBean.getCate().get(position));
+            holder.gridView.setAdapter(myGAdapter);
             return convertView;
         }
     }
 
     class MyGAdapter extends BaseAdapter {
 
-        private User_Maintain_order_info.DataBean dataBean;
-        private int type;
+        private Usernewcar_Newcar.InfoBean.CateBean dataBean;
 
         class ViewHolder {
             public CheckBox checkbox;
         }
 
-        public MyGAdapter(User_Maintain_order_info.DataBean dataBean, int type) {
+        public MyGAdapter(Usernewcar_Newcar.InfoBean.CateBean dataBean) {
             this.dataBean = dataBean;
-            this.type = type;
         }
 
         @Override
         public int getCount() {
-            if (type == 0) {
-                return dataBean.getBag_des().size();
-            } else {
-                return dataBean.getDes().size();
-            }
+            return dataBean.getItem().size();
         }
 
         @Override
@@ -235,6 +312,9 @@ public class XinCheBDFragment extends PSFragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
+            holder.checkbox.setChecked(true);
+            holder.checkbox.setClickable(false);
+            holder.checkbox.setText(dataBean.getItem().get(position).getTitle());
             return convertView;
         }
     }
