@@ -92,6 +92,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/textCarNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_2"
@@ -101,6 +102,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/imageFx"
                     android:layout_width="@dimen/dp_25"
                     android:layout_height="@dimen/dp_25"
                     app:srcCompat="@mipmap/tyzx_fenxiang" />
@@ -110,49 +112,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_160"
                 android:layout_marginTop="@dimen/dp_10">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:textColor="#77ffffff"
-                    android:textSize="@dimen/sp_11"
+                    android:layout_marginTop="@dimen/dp_48"
                     android:text="爱车状态"
-                    android:layout_marginTop="@dimen/dp_48"/>
+                    android:textColor="#77ffffff"
+                    android:textSize="@dimen/sp_11" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/dp_62"
                     android:layout_centerHorizontal="true"
-                    >
+                    android:layout_marginTop="@dimen/dp_62"
+                    android:orientation="horizontal">
+
                     <com.wanbao.base.ui.GradientTextView
+                        android:id="@+id/textFenShu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textColor="@color/light_fenshu"
                         android:textSize="@dimen/sp_38"
-                        android:textColor="@color/light_fenshu"
-                        android:textStyle="bold"
-                        android:text="100"/>
+                        android:textStyle="bold" />
+
                     <com.wanbao.base.ui.GradientTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sp_12"
                         android:layout_marginLeft="@dimen/dp_4"
+                        android:text="分"
                         android:textColor="@color/light_fenshu"
-                        android:text="分"/>
+                        android:textSize="@dimen/sp_12" />
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/imageFenShu"
                     android:layout_width="@dimen/dp_155"
                     android:layout_height="@dimen/dp_132"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:background="@mipmap/yuanhu0"
-                    android:layout_centerHorizontal="true"/>
+                    android:background="@mipmap/yuanhu0" />
+
                 <ImageView
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_40"
-                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
-                    app:srcCompat="@mipmap/tyzx_qc"/>
+                    android:layout_centerHorizontal="true"
+                    app:srcCompat="@mipmap/tyzx_qc" />
             </RelativeLayout>
 
             <LinearLayout
@@ -179,6 +187,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textPjhy"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -225,6 +234,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textXh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -271,6 +281,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/textState"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="正常"
@@ -321,6 +332,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/textLc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -381,6 +393,7 @@
                                 app:srcCompat="@mipmap/tyax_scbysj" />
 
                             <TextView
+                                android:id="@+id/textScbysj"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
@@ -403,6 +416,7 @@
                                 app:srcCompat="@mipmap/tyzx_scbylc" />
 
                             <TextView
+                                android:id="@+id/textScbylc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
@@ -425,6 +439,7 @@
                                 app:srcCompat="@mipmap/tyzx_xcbygl" />
 
                             <TextView
+                                android:id="@+id/textJlxcby"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
@@ -448,6 +463,7 @@
                                 app:srcCompat="@mipmap/tyzx_xcbysj" />
 
                             <TextView
+                                android:id="@+id/textJlxcbys"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
@@ -469,189 +485,18 @@
                 app:cardBackgroundColor="#1A1617"
                 app:cardCornerRadius="@dimen/dp_5"
                 app:contentPadding="@dimen/dp_6">
-                <LinearLayout
+
+                <com.wanbao.base.ui.ListViewForScrollView
+                    android:id="@+id/listView"
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/dp_5"
-                    android:paddingRight="@dimen/dp_5"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="行驶里程"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="年审到期时间"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="保险到期时间"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="车架号"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="发动机号"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="出厂日期"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/dp_45">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="报牌日期"
-                            android:textColor="#77ffffff"
-                            android:textSize="@dimen/sp_14" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/sp_14" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_1"
-                        android:background="#22ffffff"></View>
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:divider="#22ffffff"
+                    android:dividerHeight="@dimen/dp_1">
+                </com.wanbao.base.ui.ListViewForScrollView>
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -661,18 +506,21 @@
                 app:cardBackgroundColor="#1A1617"
                 app:cardCornerRadius="@dimen/dp_5"
                 app:contentPadding="@dimen/dp_6">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:paddingLeft="@dimen/dp_5"
-                    android:paddingRight="@dimen/dp_5"
-                    android:orientation="vertical">
+                    android:paddingRight="@dimen/dp_5">
+
                     <LinearLayout
+                        android:id="@+id/viewBYSC"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
-                        android:id="@+id/viewBYSC"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -681,20 +529,25 @@
                             android:text="保养维修手册"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_14" />
+
                         <ImageView
                             android:layout_width="@dimen/dp_20"
                             android:layout_height="@dimen/dp_20"
                             app:srcCompat="@mipmap/next_btn" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
                         android:background="#22ffffff"></View>
+
                     <LinearLayout
+                        android:id="@+id/viewCgby"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -703,20 +556,25 @@
                             android:text="常规保养记录"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_14" />
+
                         <ImageView
                             android:layout_width="@dimen/dp_20"
                             android:layout_height="@dimen/dp_20"
                             app:srcCompat="@mipmap/next_btn" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_1"
                         android:background="#22ffffff"></View>
+
                     <LinearLayout
+                        android:id="@+id/viewWxjl"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -725,6 +583,7 @@
                             android:text="维修记录"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp_14" />
+
                         <ImageView
                             android:layout_width="@dimen/dp_20"
                             android:layout_height="@dimen/dp_20"

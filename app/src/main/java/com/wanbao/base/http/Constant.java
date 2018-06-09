@@ -214,6 +214,10 @@ public class Constant {
          * 评价提交
          */
         public static final String Comment_AddSubmit = "Comment/addSubmit";
+        /**
+         * 体检中心
+         */
+        public static final String Usercar_Censor = "Usercar/censor";
     }
 
     public static class SF{

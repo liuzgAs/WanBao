@@ -49,7 +49,7 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
     }
 
     @Override
-    public void setData(Usercar_Index.DataBean data) {
+    public void setData(final Usercar_Index.DataBean data) {
         super.setData(data);
         textName.setText(data.getTitle());
         textDes.setText(data.getDes());
@@ -66,6 +66,7 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
+                intent.putExtra("id",String.valueOf(data.getCid()));
                 intent.setClass(getContext(), TiYanZhongXinActivity.class);
                 getContext().startActivity(intent);
             }

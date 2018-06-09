@@ -35,7 +35,7 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:textSize="@dimen/sp_14"
-                    android:inputType="number"
+                    android:inputType="textPassword"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
