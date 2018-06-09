@@ -383,6 +383,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_43"
         android:text="提交"
+        android:visibility="gone"
         android:textSize="@dimen/sp_13"
         android:textColor="@color/white"
         android:background="#343434"/>

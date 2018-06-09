@@ -502,7 +502,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                         ToastUtils.showShort(user_my.getInfo());
                     }
                 } catch (Exception e) {
-                    ToastUtils.showShort("数据异常！");
                 }
             }
 

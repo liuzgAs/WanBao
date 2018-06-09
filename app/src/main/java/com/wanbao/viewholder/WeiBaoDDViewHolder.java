@@ -7,15 +7,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.R;
 import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
+import com.wanbao.base.http.Constant;
+import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.util.GsonUtils;
+import com.wanbao.fragment.WeiBaoDDFragment;
+import com.wanbao.modle.Comment;
+import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_Maintain_order;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by liuzhigang on 2018/5/15/015.
@@ -33,9 +46,12 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
     private Button btn0;
     private Button btn1;
     private User_Maintain_order.DataBean data;
+    private CompositeDisposable compositeDisposable;
+    private WeiBaoDDFragment fragment;
 
-    public WeiBaoDDViewHolder(ViewGroup parent, @LayoutRes int res) {
+    public WeiBaoDDViewHolder(ViewGroup parent, @LayoutRes int res, WeiBaoDDFragment fragment) {
         super(parent, res);
+        this.fragment = fragment;
         textStoreName = $(R.id.textStoreName);
         textState = $(R.id.textState);
         textCarNo = $(R.id.textCarNo);
@@ -48,9 +64,9 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
             @Override
             public void onClick(View v) {
                 if (data.getIsDel() == 1) {
-                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Del_Order, data.getId()));
+                    setState(BaseEvent.Del_Order, String.valueOf(data.getId()));
                 } else if (data.getIsCancel() == 1) {
-                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Cancle_order, data.getId()));
+                    setState(BaseEvent.Cancle_order,String.valueOf(data.getId()));
                 }
             }
         });
@@ -63,10 +79,10 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     intent.setClass(getContext(), LiJiZhiFuActivity.class);
                     getContext().startActivity(intent);
                 } else if (data.getIsConfirm() == 1) {
-                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Is_Confirm, data.getId()));
+                    setState(BaseEvent.Is_Confirm,String.valueOf(data.getId()));
                 } else if (data.getIsEvaluate() == 1) {
                     Intent intent = new Intent();
-                    intent.putExtra("Oid", String.valueOf(data.getId()));
+                    intent.putExtra("id", String.valueOf(data.getId()));
                     intent.setClass(getContext(), LiJiPPActivity.class);
                     getContext().startActivity(intent);
                 } else if (data.getIsAgain() == 1) {
@@ -81,7 +97,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
     @Override
     public void setData(final User_Maintain_order.DataBean data) {
         super.setData(data);
-        this.data=data;
+        this.data = data;
         textStoreName.setText(data.getStore_name());
         textState.setText(data.getStateDes());
         textCarNo.setText(data.getCar_no());
@@ -110,6 +126,78 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         } else if (data.getIsCancel() == 1) {
             btn0.setText("取消订单");
             btn0.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setState(String even, String id) {
+        HttpApi.post(fragment.context, getOkObjectState(even, id), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                fragment.showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                fragment.dismissDialog();
+                try {
+                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
+                    int status = comment.getStatus();
+                    if (status == 1) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeWbOrder, null));
+                    } else {
+                        ToastUtils.showShort(comment.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                fragment.dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                fragment.dismissDialog();
+                dispose();
+            }
+
+
+        });
+    }
+
+    private OkObject getOkObjectState(String even, String id) {
+        String url = "";
+        if (even.equals(BaseEvent.Cancle_order)) {
+            url = Constant.HOST + Constant.Url.User_CancelOrder;
+        } else if (even.equals(BaseEvent.Del_Order)) {
+            url = Constant.HOST + Constant.Url.User_DelOrder;
+        } else if (even.equals(BaseEvent.Is_Confirm)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmOrder;
+        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("id", id);
+        return new OkObject(params, url);
+    }
+
+    public void addDisposable(Disposable disposable) {
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(disposable);
+    }
+
+    public void dispose() {
+        if (compositeDisposable != null) {
+            compositeDisposable.dispose();
         }
     }
 

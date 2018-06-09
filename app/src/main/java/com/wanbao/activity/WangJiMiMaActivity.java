@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
@@ -19,6 +18,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.MD5Util;
 import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.Login_register;
 import com.wanbao.modle.OkObject;
@@ -219,7 +219,7 @@ public class WangJiMiMaActivity extends BaseActivity {
         String url = Constant.HOST + Constant.Url.Login_Forget;
         HashMap<String, String> params = new HashMap<>();
         params.put("userName", editAccount.getText().toString());
-        params.put("userPwd", EncryptUtils.encryptMD5ToString(EncryptUtils.encryptMD5ToString(editPwd.getText().toString())));
+        params.put("userPwd", MD5Util.getMD5(MD5Util.getMD5(editPwd.getText().toString().trim())+ "ad"));
         params.put("code", editCode.getText().toString());
 //        params.put("type", "0");
         return new OkObject(params, url);

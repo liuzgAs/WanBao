@@ -296,7 +296,7 @@
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_8"
                 android:textColor="#505050"
-                android:text="优质二手车" />
+                android:text="新车展厅" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

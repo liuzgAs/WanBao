@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wanbao">
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -161,7 +162,14 @@
         <activity
             android:name=".activity.ShiJiaDDActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.SaoMiaoActivity"></activity>
+        <activity android:name=".activity.SaoMiaoActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.XingQuBQActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.ShiMinRzActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.XiuGaiMMActivity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

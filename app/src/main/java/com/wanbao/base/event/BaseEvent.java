@@ -7,6 +7,7 @@ public class BaseEvent {
 	public final static String Choose_CarX = "ChooseCarX";
 	public final static String Choose_CS = "Choose_CS";
 	public final static String Change_Data = "ChangeData";
+	public final static String ChangeXx = "ChangeXx";
 	public final static String Choose_Dp = "Choose_Dp";
 	public final static String Choose_Xsgw = "Choose_Xsgw";
 	public final static String Choose_Tc = "Choose_Tc";
@@ -21,7 +22,11 @@ public class BaseEvent {
 	public final static String XinShiZZM = "XinShiZZM";
 	public final static String XingShiZFY = "XingShiZFY";
 	public final static String Change_SjOrder = "ChangeSjOrder";
+	public final static String ChangeWbOrder = "ChangeWbOrder";
 	public final static String Change_Ac = "Change_Ac";
+	public final static String ShenFenZ = "ShenFenZ";
+	public final static String JiaShiZ = "JiaShiZ";
+	public final static String ChangePw = "ChangePw";
 
 
 

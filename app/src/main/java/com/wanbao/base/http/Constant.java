@@ -178,6 +178,42 @@ public class Constant {
          * 个人资料
          */
         public static final String User_Profile = "User/profile";
+        /**
+         * 修改头像年纪性别公司职业
+         */
+        public static final String User_SvaeInfo = "User/svaeInfo";
+        /**
+         * 兴趣标签
+         */
+        public static final String User_Interest = "User/interest";
+        /**
+         * 删除兴趣标签
+         */
+        public static final String User_Interest_del = "User/interest_del";
+        /**
+         * 兴趣标签保存
+         */
+        public static final String User_Interest_save = "User/interest_save";
+        /**
+         * 实名认证请求
+         */
+        public static final String User_Card_before = "User/card_before";
+        /**
+         * 实名认证提交
+         */
+        public static final String User_Card_add = "User/card_add";
+        /**
+         * 修改密码
+         */
+        public static final String User_PwdSave = "User/pwdSave";
+        /**
+         * 评价请求
+         */
+        public static final String Comment_AddBefore = "Comment/addBefore";
+        /**
+         * 评价提交
+         */
+        public static final String Comment_AddSubmit = "Comment/addSubmit";
     }
 
     public static class SF{

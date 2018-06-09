@@ -28,7 +28,6 @@ import com.wanbao.activity.ShiJiaDDActivity;
 import com.wanbao.activity.TiYanZhongXinActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
-import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -223,8 +222,8 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
-                intent.setClass(getActivity(), XuanZheCheXActivity.class);
-                startActivity(intent);
+//                intent.setClass(getActivity(), XuanZheCheXActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.viewSCSJ:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
@@ -308,7 +307,6 @@ public class MyCarFragment extends PSFragment {
                         ToastUtils.showShort(user_my.getInfo());
                     }
                 } catch (Exception e) {
-                    ToastUtils.showShort("数据异常！");
                 }
             }
 

@@ -80,19 +80,9 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.Del_Order.equals(event.getAction())) {
-            setState(event.getAction(), String.valueOf(event.getData()));
-        } else if (BaseEvent.Cancle_order.equals(event.getAction())) {
-            if ("10".equals(state)){
-                LogUtils.e(BaseEvent.Cancle_order,BaseEvent.Cancle_order);
-                setState(event.getAction(), String.valueOf(event.getData()));
-            }
-        } else if (BaseEvent.Is_Confirm.equals(event.getAction())) {
-            setState(event.getAction(), String.valueOf(event.getData()));
+        if (BaseEvent.ChangeWbOrder.equals(event.getAction())) {
+            getOrder();
         }
-        if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
-        }
-        getOrder();
     }
 
     /**
@@ -108,7 +98,7 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_dd;
-                return new WeiBaoDDViewHolder(parent, layout);
+                return new WeiBaoDDViewHolder(parent, layout,WeiBaoDDFragment.this);
             }
         });
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {

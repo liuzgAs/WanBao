@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_38">
+        <TextView
+            android:id="@+id/textBiaoq"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:textSize="@dimen/sp_13"
+            android:background="@drawable/yuanjiao"
+            android:text="标签"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/new_important_text"/>
+        <ImageView
+            android:id="@+id/imageDelete"
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:padding="@dimen/dp_4"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/textBiaoq"
+            android:src="@mipmap/icon_delete"/>
+    </RelativeLayout>
+
+</LinearLayout>

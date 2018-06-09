@@ -16,8 +16,10 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.ImgToBase64;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.JiaShiZ;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Respond_AppImgAdd;
+import com.wanbao.modle.ShenFenZ;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
 import com.wonderkiln.camerakit.CameraKitEventCallback;
@@ -75,6 +77,12 @@ public class SaoMiaoActivity extends BaseActivity {
         } else if ("53".equals(type) && "back".equals(side)) {
             titleText.setText("行驶证副页信息");
             typeId=1;
+        }else if ("51".equals(type) && "face".equals(side)) {
+            titleText.setText("身份证正页信息");
+            typeId=2;
+        }else if ("52".equals(type) && "face".equals(side)) {
+            titleText.setText("驾驶证正页信息");
+            typeId=3;
         }
     }
 
@@ -191,6 +199,24 @@ public class SaoMiaoActivity extends BaseActivity {
                         } else {
                             ToastUtils.showShort(xingShiZFY.getInfo());
                         }
+                    }else if (typeId==2){
+                        ShenFenZ shenFenZ = GsonUtils.parseJSON(s, ShenFenZ.class);
+                        int status = shenFenZ.getStatus();
+                        if (status == 1) {
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.ShenFenZ,shenFenZ));
+                            finish();
+                        } else {
+                            ToastUtils.showShort(shenFenZ.getInfo());
+                        }
+                    }else if (typeId==3){
+                        JiaShiZ jiaShiZ = GsonUtils.parseJSON(s, JiaShiZ.class);
+                        int status = jiaShiZ.getStatus();
+                        if (status == 1) {
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.JiaShiZ,jiaShiZ));
+                            finish();
+                        } else {
+                            ToastUtils.showShort(jiaShiZ.getInfo());
+                        }
                     }
                 } catch (Exception e) {
                     ToastUtils.showShort("数据异常！");
@@ -232,5 +258,11 @@ public class SaoMiaoActivity extends BaseActivity {
     protected void onPause() {
         cameraView.stop();
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dispose();
     }
 }

@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
@@ -20,6 +19,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DeviceUtils;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.MD5Util;
 import com.wanbao.modle.Login_Index;
 import com.wanbao.modle.OkObject;
 
@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity {
         String url = Constant.HOST+Constant.Url.Login_Index;
         HashMap<String, String> params = new HashMap<>();
         params.put("userName",editAccount.getText().toString());
-        params.put("userPwd", EncryptUtils.encryptMD5ToString(EncryptUtils.encryptMD5ToString(editPwd.getText().toString())));
+        params.put("userPwd", MD5Util.getMD5(MD5Util.getMD5(editPwd.getText().toString().trim())+ "ad"));
         return new OkObject(params, url);
     }
 

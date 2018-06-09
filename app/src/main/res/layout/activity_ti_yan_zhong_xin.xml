@@ -69,6 +69,7 @@
                 android:paddingRight="@dimen/dp_10">
 
                 <com.wanbao.ui.CircleImageView
+                    android:id="@+id/imageHeader"
                     android:layout_width="@dimen/dp_45"
                     android:layout_height="@dimen/dp_45"
                     app:srcCompat="@mipmap/wode_chedui" />
@@ -82,6 +83,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textCarName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="宝马"

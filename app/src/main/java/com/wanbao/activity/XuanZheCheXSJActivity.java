@@ -284,10 +284,11 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                         adapter.clear();
                         adapter.addAll(car_index.getData());
                     } else {
-                        showError("数据异常！");
+//                        showError("数据异常！");
+                        recyclerView.showEmpty();
                     }
                 } catch (Exception e) {
-                    showError("数据异常！");
+                    recyclerView.showEmpty();
                 }
             }
 
