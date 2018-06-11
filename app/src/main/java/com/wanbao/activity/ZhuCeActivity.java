@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
@@ -121,6 +122,10 @@ public class ZhuCeActivity extends BaseActivity {
                         ToastUtils.showShort("密码不一致");
                         return;
                     }
+                }
+                if (!RegexUtils.isMatch(Constant.reg,editPwd.getText().toString())){
+                    ToastUtils.showShort("密码至少六位字母和数字组合");
+                    return;
                 }
                 if (!isTongYi){
                     ToastUtils.showShort("请同意用户协议");

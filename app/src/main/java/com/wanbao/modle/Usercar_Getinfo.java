@@ -9,7 +9,7 @@ package com.wanbao.modle;
 public class Usercar_Getinfo {
 
     /**
-     * data : {"id":1,"car_name":"奥迪A6舒适版","name":"适版","cid":1,"bc_time":"2016-08-08","engine":"4768486456854","engine_show":"476****6854","vin":"d56w4d5165fs46f4s56fsf","vin_show":"d56****6fsf","address":"莆田市","phone":"15860026753","phone_show":"158****6753","car_no":"闽B88888","km":20000,"year_end":"2016-08-08","insurance_end":"2016-08-08."}
+     * data : {"id":1,"car_name":"奥迪A6舒适版","name":"","cid_name":"Q3 2018","cid":1,"bc_time":"2016-08-08","engine":"4768486456854","engine_show":"476****6854","vin":"d56w4d5165fs46f4s56fsf","vin_show":"d56****6fsf","address":"1470585600","phone":"15860026753","phone_show":"158****6753","car_no":"闽B88888","km":5888,"face_img":0,"back_img":0,"year_end":"2016-08-08","insurance_end":"2016-08-08."}
      * status : 1
      * info : 返回成功！
      */
@@ -46,18 +46,21 @@ public class Usercar_Getinfo {
         /**
          * id : 1
          * car_name : 奥迪A6舒适版
-         * name : 适版
+         * name :
+         * cid_name : Q3 2018
          * cid : 1
          * bc_time : 2016-08-08
          * engine : 4768486456854
          * engine_show : 476****6854
          * vin : d56w4d5165fs46f4s56fsf
          * vin_show : d56****6fsf
-         * address : 莆田市
+         * address : 1470585600
          * phone : 15860026753
          * phone_show : 158****6753
          * car_no : 闽B88888
-         * km : 20000
+         * km : 5888
+         * face_img : 0
+         * back_img : 0
          * year_end : 2016-08-08
          * insurance_end : 2016-08-08.
          */
@@ -65,6 +68,7 @@ public class Usercar_Getinfo {
         private int id;
         private String car_name;
         private String name;
+        private String cid_name;
         private int cid;
         private String bc_time;
         private String engine;
@@ -76,6 +80,8 @@ public class Usercar_Getinfo {
         private String phone_show;
         private String car_no;
         private int km;
+        private int face_img;
+        private int back_img;
         private String year_end;
         private String insurance_end;
 
@@ -101,6 +107,14 @@ public class Usercar_Getinfo {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getCid_name() {
+            return cid_name;
+        }
+
+        public void setCid_name(String cid_name) {
+            this.cid_name = cid_name;
         }
 
         public int getCid() {
@@ -189,6 +203,22 @@ public class Usercar_Getinfo {
 
         public void setKm(int km) {
             this.km = km;
+        }
+
+        public int getFace_img() {
+            return face_img;
+        }
+
+        public void setFace_img(int face_img) {
+            this.face_img = face_img;
+        }
+
+        public int getBack_img() {
+            return back_img;
+        }
+
+        public void setBack_img(int back_img) {
+            this.back_img = back_img;
         }
 
         public String getYear_end() {

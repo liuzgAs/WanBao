@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
@@ -87,6 +88,10 @@ public class XiuGaiMMActivity extends BaseActivity {
                 }
                 if (TextUtils.isEmpty(editNewPw.getText().toString())){
                     ToastUtils.showShort("新密码不能为空");
+                    return;
+                }
+                if (!RegexUtils.isMatch(Constant.reg,editNewPw.getText().toString())){
+                    ToastUtils.showShort("密码至少六位字母和数字组合");
                     return;
                 }
                 if (TextUtils.isEmpty(editNewPwa.getText().toString())){

@@ -47,7 +47,6 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.base.util.UpgradeUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_My;
 import com.wanbao.ui.MyEasyRecyclerView;
@@ -438,7 +437,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 //                startActivity(intent);
                 break;
             case R.id.imageSousuo:
-                UpgradeUtils.checkUpgrade(context);
+//                UpgradeUtils.checkUpgrade(context);
 //                Intent intent1 = new Intent();
 //                intent1.setClass(context, LoginActivity.class);
 //                startActivity(intent1);

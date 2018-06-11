@@ -1,5 +1,7 @@
 package com.wanbao.base;
 
+import android.app.Activity;
+
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
@@ -11,6 +13,7 @@ import com.lzy.okgo.cache.CacheMode;
 import com.wanbao.base.util.CrashHandler;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +25,7 @@ public class AppContext extends MultApplication {
     public List<Long> idList = new ArrayList<>();
     public boolean islogin;
     public String password_status;
+    private List<Activity> activityList = new LinkedList<Activity>();
 
 
     public static synchronized AppContext getIntance() {
@@ -42,6 +46,23 @@ public class AppContext extends MultApplication {
     public void onLowMemory() {
         super.onLowMemory();
         System.gc();
+    }
+
+    /**
+     * 添加Activity到容器中
+     */
+    public void addActivity(Activity activity) {
+        activityList.add(activity);
+    }
+
+    /**
+     * 遍历所有Activity并finish
+     */
+    public void exit() {
+        for (Activity activity : activityList) {
+            activity.finish();
+        }
+        System.exit(0);
     }
 
     private void initOkGo() {

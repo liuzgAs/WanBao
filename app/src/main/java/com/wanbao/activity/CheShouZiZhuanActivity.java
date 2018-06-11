@@ -34,6 +34,8 @@ import com.wanbao.modle.Respond_AppImgAdd;
 import com.wanbao.modle.User_Profile;
 import com.wanbao.ui.CircleImageView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -454,6 +456,7 @@ public class CheShouZiZhuanActivity extends BaseActivity {
                     Comment comment = GsonUtils.parseJSON(s, Comment.class);
                     int status = comment.getStatus();
                     if (status == 1) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
                         initData();
                     } else {
                         ToastUtils.showShort(comment.getInfo());

@@ -7,9 +7,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
+import com.wanbao.base.http.Constant;
+import com.wanbao.base.ui.StateButton;
+import com.wanbao.base.view.TwoBtnDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +45,8 @@ public class SheZhiActivity extends BaseActivity {
     LinearLayout viewCjwt;
     @BindView(R.id.viewBfsz)
     LinearLayout viewBfsz;
+    @BindView(R.id.sbtn_exit)
+    StateButton sbtnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,11 @@ public class SheZhiActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("设置");
+        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+            sbtnExit.setVisibility(View.GONE);
+        }else {
+            sbtnExit.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -75,16 +88,41 @@ public class SheZhiActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.imageback, R.id.viewChangePw, R.id.viewClear, R.id.viewYjfk, R.id.textGywm, R.id.viewCjwt, R.id.viewBfsz})
+    @OnClick({R.id.sbtn_exit,R.id.imageback, R.id.viewChangePw, R.id.viewClear, R.id.viewYjfk, R.id.textGywm, R.id.viewCjwt, R.id.viewBfsz})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.sbtn_exit:
+                final TwoBtnDialog twoBtnDialog = new TwoBtnDialog(this, "您确定要退出登录吗？", "是", "否");
+                twoBtnDialog.setClicklistener(new TwoBtnDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm() {
+                        twoBtnDialog.dismiss();
+                        SPUtils.getInstance().clear();
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
+                        finish();
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        twoBtnDialog.dismiss();
+                    }
+                });
+                twoBtnDialog.show();
+
+                break;
             case R.id.imageback:
                 finish();
                 break;
             case R.id.viewChangePw:
-                intent=new Intent();
-                intent.setClass(context,XiuGaiMMActivity.class);
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(context, XiuGaiMMActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewClear:
@@ -101,4 +139,5 @@ public class SheZhiActivity extends BaseActivity {
                 break;
         }
     }
+
 }

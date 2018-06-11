@@ -4,6 +4,7 @@ import android.Manifest;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -219,6 +220,10 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
                 finish();
                 break;
             case R.id.fasong:
+                if (TextUtils.isEmpty(textName.getText().toString())){
+                    ToastUtils.showShort("请输入联系人姓名！");
+                    return;
+                }
                 getData();
                 break;
             case R.id.address:

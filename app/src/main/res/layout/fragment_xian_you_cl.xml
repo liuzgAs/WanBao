@@ -84,6 +84,7 @@
 
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -295,8 +296,108 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:background="@color/background"></View>
-
                 <LinearLayout
+                    android:id="@+id/viewXm"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="姓名"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textXm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="姓名"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background"></View>
+                <LinearLayout
+                    android:id="@+id/viewCx"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="车型"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textCx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="车型"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background"></View>
+                <LinearLayout
+                    android:id="@+id/viewDz"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="地址"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textDz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="地址"
+                        android:maxLines="1"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background"></View>
+                <LinearLayout
+                    android:id="@+id/viewCph"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -330,6 +431,7 @@
                     android:background="@color/background"></View>
 
                 <LinearLayout
+                    android:id="@+id/viewFdjh"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -363,6 +465,7 @@
                     android:background="@color/background"></View>
 
                 <LinearLayout
+                    android:id="@+id/viewCjh"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -445,6 +548,7 @@
                     android:background="@color/background"></View>
 
                 <LinearLayout
+                    android:id="@+id/viewNcdq"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -478,6 +582,7 @@
                     android:background="@color/background"></View>
 
                 <LinearLayout
+                    android:id="@+id/viewBxdq"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
@@ -573,6 +678,8 @@
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:paddingRight="@dimen/dp_10">
 
                     <EditText

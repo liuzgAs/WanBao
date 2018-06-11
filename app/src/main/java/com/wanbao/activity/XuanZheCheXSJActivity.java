@@ -308,10 +308,12 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                         adapter.addAll(car_index.getData());
                     } else {
 //                        showError("数据异常！");
+                        adapter.clear();
                         adapter.addAll(dataBeans);
 
                     }
                 } catch (Exception e) {
+                    adapter.clear();
                     adapter.addAll(dataBeans);
                 }
             }

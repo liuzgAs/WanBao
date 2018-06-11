@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.event.QuitEvent;
 import com.wanbao.base.util.AppConstants;
@@ -66,6 +67,7 @@ public abstract class BaseNoLeftActivity extends AppCompatActivity {
     }
 
     public void init() {
+        AppContext.getIntance().addActivity(this);
         changeControl = AppConstants.changeControl - 1;
         initSP();
         initIntent();

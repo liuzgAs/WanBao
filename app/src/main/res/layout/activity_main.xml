@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_alignParentTop="true"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     android:orientation="vertical"
     tools:context="com.wanbao.activity.MainActivity">
     <com.wanbao.ui.NoScrollViewPager
@@ -25,6 +24,7 @@
         android:layout_height="@dimen/dp_54"
         android:background="@color/white"
         tl:tl_iconHeight="@dimen/dp_23"
+        android:clipChildren="false"
         tl:tl_iconWidth="@dimen/dp_23"
         tl:tl_indicator_color="@color/new_red"
         tl:tl_indicator_height="0dp"

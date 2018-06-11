@@ -314,7 +314,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
         payThread.start();
     }
 
-    static class MyHandler extends Handler {
+     class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -330,6 +330,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         ToastUtils.showShort("支付成功");
+                        paySuccess();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         ToastUtils.showShort("支付失败");

@@ -13,6 +13,7 @@
     <color name="result_view">#b0000000</color>
     <color name="possible_result_points">#c0ffff00</color>
     <color name="light_green">#2bd084</color>
+    <color name="light_black">#444444</color>
 
 
     <color name="transparent">#00000000</color>
