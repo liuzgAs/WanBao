@@ -15,7 +15,7 @@ import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
-import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.XuanZheCheXSJActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -92,7 +92,7 @@ public class ShiJiaDDViewHolder extends BaseViewHolder<Testdrive_TestOrder.DataB
                     getContext().startActivity(intent);
                 } else if (data.getIsAgain() == 1) {
                     Intent intent = new Intent();
-                    intent.setClass(getContext(), WeiXiuBYActivity.class);
+                    intent.setClass(getContext(), XuanZheCheXSJActivity.class);
                     getContext().startActivity(intent);
                 }
             }

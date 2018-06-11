@@ -38,6 +38,7 @@ import com.wanbao.viewholder.HotCarHolder;
 import com.wanbao.viewholder.XuanZheCXSJViewHolder;
 import com.wanbao.viewholder.XzCarCarParamDHolder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -75,6 +76,7 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
     private RecyclerArrayAdapter<Car_CarParam.HotbrandBean> hadapter;
     private RecyclerArrayAdapter<Car_CarStyle.DataBean> adaptercx;
     private String bsid = "";
+    ArrayList<Testdrive_TestDriveList.DataBean> dataBeans=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +165,27 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
 
             @Override
             public void onBindView(View headerView) {
+            }
+        });
+        adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
+            @Override
+            public void onMoreShow() {
+                adapter.addAll(dataBeans);
+            }
+
+            @Override
+            public void onMoreClick() {
+
+            }
+        });
+        adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
+            @Override
+            public void onNoMoreShow() {
+
+            }
+
+            @Override
+            public void onNoMoreClick() {
             }
         });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
@@ -285,10 +308,11 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                         adapter.addAll(car_index.getData());
                     } else {
 //                        showError("数据异常！");
-                        recyclerView.showEmpty();
+                        adapter.addAll(dataBeans);
+
                     }
                 } catch (Exception e) {
-                    recyclerView.showEmpty();
+                    adapter.addAll(dataBeans);
                 }
             }
 

@@ -70,9 +70,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_12"
-                android:layout_weight="1"
                 android:textColor="#99ffffff"
                 android:text="标签"/>
+            <com.wanbao.ui.HorizontalView
+                android:layout_width="match_parent"
+                android:background="@color/transparent"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_height="wrap_content">
+                <com.wanbao.ui.MyEasyRecyclerView
+                    app:scrollbars="none"
+                    android:id="@+id/recyclerView"
+                    app:scrollbarStyle="insideOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </com.wanbao.ui.MyEasyRecyclerView>
+            </com.wanbao.ui.HorizontalView>
             <TextView
                 android:id="@+id/textCheShouZZ"
                 android:layout_width="wrap_content"
@@ -383,6 +397,8 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
             android:background="@mipmap/weibd_bj"
             android:layout_height="@dimen/dp_150">
             <TextView
@@ -447,7 +463,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginTop="@dimen/dp_13"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14"/>
                     <TextView
@@ -457,7 +473,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginBottom="@dimen/dp_13"
+                        android:layout_marginBottom="@dimen/dp_10"
                         android:textColor="@color/new_secondary_text"
                         android:textSize="@dimen/sp_12"/>
                     <ImageView

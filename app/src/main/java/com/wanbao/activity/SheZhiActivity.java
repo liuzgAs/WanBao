@@ -80,6 +80,7 @@ public class SheZhiActivity extends BaseActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.imageback:
+                finish();
                 break;
             case R.id.viewChangePw:
                 intent=new Intent();

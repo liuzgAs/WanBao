@@ -170,7 +170,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
                         textJlxcbys.setText(uCensor.getKmDes().get(3));
                         mySumAdapter = new MySumAdapter(uCensor);
                         listView.setAdapter(mySumAdapter);
-                        setAnim(Math.round(uCensor.getVal() * (float) (1 / 23)));
+                        setAnim(Math.round(uCensor.getVal()*23 /100));
 
                     } else {
                         ToastUtils.showShort(uCensor.getInfo());
@@ -257,10 +257,9 @@ public class TiYanZhongXinActivity extends BaseActivity {
     }
 
     private void setAnim(int p) {
-        ToastUtils.showShort(p + "");
         anim = new AnimationDrawable();
         for (int i = 0; i < p; i++) {
-            anim.addFrame(getResources().getDrawable(images[i]), 150);
+            anim.addFrame(getResources().getDrawable(images[i]), 80);
         }
         // 设置为循环播放
         anim.setOneShot(true);

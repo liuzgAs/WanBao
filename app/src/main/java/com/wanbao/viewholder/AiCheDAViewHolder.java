@@ -75,6 +75,7 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
+                intent.putExtra("id",String.valueOf(data.getCid()));
                 intent.setClass(getContext(), PeiZhiXinXiActivity.class);
                 getContext().startActivity(intent);
             }

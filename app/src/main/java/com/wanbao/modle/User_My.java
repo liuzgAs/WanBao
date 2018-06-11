@@ -1,5 +1,7 @@
 package com.wanbao.modle;
 
+import java.util.List;
+
 /**
  * Created by liuzhigang on 2018/6/1/001.
  *
@@ -10,10 +12,11 @@ public class User_My {
 
 
     /**
-     * nickname : 15805904393
-     * headimg : http://www.wanbaoauto.com/api/Uploads/avstar.png
-     * data : {"img":"http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png","car_name":"锐&middot;混动2.0L净速版","car_no":"闽dh5585"}
-     * carNum : 2
+     * nickname : 13023973380
+     * headimg : http://p7b347z0p.bkt.clouddn.com/lnchDZ5tbmKFLSTEKtxAsV_63zQh
+     * data : {"img":"http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png","car_name":"锐&middot;混动2.0L净速版","car_no":"闽D2312"}
+     * carNum : 1
+     * interest : []
      * status : 1
      * info : 返回成功！
      */
@@ -24,6 +27,7 @@ public class User_My {
     private int carNum;
     private int status;
     private String info;
+    private List<String> interest;
 
     public String getNickname() {
         return nickname;
@@ -73,11 +77,19 @@ public class User_My {
         this.info = info;
     }
 
+    public List<String> getInterest() {
+        return interest;
+    }
+
+    public void setInterest(List<String> interest) {
+        this.interest = interest;
+    }
+
     public static class DataBean {
         /**
          * img : http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png
          * car_name : 锐&middot;混动2.0L净速版
-         * car_no : 闽dh5585
+         * car_no : 闽D2312
          */
 
         private String img;

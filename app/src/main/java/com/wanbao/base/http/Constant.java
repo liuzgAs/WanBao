@@ -218,6 +218,14 @@ public class Constant {
          * 体检中心
          */
         public static final String Usercar_Censor = "Usercar/censor";
+        /**
+         * 爱车详细配置信息
+         */
+        public static final String Usercar_Detail = "Usercar/detail";
+        /**
+         * 我的试驾订单详情
+         */
+        public static final String User_Test_drive_order_info = "User/test_drive_order_info";
     }
 
     public static class SF{

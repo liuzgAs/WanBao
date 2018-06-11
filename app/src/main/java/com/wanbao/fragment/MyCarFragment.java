@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import android.widget.ViewSwitcher;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
@@ -25,17 +30,19 @@ import com.wanbao.activity.CheShouZiZhuanActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.SheZhiActivity;
 import com.wanbao.activity.ShiJiaDDActivity;
-import com.wanbao.activity.TiYanZhongXinActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_My;
 import com.wanbao.ui.CircleImageView;
+import com.wanbao.ui.MyEasyRecyclerView;
+import com.wanbao.viewholder.MyCarBQViewHolder;
 
 import java.util.HashMap;
 
@@ -98,7 +105,10 @@ public class MyCarFragment extends PSFragment {
     TextView textDes;
     @BindView(R.id.imageCar)
     ImageView imageCar;
+    @BindView(R.id.recyclerView)
+    MyEasyRecyclerView recyclerView;
     private View view;
+    private RecyclerArrayAdapter<String> adapter;
 
     public static MyCarFragment newInstance() {
         MyCarFragment mf = new MyCarFragment();
@@ -114,6 +124,7 @@ public class MyCarFragment extends PSFragment {
             view = inflater.inflate(R.layout.fragment_my_car, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
+        initRecycler();
         return view;
     }
 
@@ -133,7 +144,7 @@ public class MyCarFragment extends PSFragment {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.btnBangD:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
@@ -142,7 +153,7 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.textCheShouZZ:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
@@ -151,12 +162,12 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.aichetiyan:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent.setClass(getActivity(), TiYanZhongXinActivity.class);
+                intent.setClass(getActivity(), AiCheDangAnActivity.class);
                 startActivity(intent);
                 break;
             case R.id.imageViewTouX:
@@ -168,47 +179,47 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewQBDD:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem",0);
+                intent.putExtra("currentItem", 0);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDZF:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem",1);
+                intent.putExtra("currentItem", 1);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDQR:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem",2);
+                intent.putExtra("currentItem", 2);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDPJ:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem",3);
+                intent.putExtra("currentItem", 3);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewWXBY:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
@@ -217,7 +228,7 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewYZESC:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
@@ -226,7 +237,7 @@ public class MyCarFragment extends PSFragment {
 //                startActivity(intent);
                 break;
             case R.id.viewSCSJ:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
@@ -239,7 +250,7 @@ public class MyCarFragment extends PSFragment {
             case R.id.viewGDFW:
                 break;
             case R.id.viewACDA:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
@@ -261,6 +272,42 @@ public class MyCarFragment extends PSFragment {
         if (event.getAction().equals(BaseEvent.Change_Data)) {
             getMyCar();
         }
+    }
+    /**
+     * 初始化recyclerview
+     */
+    private void initRecycler() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter = new RecyclerArrayAdapter<String>(context) {
+
+            @Override
+            public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+                int layout = R.layout.item_bq;
+                return new MyCarBQViewHolder(parent, layout);
+            }
+        });
+        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(12, context));
+        spaceDecoration.setPaddingEdgeSide(false);
+        recyclerView.addItemDecoration(spaceDecoration);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recycler, int dx, int dy) {
+                super.onScrolled(recycler, dx, dy);
+                recyclerView.setScroll(true);
+            }
+        });
+        recyclerView.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
+            @Override
+            public void daoDiLe() {
+            }
+        });
     }
 
     private void getMyCar() {
@@ -287,7 +334,7 @@ public class MyCarFragment extends PSFragment {
                             viewSwitcher.setDisplayedChild(0);
                         } else {
                             viewSwitcher.setDisplayedChild(1);
-                            if (user_my.getData()!=null){
+                            if (user_my.getData() != null) {
                                 textCarName.setText(user_my.getData().getCar_name());
                                 textDes.setText(user_my.getData().getCar_no());
                                 GlideApp.with(getContext())
@@ -295,6 +342,8 @@ public class MyCarFragment extends PSFragment {
                                         .load(user_my.getData().getImg())
                                         .placeholder(R.mipmap.ic_empty)
                                         .into(imageCar);
+                                adapter.clear();
+                                adapter.addAll(user_my.getInterest());
                             }
                         }
                         textName.setText(user_my.getNickname());
