@@ -106,6 +106,8 @@ public class WeiXiuBYActivity extends BaseActivity {
     FrameLayout viewTc;
     @BindView(R.id.editmsgDes)
     EditText editmsgDes;
+    @BindView(R.id.viewBysc)
+    LinearLayout viewBysc;
     private Index_Store.DataBean index_store;
     private Usercar_Index.DataBean usercar_Index;
     private Index_Seller.DataBean index_Seller;
@@ -194,7 +196,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewSzlc:
-                final EditDialog editDialog = new EditDialog(context, "行驶里程（km）", "0", "确认", "取消");
+                final EditDialog editDialog = new EditDialog(context, "行驶里程（km）", "", "确认", "取消");
                 editDialog.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
                     public void doConfirm(String intro) {
@@ -271,7 +273,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewZx:
-                if (maintain_index.getOnline_pay()==1) {
+                if (maintain_index.getOnline_pay() == 1) {
                     isOnline(1);
                 } else {
                     ToastUtils.showShort("该套餐只能前台支付！");
@@ -281,6 +283,10 @@ public class WeiXiuBYActivity extends BaseActivity {
                 isOnline(0);
                 break;
             case R.id.btnZf:
+                if (TextUtils.isEmpty(textLc.getText().toString())) {
+                    ToastUtils.showShort("请设置里程");
+                    return;
+                }
                 getOrder();
                 break;
             case R.id.btnYc:
@@ -323,7 +329,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                         textYysj.setText(maintain_index.getBook_time());
                         textFwry.setText(maintain_index.getSeller_name());
                         textWcsj.setText(maintain_index.getEnd_time());
-                        textWcsj.setText(String.valueOf(maintain_index.getInsurance()));
+//                        textWcsj.setText(String.valueOf(maintain_index.getInsurance()));
                         editmsgDes.setHint(maintain_index.getMsgDes());
                         ucid = String.valueOf(maintain_index.getUcid());
                         store_id = String.valueOf(maintain_index.getStore_id());
@@ -338,7 +344,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                             dataBeanXES.addAll(maintain_index.getData());
                         }
                         myTcAdapter.notifyDataSetChanged();
-                        viewMaintain(maintain_index.getOnline_pay());
+                        viewMaintain(maintain_index.getDataShow());
                     } else {
                         ToastUtils.showShort(maintain_index.getInfo());
                     }
@@ -533,12 +539,12 @@ public class WeiXiuBYActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
                     if (order_newOrder.getStatus() == 1) {
-                        if (isOnline==1){
+                        if (isOnline == 1) {
                             Intent intent = new Intent();
                             intent.putExtra("Oid", order_newOrder.getOid());
                             intent.setClass(context, LiJiZhiFuActivity.class);
                             startActivity(intent);
-                        }else {
+                        } else {
                             Intent intent = new Intent();
                             intent.putExtra("paytype", 0);
                             intent.setClass(context, PaySucessActivity.class);
@@ -591,13 +597,15 @@ public class WeiXiuBYActivity extends BaseActivity {
     }
 
     private void viewMaintain(int id) {
-        if (id==1) {
+        if (id == 1) {
             isOnline(1);
             viewTc.setVisibility(View.VISIBLE);
+            viewBysc.setVisibility(View.VISIBLE);
             editmsgDes.setVisibility(View.GONE);
         } else {
             isOnline(0);
             viewTc.setVisibility(View.GONE);
+            viewBysc.setVisibility(View.GONE);
             editmsgDes.setVisibility(View.VISIBLE);
         }
     }

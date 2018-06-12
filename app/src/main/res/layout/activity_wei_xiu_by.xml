@@ -89,7 +89,7 @@
                     android:layout_marginRight="@dimen/dp_5"
                     android:layout_weight="1"
                     android:gravity="right|center_vertical"
-                    android:hint="请选择"
+                    android:hint="请设置"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_12" />
 
@@ -282,6 +282,7 @@
                 layout="@layout/include_wbdd">
             </include>
             <LinearLayout
+                android:id="@+id/viewBysc"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:background="@color/white"

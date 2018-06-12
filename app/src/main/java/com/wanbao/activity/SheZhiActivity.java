@@ -6,13 +6,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.ui.StateButton;
+import com.wanbao.base.util.DataCleanManager;
 import com.wanbao.base.view.TwoBtnDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,6 +77,8 @@ public class SheZhiActivity extends BaseActivity {
         }else {
             sbtnExit.setVisibility(View.VISIBLE);
         }
+        textHc.setText(getSize());
+        textVision.setText("V"+ AppUtils.getAppVersionName());
     }
 
     @Override
@@ -126,18 +131,51 @@ public class SheZhiActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewClear:
+                DataCleanManager.clearAllCache(this);
+                textHc.setText(getSize());
+                Toast.makeText(this, "缓存清除完毕", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.viewYjfk:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(context, YiJianFKActivity.class);
+                startActivity(intent);
                 break;
             case R.id.textGywm:
+                intent = new Intent();
+                intent.putExtra("title","关于我们");
+                intent.putExtra("mUrl",Constant.Url.About);
+                intent.setClass(context, WebViewActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewCjwt:
+                intent = new Intent();
+                intent.setClass(context, ChangjianWTActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewBfsz:
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * -------------获取缓存大小-----------------
+     */
+    private String getSize() {
+        String totalCacheSize = null;
+        try {
+            totalCacheSize = DataCleanManager.getTotalCacheSize(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return totalCacheSize;
     }
 
 }

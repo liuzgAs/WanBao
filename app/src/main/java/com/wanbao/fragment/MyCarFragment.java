@@ -116,7 +116,7 @@ public class MyCarFragment extends PSFragment {
     @BindView(R.id.viewSwitcher0)
     ViewSwitcher viewSwitcher0;
     private View view;
-    private RecyclerArrayAdapter<String> adapter;
+    private RecyclerArrayAdapter<User_My.InterestBean> adapter;
 
     public static MyCarFragment newInstance() {
         MyCarFragment mf = new MyCarFragment();
@@ -300,7 +300,7 @@ public class MyCarFragment extends PSFragment {
      */
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter = new RecyclerArrayAdapter<String>(context) {
+        recyclerView.setAdapter(adapter = new RecyclerArrayAdapter<User_My.InterestBean>(context) {
 
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {

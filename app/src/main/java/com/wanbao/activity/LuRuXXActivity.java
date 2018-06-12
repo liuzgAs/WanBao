@@ -138,10 +138,10 @@ public class LuRuXXActivity extends BaseActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("name", editName.getText().toString());
-        params.put("phone", editName.getText().toString());
-        params.put("idcard", editName.getText().toString());
-        params.put("emergency", editName.getText().toString());
-        params.put("ephone", editName.getText().toString());
+        params.put("phone", editPhone.getText().toString());
+        params.put("idcard", editCard.getText().toString());
+        params.put("emergency", editNameJj.getText().toString());
+        params.put("ephone", editPhoneJj.getText().toString());
         return new OkObject(params, url);
     }
 

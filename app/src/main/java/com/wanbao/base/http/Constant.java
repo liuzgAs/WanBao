@@ -16,6 +16,22 @@ public class Constant {
     public static String WXAPPID = "wxe3ff03935adae0a6";
     public static class Url {
         /**
+         * 关于我们
+         */
+        public static final String About = "https://www.wanbaoauto.com/api/Article/info/type/about";
+        /**
+         * 注册协议
+         */
+        public static final String Reg = "https://www.wanbaoauto.com/api/Article/info/type/Reg";
+        /**
+         * 交车协议
+         */
+        public static final String JiaoCheXY = "https://www.wanbaoauto.com/api/Article/info/id/3";
+        /**
+         * 试驾协议
+         */
+        public static final String ShiJiaXY = "https://www.wanbaoauto.com/api/Article/info/id/4";
+        /**
          * 开机记录设备
          */
         public static final String Index_Start = "Index/start";
@@ -194,7 +210,7 @@ public class Constant {
         /**
          * 兴趣标签保存
          */
-        public static final String User_Interest_save = "User/interest_save";
+        public static final String User_Interest_add = "User/interest_add";
         /**
          * 实名认证请求
          */
@@ -227,6 +243,14 @@ public class Constant {
          * 我的试驾订单详情
          */
         public static final String User_Test_drive_order_info = "User/test_drive_order_info";
+        /**
+         * 意见反馈
+         */
+        public static final String User_Feedback = "User/feedback";
+        /**
+         * 常见问题
+         */
+        public static final String Faq = "Faq";
     }
 
     public static class SF{

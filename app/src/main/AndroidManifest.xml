@@ -42,6 +42,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <service android:name="com.amap.api.location.APSService" />
 
         <meta-data
@@ -183,7 +184,14 @@
         <activity
             android:name=".activity.XiuGaiMMActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.ShiJiaDDXQActivity"></activity>
+        <activity android:name=".activity.ShiJiaDDXQActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.YiJianFKActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.WebViewActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.ChangjianWTActivity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

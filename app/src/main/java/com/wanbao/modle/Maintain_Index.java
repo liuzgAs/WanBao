@@ -246,15 +246,16 @@ public class Maintain_Index {
         private String des;
         private int money;
         private List<DataBean> data;
-        public DataBeanX(int id,int isc,String title,String des,int money,List<DataBean> data){
-            this.id=id;
-            this.isc=isc;
-            this.title=title;
-            this.des=des;
-            this.money=money;
-            this.data=data;
 
+        public DataBeanX(int id, int isc, String title, String des, int money, List<DataBean> data) {
+            this.id = id;
+            this.isc = isc;
+            this.title = title;
+            this.des = des;
+            this.money = money;
+            this.data = data;
         }
+
         public int getId() {
             return id;
         }

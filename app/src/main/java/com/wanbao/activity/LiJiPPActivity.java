@@ -1,6 +1,7 @@
 package com.wanbao.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -112,6 +113,14 @@ public class LiJiPPActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.sbtn_tijiao:
+                if (TextUtils.isEmpty(editPj.getText().toString())){
+                    ToastUtils.showShort("请输入评价内容！");
+                    return;
+                }
+                if (editPj.length()<8){
+                    ToastUtils.showShort("评价内容至少八个字！");
+                    return;
+                }
                 AddSubmit();
                 break;
             default:
@@ -243,8 +252,8 @@ public class LiJiPPActivity extends BaseActivity {
         params.put("id", id);
         params.put("star", startNum + "");
         params.put("evaluate", editPj.getText().toString());
-        params.put("tag", allSelect.toString());
-        params.put("imgs", "[]");
+        params.put("tag", allSelect.toString().replace("[","").replace("]","").replace(" ",""));
+        params.put("imgs", "");
 
         return new OkObject(params, url);
     }

@@ -39,6 +39,7 @@ public class BaoYangChouCeActivity extends BaseActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     List<String> list = new ArrayList<>();
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class BaoYangChouCeActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-
+        pos=getIntent().getIntExtra("pos",0);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class BaoYangChouCeActivity extends BaseActivity {
             View view = LayoutInflater.from(this).inflate(R.layout.item_tablayout, null);
             TextView textTitle = view.findViewById(R.id.textTitle);
             textTitle.setText(list.get(i));
-            if (i == 0) {
+            if (i == pos) {
                 tablayout.addTab(tablayout.newTab().setCustomView(view), true);
             } else {
                 tablayout.addTab(tablayout.newTab().setCustomView(view), false);

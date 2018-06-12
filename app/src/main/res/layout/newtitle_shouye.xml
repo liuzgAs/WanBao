@@ -42,6 +42,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:src="@mipmap/shouye_sousuo" />
+            android:src="@mipmap/wode_xiaoxi" />
     </RelativeLayout>
 </LinearLayout>

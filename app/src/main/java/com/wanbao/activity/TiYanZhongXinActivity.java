@@ -111,20 +111,26 @@ public class TiYanZhongXinActivity extends BaseActivity {
 
     @OnClick({R.id.imageBack, R.id.viewBYSC, R.id.viewCgby, R.id.viewWxjl})
     public void onViewClicked(View view) {
-        Intent intent = new Intent();
+        Intent intent ;
         switch (view.getId()) {
             case R.id.imageBack:
                 finish();
                 break;
             case R.id.viewBYSC:
+                intent = new Intent();
+                intent.putExtra("pos",0);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewCgby:
+                intent = new Intent();
+                intent.putExtra("pos",1);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewWxjl:
+                intent = new Intent();
+                intent.putExtra("pos",2);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;

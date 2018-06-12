@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wanbao.activity.YiJianFKActivity">
+
+    <include layout="@layout/newtitle"></include>
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_5"
+        android:background="@color/white"
+        android:hint="请输入您的邮箱地址"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="@dimen/dp_15"
+        android:textSize="@dimen/sp_13" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_gray" />
+
+    <EditText
+        android:id="@+id/editContent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150"
+        android:background="@color/white"
+        android:gravity="top|left"
+        android:hint="请输入您的反馈意见"
+        android:padding="@dimen/dp_15"
+        android:textSize="@dimen/sp_13" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"></View>
+
+    <com.wanbao.base.ui.StateButton
+        android:id="@+id/sbtn_tijiao"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:text="提交"
+        android:textSize="@dimen/sp_13"
+        app:normalBackgroundColor="@color/light_red"
+        app:normalTextColor="@color/white"
+        app:pressedBackgroundColor="@color/new_secondary_text"
+        app:pressedTextColor="@color/white" />
+</LinearLayout>

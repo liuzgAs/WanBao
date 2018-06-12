@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:text="Q："
+            android:textSize="@dimen/sp_14"
+            android:layout_width="40dp"
+            android:textColor="@color/light_black"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textTitle"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_10"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/light_black"
+            android:text="无法连接服务器？发消息？请求被禁止？"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:background="@color/line_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:text="A："
+            android:textSize="@dimen/sp_13"
+            android:layout_width="40dp"
+            android:textColor="@color/new_secondary_text"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textIntro"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_10"
+            android:textSize="@dimen/sp_13"
+            android:textColor="@color/new_secondary_text"
+            android:text="请先检查手机网络是否正确请先检查手机网络是否正确请先检查手机网络是否正确请先检查手机网络是否正确请先检查手机网络是否正确"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

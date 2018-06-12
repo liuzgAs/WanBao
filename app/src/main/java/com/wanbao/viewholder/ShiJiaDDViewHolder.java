@@ -80,6 +80,7 @@ public class ShiJiaDDViewHolder extends BaseViewHolder<Testdrive_TestOrder.DataB
             public void onClick(View v) {
                 if (data.getGoPay() == 1) {
                     Intent intent = new Intent();
+                    intent.putExtra("paytype",1);
                     intent.putExtra("Oid", String.valueOf(data.getId()));
                     intent.setClass(getContext(), LiJiZhiFuActivity.class);
                     getContext().startActivity(intent);

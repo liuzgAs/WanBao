@@ -225,6 +225,7 @@ public class XingQuBQActivity extends BaseActivity {
                     if (comment.getStatus() == 1) {
                         initData();
                         EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeXx,null));
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
                     } else {
                         ToastUtils.showShort(String.valueOf(comment.getInfo()));
                     }
@@ -277,6 +278,8 @@ public class XingQuBQActivity extends BaseActivity {
                     if (comment.getStatus() == 1) {
                         initData();
                         EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeXx,null));
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
+
                     } else {
                         ToastUtils.showShort(String.valueOf(comment.getInfo()));
                     }
@@ -301,7 +304,7 @@ public class XingQuBQActivity extends BaseActivity {
     }
 
     private OkObject getOkObInterest_save(String item_id) {
-        String url = Constant.HOST + Constant.Url.User_Interest_save;
+        String url = Constant.HOST + Constant.Url.User_Interest_add;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("item_id", item_id);

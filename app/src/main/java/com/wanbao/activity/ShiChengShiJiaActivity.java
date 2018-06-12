@@ -156,6 +156,7 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                 messages.put("book_time",book_time);
                 messages.put("type","2");
                 messages.put("online_pay","1");
+
                 intent = new Intent();
                 intent.putExtra("messages", (Serializable) messages);
                 intent.setClass(context, LuRuXXActivity.class);

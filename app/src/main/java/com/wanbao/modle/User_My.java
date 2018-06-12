@@ -12,11 +12,11 @@ public class User_My {
 
 
     /**
-     * nickname : 13023973380
-     * headimg : http://p7b347z0p.bkt.clouddn.com/lnchDZ5tbmKFLSTEKtxAsV_63zQh
-     * data : {"img":"http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png","car_name":"锐&middot;混动2.0L净速版","car_no":"闽D2312"}
-     * carNum : 1
-     * interest : []
+     * nickname : 测试
+     * headimg : http://p7b347z0p.bkt.clouddn.com/FgJkmWuKbHCG-NSGUrLCtpHOWTcQ
+     * data : {"img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","car_name":"Q3 2018","car_no":"闽F88888"}
+     * carNum : 8
+     * interest : [{"id":2,"name":"篮球"}]
      * status : 1
      * info : 返回成功！
      */
@@ -27,7 +27,7 @@ public class User_My {
     private int carNum;
     private int status;
     private String info;
-    private List<String> interest;
+    private List<InterestBean> interest;
 
     public String getNickname() {
         return nickname;
@@ -77,19 +77,19 @@ public class User_My {
         this.info = info;
     }
 
-    public List<String> getInterest() {
+    public List<InterestBean> getInterest() {
         return interest;
     }
 
-    public void setInterest(List<String> interest) {
+    public void setInterest(List<InterestBean> interest) {
         this.interest = interest;
     }
 
     public static class DataBean {
         /**
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png
-         * car_name : 锐&middot;混动2.0L净速版
-         * car_no : 闽D2312
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg
+         * car_name : Q3 2018
+         * car_no : 闽F88888
          */
 
         private String img;
@@ -118,6 +118,32 @@ public class User_My {
 
         public void setCar_no(String car_no) {
             this.car_no = car_no;
+        }
+    }
+
+    public static class InterestBean {
+        /**
+         * id : 2
+         * name : 篮球
+         */
+
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

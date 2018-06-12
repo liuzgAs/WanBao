@@ -137,6 +137,7 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                         if (uInfo!=null){
                             if (uInfo.getStatus()==1){
                                 Intent intent = new Intent();
+                                intent.putExtra("paytype",1);
                                 intent.putExtra("Oid", String.valueOf(id));
                                 intent.setClass(context, LiJiZhiFuActivity.class);
                                 startActivity(intent);
