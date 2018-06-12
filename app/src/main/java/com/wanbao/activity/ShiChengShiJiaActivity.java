@@ -63,11 +63,14 @@ public class ShiChengShiJiaActivity extends BaseActivity {
     TextView textSjj0;
     @BindView(R.id.btnLjyy)
     Button btnLjyy;
+    @BindView(R.id.textsjxy)
+    TextView textsjxy;
     private String id;
     private String book_time;
     private String store_id;
     private Index_Store.DataBean index_store;
-    private HashMap<String,String> messages=new HashMap<>();
+    private HashMap<String, String> messages = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,10 +110,17 @@ public class ShiChengShiJiaActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.imageback, R.id.viewDp, R.id.viewSj, R.id.btnLjyy})
+    @OnClick({R.id.imageback, R.id.viewDp, R.id.viewSj, R.id.btnLjyy,R.id.textsjxy})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.textsjxy:
+                intent = new Intent();
+                intent.putExtra("title","试驾协议");
+                intent.putExtra("mUrl",Constant.Url.ShiJiaXY);
+                intent.setClass(context, WebViewActivity.class);
+                startActivity(intent);
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -138,24 +148,24 @@ public class ShiChengShiJiaActivity extends BaseActivity {
 
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 datePickerDialog.show();
                 break;
             case R.id.btnLjyy:
-                if (TextUtils.isEmpty(store_id)){
+                if (TextUtils.isEmpty(store_id)) {
                     ToastUtils.showShort("请选择预约店铺！");
                     return;
                 }
-                if (TextUtils.isEmpty(book_time)){
+                if (TextUtils.isEmpty(book_time)) {
                     ToastUtils.showShort("请选择预约时间！");
                     return;
                 }
                 messages.clear();
-                messages.put("sid",store_id);
-                messages.put("item_id",id);
-                messages.put("book_time",book_time);
-                messages.put("type","2");
-                messages.put("online_pay","1");
+                messages.put("sid", store_id);
+                messages.put("item_id", id);
+                messages.put("book_time", book_time);
+                messages.put("type", "2");
+                messages.put("online_pay", "1");
 
                 intent = new Intent();
                 intent.putExtra("messages", (Serializable) messages);
@@ -187,10 +197,10 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                     Testdrive_Details data = GsonUtils.parseJSON(s, Testdrive_Details.class);
                     if (data.getStatus() == 1) {
                         textTitle.setText(data.getData().getInfo().getTitle());
-                        textDes.setText(data.getData().getInfo().getType()+"|"+data.getData().getInfo().getSeat()+"座|指导价"+data.getData().getInfo().getPrice()+"万");
-                        textSjj.setText("¥"+data.getData().getInfo().getDriveprice());
-                        textSjj0.setText("¥"+data.getData().getInfo().getDriveprice());
-                        textYxj.setText("¥"+data.getData().getInfo().getDeposit());
+                        textDes.setText(data.getData().getInfo().getType() + "|" + data.getData().getInfo().getSeat() + "座|指导价" + data.getData().getInfo().getPrice() + "万");
+                        textSjj.setText("¥" + data.getData().getInfo().getDriveprice());
+                        textSjj0.setText("¥" + data.getData().getInfo().getDriveprice());
+                        textYxj.setText("¥" + data.getData().getInfo().getDeposit());
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(data.getData().getInfo().getThumb())
@@ -226,4 +236,5 @@ public class ShiChengShiJiaActivity extends BaseActivity {
         params.put("id", id);
         return new OkObject(params, url);
     }
+
 }

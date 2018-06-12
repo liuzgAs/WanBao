@@ -71,7 +71,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="right|center_vertical"
             android:layout_weight="1"
-            android:hint="请输入"
+            android:hint="请输入手机号"
             />
     </LinearLayout>
     <View
@@ -105,7 +105,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="right|center_vertical"
             android:layout_weight="1"
-            android:hint="请输入"
+            android:hint="请输入身份证号"
             />
     </LinearLayout>
     <View
@@ -138,7 +138,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="right|center_vertical"
             android:layout_weight="1"
-            android:hint="请输入"
+            android:hint="请输入紧急联系人"
             />
     </LinearLayout>
     <View
@@ -172,7 +172,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:gravity="right|center_vertical"
             android:layout_weight="1"
-            android:hint="请输入"
+            android:hint="请输入紧急联系人手机号"
             />
     </LinearLayout>
     <View

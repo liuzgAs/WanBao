@@ -604,7 +604,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         textNsdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c0.get(Calendar.YEAR), c0.get(Calendar.MONTH), c0.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 datePickerDialog0.show();
                 break;
             case R.id.viewBxdq:
@@ -618,7 +618,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         textBxdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 datePickerDialog.show();
                 break;
             case R.id.textFs:
@@ -644,7 +644,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         textGcsj.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
+                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
                 datePickerDialog1.show();
                 break;
             case R.id.viewXslc:
@@ -678,6 +678,10 @@ public class XianYouCLBDFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.sbtn_tijiaobdw:
+                if (dataBean==null){
+                    ToastUtils.showShort("请选择车型信息！");
+                    return;
+                }
                 if (usercar_query.getR() == 0) {
                     if (xinShiZZM == null) {
                         ToastUtils.showShort("请扫描获取身份证正页信息！");

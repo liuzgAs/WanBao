@@ -318,7 +318,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         usercar_getinfo.getData().setYear_end(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c0.get(Calendar.YEAR), c0.get(Calendar.MONTH), c0.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 datePickerDialog0.show();
                 break;
             case R.id.viewBxdq:
@@ -330,7 +330,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         usercar_getinfo.getData().setInsurance_end(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 datePickerDialog.show();
                 break;
             case R.id.imageback:
@@ -351,7 +351,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
 
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
+                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
                 datePickerDialog1.show();
                 break;
             case R.id.viewXslc:

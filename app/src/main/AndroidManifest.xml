@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wanbao">
-
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -44,7 +44,25 @@
         </provider>
 
         <service android:name="com.amap.api.location.APSService" />
-
+        <meta-data
+            android:name="com.alibaba.app.appkey"
+            android:value="24913491" /> <!-- 请填写你自己的- appKey -->
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="cdedb4159eed9b9e5e0660049474412a" /> <!-- 请填写你自己的appSecret -->
+        <receiver
+            android:name=".base.message.MyMessageReceiver"
+            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="aea637b39ac646da4456966ae901ed7d">
@@ -184,13 +202,17 @@
         <activity
             android:name=".activity.XiuGaiMMActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.ShiJiaDDXQActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.YiJianFKActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.WebViewActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.ChangjianWTActivity"
+        <activity
+            android:name=".activity.ShiJiaDDXQActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.YiJianFKActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ChangjianWTActivity"
             android:launchMode="singleTop"></activity>
     </application>
 

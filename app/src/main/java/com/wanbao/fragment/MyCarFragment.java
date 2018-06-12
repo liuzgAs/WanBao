@@ -132,7 +132,6 @@ public class MyCarFragment extends PSFragment {
             view = inflater.inflate(R.layout.fragment_my_car, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
-        initRecycler();
         return view;
     }
 
@@ -144,6 +143,7 @@ public class MyCarFragment extends PSFragment {
 
     @Override
     public void fetchData() {
+        initRecycler();
         getMyCar();
     }
 

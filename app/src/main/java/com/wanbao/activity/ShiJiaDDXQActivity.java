@@ -135,20 +135,20 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                     @Override
                     public void onClick(View v) {
                         if (uInfo!=null){
-                            if (uInfo.getStatus()==1){
+                            if (uInfo.getData().getStateType()==1){
                                 Intent intent = new Intent();
                                 intent.putExtra("paytype",1);
                                 intent.putExtra("Oid", String.valueOf(id));
                                 intent.setClass(context, LiJiZhiFuActivity.class);
                                 startActivity(intent);
-                            }else if (uInfo.getStatus()==2){
+                            }else if (uInfo.getData().getStateType()==2){
 //                                textState.setText("订单待试驾");
 //                                textStateTo.setText("确认试驾");
-                            }else if (uInfo.getStatus()==3){
+                            }else if (uInfo.getData().getStateType()==3){
                                 Intent intent = new Intent();
                                 intent.setClass(context, XuanZheCheXSJActivity.class);
                                 startActivity(intent);
-                            }else if (uInfo.getStatus()==4){
+                            }else if (uInfo.getData().getStateType()==4){
                                 Intent intent = new Intent();
                                 intent.putExtra("id", String.valueOf(id));
                                 intent.setClass(context, LiJiPPActivity.class);
@@ -174,16 +174,16 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                             .load(uInfo.getData().getStore().getCar_img())
                             .placeholder(R.mipmap.ic_empty)
                             .into(imageCar);
-                    if (uInfo.getStatus()==1){
+                    if (uInfo.getData().getStateType()==1){
                         textState.setText("订单待支付");
                         textStateTo.setText("确认支付");
-                    }else if (uInfo.getStatus()==2){
+                    }else if (uInfo.getData().getStateType()==2){
                         textState.setText("订单待试驾");
                         textStateTo.setText("确认试驾");
-                    }else if (uInfo.getStatus()==3){
+                    }else if (uInfo.getData().getStateType()==3){
                         textState.setText("订单已完成");
                         textStateTo.setText("再次预约");
-                    }else if (uInfo.getStatus()==4){
+                    }else if (uInfo.getData().getStateType()==4){
                         textState.setText("订单待评价");
                         textStateTo.setText("去评价");
                     }

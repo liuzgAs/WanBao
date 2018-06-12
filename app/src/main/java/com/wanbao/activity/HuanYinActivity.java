@@ -9,10 +9,11 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseNoLeftActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.modle.Login_RegSms;
+import com.wanbao.modle.Index_Start;
 import com.wanbao.modle.OkObject;
 
 import java.util.HashMap;
@@ -64,15 +65,15 @@ public class HuanYinActivity extends BaseNoLeftActivity {
                 dismissDialog();
                 Log.e("fasong", s);
                 try {
-                    Login_RegSms login_regSms = GsonUtils.parseJSON(s, Login_RegSms.class);
-                    if (login_regSms.getStatus() == 1) {
+                    Index_Start index_start = GsonUtils.parseJSON(s, Index_Start.class);
+                    if (index_start.getStatus() == 1) {
                         SPUtils.getInstance().put(Constant.SF.isFirst,1);
                         Intent intent=new Intent();
                         intent.setClass(context,MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        ToastUtils.showShort(login_regSms.getInfo());
+                        MyDialog.dialogFinish(HuanYinActivity.this,index_start.getInfo());
                     }
 
                 } catch (Exception e) {

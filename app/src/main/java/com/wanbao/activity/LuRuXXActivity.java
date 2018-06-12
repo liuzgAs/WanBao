@@ -2,6 +2,7 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
@@ -83,6 +85,26 @@ public class LuRuXXActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.sbtn_tijiao:
+                if (TextUtils.isEmpty(editName.getText().toString())){
+                    ToastUtils.showShort("请输入姓名");
+                    return;
+                }
+                if (!RegexUtils.isMobileSimple(editPhone.getText().toString())){
+                    ToastUtils.showShort("请正确的手机号");
+                    return;
+                }
+                if (!RegexUtils.isIDCard15(editCard.getText().toString())&&!RegexUtils.isIDCard18(editCard.getText().toString())){
+                    ToastUtils.showShort("请正确身份证号");
+                    return;
+                }
+                if (TextUtils.isEmpty(editNameJj.getText().toString())){
+                    ToastUtils.showShort("请输入紧急联系人姓名");
+                    return;
+                }
+                if (!RegexUtils.isMobileSimple(editPhoneJj.getText().toString())){
+                    ToastUtils.showShort("请正确的手机号");
+                    return;
+                }
                 AddTuser();
                 break;
             default:
