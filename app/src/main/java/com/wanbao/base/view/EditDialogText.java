@@ -1,7 +1,9 @@
 package com.wanbao.base.view;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -13,10 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.wanbao.R;
 
 
-public class EditDialogText extends Dialog {
+public class EditDialogText extends Dialog implements DialogInterface.OnDismissListener{
 
     private Context context;
     private String title;
@@ -25,6 +28,13 @@ public class EditDialogText extends Dialog {
     private String editStr;
     private ClickListenerInterface clickListenerInterface;
     private EditText editIntro;
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if (KeyboardUtils.isSoftInputVisible((Activity) context)){
+            KeyboardUtils.hideSoftInput((Activity) context);
+        }
+    }
 
     public interface ClickListenerInterface {
 
@@ -49,6 +59,7 @@ public class EditDialogText extends Dialog {
 
         init();
     }
+
 
     public void init() {
         LayoutInflater inflater = LayoutInflater.from(context);

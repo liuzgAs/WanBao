@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wanbao">
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -44,6 +45,7 @@
         </provider>
 
         <service android:name="com.amap.api.location.APSService" />
+
         <meta-data
             android:name="com.alibaba.app.appkey"
             android:value="24913491" /> <!-- 请填写你自己的- appKey -->
@@ -63,6 +65,7 @@
                 <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
             </intent-filter>
         </receiver>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="aea637b39ac646da4456966ae901ed7d">
@@ -213,7 +216,15 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.ChangjianWTActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.TuiJianJLActivity" />
+        <activity android:name=".activity.TuiJianMXActivity" />
+        <activity android:name=".activity.WoDeJKActivity" />
+        <activity android:name=".activity.YongJinActivity" />
+        <activity android:name=".activity.YongjinXQActivity" />
+        <activity android:name=".activity.TiXianActivity" />
+        <activity android:name=".activity.WoDeYHKActivity" />
+        <activity android:name=".activity.XinZengYHKActivity"></activity>
     </application>
 
 </manifest>

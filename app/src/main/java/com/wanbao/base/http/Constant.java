@@ -7,7 +7,14 @@ package com.wanbao.base.http;
  */
 
 public class Constant {
+    /**
+     * 密码正则
+     */
     public static String reg = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";
+    /**
+     * 车架号正则
+     */
+    public static String Cjh = "^([0-9A-Z]){17}$";
 //    public static String HOST = "http://192.168.1.181/api/";
     public static String HOST = "https://www.wanbaoauto.com/api/";
     /**

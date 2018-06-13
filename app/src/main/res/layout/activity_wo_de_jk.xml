@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wanbao.activity.WoDeJKActivity">
+
+    <include layout="@layout/newtitle"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/viewJf"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_150"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/layout_selector_white_system_gray"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_44"
+                android:src="@mipmap/icon_jkjf" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="积分"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="1000"
+                android:textColor="@color/new_secondary_text"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_80"
+            android:layout_gravity="center_vertical"
+            android:background="@color/background"></View>
+        <LinearLayout
+            android:id="@+id/viewYj"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_150"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/layout_selector_white_system_gray"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_44"
+                android:src="@mipmap/icon_jkyj" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="佣金"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="¥1000"
+                android:textColor="@color/new_secondary_text"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/background"></View>
+    <LinearLayout
+        android:id="@+id/viewWdzd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
+        android:background="@drawable/layout_selector_white_system_gray"
+        android:paddingLeft="@dimen/dp_10"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:src="@mipmap/icon_jkzd" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的账单"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/new_auxiliary_color"
+            android:textSize="@dimen/sp_13" />
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/next_btn" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/background"></View>
+    <LinearLayout
+        android:id="@+id/viewWdyhk"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:background="@drawable/layout_selector_white_system_gray"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:src="@mipmap/icon_jkyhk" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的银行卡"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/new_auxiliary_color"
+            android:textSize="@dimen/sp_13" />
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/next_btn" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/background">
+    </View>
+    <LinearLayout
+        android:id="@+id/viewTxjl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
+        android:background="@drawable/layout_selector_white_system_gray"
+        android:paddingLeft="@dimen/dp_10"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:src="@mipmap/icon_jktxjl" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现记录"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/new_auxiliary_color"
+            android:textSize="@dimen/sp_13" />
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:src="@mipmap/next_btn" />
+    </LinearLayout>
+</LinearLayout>

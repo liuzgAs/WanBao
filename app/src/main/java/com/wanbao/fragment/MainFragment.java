@@ -253,6 +253,12 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewAcrj.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, LoginActivity.class);
+                            startActivity(intent);
+                            return;
+                        }
                         Intent intent = new Intent();
                         intent.setClass(context, AiCheDangAnActivity.class);
                         startActivity(intent);
@@ -267,6 +273,12 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewScsj.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, LoginActivity.class);
+                            startActivity(intent);
+                            return;
+                        }
                         Intent intent = new Intent();
                         intent.setClass(context, XuanZheCheXSJActivity.class);
                         startActivity(intent);

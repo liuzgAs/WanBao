@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
@@ -389,8 +390,48 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 yanZM(usercar_getinfo.getData().getPhone());
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (TextUtils.isEmpty(editYzm.getText().toString())) {
-                    ToastUtils.showShort("请输入验证码");
+                if (TextUtils.isEmpty(textGcsj.getText().toString())){
+                    ToastUtils.showShort("请设置购车时间");
+                    return;
+                }
+                if (TextUtils.isEmpty(textxslc.getText().toString())){
+                    ToastUtils.showShort("请设置行驶里程");
+                    return;
+                }
+                if (TextUtils.isEmpty(textXm.getText().toString())){
+                    ToastUtils.showShort("请设置姓名");
+                    return;
+                }
+                if (TextUtils.isEmpty(textCx.getText().toString())){
+                    ToastUtils.showShort("请设置车型");
+                    return;
+                }
+                if (TextUtils.isEmpty(textDz.getText().toString())){
+                    ToastUtils.showShort("请设置地址");
+                    return;
+                }
+                if (TextUtils.isEmpty(textCph.getText().toString())){
+                    ToastUtils.showShort("请设置车牌号");
+                    return;
+                }
+                if (TextUtils.isEmpty(textFdjh.getText().toString())){
+                    ToastUtils.showShort("请设置发动机号");
+                    return;
+                }
+                if (!RegexUtils.isMatch(Constant.Cjh,textCjh.getText().toString())){
+                    ToastUtils.showShort("请输入正确车架号");
+                    return;
+                }
+                if (TextUtils.isEmpty(textNsdq.getText().toString())){
+                    ToastUtils.showShort("请设置年审到期时间");
+                    return;
+                }
+                if (TextUtils.isEmpty(textBxdq.getText().toString())){
+                    ToastUtils.showShort("请设置保险到期时间");
+                    return;
+                }
+                if (TextUtils.isEmpty(editYzm.getText().toString())){
+                    ToastUtils.showShort("短信验证码不能为空！");
                     return;
                 }
                 usercar_Add_car();
