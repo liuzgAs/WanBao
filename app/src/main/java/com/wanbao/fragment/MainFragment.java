@@ -301,13 +301,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
-    }
 
     private List<String> mList;
 
@@ -465,9 +458,12 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             if (amapLocation.getErrorCode() == 0) {
                 //可在其中解析amapLocation获取相应内容。
 //                address.setText(amapLocation.getAddress());
-                dismissDialog();
                 address.setText(amapLocation.getCity().toString() + amapLocation.getDistrict().toString() + amapLocation.getStreet().toString()
                         + amapLocation.getStreetNum().toString());
+                SPUtils.getInstance().put(Constant.SF.Latitude,String.valueOf(amapLocation.getLatitude()));
+                SPUtils.getInstance().put(Constant.SF.Longitude,String.valueOf(amapLocation.getLongitude()));
+
+                dismissDialog();
 
             } else {
                 dismissDialog();
@@ -483,6 +479,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
         if (mLocationClient != null) {
             mLocationClient.stopLocation();
             mLocationClient.onDestroy();
@@ -523,7 +520,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
             @Override
             public void onComplete() {
-                dismissDialog();
             }
 
         });

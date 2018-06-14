@@ -32,6 +32,7 @@
                 android:textSize="@dimen/sp_13" />
 
             <TextView
+                android:id="@+id/textAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_5"
@@ -42,6 +43,7 @@
         </LinearLayout>
 
         <com.wanbao.base.ui.StateButton
+            android:id="@+id/sBtnTiXian"
             android:layout_width="@dimen/dp_150"
             android:layout_height="@dimen/dp_35"
             android:layout_alignParentBottom="true"
@@ -56,6 +58,7 @@
             app:radius="@dimen/dp_22" />
 
         <ImageView
+            android:id="@+id/imageQuestion"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
             android:layout_alignParentRight="true"
@@ -67,6 +70,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/viewDateBegin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
         android:layout_marginTop="@dimen/dp_10"
@@ -102,6 +106,7 @@
         android:background="@color/background">
     </View>
     <LinearLayout
+        android:id="@+id/viewDateEnd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
         android:background="@drawable/layout_selector_white_system_gray"

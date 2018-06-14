@@ -258,11 +258,22 @@ public class Constant {
          * 常见问题
          */
         public static final String Faq = "Faq";
+        /**
+         * 发现
+         */
+        public static final String Store_Index = "Store/index";
+        /**
+         * 我的金库
+         */
+        public static final String Account_Index = "Account/index";
     }
 
     public static class SF{
         public static final String isFirst = "isFirst";
         public static final String Uid = "Uid";
+        public static final String Latitude = "Latitude";
+        public static final String Longitude = "Longitude";
+
         public static final String Did = "Did";
         public static final String UserName = "UserName";
         public static final String Nickname = "Nickname";

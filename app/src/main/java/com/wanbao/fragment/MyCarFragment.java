@@ -32,6 +32,7 @@ import com.wanbao.activity.SheZhiActivity;
 import com.wanbao.activity.ShiJiaDDActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.WoDeJKActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -136,8 +137,8 @@ public class MyCarFragment extends PSFragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         unbinder.unbind();
     }
 
@@ -149,14 +150,16 @@ public class MyCarFragment extends PSFragment {
 
     @OnClick({R.id.viewSCSJ0, R.id.viewPTGC0, R.id.viewYZESC0,R.id.btnBangD, R.id.textCheShouZZ, R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
     public void onViewClicked(View view) {
-        Intent intent = new Intent();
+        Intent intent;
         switch (view.getId()) {
             case R.id.viewSCSJ0:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
+                intent = new Intent();
                 intent.setClass(getActivity(), ShiJiaDDActivity.class);
                 startActivity(intent);
                 break;
@@ -166,28 +169,34 @@ public class MyCarFragment extends PSFragment {
                 break;
             case R.id.btnBangD:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
+                intent = new Intent();
                 intent.setClass(getActivity(), BanDingCLActivity.class);
                 startActivity(intent);
                 break;
             case R.id.textCheShouZZ:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
+                intent = new Intent();
                 intent.setClass(getActivity(), CheShouZiZhuanActivity.class);
                 startActivity(intent);
                 break;
             case R.id.aichetiyan:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
+                intent = new Intent();
                 intent.setClass(getActivity(), AiCheDangAnActivity.class);
                 startActivity(intent);
                 break;
@@ -196,20 +205,24 @@ public class MyCarFragment extends PSFragment {
             case R.id.imageViewXX:
                 break;
             case R.id.imageViewSheZ:
+                intent = new Intent();
                 intent.setClass(getActivity(), SheZhiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewQBDD:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
+                intent = new Intent();
                 intent.putExtra("currentItem", 0);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewDZF:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -220,6 +233,7 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewDQR:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -230,6 +244,7 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewDPJ:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -240,6 +255,7 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewWXBY:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -249,6 +265,7 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewYZESC:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -258,6 +275,7 @@ public class MyCarFragment extends PSFragment {
 //                startActivity(intent);
                 break;
             case R.id.viewSCSJ:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -267,10 +285,19 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewPTGC:
+                intent = new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent.setClass(getActivity(), WoDeJKActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewGDFW:
                 break;
             case R.id.viewACDA:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -291,7 +318,7 @@ public class MyCarFragment extends PSFragment {
     @Override
     public void onEventMainThread(BaseEvent event) {
         if (event.getAction().equals(BaseEvent.Change_Data)) {
-            getMyCar();
+           fetchData();
         }
     }
 
@@ -380,17 +407,20 @@ public class MyCarFragment extends PSFragment {
                         ToastUtils.showShort(user_my.getInfo());
                     }
                 } catch (Exception e) {
-                    viewSwitcher.setDisplayedChild(0);
-                    viewSwitcher0.setDisplayedChild(0);
+                    if(viewSwitcher!=null&&viewSwitcher0!=null){
+                        viewSwitcher.setDisplayedChild(0);
+                        viewSwitcher0.setDisplayedChild(0);
+                    }
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                viewSwitcher.setDisplayedChild(0);
-                viewSwitcher0.setDisplayedChild(0);
-//                ToastUtils.showShort("网络异常！");
+                if(viewSwitcher!=null&&viewSwitcher0!=null){
+                    viewSwitcher.setDisplayedChild(0);
+                    viewSwitcher0.setDisplayedChild(0);
+                }
             }
 
             @Override

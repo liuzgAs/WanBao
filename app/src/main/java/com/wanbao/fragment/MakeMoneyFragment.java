@@ -87,9 +87,10 @@ public class MakeMoneyFragment extends PSFragment {
         }
     }
 
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         unbinder.unbind();
     }
 

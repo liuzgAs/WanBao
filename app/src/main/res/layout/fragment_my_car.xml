@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_weight="1"
-                android:text="名字"
+                android:text="未登录"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_15" />
 

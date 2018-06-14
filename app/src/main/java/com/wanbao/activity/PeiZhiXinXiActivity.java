@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -214,7 +215,7 @@ public class PeiZhiXinXiActivity extends BaseActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             MyAdapter.ViewHolder holder;
             if (convertView == null) {
                 holder = new MyAdapter.ViewHolder();
@@ -225,6 +226,16 @@ public class PeiZhiXinXiActivity extends BaseActivity {
                 holder = (MyAdapter.ViewHolder) convertView.getTag();
             }
             holder.textTitle.setText(dataBean.getParam().get(position).getN());
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("title",dataBean.getParam().get(position).getN());
+                    intent.putExtra("mUrl",dataBean.getParam().get(position).getUrl());
+                    intent.setClass(context, WebViewActivity.class);
+                    startActivity(intent);
+                }
+            });
             return convertView;
         }
     }
