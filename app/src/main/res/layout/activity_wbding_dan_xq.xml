@@ -33,6 +33,7 @@
                 android:paddingRight="@dimen/dp_10">
 
                 <ImageView
+                    android:id="@+id/imageState"
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     app:srcCompat="@mipmap/wbddxq_qpj" />
@@ -93,7 +94,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_18"
                         android:layout_height="@dimen/dp_18"
-                        app:srcCompat="@mipmap/wbddxx_fwry" />
+                        app:srcCompat="@mipmap/icon_fwdz" />
 
                     <TextView
                         android:id="@+id/textAddress"
@@ -115,7 +116,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_18"
                         android:layout_height="@dimen/dp_18"
-                        app:srcCompat="@mipmap/wbddxx_fwry" />
+                        app:srcCompat="@mipmap/icon_fwsj" />
 
                     <TextView
                         android:id="@+id/textBookTime"

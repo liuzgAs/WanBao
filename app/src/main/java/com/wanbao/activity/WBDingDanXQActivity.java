@@ -2,6 +2,7 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +67,14 @@ public class WBDingDanXQActivity extends BaseActivity {
     Button btn1;
     @BindView(R.id.viewState0)
     LinearLayout viewState0;
+    @BindView(R.id.imageState)
+    ImageView imageState;
     private String id;
     private MyAdapter myBagAdapter;
     private MyAdapter myAdapter;
     private MySumAdapter mySumAdapter;
     private User_Maintain_order_info datas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +95,7 @@ public class WBDingDanXQActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-     titleText.setText("订单详情");
+        titleText.setText("订单详情");
     }
 
     @Override
@@ -101,7 +105,7 @@ public class WBDingDanXQActivity extends BaseActivity {
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.Pay_Sucess.equals(event.getAction())){
+        if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
             getOrderInfo();
         }
     }
@@ -113,20 +117,20 @@ public class WBDingDanXQActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.viewState:
-                if (datas.getData().getStateType()==1){
+                if (datas.getData().getStateType() == 1) {
                     Intent intent = new Intent();
                     intent.putExtra("id", String.valueOf(id));
                     intent.setClass(context, LiJiZhiFuActivity.class);
                     startActivity(intent);
-                }else if (datas.getData().getStateType()==2){
+                } else if (datas.getData().getStateType() == 3) {
                     Intent intent = new Intent();
                     intent.putExtra("Oid", String.valueOf(id));
                     intent.setClass(context, LiJiPPActivity.class);
                     startActivity(intent);
-                }else if (datas.getData().getStateType()==3){
+                } else if (datas.getData().getStateType() == 4) {
                     Intent intent = new Intent();
                     intent.setClass(context, WeiXiuBYActivity.class);
-                   startActivity(intent);
+                    startActivity(intent);
                 }
                 break;
             case R.id.btn0:
@@ -190,7 +194,7 @@ public class WBDingDanXQActivity extends BaseActivity {
     }
 
     private void setOrderInfo(User_Maintain_order_info data) {
-        datas=data;
+        datas = data;
         myBagAdapter = new MyAdapter(data.getData(), 0);
         myAdapter = new MyAdapter(data.getData(), 1);
         mySumAdapter = new MySumAdapter(data.getData());
@@ -202,13 +206,18 @@ public class WBDingDanXQActivity extends BaseActivity {
         textBookTime.setText(data.getData().getStore().getDes2());
         textPerson.setText(data.getData().getStore().getDes3());
         textBagName.setText(data.getData().getBag_name());
-        if (data.getData().getStateType()==1){
+        imageState.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.wbddxq_qpj));
+        if (data.getData().getStateType() == 1) {
             textState.setText("订单待支付");
             textStateTo.setText("确认支付");
-        }else if (data.getData().getStateType()==2){
+            imageState.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_ddqzf));
+        } else if (data.getData().getStateType() == 2) {
+            textState.setText("订单服务中");
+            textStateTo.setText("服务中");
+        } else if (data.getData().getStateType() == 3) {
             textState.setText("订单待评价");
             textStateTo.setText("去评价");
-        }else if (data.getData().getStateType()==3){
+        } else if (data.getData().getStateType() == 4) {
             textState.setText("订单已完成");
             textStateTo.setText("再次预约");
         }
