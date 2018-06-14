@@ -5,5 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.wanbao.activity.HuanYinActivity">
-
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

@@ -21,6 +21,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -149,11 +150,9 @@ public class CheShouZiZhuanActivity extends BaseActivity {
                 goPhoto();
                 break;
             case R.id.viewNc:
-                final EditDialogText editDialog = new EditDialogText(context, "请输入昵称", "", "确认", "取消");
-                editDialog.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                MyDialog.twoButton(context, "请输入昵称", "请输入昵称", new MyDialog.ClickListenerInterface() {
                     @Override
                     public void doConfirm(String intro) {
-                        editDialog.dismiss();
                         infos.put("key","nickname");
                         infos.put("value",intro);
                         getSvaeInfo(infos);
@@ -161,10 +160,25 @@ public class CheShouZiZhuanActivity extends BaseActivity {
 
                     @Override
                     public void doCancel() {
-                        editDialog.dismiss();
+
                     }
                 });
-                editDialog.show();
+//                final EditDialogText editDialog = new EditDialogText(context, "请输入昵称", "", "确认", "取消");
+//                editDialog.setClicklistener(new EditDialogText.ClickListenerInterface() {
+//                    @Override
+//                    public void doConfirm(String intro) {
+//                        editDialog.dismiss();
+//                        infos.put("key","nickname");
+//                        infos.put("value",intro);
+//                        getSvaeInfo(infos);
+//                    }
+//
+//                    @Override
+//                    public void doCancel() {
+//                        editDialog.dismiss();
+//                    }
+//                });
+//                editDialog.show();
                 break;
             case R.id.viewDh:
                 break;
@@ -304,18 +318,17 @@ public class CheShouZiZhuanActivity extends BaseActivity {
                                 .placeholder(R.mipmap.ic_empty)
                                 .into(imageHeader);
                     } else {
-                        ToastUtils.showShort(uProfile.getInfo());
+                        MyDialog.dialogFinish(CheShouZiZhuanActivity.this,uProfile.getInfo());
                     }
                 } catch (Exception e) {
-                    ToastUtils.showShort("数据出错");
-
+                    MyDialog.dialogFinish(CheShouZiZhuanActivity.this,"数据出错");
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                ToastUtils.showShort("网络异常！");
+                MyDialog.dialogFinish(CheShouZiZhuanActivity.this,"网络异常");
             }
 
             @Override

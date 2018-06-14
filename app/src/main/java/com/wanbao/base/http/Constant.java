@@ -14,7 +14,7 @@ public class Constant {
     /**
      * 车架号正则
      */
-    public static String Cjh = "^([0-9A-Z]){17}$";
+    public static String Cjh = "^([0-9A-Za-z]){17}$";
 //    public static String HOST = "http://192.168.1.181/api/";
     public static String HOST = "https://www.wanbaoauto.com/api/";
     /**
@@ -263,6 +263,7 @@ public class Constant {
     public static class SF{
         public static final String isFirst = "isFirst";
         public static final String Uid = "Uid";
+        public static final String Did = "Did";
         public static final String UserName = "UserName";
         public static final String Nickname = "Nickname";
         public static final String HeadImg = "HeadImg";

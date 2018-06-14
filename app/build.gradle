@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 18061401
-        versionName "0.1.2"
+        versionCode 18061403
+        versionName "0.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -87,6 +87,7 @@ dependencies {
     compile('com.weiwangcn.betterspinner:library:1.1.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
+    compile 'com.romandanylyk:pageindicatorview:1.0.0'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
     compile 'com.hedgehog.ratingbar:app:1.1.2'
     compile 'com.android.support:multidex:1.0.0'
