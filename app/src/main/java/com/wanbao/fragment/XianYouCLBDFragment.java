@@ -30,6 +30,7 @@ import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.StateButton;
+import com.wanbao.base.util.A2bigA;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.view.EditDialog;
 import com.wanbao.base.view.EditDialogText;
@@ -164,6 +165,7 @@ public class XianYouCLBDFragment extends PSFragment {
             view = inflater.inflate(R.layout.fragment_xian_you_cl, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
+        editChePai.setTransformationMethod(new A2bigA());
         return view;
     }
 
@@ -244,6 +246,7 @@ public class XianYouCLBDFragment extends PSFragment {
                             imagexslc.setVisibility(View.VISIBLE);
                             viewSzy.setVisibility(View.VISIBLE);
                             viewSfy.setVisibility(View.VISIBLE);
+                            textCph.setText(editChePai.getText().toString());
                             textSjhm.setText(usercar_query.getData().getPhone_show());
                         } else {
                             imageCxxx.setVisibility(View.VISIBLE);

@@ -266,6 +266,26 @@ public class Constant {
          * 我的金库
          */
         public static final String Account_Index = "Account/index";
+        /**
+         * 佣金
+         */
+        public static final String Account_Amount = "Account/amount";
+        /**
+         * 佣金详情
+         */
+        public static final String Account_Amountinfo = "Account/amountinfo";
+        /**
+         * 积分
+         */
+        public static final String Account_Score = "Account/Score";
+        /**
+         * 积分详情
+         */
+        public static final String Account_Scoreinfo = "Account/scoreinfo";
+        /**
+         * 提现请求(余额)
+         */
+        public static final String Withdraw_AddBefore = "Withdraw/addBefore";
     }
 
     public static class SF{

@@ -217,15 +217,38 @@
         <activity
             android:name=".activity.ChangjianWTActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.TuiJianJLActivity" />
-        <activity android:name=".activity.TuiJianMXActivity" />
-        <activity android:name=".activity.WoDeJKActivity" />
-        <activity android:name=".activity.YongJinActivity" />
-        <activity android:name=".activity.YongjinXQActivity" />
-        <activity android:name=".activity.TiXianActivity" />
-        <activity android:name=".activity.WoDeYHKActivity" />
-        <activity android:name=".activity.XinZengYHKActivity" />
-        <activity android:name=".activity.YinDaoActivity"></activity>
+        <activity
+            android:name=".activity.TuiJianJLActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.TuiJianMXActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.WoDeJKActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.YongJinActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.YongjinXQActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.TiXianActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.WoDeYHKActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.XinZengYHKActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.YinDaoActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.JiFenActivity"
+            android:label="@string/title_activity_ji_fen"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.JiFenXQActivity"></activity>
     </application>
 
 </manifest>

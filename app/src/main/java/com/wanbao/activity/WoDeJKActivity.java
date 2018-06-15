@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -75,13 +76,20 @@ public class WoDeJKActivity extends BaseActivity {
 
     @OnClick({R.id.imageback, R.id.viewJf, R.id.viewYj, R.id.viewWdzd, R.id.viewWdyhk, R.id.viewTxjl})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.imageback:
                 finish();
                 break;
             case R.id.viewJf:
+                intent=new Intent();
+                intent.setClass(context,JiFenActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewYj:
+                intent=new Intent();
+                intent.setClass(context,YongJinActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewWdzd:
                 break;

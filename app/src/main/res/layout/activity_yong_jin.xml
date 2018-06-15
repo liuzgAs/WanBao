@@ -45,7 +45,7 @@
         <com.wanbao.base.ui.StateButton
             android:id="@+id/sBtnTiXian"
             android:layout_width="@dimen/dp_150"
-            android:layout_height="@dimen/dp_35"
+            android:layout_height="@dimen/dp_38"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/dp_20"
@@ -88,6 +88,7 @@
             android:textSize="@dimen/sp_13" />
 
         <TextView
+            android:id="@+id/textKssj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="开始时间"
@@ -123,6 +124,7 @@
             android:textSize="@dimen/sp_13" />
 
         <TextView
+            android:id="@+id/textJssj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="结束时间"

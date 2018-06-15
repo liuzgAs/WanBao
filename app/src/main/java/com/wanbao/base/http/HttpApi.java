@@ -2,10 +2,10 @@ package com.wanbao.base.http;
 
 import android.content.Context;
 
-import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
@@ -44,9 +44,7 @@ public class HttpApi {
         params.put("loginType", "1");
         params.put("platform", "android");
         params.put("tokenTime", System.currentTimeMillis() + "");
-        params.put("did", PushServiceFactory.getCloudPushService().getDeviceId());
-//        params.put("did", "1");
-
+        params.put("did",  SPUtils.getInstance().getInt(Constant.SF.Did,0)+"");
         params.put("version", String.valueOf(AppUtils.getAppVersionCode()));
         okObject.setParams(params);
         LogUtils.e("HttpApi--发送", "" + okObject.getJson());

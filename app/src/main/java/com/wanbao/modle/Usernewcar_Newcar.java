@@ -206,6 +206,7 @@ public class Usernewcar_Newcar {
             private String title;
             private List<ItemBean> item;
 
+
             public int getId() {
                 return id;
             }
@@ -238,7 +239,15 @@ public class Usernewcar_Newcar {
 
                 private int id;
                 private String title;
+                private boolean isCheck=true;
 
+                public boolean getIsCheck() {
+                    return isCheck;
+                }
+
+                public void setIsCheck(boolean isCheck) {
+                    this.isCheck = isCheck;
+                }
                 public int getId() {
                     return id;
                 }

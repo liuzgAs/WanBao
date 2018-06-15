@@ -24,12 +24,16 @@ import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_Test_drive_order_info;
 import com.wanbao.viewholder.ShiJiaDDXQViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -141,10 +145,9 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                                 intent.putExtra("Oid", String.valueOf(id));
                                 intent.setClass(context, LiJiZhiFuActivity.class);
                                 startActivity(intent);
-                            }else if (uInfo.getData().getStateType()==2){
-//                                textState.setText("订单待试驾");
-//                                textStateTo.setText("确认试驾");
                             }else if (uInfo.getData().getStateType()==3){
+                                setState(id);
+                            }else if (uInfo.getData().getStateType()==5){
                                 Intent intent = new Intent();
                                 intent.setClass(context, XuanZheCheXSJActivity.class);
                                 startActivity(intent);
@@ -181,11 +184,14 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                         textState.setText("订单待试驾");
                         textStateTo.setText("确认试驾");
                     }else if (uInfo.getData().getStateType()==3){
-                        textState.setText("订单已完成");
-                        textStateTo.setText("再次预约");
+                        textState.setText("订单已试驾");
+                        textStateTo.setText("已试驾");
                     }else if (uInfo.getData().getStateType()==4){
                         textState.setText("订单待评价");
                         textStateTo.setText("去评价");
+                    }else if (uInfo.getData().getStateType()==5){
+                        textState.setText("订单已完成");
+                        textStateTo.setText("再次预约");
                     }
                 }
 
@@ -319,5 +325,57 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
             holder.textJinel.setText(dataBean.getSum_des().get(position).getV());
             return convertView;
         }
+    }
+    private void setState( String id) {
+        HttpApi.post(context, getOkObjectState( id), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+               showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                try {
+                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
+                    int status = comment.getStatus();
+                    if (status == 1) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_SjOrder, null));
+                        finish();
+                    } else {
+                        ToastUtils.showShort(comment.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+                dispose();
+            }
+
+
+        });
+    }
+
+    private OkObject getOkObjectState( String id) {
+        String  url = Constant.HOST + Constant.Url.User_ConfirmOrder;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("id", id);
+        return new OkObject(params, url);
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.PhoneUtils;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
@@ -33,10 +34,9 @@ public class DpViewHolder extends BaseViewHolder<Index_Store.DataBean> {
     }
 
     @Override
-    public void setData(Index_Store.DataBean data) {
+    public void setData(final Index_Store.DataBean data) {
         super.setData(data);
         textDz.setText(data.getAddress());
-        textName.setText(data.getTitle());
         textName.setText(data.getTitle());
         GlideApp.with(getContext())
                 .asBitmap()
@@ -46,7 +46,7 @@ public class DpViewHolder extends BaseViewHolder<Index_Store.DataBean> {
         imagePhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                PhoneUtils.dial(data.getPhone());
             }
         });
     }

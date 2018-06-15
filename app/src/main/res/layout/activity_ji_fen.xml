@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.wanbao.activity.JiFenActivity">
+
+    <include layout="@layout/newtitle">
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_45"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <com.wanbao.base.ui.StateButton
+            android:id="@+id/sBtnTiXian"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_38"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:text="提现"
+            android:visibility="gone"
+            android:textSize="@dimen/sp_13"
+            app:normalBackgroundColor="@color/light_red"
+            app:normalTextColor="@color/white"
+            app:pressedBackgroundColor="@color/new_secondary_text"
+            app:pressedTextColor="@color/white"
+            app:radius="@dimen/dp_22" />
+
+        <ImageView
+            android:id="@+id/imageQuestion"
+            android:layout_width="@dimen/dp_30"
+            android:visibility="gone"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:padding="@dimen/dp_4"
+            android:src="@mipmap/icon_txyw" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/viewDateBegin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/layout_selector_white_system_gray"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="开始时间"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/textKssj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始时间"
+            android:textColor="@color/new_secondary_text"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:src="@mipmap/next_btn" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/background">
+    </View>
+    <LinearLayout
+        android:id="@+id/viewDateEnd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@drawable/layout_selector_white_system_gray"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="结束时间"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/textJssj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="结束时间"
+            android:textColor="@color/new_secondary_text"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:src="@mipmap/next_btn" />
+    </LinearLayout>
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="@dimen/dp_1"
+        android:layout_width="match_parent"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        app:scrollbarStyle="insideOverlay"
+        android:layout_height="match_parent">
+    </com.jude.easyrecyclerview.EasyRecyclerView>
+</LinearLayout>

@@ -122,12 +122,12 @@ public class WBDingDanXQActivity extends BaseActivity {
                     intent.putExtra("id", String.valueOf(id));
                     intent.setClass(context, LiJiZhiFuActivity.class);
                     startActivity(intent);
-                } else if (datas.getData().getStateType() == 3) {
+                } else if (datas.getData().getStateType() == 4) {
                     Intent intent = new Intent();
-                    intent.putExtra("Oid", String.valueOf(id));
+                    intent.putExtra("id", String.valueOf(id));
                     intent.setClass(context, LiJiPPActivity.class);
                     startActivity(intent);
-                } else if (datas.getData().getStateType() == 4) {
+                } else if (datas.getData().getStateType() == 5) {
                     Intent intent = new Intent();
                     intent.setClass(context, WeiXiuBYActivity.class);
                     startActivity(intent);
@@ -212,12 +212,15 @@ public class WBDingDanXQActivity extends BaseActivity {
             textStateTo.setText("确认支付");
             imageState.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_ddqzf));
         } else if (data.getData().getStateType() == 2) {
+            textState.setText("订单待接车");
+            textStateTo.setText("待接车");
+        } else if (data.getData().getStateType() == 3) {
             textState.setText("订单服务中");
             textStateTo.setText("服务中");
-        } else if (data.getData().getStateType() == 3) {
+        } else if (data.getData().getStateType() == 4) {
             textState.setText("订单待评价");
             textStateTo.setText("去评价");
-        } else if (data.getData().getStateType() == 4) {
+        } else if (data.getData().getStateType() == 5) {
             textState.setText("订单已完成");
             textStateTo.setText("再次预约");
         }

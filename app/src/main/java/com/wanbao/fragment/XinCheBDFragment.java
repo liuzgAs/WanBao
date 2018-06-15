@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -223,6 +224,18 @@ public class XinCheBDFragment extends PSFragment {
 
     @OnClick(R.id.sbtn_tijiao)
     public void onViewClicked() {
+        if (uNewcar!=null){
+            if (uNewcar.getStatus()==1){
+                for (int i=0;i<uNewcar.getInfo().getCate().size();i++){
+                    for (int j=0;j<uNewcar.getInfo().getCate().get(i).getItem().size();j++){
+                        if (!uNewcar.getInfo().getCate().get(i).getItem().get(j).getIsCheck()){
+                            ToastUtils.showShort("请确认所有项目！");
+                            return;
+                        }
+                    }
+                }
+            }
+        }
         getTrading();
     }
 
@@ -302,7 +315,7 @@ public class XinCheBDFragment extends PSFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
@@ -312,9 +325,15 @@ public class XinCheBDFragment extends PSFragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.checkbox.setChecked(true);
-            holder.checkbox.setClickable(false);
+            holder.checkbox.setChecked(dataBean.getItem().get(position).getIsCheck());
             holder.checkbox.setText(dataBean.getItem().get(position).getTitle());
+            holder.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        dataBean.getItem().get(position).setIsCheck(isChecked);
+                        notifyDataSetChanged();
+                }
+            });
             return convertView;
         }
     }
