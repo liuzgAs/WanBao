@@ -182,10 +182,10 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                         textStateTo.setText("确认支付");
                     }else if (uInfo.getData().getStateType()==2){
                         textState.setText("订单待试驾");
-                        textStateTo.setText("确认试驾");
+                        textStateTo.setText("待试驾");
                     }else if (uInfo.getData().getStateType()==3){
                         textState.setText("订单已试驾");
-                        textStateTo.setText("已试驾");
+                        textStateTo.setText("确认试驾");
                     }else if (uInfo.getData().getStateType()==4){
                         textState.setText("订单待评价");
                         textStateTo.setText("去评价");
