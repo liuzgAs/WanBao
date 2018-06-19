@@ -9,12 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wanbao.R;
-import com.wanbao.base.activity.BaseActivity;
-import com.wanbao.fragment.TuiJianMXJFFragment;
-import com.wanbao.fragment.TuiJianMXYJFragment;
+import com.wanbao.base.activity.BaseNoLeftActivity;
+import com.wanbao.fragment.ZhangDanFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TuiJianMXActivity extends BaseActivity {
+public class ZhangDanMXActivity extends BaseNoLeftActivity {
 
     @BindView(R.id.imageback)
     ImageView imageback;
@@ -31,16 +31,16 @@ public class TuiJianMXActivity extends BaseActivity {
     TextView titleText;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
-    List<String> list = new ArrayList<>();
+    @BindView(R.id.viewBar)
+    LinearLayout viewBar;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-    private int currentItem = 0;
-    private int id;
-
+    List<String> list = new ArrayList<>();
+    private int currentItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tui_jian_mx);
+        setContentView(R.layout.activity_zhang_dan_mx);
         ButterKnife.bind(this);
         init();
     }
@@ -52,18 +52,18 @@ public class TuiJianMXActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-        id=getIntent().getIntExtra("id",0);
+        titleText.setText("账单明细");
     }
 
     @Override
     protected void initViews() {
-        titleText.setText("推荐明细");
         list.clear();
-        list.add("积分");
-        list.add("佣金");
+        list.add("全部");
+        list.add("收入");
+        list.add("支出");
         viewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
         tablayout.setupWithViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(4);
         tablayout.removeAllTabs();
         for (int i = 0; i < list.size(); i++) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_tablayout, null);
@@ -82,7 +82,6 @@ public class TuiJianMXActivity extends BaseActivity {
 
     }
 
-
     @OnClick(R.id.imageback)
     public void onViewClicked() {
         finish();
@@ -95,11 +94,7 @@ public class TuiJianMXActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            if (position==0){
-                return TuiJianMXJFFragment.newInstance(String.valueOf(id));
-            }else {
-                return TuiJianMXYJFragment.newInstance(String.valueOf(id));
-            }
+            return ZhangDanFragment.newInstance(String.valueOf(position));
 
         }
 

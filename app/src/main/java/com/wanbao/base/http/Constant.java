@@ -20,7 +20,7 @@ public class Constant {
     /**
      * 微信appid
      */
-    public static String WXAPPID = "wxe3ff03935adae0a6";
+    public static String WXAPPID = "wx3f8d58bf32cf9bb4";
     public static class Url {
         /**
          * 关于我们
@@ -286,6 +286,54 @@ public class Constant {
          * 提现请求(余额)
          */
         public static final String Withdraw_AddBefore = "Withdraw/addBefore";
+        /**
+         * 银行卡列表
+         */
+        public static final String Bank_CardList = "Bank/cardList";
+        /**
+         * 添加银行卡请求
+         */
+        public static final String Bank_CardAddbefore = "Bank/cardAddbefore";
+        /**
+         * 添加银行卡请求
+         */
+        public static final String Bank_CardAdd = "Bank/cardAdd";
+        /**
+         * 删除银行卡
+         */
+        public static final String Bank_CardDel = "Bank/cardDel";
+        /**
+         * 提现记录（余额）
+         */
+        public static final String Withdraw_Balance = "Withdraw/Balance";
+        /**
+         * 提现提交（余额）
+         */
+        public static final String Withdraw_AddDone = "Withdraw/addDone";
+        /**
+         * 帐单明细
+         */
+        public static final String Account_Accountlog = "Account/accountlog";
+        /**
+         * 推荐好友购车
+         */
+        public static final String Money_Recomadd = "Money/recomadd";
+        /**
+         * 分享注册
+         */
+        public static final String Money_Share = "Money/Share";
+        /**
+         * 推荐记录
+         */
+        public static final String Money_Recomlog = "Money/recomlog";
+        /**
+         * 推荐明细积分
+         */
+        public static final String Money_Score = "Money/score";
+        /**
+         * 推荐明细佣金
+         */
+        public static final String Money_Amount = "Money/amount";
     }
 
     public static class SF{

@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.dialog.MyDialog;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
@@ -65,6 +66,13 @@ public class WoDeJKActivity extends BaseActivity {
     }
 
     @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.TiXian.equals(event.getAction())){
+            initData();
+        }
+    }
+
+    @Override
     protected void initViews() {
         titleText.setText("我的金库");
     }
@@ -82,20 +90,30 @@ public class WoDeJKActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.viewJf:
-                intent=new Intent();
-                intent.setClass(context,JiFenActivity.class);
+                intent = new Intent();
+                intent.setClass(context, JiFenActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewYj:
-                intent=new Intent();
-                intent.setClass(context,YongJinActivity.class);
+                intent = new Intent();
+                intent.setClass(context, YongJinActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewWdzd:
+                intent = new Intent();
+                intent.setClass(context, ZhangDanMXActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewWdyhk:
+                intent = new Intent();
+                intent.putExtra("type",1);
+                intent.setClass(context, WoDeYHKActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewTxjl:
+                intent = new Intent();
+                intent.setClass(context, TiXianMXActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -124,17 +142,17 @@ public class WoDeJKActivity extends BaseActivity {
                         textJf.setText(String.valueOf(aIndex.getScore()));
                         textYj.setText(String.valueOf(aIndex.getMoney()));
                     } else {
-                        MyDialog.dialogFinish(WoDeJKActivity.this,aIndex.getInfo());
+                        MyDialog.dialogFinish(WoDeJKActivity.this, aIndex.getInfo());
                     }
                 } catch (Exception e) {
-                    MyDialog.dialogFinish(WoDeJKActivity.this,"数据出错");
+                    MyDialog.dialogFinish(WoDeJKActivity.this, "数据出错");
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                MyDialog.dialogFinish(WoDeJKActivity.this,"网络异常");
+                MyDialog.dialogFinish(WoDeJKActivity.this, "网络异常");
             }
 
             @Override
@@ -149,5 +167,11 @@ public class WoDeJKActivity extends BaseActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dispose();
     }
 }

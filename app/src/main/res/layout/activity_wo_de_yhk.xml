@@ -20,6 +20,7 @@
         android:layout_height="match_parent">
     </com.jude.easyrecyclerview.EasyRecyclerView>
     <TextView
+        android:id="@+id/textWenTi"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_30"
         android:textSize="@dimen/sp_13"

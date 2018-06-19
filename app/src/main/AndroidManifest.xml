@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+
     <application
         android:name=".base.AppContext"
         android:allowBackup="true"
@@ -70,7 +71,13 @@
             android:name="com.amap.api.v2.apikey"
             android:value="aea637b39ac646da4456966ae901ed7d">
             //开发者申请的key</meta-data>
-
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
@@ -248,7 +255,9 @@
             android:name=".activity.JiFenActivity"
             android:label="@string/title_activity_ji_fen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.JiFenXQActivity"></activity>
+        <activity android:name=".activity.JiFenXQActivity" />
+        <activity android:name=".activity.TiXianMXActivity" />
+        <activity android:name=".activity.ZhangDanMXActivity"></activity>
     </application>
 
 </manifest>

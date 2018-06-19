@@ -20,7 +20,7 @@
             android:id="@+id/viewAddCard"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_55"
-            android:background="@color/white"
+            android:background="@drawable/layout_selector_white_system_gray"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10">
 
@@ -48,7 +48,7 @@
             android:id="@+id/viewChangeCard"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_55"
-            android:background="@color/white"
+            android:background="@drawable/layout_selector_white_system_gray"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10">
 
@@ -129,6 +129,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:inputType="numberDecimal"
                 android:id="@+id/textJinEr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -41,7 +41,7 @@ public class FindFragment extends PSFragment {
     Unbinder unbinder;
     private View view;
     private AMap aMap = null;
-
+    private Bundle savedInstanceState;
 
 
     public static FindFragment newInstance() {
@@ -54,11 +54,16 @@ public class FindFragment extends PSFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        this.savedInstanceState=savedInstanceState;
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_find, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
-        mMapView.onCreate(savedInstanceState);
+        if(aMap!=null){
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
+            aMap.getUiSettings().setZoomControlsEnabled(false);
+            aMap.getUiSettings().setZoomGesturesEnabled(false);
+        }
         return view;
     }
 
@@ -69,6 +74,7 @@ public class FindFragment extends PSFragment {
 
     @Override
     public void fetchData() {
+        mMapView.onCreate(savedInstanceState);
         aMap = mMapView.getMap();
         getStore();
     }
