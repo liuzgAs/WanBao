@@ -10,27 +10,20 @@ import java.util.List;
 
 public class Account_Accountlog {
 
+
     /**
-     * n_amount : 4536
-     * data : [{"id":1,"name":"周永","create_time":"2019-12-13,19:14:52","money":"520"},{"id":2,"name":"黄谛","create_time":"2019-12-13,19:14:52","money":"1520"}]
+     * data : [{"id":1,"name":"测试增加","money":"666.00","create_time":"2018.06.15","des":"已到帐"},{"id":2,"name":"测试消费","money":"-88.00","create_time":"2018.06.15","des":"支付成功"}]
+     * type : [{"id":1,"name":"全部","act":1},{"id":2,"name":"收入","act":0},{"id":3,"name":"支出","act":0}]
      * page : {"page":1,"pageTotal":1,"pageSize":15,"dataTotal":2}
      * status : 1
      * info : 获取成功
      */
 
-    private int n_amount;
     private PageBean page;
     private int status;
     private String info;
     private List<DataBean> data;
-
-    public int getN_amount() {
-        return n_amount;
-    }
-
-    public void setN_amount(int n_amount) {
-        this.n_amount = n_amount;
-    }
+    private List<TypeBean> type;
 
     public PageBean getPage() {
         return page;
@@ -62,6 +55,14 @@ public class Account_Accountlog {
 
     public void setData(List<DataBean> data) {
         this.data = data;
+    }
+
+    public List<TypeBean> getType() {
+        return type;
+    }
+
+    public void setType(List<TypeBean> type) {
+        this.type = type;
     }
 
     public static class PageBean {
@@ -113,15 +114,17 @@ public class Account_Accountlog {
     public static class DataBean {
         /**
          * id : 1
-         * name : 周永
-         * create_time : 2019-12-13,19:14:52
-         * money : 520
+         * name : 测试增加
+         * money : 666.00
+         * create_time : 2018.06.15
+         * des : 已到帐
          */
 
         private int id;
         private String name;
-        private String create_time;
         private String money;
+        private String create_time;
+        private String des;
 
         public int getId() {
             return id;
@@ -139,6 +142,14 @@ public class Account_Accountlog {
             this.name = name;
         }
 
+        public String getMoney() {
+            return money;
+        }
+
+        public void setMoney(String money) {
+            this.money = money;
+        }
+
         public String getCreate_time() {
             return create_time;
         }
@@ -147,12 +158,48 @@ public class Account_Accountlog {
             this.create_time = create_time;
         }
 
-        public String getMoney() {
-            return money;
+        public String getDes() {
+            return des;
         }
 
-        public void setMoney(String money) {
-            this.money = money;
+        public void setDes(String des) {
+            this.des = des;
+        }
+    }
+
+    public static class TypeBean {
+        /**
+         * id : 1
+         * name : 全部
+         * act : 1
+         */
+
+        private int id;
+        private String name;
+        private int act;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAct() {
+            return act;
+        }
+
+        public void setAct(int act) {
+            this.act = act;
         }
     }
 }

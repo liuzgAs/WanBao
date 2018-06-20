@@ -94,7 +94,7 @@ public class ZhangDanMXActivity extends BaseNoLeftActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return ZhangDanFragment.newInstance(String.valueOf(position));
+            return ZhangDanFragment.newInstance(String.valueOf(position+1));
 
         }
 

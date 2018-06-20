@@ -255,7 +255,7 @@ public class TuiJianMXYJFragment extends PSFragment implements SwipeRefreshLayou
     }
 
     private OkObject getOkObjectOrder() {
-        String url = Constant.HOST + Constant.Url.Money_Score;
+        String url = Constant.HOST + Constant.Url.Money_Amount;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("p", String.valueOf(page));

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
+import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
@@ -139,6 +140,12 @@ public class TuiJianHYGCFragment extends PSFragment {
                 }
                 if (TextUtils.isEmpty(textMoney.getText().toString())){
                     ToastUtils.showShort("购车预算不能为空");
+                    return;
+                }
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
                     return;
                 }
                 Recomadd();

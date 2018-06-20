@@ -1,6 +1,7 @@
 package com.wanbao.activity;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
@@ -22,6 +24,7 @@ import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Bank_CardAddbefore;
 import com.wanbao.modle.Comment;
+import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,6 +57,10 @@ public class XinZengYHKActivity extends BaseActivity {
     EditText editBankCard;
     @BindView(R.id.sBtnTiJiao)
     StateButton sBtnTiJiao;
+    @BindView(R.id.editYzm)
+    EditText editYzm;
+    @BindView(R.id.textFs)
+    TextView textFs;
     private ArrayList<String> maintainString = new ArrayList<>();
     private Bank_CardAddbefore addbefore;
     private String bankId;
@@ -86,9 +93,16 @@ public class XinZengYHKActivity extends BaseActivity {
         CardAddbefore();
     }
 
-    @OnClick({R.id.imageback, R.id.viewBank, R.id.sBtnTiJiao})
+    @OnClick({R.id.textFs,R.id.imageback, R.id.viewBank, R.id.sBtnTiJiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.textFs:
+                if (!RegexUtils.isMobileSimple(editPhone.getText())){
+                    ToastUtils.showShort("请输入正确的手机号");
+                    return;
+                }
+                yanZM(editPhone.getText().toString());
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -119,8 +133,12 @@ public class XinZengYHKActivity extends BaseActivity {
                     ToastUtils.showShort("请设置你的身份证号");
                     return;
                 }
-                if (TextUtils.isEmpty(editPhone.getText().toString())) {
-                    ToastUtils.showShort("请设置你的手机号");
+                if (!RegexUtils.isMobileSimple(editPhone.getText())){
+                    ToastUtils.showShort("请输入正确的手机号");
+                    return;
+                }
+                if (TextUtils.isEmpty(editYzm.getText().toString())) {
+                    ToastUtils.showShort("验证码不能为空");
                     return;
                 }
                 if (TextUtils.isEmpty(bankId)) {
@@ -234,10 +252,77 @@ public class XinZengYHKActivity extends BaseActivity {
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("bank", bankId);
         params.put("card", editCard.getText().toString());
-        params.put("code", "");
+        params.put("code", editYzm.getText().toString());
         params.put("bankCard", editBankCard.getText().toString());
         params.put("name", editName.getText().toString());
         params.put("phone", editPhone.getText().toString());
         return new OkObject(params, url);
     }
+    private void yanZM(String phone) {
+        HttpApi.post(context, getOkObjectYZM(phone), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("发送中...");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                Log.e("fasong", s);
+                try {
+                    Login_RegSms login_regSms = GsonUtils.parseJSON(s, Login_RegSms.class);
+                    if (login_regSms.getStatus() == 1) {
+                        timer.start();
+                        ToastUtils.showShort("发送成功！");
+                    } else {
+                        ToastUtils.showShort(login_regSms.getInfo());
+                    }
+
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据出错");
+
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectYZM(String phone) {
+        String url = Constant.HOST + Constant.Url.Login_BindCarSms;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userName", phone);
+        return new OkObject(params, url);
+    }
+    /**
+     * 倒计时60秒，一次1秒
+     */
+    CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // TODO Auto-generated method stub
+            textFs.setEnabled(false);
+            textFs.setText(millisUntilFinished / 1000 + "秒后重发");
+        }
+
+        @Override
+        public void onFinish() {
+            textFs.setEnabled(true);
+            textFs.setText("重新发送");
+        }
+    };
 }

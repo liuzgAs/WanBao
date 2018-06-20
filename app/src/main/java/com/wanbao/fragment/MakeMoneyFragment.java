@@ -14,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
+import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.TuiJianJLActivity;
 import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.http.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +99,12 @@ public class MakeMoneyFragment extends PSFragment {
 
     @OnClick(R.id.textRight)
     public void onViewClicked() {
+        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+            Intent intent = new Intent();
+            intent.setClass(context, LoginActivity.class);
+            startActivity(intent);
+            return;
+        }
         Intent intent=new Intent();
         intent.setClass(context, TuiJianJLActivity.class);
         startActivity(intent);

@@ -120,7 +120,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_aicheda;
-                return new AiCheDAViewHolder(parent, layout, AiCheDangAnActivity.this);
+                return new AiCheDAViewHolder(parent, layout, AiCheDangAnActivity.this,type);
             }
         });
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {

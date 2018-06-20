@@ -1,5 +1,6 @@
 package com.wanbao.modle;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @author LiuZG
  */
 
-public class Store_Index {
+public class Store_Index implements Serializable{
 
     /**
      * data : [{"id":2,"address":"福建省厦门市思明区商务营运中心|8号楼","title":"测试","phone":"电话：05925218501","img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","lng":"118.187784","lat":"24.525688","des":"","distance":"3.39km"}]
@@ -54,7 +55,7 @@ public class Store_Index {
         this.data = data;
     }
 
-    public static class PageBean {
+    public static class PageBean implements Serializable{
         /**
          * page : 1
          * pageTotal : 1
@@ -100,7 +101,7 @@ public class Store_Index {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 2
          * address : 福建省厦门市思明区商务营运中心|8号楼

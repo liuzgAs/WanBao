@@ -150,14 +150,24 @@ public class FenXiangZCFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewWx:
+                if (mShare==null){
+                    return;
+                }
                 MyDialog.wxShare1(context,api,0,mShare.getShare().getShareUrl(),mShare.getShare().getShareImg(),
                         mShare.getShare().getShareTitle(),mShare.getShare().getShareDes());
                 break;
             case R.id.viewPyq:
+                if (mShare==null){
+                    return;
+                }
                 MyDialog.wxShare1(context,api,1,mShare.getShare().getShareUrl(),mShare.getShare().getShareImg(),
                         mShare.getShare().getShareTitle(),mShare.getShare().getShareDes());
                 break;
             case R.id.viewEwm:
+                if (mShare==null){
+                    return;
+                }
+                MyDialog.wxShareTP(context,api,0,mShare.getEwm_url());
                 break;
             default:
                 break;

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,7 +17,11 @@ import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.activity.PeiZhiXinXiActivity;
 import com.wanbao.activity.TiYanZhongXinActivity;
+import com.wanbao.activity.XiuGaiCheLiangActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.modle.Usercar_Index;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by liuzhigang on 2018/5/15/015.
@@ -34,10 +39,12 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
     private final Button btnPzxx;
     private  Activity activity;
     private MyAdapter myAdapter;
+    private int type;
 
-    public AiCheDAViewHolder(ViewGroup parent, @LayoutRes int res,Activity activity) {
+    public AiCheDAViewHolder(ViewGroup parent, @LayoutRes int res,Activity activity,int type) {
         super(parent, res);
         this.activity=activity;
+        this.type=type;
         imageCar = $(R.id.imageCar);
         textName = $(R.id.textName);
         textDes = $(R.id.textDes);
@@ -78,6 +85,20 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
                 intent.putExtra("id",String.valueOf(data.getCid()));
                 intent.setClass(getContext(), PeiZhiXinXiActivity.class);
                 getContext().startActivity(intent);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (type == 0) {
+                    Intent intent=new Intent();
+                    intent.putExtra("id",String.valueOf(data.getCid()));
+                    intent.setClass(getContext(),XiuGaiCheLiangActivity.class);
+                    getContext().startActivity(intent);
+                } else {
+                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_MyCar, data));
+                    activity.finish();
+                }
             }
         });
     }

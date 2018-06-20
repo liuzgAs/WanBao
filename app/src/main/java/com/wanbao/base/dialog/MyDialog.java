@@ -5,16 +5,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -23,6 +27,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.util.ThreadPoolManager;
 import com.wanbao.base.view.SingleBtnDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -165,6 +170,87 @@ public class MyDialog {
         } catch (IOException e) {
             // Log exception
             return null;
+        }
+    }
+    public static void wxShareTP(final Context context, final IWXAPI api, final int flag,final String imageUrl) {
+
+
+        ThreadPoolManager.getInstance().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    api.registerApp(Constant.WXAPPID);
+//                        Bitmap bmp = getPic(imageUrl);
+                    Bitmap bmp = BitmapFactory.decodeStream(new URL(imageUrl).openStream());
+                    if (bmp==null){
+                        Toast.makeText(context, "未获得图片资源", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    WXImageObject webpage = new WXImageObject(bmp);
+                    final WXMediaMessage msg = new WXMediaMessage();
+                    msg.mediaObject=webpage;
+                    Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+                    bmp.recycle();
+                    msg.thumbData = bmpToByteArray(thumbBmp, true);
+                    SendMessageToWX.Req req = new SendMessageToWX.Req();
+                    req.transaction = buildTransaction("img");
+                    req.message = msg;
+                    switch (flag) {
+                        case 0:
+                            req.scene = SendMessageToWX.Req.WXSceneSession;
+                            break;
+                        case 1:
+                            req.scene = SendMessageToWX.Req.WXSceneTimeline;
+                            break;
+                        case 2:
+                            req.scene = SendMessageToWX.Req.WXSceneFavorite;
+                            break;
+                        default:
+                            break;
+                    }
+                    api.sendReq(req);
+                }catch (IOException e){
+
+                }
+            }
+        });
+
+
+    }
+
+    private static byte[] bmpToByteArray(final Bitmap bmp,
+                                         final boolean needRecycle) {
+        int i;
+        int j;
+        if (bmp.getHeight() > bmp.getWidth()) {
+            i = bmp.getWidth();
+            j = bmp.getWidth();
+        } else {
+            i = bmp.getHeight();
+            j = bmp.getHeight();
+        }
+
+        Bitmap localBitmap = Bitmap.createBitmap(i, j, Bitmap.Config.RGB_565);
+        Canvas localCanvas = new Canvas(localBitmap);
+
+        while (true) {
+            localCanvas.drawBitmap(bmp, new Rect(0, 0, i, j), new Rect(0, 0, i, j), null);
+            if (needRecycle) {
+                bmp.recycle();
+            }
+            ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
+            localBitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+                    localByteArrayOutputStream);
+            localBitmap.recycle();
+            byte[] arrayOfByte = localByteArrayOutputStream.toByteArray();
+            try {
+                localByteArrayOutputStream.close();
+                return arrayOfByte;
+            } catch (Exception e) {
+                //F.out(e);
+            }
+            i = bmp.getHeight();
+            j = bmp.getHeight();
         }
     }
 }

@@ -35,7 +35,7 @@ public class ZhangDanMXViewHolder extends BaseViewHolder<Account_Accountlog.Data
         textCreateTime.setText(data.getCreate_time());
         textTitle.setText(data.getName());
         textMoney.setText(data.getMoney());
-        textDes.setText("");
+        textDes.setText(data.getDes());
 
     }
 

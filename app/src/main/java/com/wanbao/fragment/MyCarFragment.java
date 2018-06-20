@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,8 +165,26 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewPTGC0:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(getActivity(), WoDeJKActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewYZESC0:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+//                intent = new Intent();
+//                intent.setClass(getActivity(), ShiJiaDDActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.btnBangD:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
@@ -397,7 +416,11 @@ public class MyCarFragment extends PSFragment {
                                 adapter.addAll(user_my.getInterest());
                             }
                         }
-                        textName.setText(user_my.getNickname());
+                        if (!TextUtils.isEmpty(user_my.getNickname())){
+                            textName.setText(user_my.getNickname());
+                        }else {
+                            textName.setText("");
+                        }
                         GlideApp.with(getContext())
                                 .asBitmap()
                                 .load(user_my.getHeadimg())
