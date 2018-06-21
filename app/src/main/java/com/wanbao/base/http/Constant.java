@@ -334,6 +334,18 @@ public class Constant {
          * 推荐明细佣金
          */
         public static final String Money_Amount = "Money/amount";
+        /**
+         * 新车展厅首页
+         */
+        public static final String Showbrand_Index = "Showbrand/index";
+        /**
+         * 新车展厅详情页
+         */
+        public static final String Showbrand_Info = "Showbrand/info";
+        /**
+         * 新车展厅汽车详情页
+         */
+        public static final String Showbrand_Car = "Showbrand/car";
     }
 
     public static class SF{

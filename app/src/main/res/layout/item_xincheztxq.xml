@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginRight="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_8"
+            android:maxLines="1"
+            android:text="asdfasd"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_marginRight="@dimen/dp_34"
+            android:maxLines="1"
+            android:text="asdfasd"
+            android:textColor="@color/new_secondary_text"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:id="@+id/imageGo"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:padding="@dimen/dp_6"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_gravity="right|center_vertical"
+            android:src="@mipmap/icon_xincheztdh" />
+    </FrameLayout>
+
+</LinearLayout>

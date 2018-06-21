@@ -150,7 +150,7 @@
             android:id="@+id/imageView4"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_20"
-            app:srcCompat="@mipmap/shouye_wbtt" />
+            app:srcCompat="@mipmap/icon_qctt" />
         <com.sunfusheng.marqueeview.MarqueeView
             android:id="@+id/marqueeView"
             android:layout_width="match_parent"

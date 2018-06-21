@@ -302,12 +302,11 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                 LogUtils.e("getCar",s);
                 try {
                     Testdrive_TestDriveList car_index = GsonUtils.parseJSON(s, Testdrive_TestDriveList.class);
-                    int status = car_index.getStauts();
+                    int status = car_index.getStatus();
                     if (status == 1) {
                         adapter.clear();
                         adapter.addAll(car_index.getData());
                     } else {
-//                        showError("数据异常！");
                         adapter.clear();
                         adapter.addAll(dataBeans);
 

@@ -34,6 +34,7 @@ import com.wanbao.activity.ShiJiaDDActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.WoDeJKActivity;
+import com.wanbao.activity.XinCheZTActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -182,9 +183,9 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
-//                intent = new Intent();
-//                intent.setClass(getActivity(), ShiJiaDDActivity.class);
-//                startActivity(intent);
+                intent = new Intent();
+                intent.setClass(getActivity(), XinCheZTActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btnBangD:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
@@ -220,6 +221,15 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.imageViewTouX:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(getActivity(), CheShouZiZhuanActivity.class);
+                startActivity(intent);
                 break;
             case R.id.imageViewXX:
                 break;
@@ -284,14 +294,15 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewYZESC:
-                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-//                intent.setClass(getActivity(), XuanZheCheXActivity.class);
-//                startActivity(intent);
+                intent = new Intent();
+                intent.setClass(getActivity(), XinCheZTActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewSCSJ:
                 intent = new Intent();

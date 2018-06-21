@@ -26,7 +26,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-
     <application
         android:name=".base.AppContext"
         android:allowBackup="true"
@@ -71,6 +70,7 @@
             android:name="com.amap.api.v2.apikey"
             android:value="aea637b39ac646da4456966ae901ed7d">
             //开发者申请的key</meta-data>
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -257,7 +257,10 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.JiFenXQActivity" />
         <activity android:name=".activity.TiXianMXActivity" />
-        <activity android:name=".activity.ZhangDanMXActivity"></activity>
+        <activity android:name=".activity.ZhangDanMXActivity" />
+        <activity android:name=".activity.XinCheZTActivity" />
+        <activity android:name=".activity.XinCheZTXQActivity" />
+        <activity android:name=".activity.ZhanTingQCXQActivity"></activity>
     </application>
 
 </manifest>
