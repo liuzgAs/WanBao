@@ -12,8 +12,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -25,7 +27,9 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.adapter.ListDropDownAdapter;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -37,9 +41,12 @@ import com.wanbao.modle.Testdrive_TestDriveList;
 import com.wanbao.viewholder.HotCarHolder;
 import com.wanbao.viewholder.XuanZheCXSJViewHolder;
 import com.wanbao.viewholder.XzCarCarParamDHolder;
+import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,43 +59,47 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
     ImageView imageback;
     @BindView(R.id.titleText)
     TextView titleText;
+    @BindView(R.id.imageRight)
+    ImageView imageRight;
     @BindView(R.id.viewBar)
-    View viewBar;
-    @BindView(R.id.recyclerView)
-    EasyRecyclerView recyclerView;
-    @BindView(R.id.imageCheXi)
-    ImageView imageCheXi;
-    @BindView(R.id.textCheMing)
-    TextView textCheMing;
-    @BindView(R.id.recyclerViewCheXi)
-    EasyRecyclerView recyclerViewCheXi;
-    @BindView(R.id.drawerLayout)
-    DrawerLayout drawerLayout;
-    @BindView(R.id.imageZh)
-    ImageView imageZh;
-    @BindView(R.id.viewZh)
-    LinearLayout viewZh;
-    @BindView(R.id.imageJg)
-    ImageView imageJg;
-    @BindView(R.id.viewJg)
-    LinearLayout viewJg;
+    LinearLayout viewBar;
+    @BindView(R.id.dropDownMenu)
+    DropDownMenu dropDownMenu;
     private RecyclerArrayAdapter<Testdrive_TestDriveList.DataBean> adapter;
     private RecyclerArrayAdapter<Car_CarParam.HotbrandBean> hadapter;
     private RecyclerArrayAdapter<Car_CarStyle.DataBean> adaptercx;
     private String bsid = "";
-    ArrayList<Testdrive_TestDriveList.DataBean> dataBeans=new ArrayList<>();
+    ArrayList<Testdrive_TestDriveList.DataBean> dataBeans = new ArrayList<>();
+    private String headers[] = {"综合排序", "价格"};
+    private int page=1;
+    private List<View> popupViews = new ArrayList<>();
+    private EasyRecyclerView recyclerView;
+    private ImageView imageCheXi;
+    private TextView textCheMing;
+    private EasyRecyclerView recyclerViewCheXi;
+    private DrawerLayout drawerLayout;
+    private Testdrive_TestDriveList testDriveList;
+    private ListView paixulist ;
+    private ListView jiagelist;
+    private String price;
+    private String sort;
+    private  ListDropDownAdapter paixuAdapter;
+    private  ListDropDownAdapter jiageAdapter;
+    private ArrayList<String> paixu;
+    private ArrayList<String> jiage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xuan_zhe_che_x);
+        setContentView(R.layout.activity_xuan_zhe_che_xsj);
         ButterKnife.bind(this);
         init();
     }
 
     @Override
     protected void initSP() {
-
+        paixulist = new ListView(context);
+        jiagelist = new ListView(context);
     }
 
     @Override
@@ -99,13 +110,103 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
     @Override
     protected void initViews() {
         titleText.setText("选择车型");
-        initRecycler();
-        initRecyclercx();
+        getCar();
+        paixulist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                paixuAdapter.setCheckItem(position);
+                dropDownMenu.setTabText(position == 0 ? headers[0] : paixu.get(position));
+                dropDownMenu.closeMenu();
+                sort=testDriveList.getSort().get(position).getV();
+                onRefresh();
+            }
+        });
+        jiagelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                jiageAdapter.setCheckItem(position);
+                dropDownMenu.setTabText(position == 0 ? headers[1] : jiage.get(position));
+                dropDownMenu.closeMenu();
+                price=testDriveList.getFilter().get(position).getV();
+                onRefresh();
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        onRefresh();
+    }
+    private void getCar() {
+        HttpApi.post(context, getOkObjectCar(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                LogUtils.e("getCar", s);
+                try {
+                    testDriveList = GsonUtils.parseJSON(s, Testdrive_TestDriveList.class);
+                    int status = testDriveList.getStatus();
+                    if (status == 1) {
+                       paixu=new ArrayList<>();
+                        for(int i=0;i<testDriveList.getSort().size();i++){
+                            paixu.add(testDriveList.getSort().get(i).getName());
+                        }
+                        jiage=new ArrayList<>();
+                        for(int i=0;i<testDriveList.getFilter().size();i++){
+                            jiage.add(testDriveList.getFilter().get(i).getName());
+                        }
+                        //init age menu
+                        paixulist.setDividerHeight(0);
+                         paixuAdapter = new ListDropDownAdapter(context, paixu);
+                        paixulist.setAdapter(paixuAdapter);
+
+                        //init age menu
+                        jiagelist.setDividerHeight(0);
+                         jiageAdapter = new ListDropDownAdapter(context, jiage);
+                        jiagelist.setAdapter(jiageAdapter);
+
+                        popupViews.add(paixulist);
+                        popupViews.add(jiagelist);
+                        View view = LayoutInflater.from(context).inflate(R.layout.view_xuanzhecx, null);
+                        recyclerView = view.findViewById(R.id.recyclerView);
+                        drawerLayout = view.findViewById(R.id.drawerLayout);
+                        imageCheXi = view.findViewById(R.id.imageCheXi);
+                        textCheMing = view.findViewById(R.id.textCheMing);
+                        recyclerViewCheXi = view.findViewById(R.id.recyclerViewCheXi);
+                        dropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, view);
+                        initRecycler();
+                        initRecyclercx();
+                        onRefresh();
+                    } else {
+                        MyDialog.dialogFinish(XuanZheCheXSJActivity.this,testDriveList.getInfo());
+                    }
+                } catch (Exception e) {
+                    MyDialog.dialogFinish(XuanZheCheXSJActivity.this,"数据异常");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                MyDialog.dialogFinish(XuanZheCheXSJActivity.this,"网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
+
+        });
     }
 
     /**
@@ -170,7 +271,42 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
             @Override
             public void onMoreShow() {
-                adapter.addAll(dataBeans);
+                HttpApi.post(context, getOkObjectCar(), new HttpApi.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        try {
+                            page++;
+                            Testdrive_TestDriveList usercar_index = GsonUtils.parseJSON(s, Testdrive_TestDriveList.class);
+                            int status = usercar_index.getStatus();
+                            if (status == 1) {
+                                adapter.addAll(usercar_index.getData());
+                            } else {
+                                ToastUtils.showShort(usercar_index.getInfo());
+                            }
+                        } catch (Exception e) {
+                            adapter.pauseMore();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        adapter.pauseMore();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                });
             }
 
             @Override
@@ -226,7 +362,7 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
     @Override
     public void onRefresh() {
         getCheXi();
-        getCar();
+        getCarlist();
     }
 
     @Override
@@ -279,6 +415,7 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
         });
     }
 
+
     private OkObject getOkObjectCX() {
         String url = Constant.HOST + Constant.Url.Car_CarParam;
         HashMap<String, String> params = new HashMap<>();
@@ -286,7 +423,9 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
         return new OkObject(params, url);
     }
 
-    private void getCar() {
+
+    private void getCarlist() {
+        page=1;
         HttpApi.post(context, getOkObjectCar(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
@@ -299,8 +438,9 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
 
             @Override
             public void onSuccess(String s) {
-                LogUtils.e("getCar",s);
+                LogUtils.e("getCar", s);
                 try {
+                    page++;
                     Testdrive_TestDriveList car_index = GsonUtils.parseJSON(s, Testdrive_TestDriveList.class);
                     int status = car_index.getStatus();
                     if (status == 1) {
@@ -309,9 +449,11 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                     } else {
                         adapter.clear();
                         adapter.addAll(dataBeans);
-
                     }
                 } catch (Exception e) {
+                    if (adapter==null){
+                        return;
+                    }
                     adapter.clear();
                     adapter.addAll(dataBeans);
                 }
@@ -348,13 +490,15 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
         });
     }
 
-    private String price;
 
     private OkObject getOkObjectCar() {
         String url = Constant.HOST + Constant.Url.Testdrive_TestDriveList;
         HashMap<String, String> params = new HashMap<>();
-        params.put("bid", bsid);
+        params.put("bsid", bsid);
+        params.put("p", String.valueOf(page));
         params.put("price", price);
+        params.put("sort", sort);
+
         return new OkObject(params, url);
     }
 
@@ -412,42 +556,14 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
         dispose();
     }
 
-    @OnClick({R.id.imageback, R.id.viewZh, R.id.viewJg})
+    @OnClick({R.id.imageback})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageback:
                 finish();
                 break;
-            case R.id.viewZh:
-                setJgPaixu(0);
-                break;
-            case R.id.viewJg:
-                if (typeJg<2){
-                    typeJg=typeJg+1;
-                }else if (typeJg==2){
-                    typeJg=typeJg-1;
-                }
-                setJgPaixu(typeJg);
-                break;
             default:
                 break;
         }
-    }
-
-    int typeJg=0;
-    private void setJgPaixu(int type){
-        if (type==0){
-            imageJg.setVisibility(View.INVISIBLE);
-            price="";
-        }else if (type==1){
-            imageJg.setImageDrawable(getResources().getDrawable(R.mipmap.san_jiao_down_g));
-            imageJg.setVisibility(View.VISIBLE);
-            price="1";
-        }else if (type==2){
-            imageJg.setImageDrawable(getResources().getDrawable(R.mipmap.san_jiao_up_g));
-            imageJg.setVisibility(View.VISIBLE);
-            price="0";
-        }
-        getCar();
     }
 }

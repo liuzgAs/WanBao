@@ -43,15 +43,13 @@ public class XuanZheCXSJViewHolder extends BaseViewHolder<Testdrive_TestDriveLis
     public void setData(final Testdrive_TestDriveList.DataBean data) {
         super.setData(data);
 
-        textTitle.setText(data.getBrand());
-//        textDes.setText(data.getDes());
-//        textDes2.setText(data.getDes2());
-        textDes.setText(data.getTitle()+" "+data.getType());
-        textDes2.setText(data.getType()+"|"+data.getSeat()+"|"+data.getDriveprice());
-        textPrice.setText(data.getPrice());
+        textTitle.setText(data.getTitle());
+        textDes.setText(data.getDes());
+        textDes2.setText(data.getDes2());
+        textPrice.setText(data.getUse_price());
         GlideApp.with(getContext())
                 .asBitmap()
-                .load(data.getThumb())
+                .load(data.getImg())
                 .placeholder(R.mipmap.ic_empty)
                 .into(imageCar);
         sbtn_yuyue.setOnClickListener(new View.OnClickListener() {

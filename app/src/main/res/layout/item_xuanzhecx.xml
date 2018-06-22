@@ -12,6 +12,7 @@
     <ImageView
         android:id="@+id/imageCar"
         android:layout_width="@dimen/dp_80"
+        android:scaleType="centerCrop"
         android:layout_height="@dimen/dp_80"
         app:srcCompat="@mipmap/ic_empty" />
     <LinearLayout

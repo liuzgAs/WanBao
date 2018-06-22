@@ -586,6 +586,7 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("book_time", book_time);
         params.put("item_id", "");
         params.put("type", "1");
+        params.put("pay_msg", editmsgDes.getText().toString());
         params.put("online_pay", String.valueOf(isOnline));
         params.put("km", textLc.getText().toString());
         return new OkObject(params, url);

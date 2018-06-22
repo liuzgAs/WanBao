@@ -137,12 +137,12 @@ public class XianYouCLBDFragment extends PSFragment {
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
     private static final String[] COUNTRIES = new String[]{
-            "京", "津", "沪", "渝", "蒙",
+            "京", "津", "沪", "闽", "粤", "渝", "蒙",
             "新", "藏", "宁", "桂", "港",
             "澳", "黑", "吉", "辽", "晋",
             "冀", "青", "鲁", "豫", "苏",
-            "皖", "浙", "闽", "赣", "湘",
-            "鄂", "粤", "琼", "甘", "陕",
+            "皖", "浙", "赣", "湘",
+            "鄂", "琼", "甘", "陕",
             "黔", "滇", "川"
     };
     private Usercar_Query usercar_query;
@@ -166,6 +166,7 @@ public class XianYouCLBDFragment extends PSFragment {
         }
         unbinder = ButterKnife.bind(this, view);
         editChePai.setTransformationMethod(new A2bigA());
+        textCph.setTransformationMethod(new A2bigA());
         return view;
     }
 
@@ -371,7 +372,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("bc_time", textGcsj.getText().toString());
         params.put("engine", textFdjh.getText().toString());
         params.put("car_no", textCph.getText().toString());
-        params.put("vin",textCjh.getText().toString());
+        params.put("vin", textCjh.getText().toString());
         params.put("km", textxslc.getText().toString());
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
@@ -460,12 +461,12 @@ public class XianYouCLBDFragment extends PSFragment {
         Intent intent;
         switch (view.getId()) {
             case R.id.viewXm:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
-                String stringXm="";
-                if(xinShiZZM!=null){
-                    stringXm=xinShiZZM.getData().getName();
+                String stringXm = "";
+                if (xinShiZZM != null) {
+                    stringXm = xinShiZZM.getData().getName();
                 }
                 final EditDialogText editDialogXm = new EditDialogText(context, "输入你的姓名", stringXm, "确认", "取消");
                 editDialogXm.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -483,12 +484,12 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogXm.show();
                 break;
             case R.id.viewCx:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
-                String stringCx="";
-                if(xinShiZZM!=null){
-                    stringCx=xinShiZZM.getData().getCar_name();
+                String stringCx = "";
+                if (xinShiZZM != null) {
+                    stringCx = xinShiZZM.getData().getCar_name();
                 }
                 final EditDialogText editDialogCx = new EditDialogText(context, "输入车型", stringCx, "确认", "取消");
                 editDialogCx.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -506,12 +507,12 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogCx.show();
                 break;
             case R.id.viewDz:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
-                String stringDz="";
-                if(xinShiZZM!=null){
-                    stringDz=xinShiZZM.getData().getAddress();
+                String stringDz = "";
+                if (xinShiZZM != null) {
+                    stringDz = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogDz = new EditDialogText(context, "输入地址", stringDz, "确认", "取消");
                 editDialogDz.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -529,12 +530,12 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogDz.show();
                 break;
             case R.id.viewCph:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
-                String stringCph="";
-                if(xinShiZZM!=null){
-                    stringCph=xinShiZZM.getData().getAddress();
+                String stringCph = "";
+                if (xinShiZZM != null) {
+                    stringCph = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogCph = new EditDialogText(context, "输入车牌号", stringCph, "确认", "取消");
                 editDialogCph.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -552,12 +553,12 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogCph.show();
                 break;
             case R.id.viewFdjh:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
-                String stringFdjh="";
-                if(xinShiZZM!=null){
-                    stringFdjh=xinShiZZM.getData().getAddress();
+                String stringFdjh = "";
+                if (xinShiZZM != null) {
+                    stringFdjh = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogFdjh = new EditDialogText(context, "输入发动机号", stringFdjh, "确认", "取消");
                 editDialogFdjh.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -575,12 +576,12 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogFdjh.show();
                 break;
             case R.id.viewCjh:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
-                String stringCjh="";
-                if(xinShiZZM!=null){
-                    stringCjh=xinShiZZM.getData().getAddress();
+                String stringCjh = "";
+                if (xinShiZZM != null) {
+                    stringCjh = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogCjh = new EditDialogText(context, "输入车架号", stringCjh, "确认", "取消");
                 editDialogCjh.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -598,7 +599,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogCjh.show();
                 break;
             case R.id.viewNcdq:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
                 Calendar c0 = Calendar.getInstance();
@@ -608,11 +609,11 @@ public class XianYouCLBDFragment extends PSFragment {
                         textNsdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c0.get(Calendar.YEAR), c0.get(Calendar.MONTH), c0.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog0.show();
                 break;
             case R.id.viewBxdq:
-                if (usercar_query.getR()!=0){
+                if (usercar_query.getR() != 0) {
                     return;
                 }
                 Calendar c = Calendar.getInstance();
@@ -622,7 +623,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         textBxdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
                 break;
             case R.id.textFs:
@@ -648,7 +649,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         textGcsj.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
+                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
                 datePickerDialog1.show();
                 break;
             case R.id.viewXslc:
@@ -682,58 +683,58 @@ public class XianYouCLBDFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (dataBean==null){
+                if (dataBean == null) {
                     ToastUtils.showShort("请选择车型信息！");
                     return;
                 }
                 if (usercar_query.getR() == 0) {
-                    if (TextUtils.isEmpty(textGcsj.getText().toString())){
+                    if (TextUtils.isEmpty(textGcsj.getText().toString())) {
                         ToastUtils.showShort("请设置购车时间");
                         return;
                     }
-                    if (TextUtils.isEmpty(textxslc.getText().toString())){
+                    if (TextUtils.isEmpty(textxslc.getText().toString())) {
                         ToastUtils.showShort("请设置行驶里程");
                         return;
                     }
-                    if (TextUtils.isEmpty(textXm.getText().toString())){
+                    if (TextUtils.isEmpty(textXm.getText().toString())) {
                         ToastUtils.showShort("请设置姓名");
                         return;
                     }
-                    if (TextUtils.isEmpty(textCx.getText().toString())){
+                    if (TextUtils.isEmpty(textCx.getText().toString())) {
                         ToastUtils.showShort("请设置车型");
                         return;
                     }
-                    if (TextUtils.isEmpty(textDz.getText().toString())){
+                    if (TextUtils.isEmpty(textDz.getText().toString())) {
                         ToastUtils.showShort("请设置地址");
                         return;
                     }
-                    if (TextUtils.isEmpty(textCph.getText().toString())){
+                    if (TextUtils.isEmpty(textCph.getText().toString())) {
                         ToastUtils.showShort("请设置车牌号");
                         return;
                     }
-                    if (TextUtils.isEmpty(textFdjh.getText().toString())){
+                    if (TextUtils.isEmpty(textFdjh.getText().toString())) {
                         ToastUtils.showShort("请设置发动机号");
                         return;
                     }
-                    if (!RegexUtils.isMatch(Constant.Cjh,textCjh.getText().toString())){
+                    if (!RegexUtils.isMatch(Constant.Cjh, textCjh.getText().toString())) {
                         ToastUtils.showShort("请输入正确车架号");
                         return;
                     }
-                    if (TextUtils.isEmpty(textNsdq.getText().toString())){
+                    if (TextUtils.isEmpty(textNsdq.getText().toString())) {
                         ToastUtils.showShort("请设置年审到期时间");
                         return;
                     }
-                    if (TextUtils.isEmpty(textBxdq.getText().toString())){
+                    if (TextUtils.isEmpty(textBxdq.getText().toString())) {
                         ToastUtils.showShort("请设置保险到期时间");
                         return;
                     }
-                    if (TextUtils.isEmpty(editYzm.getText().toString())){
+                    if (TextUtils.isEmpty(editYzm.getText().toString())) {
                         ToastUtils.showShort("短信验证码不能为空！");
                         return;
                     }
                     usercar_Add_car(getOkObjectBD1());
                 } else if (usercar_query.getR() == 1) {
-                    if (TextUtils.isEmpty(editYzm.getText().toString())){
+                    if (TextUtils.isEmpty(editYzm.getText().toString())) {
                         ToastUtils.showShort("短信验证码不能为空！");
                         return;
                     }

@@ -10,9 +10,12 @@ import java.util.List;
 
 public class Car_Index {
 
+
     /**
-     * data : [{"title":"Q3 2018","id":1,"price":"18.88","des":"Q3 2018 Q3 2018","img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","displacement":"1.6","type":"1","seat":5,"des2":"自动1.6 | 5座 | 指导价18.88万"}]
-     * page : {"page":1,"pageTotal":1,"pageSize":10,"dataTotal":1}
+     * filter : [{"name":"综合排序","k":"price","v":""},{"name":"5W以下","k":"price","v":"0-5"},{"name":"5-10w","k":"price","v":"5-10"},{"name":"10-20w","k":"price","v":"10-20"},{"name":"20-50w","k":"price","v":"20-50"},{"name":"50-100W","k":"price","v":"50-100"},{"name":"100-9999W","k":"price","v":"100-9999"}]
+     * sort : [{"name":"综合排序","k":"sort","v":""},{"name":"按排量升序","k":"sort","v":"pl_asc"},{"name":"按排量降序","k":"sort","v":"pl_desc"},{"name":"按指导价升序","k":"sort","v":"jg_asc"},{"name":"按指导价降序","k":"sort","v":"jg_desc"}]
+     * data : [{"title":"锐·混动2.0L净速版","id":2,"price":"21.98","des":"锐·混动2.0L净速版","img":"http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png","displacement":"1.6","type":"1","seat":5,"des2":"自动1.6 | 5座 | 指导价21.98万"},{"title":"Q3 2018","id":1,"price":"18.88","des":"Q3 2018 Q3 2018","img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","displacement":"1.6","type":"1","seat":5,"des2":"自动1.6 | 5座 | 指导价18.88万"}]
+     * page : {"page":1,"pageTotal":1,"pageSize":10,"dataTotal":2}
      * status : 1
      * info : 操作成功！
      */
@@ -20,6 +23,8 @@ public class Car_Index {
     private PageBean page;
     private int status;
     private String info;
+    private List<FilterBean> filter;
+    private List<SortBean> sort;
     private List<DataBean> data;
 
     public PageBean getPage() {
@@ -46,6 +51,22 @@ public class Car_Index {
         this.info = info;
     }
 
+    public List<FilterBean> getFilter() {
+        return filter;
+    }
+
+    public void setFilter(List<FilterBean> filter) {
+        this.filter = filter;
+    }
+
+    public List<SortBean> getSort() {
+        return sort;
+    }
+
+    public void setSort(List<SortBean> sort) {
+        this.sort = sort;
+    }
+
     public List<DataBean> getData() {
         return data;
     }
@@ -59,7 +80,7 @@ public class Car_Index {
          * page : 1
          * pageTotal : 1
          * pageSize : 10
-         * dataTotal : 1
+         * dataTotal : 2
          */
 
         private int page;
@@ -100,17 +121,89 @@ public class Car_Index {
         }
     }
 
+    public static class FilterBean {
+        /**
+         * name : 综合排序
+         * k : price
+         * v :
+         */
+
+        private String name;
+        private String k;
+        private String v;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getK() {
+            return k;
+        }
+
+        public void setK(String k) {
+            this.k = k;
+        }
+
+        public String getV() {
+            return v;
+        }
+
+        public void setV(String v) {
+            this.v = v;
+        }
+    }
+
+    public static class SortBean {
+        /**
+         * name : 综合排序
+         * k : sort
+         * v :
+         */
+
+        private String name;
+        private String k;
+        private String v;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getK() {
+            return k;
+        }
+
+        public void setK(String k) {
+            this.k = k;
+        }
+
+        public String getV() {
+            return v;
+        }
+
+        public void setV(String v) {
+            this.v = v;
+        }
+    }
+
     public static class DataBean {
         /**
-         * title : Q3 2018
-         * id : 1
-         * price : 18.88
-         * des : Q3 2018 Q3 2018
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg
+         * title : 锐·混动2.0L净速版
+         * id : 2
+         * price : 21.98
+         * des : 锐·混动2.0L净速版
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png
          * displacement : 1.6
          * type : 1
          * seat : 5
-         * des2 : 自动1.6 | 5座 | 指导价18.88万
+         * des2 : 自动1.6 | 5座 | 指导价21.98万
          */
 
         private String title;
