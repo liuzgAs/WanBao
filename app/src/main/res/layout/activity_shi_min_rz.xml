@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_5"
-                        android:text="扫描身份证正页自动填写"
+                        android:text="扫描身份证正面自动填写"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -83,6 +83,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewXm"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -104,6 +105,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="姓名"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -116,6 +118,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewXb"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -137,6 +140,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="性别"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -182,6 +186,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewZjhm"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -203,6 +208,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="证件号码"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -211,7 +217,119 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
                 android:background="@color/background"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
 
+                <ImageView
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:src="@mipmap/icon_xszbd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_weight="1"
+                    android:text="身份证"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:id="@+id/viewSfzby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_selector_white_system_gray"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="@dimen/dp_18"
+                        android:src="@mipmap/icon_saom" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="扫描身份证背面自动填写"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/background"></View>
+
+            <LinearLayout
+                android:id="@+id/viewYxqq"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="有效期（起）"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textYxqq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="身份证有效期（起）"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:id="@+id/viewYxqz"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="有效期（止）"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textYxqz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="身份证有效期（止）"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/background"></View>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
@@ -263,6 +381,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewXmj"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -284,6 +403,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="姓名"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -296,6 +416,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewXbj"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -317,6 +438,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="性别"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -329,6 +451,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewCclzrq"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -350,6 +473,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="初次领证日期"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -362,6 +486,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewZjcx"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -383,6 +508,7 @@
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
                     android:hint="准驾车型"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -395,6 +521,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewYxq"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"
@@ -415,7 +542,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="初次领证日期"
+                    android:hint="驾驶证有效期"
+                    android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>

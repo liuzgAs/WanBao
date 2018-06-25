@@ -139,6 +139,13 @@ public class XinCheZTActivity extends BaseActivity implements SwipeRefreshLayout
                     public void daoDiLe() {
                     }
                 });
+                hadapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        bid=String.valueOf(hadapter.getItem(position).getBid());
+                        onRefresh();
+                    }
+                });
                 return view;
             }
 

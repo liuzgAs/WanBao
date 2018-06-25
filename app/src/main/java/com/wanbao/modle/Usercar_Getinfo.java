@@ -8,8 +8,9 @@ package com.wanbao.modle;
 
 public class Usercar_Getinfo {
 
+
     /**
-     * data : {"id":1,"car_name":"奥迪A6舒适版","name":"","cid_name":"Q3 2018","cid":1,"bc_time":"2016-08-08","engine":"4768486456854","engine_show":"476****6854","vin":"d56w4d5165fs46f4s56fsf","vin_show":"d56****6fsf","address":"1470585600","phone":"15860026753","phone_show":"158****6753","car_no":"闽B88888","km":5888,"face_img":0,"back_img":0,"year_end":"2016-08-08","insurance_end":"2016-08-08."}
+     * data : {"id":1,"car_name":"奥迪A6舒适版","name":"","cid_name":"Q3 2018","cid":1,"bc_time":"2016-08-08","engine":"4768486456854","engine_show":"476****6854","vin":"d56w4d5165fs46f4s56fsf","vin_show":"d56****6fsf","address":"1470585600","phone":"15860026753","phone_show":"158****6753","car_no":"闽B88888","km":5888,"face_img":0,"back_img":0,"year_end":"2016-08","issue_date":"1970-01-01","register_date":"1970-01-01","insurance_commerce":"1970-01-01","insurance_end":"2016-08-08."}
      * status : 1
      * info : 返回成功！
      */
@@ -61,7 +62,10 @@ public class Usercar_Getinfo {
          * km : 5888
          * face_img : 0
          * back_img : 0
-         * year_end : 2016-08-08
+         * year_end : 2016-08
+         * issue_date : 1970-01-01
+         * register_date : 1970-01-01
+         * insurance_commerce : 1970-01-01
          * insurance_end : 2016-08-08.
          */
 
@@ -83,6 +87,9 @@ public class Usercar_Getinfo {
         private int face_img;
         private int back_img;
         private String year_end;
+        private String issue_date;
+        private String register_date;
+        private String insurance_commerce;
         private String insurance_end;
 
         public int getId() {
@@ -227,6 +234,30 @@ public class Usercar_Getinfo {
 
         public void setYear_end(String year_end) {
             this.year_end = year_end;
+        }
+
+        public String getIssue_date() {
+            return issue_date;
+        }
+
+        public void setIssue_date(String issue_date) {
+            this.issue_date = issue_date;
+        }
+
+        public String getRegister_date() {
+            return register_date;
+        }
+
+        public void setRegister_date(String register_date) {
+            this.register_date = register_date;
+        }
+
+        public String getInsurance_commerce() {
+            return insurance_commerce;
+        }
+
+        public void setInsurance_commerce(String insurance_commerce) {
+            this.insurance_commerce = insurance_commerce;
         }
 
         public String getInsurance_end() {

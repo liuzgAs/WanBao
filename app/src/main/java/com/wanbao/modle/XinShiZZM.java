@@ -70,6 +70,7 @@ public class XinShiZZM {
         private String name;
         private String address;
         private String register_date;
+        private String issue_date;
 
         public String getCar_no() {
             return car_no;
@@ -125,6 +126,13 @@ public class XinShiZZM {
 
         public void setRegister_date(String register_date) {
             this.register_date = register_date;
+        }
+        public String getIssue_date() {
+            return issue_date;
+        }
+
+        public void setIssue_date(String issue_date) {
+            this.issue_date = issue_date;
         }
     }
 }

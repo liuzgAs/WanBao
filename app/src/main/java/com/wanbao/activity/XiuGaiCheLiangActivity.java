@@ -114,6 +114,18 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
     LinearLayout viewNcdq;
     @BindView(R.id.viewBxdq)
     LinearLayout viewBxdq;
+    @BindView(R.id.textZcrq)
+    TextView textZcrq;
+    @BindView(R.id.viewZcrq)
+    LinearLayout viewZcrq;
+    @BindView(R.id.textFzrq)
+    TextView textFzrq;
+    @BindView(R.id.viewFzrq)
+    LinearLayout viewFzrq;
+    @BindView(R.id.textSyx)
+    TextView textSyx;
+    @BindView(R.id.viewSyx)
+    LinearLayout viewSyx;
     private String id;
     private Usercar_Getinfo usercar_getinfo;
     private Usercar_Query usercar_query;
@@ -180,14 +192,59 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
     }
 
     @OnClick({R.id.imageback, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.textFs, R.id.sbtn_tijiaobdw,
-            R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
+            R.id.viewSyx,R.id.viewFzrq,R.id.viewZcrq,R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewZcrq:
+                if (usercar_query.getR() != 0) {
+                    return;
+                }
+                Calendar czc = Calendar.getInstance();
+                DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textZcrq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        usercar_getinfo.getData().setRegister_date(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, czc.get(Calendar.YEAR), czc.get(Calendar.MONTH), czc.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogzc.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogzc.show();
+                break;
+            case R.id.viewFzrq:
+                if (usercar_query.getR() != 0) {
+                    return;
+                }
+                Calendar cfz = Calendar.getInstance();
+                DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textFzrq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        usercar_getinfo.getData().setIssue_date(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, cfz.get(Calendar.YEAR), cfz.get(Calendar.MONTH), cfz.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogfz.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogfz.show();
+                break;
+            case R.id.viewSyx:
+                if (usercar_query.getR() != 0) {
+                    return;
+                }
+                Calendar csy = Calendar.getInstance();
+                DatePickerDialog datePickerDialogsy = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textSyx.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        usercar_getinfo.getData().setInsurance_commerce(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, csy.get(Calendar.YEAR), csy.get(Calendar.MONTH), csy.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogsy.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialogsy.show();
+                break;
             case R.id.viewXm:
-                String stringXm="";
-                if(xinShiZZM!=null){
-                    stringXm=xinShiZZM.getData().getName();
+                String stringXm = "";
+                if (xinShiZZM != null) {
+                    stringXm = xinShiZZM.getData().getName();
                 }
                 final EditDialogText editDialogXm = new EditDialogText(context, "输入你的姓名", stringXm, "确认", "取消");
                 editDialogXm.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -206,9 +263,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogXm.show();
                 break;
             case R.id.viewCx:
-                String stringCx="";
-                if(xinShiZZM!=null){
-                    stringCx=xinShiZZM.getData().getCar_name();
+                String stringCx = "";
+                if (xinShiZZM != null) {
+                    stringCx = xinShiZZM.getData().getCar_name();
                 }
                 final EditDialogText editDialogCx = new EditDialogText(context, "输入车型", stringCx, "确认", "取消");
                 editDialogCx.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -227,9 +284,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogCx.show();
                 break;
             case R.id.viewDz:
-                String stringDz="";
-                if(xinShiZZM!=null){
-                    stringDz=xinShiZZM.getData().getAddress();
+                String stringDz = "";
+                if (xinShiZZM != null) {
+                    stringDz = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogDz = new EditDialogText(context, "输入地址", stringDz, "确认", "取消");
                 editDialogDz.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -248,9 +305,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogDz.show();
                 break;
             case R.id.viewCph:
-                String stringCph="";
-                if(xinShiZZM!=null){
-                    stringCph=xinShiZZM.getData().getAddress();
+                String stringCph = "";
+                if (xinShiZZM != null) {
+                    stringCph = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogCph = new EditDialogText(context, "输入车牌号", stringCph, "确认", "取消");
                 editDialogCph.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -269,9 +326,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogCph.show();
                 break;
             case R.id.viewFdjh:
-                String stringFdjh="";
-                if(xinShiZZM!=null){
-                    stringFdjh=xinShiZZM.getData().getAddress();
+                String stringFdjh = "";
+                if (xinShiZZM != null) {
+                    stringFdjh = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogFdjh = new EditDialogText(context, "输入发动机号", stringFdjh, "确认", "取消");
                 editDialogFdjh.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -290,9 +347,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogFdjh.show();
                 break;
             case R.id.viewCjh:
-                String stringCjh="";
-                if(xinShiZZM!=null){
-                    stringCjh=xinShiZZM.getData().getAddress();
+                String stringCjh = "";
+                if (xinShiZZM != null) {
+                    stringCjh = xinShiZZM.getData().getAddress();
                 }
                 final EditDialogText editDialogCjh = new EditDialogText(context, "输入车架号", stringCjh, "确认", "取消");
                 editDialogCjh.setClicklistener(new EditDialogText.ClickListenerInterface() {
@@ -315,11 +372,11 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 DatePickerDialog datePickerDialog0 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textNsdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-                        usercar_getinfo.getData().setYear_end(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        textNsdq.setText(year + "-" + (month + 1));
+                        usercar_getinfo.getData().setYear_end(year + "-" + (month + 1));
                     }
                 }, c0.get(Calendar.YEAR), c0.get(Calendar.MONTH), c0.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+                datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog0.show();
                 break;
             case R.id.viewBxdq:
@@ -331,7 +388,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         usercar_getinfo.getData().setInsurance_end(year + "-" + (month + 1) + "-" + dayOfMonth);
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
                 break;
             case R.id.imageback:
@@ -352,7 +409,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
 
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
+                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
                 datePickerDialog1.show();
                 break;
             case R.id.viewXslc:
@@ -390,47 +447,59 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 yanZM(usercar_getinfo.getData().getPhone());
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (TextUtils.isEmpty(textGcsj.getText().toString())){
+                if (TextUtils.isEmpty(textGcsj.getText().toString())) {
                     ToastUtils.showShort("请设置购车时间");
                     return;
                 }
-                if (TextUtils.isEmpty(textxslc.getText().toString())){
+                if (TextUtils.isEmpty(textxslc.getText().toString())) {
                     ToastUtils.showShort("请设置行驶里程");
                     return;
                 }
-                if (TextUtils.isEmpty(textXm.getText().toString())){
+                if (TextUtils.isEmpty(textXm.getText().toString())) {
                     ToastUtils.showShort("请设置姓名");
                     return;
                 }
-                if (TextUtils.isEmpty(textCx.getText().toString())){
+                if (TextUtils.isEmpty(textCx.getText().toString())) {
                     ToastUtils.showShort("请设置车型");
                     return;
                 }
-                if (TextUtils.isEmpty(textDz.getText().toString())){
+                if (TextUtils.isEmpty(textDz.getText().toString())) {
                     ToastUtils.showShort("请设置地址");
                     return;
                 }
-                if (TextUtils.isEmpty(textCph.getText().toString())){
+                if (TextUtils.isEmpty(textCph.getText().toString())) {
                     ToastUtils.showShort("请设置车牌号");
                     return;
                 }
-                if (TextUtils.isEmpty(textFdjh.getText().toString())){
+                if (TextUtils.isEmpty(textFdjh.getText().toString())) {
                     ToastUtils.showShort("请设置发动机号");
                     return;
                 }
-                if (!RegexUtils.isMatch(Constant.Cjh,textCjh.getText().toString())){
+                if (TextUtils.isEmpty(textZcrq.getText().toString())) {
+                    ToastUtils.showShort("请设置注册日期");
+                    return;
+                }
+                if (TextUtils.isEmpty(textFzrq.getText().toString())) {
+                    ToastUtils.showShort("请设置发证日期");
+                    return;
+                }
+                if (!RegexUtils.isMatch(Constant.Cjh, textCjh.getText().toString())) {
                     ToastUtils.showShort("请输入正确车架号");
                     return;
                 }
-                if (TextUtils.isEmpty(textNsdq.getText().toString())){
+                if (TextUtils.isEmpty(textNsdq.getText().toString())) {
                     ToastUtils.showShort("请设置年审到期时间");
                     return;
                 }
-                if (TextUtils.isEmpty(textBxdq.getText().toString())){
-                    ToastUtils.showShort("请设置保险到期时间");
+                if (TextUtils.isEmpty(textBxdq.getText().toString())) {
+                    ToastUtils.showShort("请设置交强险到期时间");
                     return;
                 }
-                if (TextUtils.isEmpty(editYzm.getText().toString())){
+                if (TextUtils.isEmpty(textSyx.getText().toString())) {
+                    ToastUtils.showShort("请设置商业险到期时间");
+                    return;
+                }
+                if (TextUtils.isEmpty(editYzm.getText().toString())) {
                     ToastUtils.showShort("短信验证码不能为空！");
                     return;
                 }
@@ -473,6 +542,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         textXm.setText(usercar_getinfo.getData().getName());
                         textCx.setText(usercar_getinfo.getData().getCar_name());
                         textDz.setText(usercar_getinfo.getData().getAddress());
+                        textZcrq.setText(usercar_getinfo.getData().getRegister_date());
+                        textFzrq.setText(usercar_getinfo.getData().getIssue_date());
+                        textSyx.setText(usercar_getinfo.getData().getInsurance_commerce());
                     } else {
                         ToastUtils.showShort(usercar_getinfo.getInfo());
                     }

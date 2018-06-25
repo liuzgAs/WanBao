@@ -19,6 +19,7 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.JiaShiZ;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Respond_AppImgAdd;
+import com.wanbao.modle.ShenFenB;
 import com.wanbao.modle.ShenFenZ;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
@@ -78,8 +79,11 @@ public class SaoMiaoActivity extends BaseActivity {
             titleText.setText("行驶证副页信息");
             typeId=1;
         }else if ("51".equals(type) && "face".equals(side)) {
-            titleText.setText("身份证正页信息");
+            titleText.setText("身份证正面信息");
             typeId=2;
+        }else if ("51".equals(type) && "back".equals(side)) {
+            titleText.setText("身份证背面信息");
+            typeId=4;
         }else if ("52".equals(type) && "face".equals(side)) {
             titleText.setText("驾驶证正页信息");
             typeId=3;
@@ -207,6 +211,15 @@ public class SaoMiaoActivity extends BaseActivity {
                             finish();
                         } else {
                             ToastUtils.showShort(shenFenZ.getInfo());
+                        }
+                    }else if (typeId==4){
+                        ShenFenB shenFenB = GsonUtils.parseJSON(s, ShenFenB.class);
+                        int status = shenFenB.getStatus();
+                        if (status == 1) {
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.ShenFenB,shenFenB));
+                            finish();
+                        } else {
+                            ToastUtils.showShort(shenFenB.getInfo());
                         }
                     }else if (typeId==3){
                         JiaShiZ jiaShiZ = GsonUtils.parseJSON(s, JiaShiZ.class);

@@ -176,16 +176,16 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
                 });
             }
         });
-        adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
-            @Override
-            public void onNoMoreShow() {
-
-            }
-
-            @Override
-            public void onNoMoreClick() {
-            }
-        });
+//        adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
+//            @Override
+//            public void onNoMoreShow() {
+//
+//            }
+//
+//            @Override
+//            public void onNoMoreClick() {
+//            }
+//        });
         adapter.setError(R.layout.view_error, new RecyclerArrayAdapter.OnErrorListener() {
             @Override
             public void onErrorShow() {

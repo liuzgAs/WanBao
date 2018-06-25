@@ -103,6 +103,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
                         android:text="服务地址"
+                        android:maxLines="1"
                         android:textColor="@color/new_secondary_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>

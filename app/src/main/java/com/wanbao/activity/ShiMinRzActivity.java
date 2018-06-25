@@ -21,6 +21,7 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.JiaShiZ;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.ShenFenB;
 import com.wanbao.modle.ShenFenZ;
 import com.wanbao.modle.User_Card_before;
 
@@ -65,11 +66,40 @@ public class ShiMinRzActivity extends BaseActivity {
     TextView textYxq;
     @BindView(R.id.textQueren)
     TextView textQueren;
+    @BindView(R.id.viewXm)
+    LinearLayout viewXm;
+    @BindView(R.id.viewXb)
+    LinearLayout viewXb;
+    @BindView(R.id.viewZjhm)
+    LinearLayout viewZjhm;
+    @BindView(R.id.viewSfzby)
+    LinearLayout viewSfzby;
+    @BindView(R.id.textYxqq)
+    TextView textYxqq;
+    @BindView(R.id.viewYxqq)
+    LinearLayout viewYxqq;
+    @BindView(R.id.textYxqz)
+    TextView textYxqz;
+    @BindView(R.id.viewYxqz)
+    LinearLayout viewYxqz;
+    @BindView(R.id.viewXmj)
+    LinearLayout viewXmj;
+    @BindView(R.id.viewXbj)
+    LinearLayout viewXbj;
+    @BindView(R.id.viewCclzrq)
+    LinearLayout viewCclzrq;
+    @BindView(R.id.viewZjcx)
+    LinearLayout viewZjcx;
+    @BindView(R.id.viewYxq)
+    LinearLayout viewYxq;
     private User_Card_before uCBefore;
     private ShenFenZ shenFenZ;
     private JiaShiZ jiaShiZ;
     private String card_img;
     private String driver_img;
+    private ShenFenB shenFenB;
+    private String driver_start_date;
+    private String driver_end_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,18 +133,26 @@ public class ShiMinRzActivity extends BaseActivity {
     public void onEventMainThread(BaseEvent event) {
         if (BaseEvent.ShenFenZ.equals(event.getAction())) {
             shenFenZ = (ShenFenZ) event.getData();
-            if (shenFenZ!=null){
-                card_img=shenFenZ.getImg_id();
+            if (shenFenZ != null) {
+                card_img = shenFenZ.getImg_id();
                 textXm.setText(shenFenZ.getData().getName());
                 textXb.setText(shenFenZ.getData().getGender());
                 textZjhm.setText(shenFenZ.getData().getCard_no());
             }
 
         }
+        if (BaseEvent.ShenFenB.equals(event.getAction())) {
+            shenFenB = (ShenFenB) event.getData();
+            if (shenFenB != null) {
+                textYxqq.setText(shenFenB.getData().getStart_date());
+                textYxqz.setText(shenFenB.getData().getEnd_date());
+            }
+
+        }
         if (BaseEvent.JiaShiZ.equals(event.getAction())) {
             jiaShiZ = (JiaShiZ) event.getData();
-            if (jiaShiZ!=null){
-                driver_img=jiaShiZ.getImg_id();
+            if (jiaShiZ != null) {
+                driver_img = jiaShiZ.getImg_id();
                 textXmj.setText(jiaShiZ.getData().getDriver_name());
                 textXbj.setText(jiaShiZ.getData().getDriver_gender());
                 textCclzrq.setText(jiaShiZ.getData().getDriver_reg());
@@ -126,37 +164,6 @@ public class ShiMinRzActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.imageback, R.id.viewSfzzy, R.id.viewJszzy, R.id.textQueren})
-    public void onViewClicked(View view) {
-        Intent intent;
-        switch (view.getId()) {
-            case R.id.imageback:
-                finish();
-                break;
-            case R.id.viewSfzzy:
-                intent = new Intent();
-                intent.putExtra("type", "51");
-                intent.putExtra("side", "face");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.viewJszzy:
-                intent = new Intent();
-                intent.putExtra("type", "52");
-                intent.putExtra("side", "face");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.textQueren:
-                if (uCBefore.getState()==1||uCBefore.getState()==3){
-                    return;
-                }
-                useradd();
-                break;
-            default:
-                break;
-        }
-    }
 
     private void usercar_Query() {
         HttpApi.post(context, getOkObjectUQ(), new HttpApi.CallBack() {
@@ -176,7 +183,7 @@ public class ShiMinRzActivity extends BaseActivity {
                 LogUtils.e("User_Card_before", s);
                 dismissDialog();
                 try {
-                     uCBefore = GsonUtils.parseJSON(s, User_Card_before.class);
+                    uCBefore = GsonUtils.parseJSON(s, User_Card_before.class);
                     int status = uCBefore.getStatus();
                     if (status == 1) {
                         textXm.setText(uCBefore.getData().getName());
@@ -187,8 +194,12 @@ public class ShiMinRzActivity extends BaseActivity {
                         textZjhm.setText(uCBefore.getData().getCard_no());
                         textCclzrq.setText(uCBefore.getData().getDriver_reg());
                         textZjcx.setText(uCBefore.getData().getDriver_type());
-                        textYxq.setText(uCBefore.getData().getValidity());
+                        textYxq.setText(uCBefore.getData().getDriver_start_date()+"至"+uCBefore.getData().getDriver_end_date());
                         textState.setText(uCBefore.getStateDes());
+                        driver_start_date=uCBefore.getData().getDriver_start_date();
+                        driver_end_date=uCBefore.getData().getDriver_end_date();
+                        textYxqq.setText(uCBefore.getData().getStart_date());
+                        textYxqz.setText(uCBefore.getData().getEnd_date());
                         if (uCBefore.getState() == 0) {
                             textQueren.setText("提交认证");
                             textQueren.setBackgroundResource(ContextCompat.getColor(context, R.color.light_red));
@@ -206,8 +217,8 @@ public class ShiMinRzActivity extends BaseActivity {
                         ToastUtils.showShort(uCBefore.getInfo());
                     }
                 } catch (Exception e) {
-                    if (uCBefore==null){
-                        uCBefore=new User_Card_before();
+                    if (uCBefore == null) {
+                        uCBefore = new User_Card_before();
                     }
                 }
             }
@@ -254,7 +265,7 @@ public class ShiMinRzActivity extends BaseActivity {
                     Comment comment = GsonUtils.parseJSON(s, Comment.class);
                     int status = comment.getStatus();
                     if (status == 1) {
-                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeXx,null));
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeXx, null));
                         finish();
                     } else {
                         ToastUtils.showShort(comment.getInfo());
@@ -281,18 +292,79 @@ public class ShiMinRzActivity extends BaseActivity {
         String url = Constant.HOST + Constant.Url.User_Card_add;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("name",textXm.getText().toString());
-        params.put("gender",textXb.getText().toString());
-        params.put("card_no",textZjhm.getText().toString());
-        params.put("driver_name",textXmj.getText().toString());
-        params.put("driver_gender",textXbj.getText().toString());
-        params.put("driver_reg",textCclzrq.getText().toString());
-        params.put("driver_type",textZjcx.getText().toString());
-        params.put("validity",textYxq.getText().toString());
-        params.put("card_img",card_img);
-        params.put("driver_img",driver_img);
-        params.put("start_date","");
-        params.put("end_date","");
+        params.put("name", textXm.getText().toString());
+        params.put("gender", textXb.getText().toString());
+        params.put("card_no", textZjhm.getText().toString());
+        params.put("driver_name", textXmj.getText().toString());
+        params.put("driver_gender", textXbj.getText().toString());
+        params.put("driver_reg", textCclzrq.getText().toString());
+        params.put("driver_type", textZjcx.getText().toString());
+        params.put("validity", textYxq.getText().toString());
+        params.put("card_img", card_img);
+        params.put("driver_img", driver_img);
+        params.put("start_date", textYxqq.getText().toString());
+        params.put("end_date", textYxqz.getText().toString());
+        params.put("driver_start_date", driver_start_date);
+        params.put("driver_end_date",driver_end_date);
         return new OkObject(params, url);
+    }
+
+    @OnClick({R.id.imageback, R.id.viewSfzzy, R.id.viewJszzy, R.id.textQueren, R.id.viewXm, R.id.viewXb, R.id.viewZjhm, R.id.viewSfzby, R.id.viewYxqq, R.id.viewYxqz, R.id.viewXmj, R.id.viewXbj, R.id.viewCclzrq, R.id.viewZjcx, R.id.viewYxq})
+    public void onViewClicked(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.imageback:
+                finish();
+                break;
+            case R.id.viewSfzzy:
+                intent = new Intent();
+                intent.putExtra("type", "51");
+                intent.putExtra("side", "face");
+                intent.setClass(context, SaoMiaoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.viewJszzy:
+                intent = new Intent();
+                intent.putExtra("type", "52");
+                intent.putExtra("side", "face");
+                intent.setClass(context, SaoMiaoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.textQueren:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
+                useradd();
+                break;
+            case R.id.viewXm:
+                break;
+            case R.id.viewXb:
+                break;
+            case R.id.viewZjhm:
+                break;
+            case R.id.viewSfzby:
+                intent = new Intent();
+                intent.putExtra("type", "51");
+                intent.putExtra("side", "back");
+                intent.setClass(context, SaoMiaoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.viewYxqq:
+                break;
+            case R.id.viewYxqz:
+                break;
+            case R.id.viewXmj:
+                break;
+            case R.id.viewXbj:
+                break;
+            case R.id.viewCclzrq:
+                break;
+            case R.id.viewZjcx:
+                break;
+            case R.id.viewYxq:
+                break;
+            default:
+                break;
+        }
     }
 }

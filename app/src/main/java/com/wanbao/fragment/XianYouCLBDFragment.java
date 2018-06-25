@@ -133,6 +133,18 @@ public class XianYouCLBDFragment extends PSFragment {
     LinearLayout viewNcdq;
     @BindView(R.id.viewBxdq)
     LinearLayout viewBxdq;
+    @BindView(R.id.textZcrq)
+    TextView textZcrq;
+    @BindView(R.id.viewZcrq)
+    LinearLayout viewZcrq;
+    @BindView(R.id.textFzrq)
+    TextView textFzrq;
+    @BindView(R.id.viewFzrq)
+    LinearLayout viewFzrq;
+    @BindView(R.id.textSyx)
+    TextView textSyx;
+    @BindView(R.id.viewSyx)
+    LinearLayout viewSyx;
     private View view;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
@@ -150,6 +162,7 @@ public class XianYouCLBDFragment extends PSFragment {
     private XingShiZFY xingShiZFY;
     private String face_img;
     private String back_img;
+    private String xslc;
 
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
@@ -209,6 +222,8 @@ public class XianYouCLBDFragment extends PSFragment {
             textXm.setText(xinShiZZM.getData().getName());
             textCx.setText(xinShiZZM.getData().getCar_name());
             textDz.setText(xinShiZZM.getData().getAddress());
+            textZcrq.setText(xinShiZZM.getData().getRegister_date());
+            textFzrq.setText(xinShiZZM.getData().getIssue_date());
             face_img = xinShiZZM.getImg_id();
         }
         if (BaseEvent.XingShiZFY.equals(event.getAction())) {
@@ -264,6 +279,9 @@ public class XianYouCLBDFragment extends PSFragment {
                             textCjh.setText(usercar_query.getData().getVin_show());
 //                            textNsdq.setText(usercar_query.getData());
                             textSjhm.setText(usercar_query.getData().getPhone_show());
+                            textZcrq.setText(usercar_query.getData().getRegister_date());
+                            textFzrq.setText(usercar_query.getData().getIssue_date());
+                            textSyx.setText(usercar_query.getData().getInsurance_commerce());
                         }
                         scrollView.scrollTo(0, 0);
                     } else {
@@ -351,13 +369,16 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("engine", usercar_query.getData().getEngine());
         params.put("car_no", usercar_query.getData().getCar_no());
         params.put("vin", usercar_query.getData().getVin());
-        params.put("km", textxslc.getText().toString());
+        params.put("km", xslc);
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
         params.put("insurance_end", textBxdq.getText().toString());
         params.put("code", editYzm.getText().toString());
         params.put("address", textDz.getText().toString());
         params.put("name", textXm.getText().toString());
+        params.put("register_date", textZcrq.getText().toString());
+        params.put("issue_date", textFzrq.getText().toString());
+        params.put("Insurance_commerce", textSyx.getText().toString());
         params.put("face_img", face_img);
         params.put("back_img", back_img);
         return new OkObject(params, url);
@@ -373,7 +394,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("engine", textFdjh.getText().toString());
         params.put("car_no", textCph.getText().toString());
         params.put("vin", textCjh.getText().toString());
-        params.put("km", textxslc.getText().toString());
+        params.put("km", xslc);
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
         params.put("insurance_end", textBxdq.getText().toString());
@@ -382,6 +403,9 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("name", textXm.getText().toString());
         params.put("face_img", face_img);
         params.put("back_img", back_img);
+        params.put("register_date", textZcrq.getText().toString());
+        params.put("issue_date", textFzrq.getText().toString());
+        params.put("Insurance_commerce", textSyx.getText().toString());
 
         return new OkObject(params, url);
     }
@@ -456,10 +480,52 @@ public class XianYouCLBDFragment extends PSFragment {
     };
 
     @OnClick({R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
-            R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
+            R.id.viewSyx,R.id.viewFzrq,R.id.viewZcrq,R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewZcrq:
+                if (usercar_query.getR() != 0) {
+                    return;
+                }
+                Calendar czc = Calendar.getInstance();
+                DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textZcrq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, czc.get(Calendar.YEAR), czc.get(Calendar.MONTH), czc.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogzc.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogzc.show();
+                break;
+            case R.id.viewFzrq:
+                if (usercar_query.getR() != 0) {
+                    return;
+                }
+                Calendar cfz = Calendar.getInstance();
+                DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textFzrq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, cfz.get(Calendar.YEAR), cfz.get(Calendar.MONTH), cfz.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogfz.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogfz.show();
+                break;
+            case R.id.viewSyx:
+                if (usercar_query.getR() != 0) {
+                    return;
+                }
+                Calendar csy = Calendar.getInstance();
+                DatePickerDialog datePickerDialogsy = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textSyx.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, csy.get(Calendar.YEAR), csy.get(Calendar.MONTH), csy.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogsy.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialogsy.show();
+                break;
             case R.id.viewXm:
                 if (usercar_query.getR() != 0) {
                     return;
@@ -606,7 +672,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 DatePickerDialog datePickerDialog0 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textNsdq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        textNsdq.setText(year + "-" + (month + 1));
                     }
                 }, c0.get(Calendar.YEAR), c0.get(Calendar.MONTH), c0.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog0.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -658,7 +724,8 @@ public class XianYouCLBDFragment extends PSFragment {
                     @Override
                     public void doConfirm(String intro) {
                         editDialog1.dismiss();
-                        textxslc.setText(intro);
+                        xslc=intro;
+                        textxslc.setText(intro+"km");
                     }
 
                     @Override
@@ -692,7 +759,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("请设置购车时间");
                         return;
                     }
-                    if (TextUtils.isEmpty(textxslc.getText().toString())) {
+                    if (TextUtils.isEmpty(xslc)) {
                         ToastUtils.showShort("请设置行驶里程");
                         return;
                     }
@@ -720,12 +787,24 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("请输入正确车架号");
                         return;
                     }
+                    if (!RegexUtils.isMatch(Constant.Cjh, textZcrq.getText().toString())) {
+                        ToastUtils.showShort("请设置注册日期");
+                        return;
+                    }
+                    if (!RegexUtils.isMatch(Constant.Cjh, textFzrq.getText().toString())) {
+                        ToastUtils.showShort("请设置发证日期");
+                        return;
+                    }
                     if (TextUtils.isEmpty(textNsdq.getText().toString())) {
                         ToastUtils.showShort("请设置年审到期时间");
                         return;
                     }
                     if (TextUtils.isEmpty(textBxdq.getText().toString())) {
-                        ToastUtils.showShort("请设置保险到期时间");
+                        ToastUtils.showShort("请设置交强险到期时间");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(textBxdq.getText().toString())) {
+                        ToastUtils.showShort("请设置商业险到期时间");
                         return;
                     }
                     if (TextUtils.isEmpty(editYzm.getText().toString())) {

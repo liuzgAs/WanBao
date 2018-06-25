@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PhoneUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.adapter.ZhanTingQCXQGlideImageLoader;
@@ -226,7 +227,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             MySumAdapter.ViewHolder holder;
             if (convertView == null) {
                 holder = new MySumAdapter.ViewHolder();
@@ -243,7 +244,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
             holder.imageGo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    PhoneUtils.dial(dataBean.getStore().get(position).getT());
                 }
             });
             return convertView;

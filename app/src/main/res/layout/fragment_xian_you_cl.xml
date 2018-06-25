@@ -322,6 +322,7 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="姓名"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -355,6 +356,7 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="车型"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -388,6 +390,7 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="地址"
+                        android:gravity="right"
                         android:maxLines="2"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
@@ -423,6 +426,7 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="车牌号"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -458,6 +462,7 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="发动机号"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -493,10 +498,80 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="车架号"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background">
+                </View>
 
+                <LinearLayout
+                    android:id="@+id/viewZcrq"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="注册日期"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textZcrq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="注册日期"
+                        android:gravity="right"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background">
+                </View>
+
+                <LinearLayout
+                    android:id="@+id/viewFzrq"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="发证日期"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textFzrq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="发证日期"
+                        android:gravity="right"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
@@ -576,6 +651,7 @@
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
                         android:hint="年审到期"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -599,7 +675,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="保险到期"
+                        android:text="交强险"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
 
@@ -609,11 +685,45 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="保险到期"
+                        android:hint="交强险"
+                        android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background"></View>
 
+                <LinearLayout
+                    android:id="@+id/viewSyx"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="商业险"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textSyx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="商业险"
+                        android:gravity="right"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
@@ -644,7 +754,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/background"></View>
+                    android:background="@color/background">
+                </View>
 
                 <LinearLayout
                     android:layout_width="match_parent"

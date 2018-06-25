@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.PhoneUtils;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.R;
 import com.wanbao.modle.Showbrand_Info;
@@ -37,6 +38,7 @@ public class XinCheZTXQViewHolder extends BaseViewHolder<Showbrand_Info.StoreBea
         imageGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PhoneUtils.dial(data.getT());
             }
         });
     }

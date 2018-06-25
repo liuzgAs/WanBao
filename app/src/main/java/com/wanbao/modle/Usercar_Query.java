@@ -8,8 +8,9 @@ package com.wanbao.modle;
 
 public class Usercar_Query {
 
+
     /**
-     * data : {"car_name":"","cid":"","bc_time":"","engine":"","engine_show":"","vin":"","vin_show":"","city":"","phone":"","phone_show":"","car_no":""}
+     * data : {"car_name":"","cid":"","bc_time":"","engine":"","engine_show":"","vin":"","vin_show":"","city":"","phone":null,"phone_show":"****","car_no":"","register_date":"","issue_date":"","Insurance_commerce":""}
      * r : 0
      * status : 1
      * info : 返回成功！
@@ -62,9 +63,12 @@ public class Usercar_Query {
          * vin :
          * vin_show :
          * city :
-         * phone :
-         * phone_show :
+         * phone : null
+         * phone_show : ****
          * car_no :
+         * register_date :
+         * issue_date :
+         * Insurance_commerce :
          */
 
         private String car_name;
@@ -78,6 +82,9 @@ public class Usercar_Query {
         private String phone;
         private String phone_show;
         private String car_no;
+        private String register_date;
+        private String issue_date;
+        private String Insurance_commerce;
 
         public String getCar_name() {
             return car_name;
@@ -165,6 +172,30 @@ public class Usercar_Query {
 
         public void setCar_no(String car_no) {
             this.car_no = car_no;
+        }
+
+        public String getRegister_date() {
+            return register_date;
+        }
+
+        public void setRegister_date(String register_date) {
+            this.register_date = register_date;
+        }
+
+        public String getIssue_date() {
+            return issue_date;
+        }
+
+        public void setIssue_date(String issue_date) {
+            this.issue_date = issue_date;
+        }
+
+        public String getInsurance_commerce() {
+            return Insurance_commerce;
+        }
+
+        public void setInsurance_commerce(String Insurance_commerce) {
+            this.Insurance_commerce = Insurance_commerce;
         }
     }
 }

@@ -8,15 +8,19 @@ package com.wanbao.modle;
 
 public class JiaShiZ {
 
+
     /**
-     * data : {"driver_name":"王节操","driver_gender":"男","driver_type":"C1","driver_reg":"2018-10-01","validity":"2018-10-01至2018-10-01"}
+     * img_id : 254
+     * data : {"driver_name":"吴健","driver_gender":"男","driver_type":"C1","driver_reg":"2016-11-04","validity":"2016-11-04至2022-11-04","start_date":"2016-11-04","end_date":"2022-11-04"}
      * status : 1
      * info : 返回成功！
      */
+
     private String img_id;
     private DataBean data;
     private int status;
     private String info;
+
     public String getImg_id() {
         return img_id;
     }
@@ -24,6 +28,7 @@ public class JiaShiZ {
     public void setImg_id(String img_id) {
         this.img_id = img_id;
     }
+
     public DataBean getData() {
         return data;
     }
@@ -50,11 +55,13 @@ public class JiaShiZ {
 
     public static class DataBean {
         /**
-         * driver_name : 王节操
+         * driver_name : 吴健
          * driver_gender : 男
          * driver_type : C1
-         * driver_reg : 2018-10-01
-         * validity : 2018-10-01至2018-10-01
+         * driver_reg : 2016-11-04
+         * validity : 2016-11-04至2022-11-04
+         * start_date : 2016-11-04
+         * end_date : 2022-11-04
          */
 
         private String driver_name;
@@ -62,6 +69,8 @@ public class JiaShiZ {
         private String driver_type;
         private String driver_reg;
         private String validity;
+        private String start_date;
+        private String end_date;
 
         public String getDriver_name() {
             return driver_name;
@@ -101,6 +110,22 @@ public class JiaShiZ {
 
         public void setValidity(String validity) {
             this.validity = validity;
+        }
+
+        public String getStart_date() {
+            return start_date;
+        }
+
+        public void setStart_date(String start_date) {
+            this.start_date = start_date;
+        }
+
+        public String getEnd_date() {
+            return end_date;
+        }
+
+        public void setEnd_date(String end_date) {
+            this.end_date = end_date;
         }
     }
 }

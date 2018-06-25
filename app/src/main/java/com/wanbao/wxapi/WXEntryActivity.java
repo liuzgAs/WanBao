@@ -36,32 +36,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq req) {
-        LogUtils.e("WXPayEntryActivity", "WXEntryActivity--onReq--0" + req.toString());
-        switch (req.getType()) {
-            case BaseResp.ErrCode.ERR_OK:
-                ToastUtils.showShort("分享成功");
-                finish();
-                break;
-            case BaseResp.ErrCode.ERR_USER_CANCEL:
-                ToastUtils.showShort("分享取消");
-                finish();
-                break;
-            case BaseResp.ErrCode.ERR_SENT_FAILED:
-                ToastUtils.showShort("分享失败");
-                finish();
-                break;
-            default:
-                finish();
-                break;
-        }
-    }
-
-
-
-    @Override
-    public void onResp(BaseResp resp) {
-        LogUtils.e("WXEntryActivity", "WXEntryActivity--onResp--1" + resp.errCode);
-//        switch (resp.errCode) {
+//        LogUtils.e("WXPayEntryActivity", "WXEntryActivity--onReq--0" + req.toString());
+//        switch (req.getType()) {
 //            case BaseResp.ErrCode.ERR_OK:
 //                ToastUtils.showShort("分享成功");
 //                finish();
@@ -78,6 +54,30 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 //                finish();
 //                break;
 //        }
+    }
+
+
+
+    @Override
+    public void onResp(BaseResp resp) {
+        LogUtils.e("WXEntryActivity", "WXEntryActivity--onResp--1" + resp.errCode);
+        switch (resp.errCode) {
+            case BaseResp.ErrCode.ERR_OK:
+                ToastUtils.showShort("分享成功");
+                finish();
+                break;
+            case BaseResp.ErrCode.ERR_USER_CANCEL:
+                ToastUtils.showShort("分享取消");
+                finish();
+                break;
+            case BaseResp.ErrCode.ERR_SENT_FAILED:
+                ToastUtils.showShort("分享失败");
+                finish();
+                break;
+            default:
+                finish();
+                break;
+        }
     }
 
 }
