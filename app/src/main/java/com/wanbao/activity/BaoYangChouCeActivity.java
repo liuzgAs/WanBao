@@ -12,10 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wanbao.R;
-import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.activity.BaseNoLeftActivity;
 import com.wanbao.fragment.BaoYangJLFragment;
 import com.wanbao.fragment.BaoYangSCFragment;
 import com.wanbao.fragment.WeiXiuJLFragment;
+import com.wanbao.ui.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BaoYangChouCeActivity extends BaseActivity {
+public class BaoYangChouCeActivity extends BaseNoLeftActivity {
 
     @BindView(R.id.imageback)
     ImageView imageback;
@@ -37,9 +38,10 @@ public class BaoYangChouCeActivity extends BaseActivity {
     @BindView(R.id.viewBar)
     View viewBar;
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    NoScrollViewPager viewPager;
     List<String> list = new ArrayList<>();
     private int pos;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,9 @@ public class BaoYangChouCeActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
+        id=getIntent().getStringExtra("id");
         pos=getIntent().getIntExtra("pos",0);
+        viewPager.setNoScroll(true);
     }
 
     @Override
@@ -106,6 +110,7 @@ public class BaoYangChouCeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageback:
+                finish();
                 break;
             case R.id.imageRight:
                 break;
@@ -124,7 +129,7 @@ public class BaoYangChouCeActivity extends BaseActivity {
             Fragment mfragment;
             switch (position){
                 case 0:
-                    mfragment= new BaoYangSCFragment();
+                    mfragment= BaoYangSCFragment.newInstance(id);
                 break;
                 case 1:
                     mfragment= new BaoYangJLFragment();
@@ -133,7 +138,7 @@ public class BaoYangChouCeActivity extends BaseActivity {
                     mfragment= new WeiXiuJLFragment();
                     break;
                 default:
-                    mfragment= new BaoYangSCFragment();
+                    mfragment= BaoYangSCFragment.newInstance(id);
                     break;
             }
             return mfragment;

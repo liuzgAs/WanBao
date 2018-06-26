@@ -64,12 +64,12 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
         dispose();
         dismissDialog();
-        super.onDestroy();
     }
 
     public void init() {

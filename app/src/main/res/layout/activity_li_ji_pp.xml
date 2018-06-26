@@ -31,6 +31,7 @@
                 android:paddingRight="@dimen/dp_10">
 
                 <ImageView
+                    android:scaleType="centerCrop"
                     android:id="@+id/imageCar"
                     android:layout_width="@dimen/dp_75"
                     android:layout_height="@dimen/dp_50" />
@@ -67,6 +68,7 @@
                 android:background="@color/background"></View>
 
             <LinearLayout
+                android:id="@+id/viewGw"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:gravity="center_vertical"

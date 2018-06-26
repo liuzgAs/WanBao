@@ -346,6 +346,10 @@ public class Constant {
          * 新车展厅汽车详情页
          */
         public static final String Showbrand_Car = "Showbrand/car";
+        /**
+         * 保养手册
+         */
+        public static final String Usercar_Manual = "Usercar/manual";
     }
 
     public static class SF{

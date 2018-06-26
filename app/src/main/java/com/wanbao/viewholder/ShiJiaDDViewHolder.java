@@ -89,6 +89,7 @@ public class ShiJiaDDViewHolder extends BaseViewHolder<Testdrive_TestOrder.DataB
                 } else if (data.getIsEvaluate() == 1) {
                     Intent intent = new Intent();
                     intent.putExtra("id", String.valueOf(data.getId()));
+                    intent.putExtra("type",1);
                     intent.setClass(getContext(), LiJiPPActivity.class);
                     getContext().startActivity(intent);
                 } else if (data.getIsAgain() == 1) {

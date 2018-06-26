@@ -123,6 +123,7 @@ public class WeiXiuBYActivity extends BaseActivity {
     private ArrayList<Maintain_Index.DataBeanX> dataBeanXES = new ArrayList<>();
     private MyTcAdapter myTcAdapter;
     private ArrayList<String> maintainString = new ArrayList<>();
+    private String xslc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +203,8 @@ public class WeiXiuBYActivity extends BaseActivity {
                     @Override
                     public void doConfirm(String intro) {
                         editDialog.dismiss();
-                        textLc.setText(intro);
+                        textLc.setText(intro+"km");
+                        xslc=intro;
                     }
 
                     @Override
@@ -284,7 +286,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 isOnline(0);
                 break;
             case R.id.btnZf:
-                if (TextUtils.isEmpty(textLc.getText().toString())) {
+                if (TextUtils.isEmpty(xslc)) {
                     ToastUtils.showShort("请设置里程");
                     return;
                 }
@@ -588,7 +590,7 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("type", "1");
         params.put("pay_msg", editmsgDes.getText().toString());
         params.put("online_pay", String.valueOf(isOnline));
-        params.put("km", textLc.getText().toString());
+        params.put("km", xslc);
         return new OkObject(params, url);
     }
 

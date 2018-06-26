@@ -23,6 +23,7 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.IntChange;
 import com.wanbao.modle.Index_Store;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Testdrive_Details;
@@ -140,7 +141,7 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                         TimePickerDialog dialog = new TimePickerDialog(ShiChengShiJiaActivity.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                textSj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute);
+                                textSj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + IntChange.iChange(hourOfDay) + ":" + IntChange.iChange(minute));
                                 book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
                             }
                         }, c1.get(Calendar.HOUR_OF_DAY), c1.get(Calendar.MINUTE), true);
@@ -197,7 +198,7 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                     Testdrive_Details data = GsonUtils.parseJSON(s, Testdrive_Details.class);
                     if (data.getStatus() == 1) {
                         textTitle.setText(data.getData().getInfo().getTitle());
-                        textDes.setText(data.getData().getInfo().getType() + "|" + data.getData().getInfo().getSeat() + "座|指导价" + data.getData().getInfo().getPrice() + "万");
+                        textDes.setText(data.getData().getInfo().getType() + "|" + data.getData().getInfo().getSeat() + "座|指导价" + data.getData().getInfo().getPrice());
                         textSjj.setText("¥" + data.getData().getInfo().getDriveprice());
                         textSjj0.setText("¥" + data.getData().getInfo().getDriveprice());
                         textYxj.setText("¥" + data.getData().getInfo().getDeposit());

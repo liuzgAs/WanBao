@@ -118,18 +118,21 @@ public class TiYanZhongXinActivity extends BaseActivity {
                 break;
             case R.id.viewBYSC:
                 intent = new Intent();
+                intent.putExtra("id",String.valueOf(id));
                 intent.putExtra("pos",0);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewCgby:
                 intent = new Intent();
+                intent.putExtra("id",String.valueOf(id));
                 intent.putExtra("pos",1);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewWxjl:
                 intent = new Intent();
+                intent.putExtra("id",String.valueOf(id));
                 intent.putExtra("pos",2);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);

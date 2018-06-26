@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -64,10 +65,13 @@ public class LiJiPPActivity extends BaseActivity {
     StateButton sbtnTijiao;
     @BindView(R.id.viewSwitcher)
     ViewSwitcher viewSwitcher;
+    @BindView(R.id.viewGw)
+    LinearLayout viewGw;
     private String id;
     private TagAdapter tagAdapter;
     private List<Comment_AddBefore.TagBean> flagBeanList;
     private int startNum = 5;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +89,16 @@ public class LiJiPPActivity extends BaseActivity {
     @Override
     protected void initIntent() {
         id = getIntent().getStringExtra("id");
+        type=getIntent().getIntExtra("type",0);
     }
 
     @Override
     protected void initViews() {
+        if (type==1){
+            viewGw.setVisibility(View.GONE);
+        }else {
+            viewGw.setVisibility(View.VISIBLE);
+        }
         titleText.setText("立即评价");
         ratingbar.setStar(5);
         flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
@@ -113,11 +123,11 @@ public class LiJiPPActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.sbtn_tijiao:
-                if (TextUtils.isEmpty(editPj.getText().toString())){
+                if (TextUtils.isEmpty(editPj.getText().toString())) {
                     ToastUtils.showShort("请输入评价内容！");
                     return;
                 }
-                if (editPj.length()<8){
+                if (editPj.length() < 8) {
                     ToastUtils.showShort("评价内容至少八个字！");
                     return;
                 }
@@ -217,7 +227,7 @@ public class LiJiPPActivity extends BaseActivity {
                     Comment data = GsonUtils.parseJSON(s, Comment.class);
                     if (data.getStatus() == 1) {
                         viewSwitcher.setDisplayedChild(1);
-                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_SjOrder,null));
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_SjOrder, null));
                     } else {
                         ToastUtils.showShort("数据出错");
                     }
@@ -252,7 +262,7 @@ public class LiJiPPActivity extends BaseActivity {
         params.put("id", id);
         params.put("star", startNum + "");
         params.put("evaluate", editPj.getText().toString());
-        params.put("tag", allSelect.toString().replace("[","").replace("]","").replace(" ",""));
+        params.put("tag", allSelect.toString().replace("[", "").replace("]", "").replace(" ", ""));
         params.put("imgs", "");
 
         return new OkObject(params, url);
