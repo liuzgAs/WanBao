@@ -255,12 +255,21 @@
             android:name=".activity.JiFenActivity"
             android:label="@string/title_activity_ji_fen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.JiFenXQActivity" />
-        <activity android:name=".activity.TiXianMXActivity" />
-        <activity android:name=".activity.ZhangDanMXActivity" />
-        <activity android:name=".activity.XinCheZTActivity" />
-        <activity android:name=".activity.XinCheZTXQActivity" />
-        <activity android:name=".activity.ZhanTingQCXQActivity"></activity>
+        <activity android:name=".activity.JiFenXQActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.TiXianMXActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.ZhangDanMXActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.XinCheZTActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.XinCheZTXQActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.ZhanTingQCXQActivity"
+            android:launchMode="singleTop"></activity>
+        <activity android:name=".activity.JiLuZPActivity"
+            android:launchMode="singleTop"></activity>
+
     </application>
 
 </manifest>

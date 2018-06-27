@@ -76,6 +76,7 @@
 
                     <com.wanbao.base.ui.ListViewForScrollView
                         android:id="@+id/listView0"
+                        android:background="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:divider="@color/white"

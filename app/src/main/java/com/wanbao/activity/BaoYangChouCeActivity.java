@@ -66,7 +66,20 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
     @Override
     protected void initViews() {
         imageRight.setVisibility(View.VISIBLE);
-        titleText.setText("保养手册");
+        switch (pos){
+            case 0:
+                titleText.setText("保养手册");
+                break;
+            case 1:
+                titleText.setText("保养记录");
+                break;
+            case 2:
+                titleText.setText("维修记录");
+                break;
+            default:
+                titleText.setText("保养手册");
+                break;
+        }
         list.add("保养手册");
         list.add("常规保养记录");
         list.add("维修记录");
@@ -91,7 +104,20 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                switch (position){
+                    case 0:
+                        titleText.setText("保养手册");
+                        break;
+                    case 1:
+                        titleText.setText("保养记录");
+                        break;
+                    case 2:
+                        titleText.setText("维修记录");
+                        break;
+                    default:
+                        titleText.setText("保养手册");
+                        break;
+                }
             }
 
             @Override
@@ -132,7 +158,7 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
                     mfragment= BaoYangSCFragment.newInstance(id);
                 break;
                 case 1:
-                    mfragment= new BaoYangJLFragment();
+                    mfragment= BaoYangJLFragment.newInstance(id);
                     break;
                 case 2:
                     mfragment= new WeiXiuJLFragment();

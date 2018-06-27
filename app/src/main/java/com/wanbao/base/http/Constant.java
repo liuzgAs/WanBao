@@ -350,6 +350,14 @@ public class Constant {
          * 保养手册
          */
         public static final String Usercar_Manual = "Usercar/manual";
+        /**
+         * 常规保养记录
+         */
+        public static final String Usercar_Maintain_Log = "Usercar/maintain_log";
+        /**
+         * 查看记录照片
+         */
+        public static final String Usercar_LogPics = "Usercar/logPics";
     }
 
     public static class SF{

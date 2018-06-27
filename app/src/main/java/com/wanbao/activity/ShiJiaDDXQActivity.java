@@ -154,6 +154,7 @@ public class ShiJiaDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                             }else if (uInfo.getData().getStateType()==4){
                                 Intent intent = new Intent();
                                 intent.putExtra("id", String.valueOf(id));
+                                intent.putExtra("type",1);
                                 intent.setClass(context, LiJiPPActivity.class);
                                startActivity(intent);
                             }

@@ -66,12 +66,11 @@ public class FindFragment extends PSFragment {
         this.savedInstanceState = savedInstanceState;
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_find, container, false);
+            unbinder = ButterKnife.bind(this, view);
         }
-        unbinder = ButterKnife.bind(this, view);
         if (aMap != null) {
             aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
             aMap.getUiSettings().setZoomControlsEnabled(false);
-            aMap.getUiSettings().setZoomGesturesEnabled(false);
         }
         return view;
     }
@@ -84,7 +83,8 @@ public class FindFragment extends PSFragment {
     @Override
     public void fetchData() {
         new BannerSettingUtil(viewPager, (int) DpUtils.convertDpToPixel(13, context), false).set();
-        mMapView.onCreate(savedInstanceState);
+//        mMapView.onCreate(savedInstanceState);
+//        aMap = mMapView.getMap();
         aMap = mMapView.getMap();
         getStore();
     }
@@ -123,8 +123,8 @@ public class FindFragment extends PSFragment {
                                 Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Longitude)));
                         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng1));
                         aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
+                        mMapView.onCreate(savedInstanceState);
                         aMap.getUiSettings().setZoomControlsEnabled(false);
-                        aMap.getUiSettings().setZoomGesturesEnabled(false);
                     } else {
                         ToastUtils.showShort(store_index.getInfo());
                         MyDialog.dialogFinish(getActivity(), store_index.getInfo());
