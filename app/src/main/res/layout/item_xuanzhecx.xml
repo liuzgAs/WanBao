@@ -33,24 +33,25 @@
             android:id="@+id/textDes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_3"
             android:textColor="@color/new_important_text"
             android:text="遥客2017款手动挡"
-            android:textSize="@dimen/sp_14"/>
+            android:textSize="@dimen/sp_13"/>
         <TextView
             android:id="@+id/textDes2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_2"
+            android:maxLines="2"
+            android:layout_weight="1"
             android:textColor="@color/new_secondary_text"
             android:text="自动1.5L|五座|指导价10.00万"
             android:textStyle="bold"
-            android:textSize="@dimen/sp_13"/>
+            android:textSize="@dimen/sp_12"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/dp_5"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/textPrice"

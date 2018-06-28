@@ -79,24 +79,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设置里程"
+                    android:layout_weight="1"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_14" />
 
-                <TextView
+                <EditText
                     android:id="@+id/textLc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dp_100"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_5"
-                    android:layout_weight="1"
                     android:gravity="right|center_vertical"
                     android:hint="请设置"
+                    android:paddingRight="@dimen/dp_6"
+                    android:inputType="numberDecimal"
+                    android:background="@color/white"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_12" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:hint="km"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_12" />
 
-                <ImageView
-                    android:layout_width="@dimen/dp_23"
-                    android:layout_height="@dimen/dp_23"
-                    app:srcCompat="@mipmap/next_btn" />
             </LinearLayout>
 
             <View

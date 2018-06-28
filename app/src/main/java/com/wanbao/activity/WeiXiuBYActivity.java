@@ -31,7 +31,6 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.base.view.EditDialog;
 import com.wanbao.modle.Index_Seller;
 import com.wanbao.modle.Index_Store;
 import com.wanbao.modle.Maintain_Index;
@@ -61,7 +60,7 @@ public class WeiXiuBYActivity extends BaseActivity {
     @BindView(R.id.viewXuanZheCX)
     LinearLayout viewXuanZheCX;
     @BindView(R.id.textLc)
-    TextView textLc;
+    EditText textLc;
     @BindView(R.id.viewSzlc)
     LinearLayout viewSzlc;
     @BindView(R.id.textDp)
@@ -198,21 +197,21 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewSzlc:
-                final EditDialog editDialog = new EditDialog(context, "行驶里程（km）", "", "确认", "取消");
-                editDialog.setClicklistener(new EditDialog.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm(String intro) {
-                        editDialog.dismiss();
-                        textLc.setText(intro+"km");
-                        xslc=intro;
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        editDialog.dismiss();
-                    }
-                });
-                editDialog.show();
+//                final EditDialog editDialog = new EditDialog(context, "行驶里程（km）", "", "确认", "取消");
+//                editDialog.setClicklistener(new EditDialog.ClickListenerInterface() {
+//                    @Override
+//                    public void doConfirm(String intro) {
+//                        editDialog.dismiss();
+//                        textLc.setText(intro+"km");
+//                        xslc=intro;
+//                    }
+//
+//                    @Override
+//                    public void doCancel() {
+//                        editDialog.dismiss();
+//                    }
+//                });
+//                editDialog.show();
                 break;
             case R.id.viewXzdp:
                 if (TextUtils.isEmpty(ucid)) {
@@ -286,7 +285,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 isOnline(0);
                 break;
             case R.id.btnZf:
-                if (TextUtils.isEmpty(xslc)) {
+                if (TextUtils.isEmpty(textLc.getText().toString())) {
                     ToastUtils.showShort("请设置里程");
                     return;
                 }
@@ -590,7 +589,7 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("type", "1");
         params.put("pay_msg", editmsgDes.getText().toString());
         params.put("online_pay", String.valueOf(isOnline));
-        params.put("km", xslc);
+        params.put("km", textLc.getText().toString());
         return new OkObject(params, url);
     }
 

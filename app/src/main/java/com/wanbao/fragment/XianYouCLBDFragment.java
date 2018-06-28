@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -185,6 +186,16 @@ public class XianYouCLBDFragment extends PSFragment {
 
     @Override
     public void fetchData() {
+        scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        scrollView.setFocusable(true);
+        scrollView.setFocusableInTouchMode(true);
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.requestFocusFromTouch();
+                return false;
+            }
+        });
         viewSwitcher.setDisplayedChild(0);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.item_sheng, COUNTRIES);
         betterSpinner.setAdapter(adapter);
@@ -787,7 +798,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("请输入正确车架号");
                         return;
                     }
-                    if (!RegexUtils.isMatch(Constant.Cjh, textZcrq.getText().toString())) {
+                    if (TextUtils.isEmpty(textZcrq.getText().toString())) {
                         ToastUtils.showShort("请设置注册日期");
                         return;
                     }
