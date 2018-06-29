@@ -23,7 +23,6 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.base.view.EditDialog;
 import com.wanbao.modle.Car_Index;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
@@ -50,7 +49,7 @@ public class TuiJianHYGCFragment extends PSFragment {
     @BindView(R.id.viewAddCard)
     LinearLayout viewAddCard;
     @BindView(R.id.textMoney)
-    TextView textMoney;
+    EditText textMoney;
     @BindView(R.id.viewYs)
     LinearLayout viewYs;
     @BindView(R.id.textCity)
@@ -110,20 +109,20 @@ public class TuiJianHYGCFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewYs:
-                final EditDialog editDialog0 = new EditDialog(context, "请输入购车预算（元）", "", "确认", "取消");
-                editDialog0.setClicklistener(new EditDialog.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm(String intro) {
-                        editDialog0.dismiss();
-                        textMoney.setText(intro);
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        editDialog0.dismiss();
-                    }
-                });
-                editDialog0.show();
+//                final EditDialog editDialog0 = new EditDialog(context, "请输入购车预算（元）", "", "确认", "取消");
+//                editDialog0.setClicklistener(new EditDialog.ClickListenerInterface() {
+//                    @Override
+//                    public void doConfirm(String intro) {
+//                        editDialog0.dismiss();
+//                        textMoney.setText(intro);
+//                    }
+//
+//                    @Override
+//                    public void doCancel() {
+//                        editDialog0.dismiss();
+//                    }
+//                });
+//                editDialog0.show();
                 break;
             case R.id.sbtn_tijiao:
                 if (TextUtils.isEmpty(editPhone.getText().toString())){

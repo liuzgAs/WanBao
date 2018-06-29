@@ -20,7 +20,7 @@ public class HotCarHolder extends BaseViewHolder<Car_CarParam.HotbrandBean>{
     public void setData(Car_CarParam.HotbrandBean data) {
         super.setData(data);
         textName.setText(data.getName());
-        if (data.getName().equals("更多车型")){
+        if (data.getName().equals("更多品牌")){
             textName.setBackgroundResource(R.color.white);
             textName.setTextColor(getContext().getResources().getColor(R.color.light_red));
         }else {

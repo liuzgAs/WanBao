@@ -161,8 +161,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10">
+                >
 
                 <TextView
                     android:id="@+id/textBagName"
@@ -170,6 +169,8 @@
                     android:layout_height="@dimen/dp_40"
                     android:gravity="center_vertical"
                     android:text="保养套餐：A套餐"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_16"
                     android:textStyle="bold" />
@@ -191,6 +192,8 @@
                 </LinearLayout>
                 <com.wanbao.base.ui.ListViewForScrollView
                     android:id="@+id/listSumDes"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </com.wanbao.base.ui.ListViewForScrollView>

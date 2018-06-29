@@ -7,15 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.maps.model.LatLng;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.modle.Store_Index;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -40,10 +46,11 @@ public class DianPuFragment extends PSFragment {
     @BindView(R.id.textKm)
     TextView textKm;
     Unbinder unbinder;
+    @BindView(R.id.viewMove)
+    LinearLayout viewMove;
     private View view;
     // TODO: Rename and change types of parameters
     private Store_Index.DataBean dataBean;
-
 
 
     /**
@@ -72,7 +79,7 @@ public class DianPuFragment extends PSFragment {
 
     @Override
     public void fetchData() {
-        if (dataBean!=null){
+        if (dataBean != null) {
             textName.setText(dataBean.getTitle());
             textPhone.setText(dataBean.getPhone());
             textDes.setText(dataBean.getDes());
@@ -90,7 +97,7 @@ public class DianPuFragment extends PSFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if (view==null){
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_dian_pu, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
@@ -101,5 +108,11 @@ public class DianPuFragment extends PSFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.viewMove)
+    public void onViewClicked() {
+        LatLng latLng = new LatLng(Double.valueOf(dataBean.getLat()), Double.valueOf(dataBean.getLng()));
+        EventBus.getDefault().post(new BaseEvent(BaseEvent.LatLng,latLng));
     }
 }

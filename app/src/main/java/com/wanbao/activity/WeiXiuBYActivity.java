@@ -237,6 +237,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                                 dialog.dismiss();
                                 textYyxm.setText(maintain_index.getMaintain().get(position).getName());
                                 maintain_id = String.valueOf(maintain_index.getMaintain().get(position).getId());
+                                bag_id="";
                                 getTc();
                             }
                         })

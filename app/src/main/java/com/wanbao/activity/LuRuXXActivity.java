@@ -22,6 +22,7 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Order_NewOrder;
+import com.wanbao.modle.TestDrive_AddTuserBefore;
 
 import java.util.HashMap;
 
@@ -75,7 +76,7 @@ public class LuRuXXActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        AddTuserBefore();
     }
 
     @OnClick({R.id.imageback, R.id.sbtn_tijiao})
@@ -110,6 +111,60 @@ public class LuRuXXActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void AddTuserBefore() {
+        HttpApi.post(context, getOkObjectAddTuserBefore(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                Log.e("AddTuserBefore", s);
+                try {
+                    TestDrive_AddTuserBefore data = GsonUtils.parseJSON(s, TestDrive_AddTuserBefore.class);
+                    if (data.getStatus() == 1) {
+                        editName.setText(data.getData().getName());
+                        editPhone.setText(data.getData().getPhone());
+                        editCard.setText(data.getData().getIdcard());
+                        editNameJj.setText(data.getData().getEmergency());
+                        editPhoneJj.setText(data.getData().getEphone());
+                    } else {
+                        ToastUtils.showShort("数据出错");
+                    }
+
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据出错");
+
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectAddTuserBefore() {
+        String url = Constant.HOST + Constant.Url.TestDrive_AddTuserBefore;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        return new OkObject(params, url);
     }
 
     private void AddTuser() {

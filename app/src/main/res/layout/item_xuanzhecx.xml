@@ -7,17 +7,17 @@
     android:paddingRight="@dimen/dp_10"
     android:paddingLeft="@dimen/dp_10"
     android:background="@drawable/layout_selector_white_system_gray"
-    android:layout_height="@dimen/dp_132">
+    android:layout_height="@dimen/dp_140">
 
     <ImageView
         android:id="@+id/imageCar"
-        android:layout_width="@dimen/dp_80"
+        android:layout_width="@dimen/dp_85"
         android:scaleType="centerCrop"
-        android:layout_height="@dimen/dp_80"
+        android:layout_height="@dimen/dp_85"
         app:srcCompat="@mipmap/ic_empty" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100"
+        android:layout_height="@dimen/dp_110"
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/dp_10"
         android:gravity="center_vertical">
@@ -44,6 +44,7 @@
             android:layout_marginTop="@dimen/dp_2"
             android:maxLines="2"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:textColor="@color/new_secondary_text"
             android:text="自动1.5L|五座|指导价10.00万"
             android:textStyle="bold"

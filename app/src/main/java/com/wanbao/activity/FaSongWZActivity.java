@@ -7,15 +7,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.MyLocationStyle;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
@@ -30,7 +31,6 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.base.view.EditDialogText;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Sos_Index;
@@ -64,7 +64,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     @BindView(R.id.textCarNo)
     TextView textCarNo;
     @BindView(R.id.textName)
-    TextView textName;
+    EditText textName;
     @BindView(R.id.textPhone)
     TextView textPhone;
     @BindView(R.id.viewName)
@@ -201,20 +201,20 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.viewName:
-                final EditDialogText editDialog = new EditDialogText(context, "请输入名称", "", "确认", "取消");
-                editDialog.setClicklistener(new EditDialogText.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm(String intro) {
-                        editDialog.dismiss();
-                        textName.setText(intro);
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        editDialog.dismiss();
-                    }
-                });
-                editDialog.show();
+//                final EditDialogText editDialog = new EditDialogText(context, "请输入名称", "", "确认", "取消");
+//                editDialog.setClicklistener(new EditDialogText.ClickListenerInterface() {
+//                    @Override
+//                    public void doConfirm(String intro) {
+//                        editDialog.dismiss();
+//                        textName.setText(intro);
+//                    }
+//
+//                    @Override
+//                    public void doCancel() {
+//                        editDialog.dismiss();
+//                    }
+//                });
+//                editDialog.show();
                 break;
             case R.id.imageback:
                 finish();

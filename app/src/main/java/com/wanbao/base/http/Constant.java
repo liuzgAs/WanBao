@@ -167,6 +167,10 @@ public class Constant {
          */
         public static final String TestDrive_AddTuser = "TestDrive/addTuser";
         /**
+         * 试驾人信息录入请求
+         */
+        public static final String TestDrive_AddTuserBefore = "TestDrive/addTuserBefore";
+        /**
          * 试驾订单
          */
         public static final String User_Test_drive_order = "User/test_drive_order";

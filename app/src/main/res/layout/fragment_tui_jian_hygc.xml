@@ -93,23 +93,20 @@
             android:orientation="horizontal"
             android:paddingRight="@dimen/dp_5">
 
-            <TextView
+            <EditText
                 android:id="@+id/textMoney"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center_vertical"
-                android:hint="购车预算"
+                android:hint="购车预算(元)"
+                android:inputType="numberDecimal"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
 
-            <ImageView
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:src="@mipmap/next_btn" />
         </LinearLayout>
 
         <EditText

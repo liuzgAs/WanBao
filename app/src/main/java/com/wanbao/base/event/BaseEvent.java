@@ -31,6 +31,7 @@ public class BaseEvent {
 	public final static String AddBank = "AddBank";
 	public final static String ChangeBank = "ChangeBank";
 	public final static String TiXian = "TiXian";
+	public final static String LatLng = "LatLng";
 
 
 	private String action;

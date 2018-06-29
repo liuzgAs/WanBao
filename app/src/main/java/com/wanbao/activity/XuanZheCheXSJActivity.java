@@ -245,7 +245,7 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                 hadapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position) {
-                        if ("更多车型".equals(hadapter.getItem(position).getName())) {
+                        if ("更多品牌".equals(hadapter.getItem(position).getName())) {
                             Intent intent = new Intent();
                             intent.setClass(context, XuanZheCLActivity.class);
                             startActivity(intent);
@@ -394,7 +394,7 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                     if (status == 1) {
                         hadapter.clear();
                         hadapter.addAll(car_carParam.getHotbrand());
-                        hadapter.add(new Car_CarParam.HotbrandBean(0, "更多车型", ""));
+                        hadapter.add(new Car_CarParam.HotbrandBean(0, "更多品牌", ""));
                     } else {
                         ToastUtils.showShort(car_carParam.getInfo());
                     }

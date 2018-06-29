@@ -10,17 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.dialog.MyDialog;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -67,10 +69,18 @@ public class FindFragment extends PSFragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_find, container, false);
             unbinder = ButterKnife.bind(this, view);
-        }
-        if (aMap != null) {
+            aMap = mMapView.getMap();
+            LatLng latLng1 = new LatLng(Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Latitude)),
+                    Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Longitude)));
+            aMap.getUiSettings().setMyLocationButtonEnabled(true); //显示默认的定位按钮
+            MyLocationStyle myLocationStyle=new MyLocationStyle();
+            myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
+            aMap.setMyLocationEnabled(true);// 可触发定位并显示当前位置
+            aMap.setMyLocationStyle(myLocationStyle);
+//            aMap.moveCamera(CameraUpdateFactory.newLatLng(latLng1));
             aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
             aMap.getUiSettings().setZoomControlsEnabled(false);
+            mMapView.onCreate(savedInstanceState);
         }
         return view;
     }
@@ -81,12 +91,36 @@ public class FindFragment extends PSFragment {
     }
 
     @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.LatLng.equals(event.getAction())){
+            LatLng latLng=(LatLng) event.getData();
+            if (latLng!=null){
+                aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
+//                aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
+            }
+        }
+    }
+
+    @Override
     public void fetchData() {
-        new BannerSettingUtil(viewPager, (int) DpUtils.convertDpToPixel(13, context), false).set();
-//        mMapView.onCreate(savedInstanceState);
-//        aMap = mMapView.getMap();
-        aMap = mMapView.getMap();
+        new BannerSettingUtil(viewPager, (int) DpUtils.convertDpToPixel(10, context), false).set();
         getStore();
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void getStore() {
@@ -119,12 +153,6 @@ public class FindFragment extends PSFragment {
                         }
                         myPageAdapter=new MyPageAdapter(getChildFragmentManager(),store_index.getData());
                         viewPager.setAdapter(myPageAdapter);
-                        LatLng latLng1 = new LatLng(Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Latitude)),
-                                Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Longitude)));
-                        aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng1));
-                        aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
-                        mMapView.onCreate(savedInstanceState);
-                        aMap.getUiSettings().setZoomControlsEnabled(false);
                     } else {
                         ToastUtils.showShort(store_index.getInfo());
                         MyDialog.dialogFinish(getActivity(), store_index.getInfo());

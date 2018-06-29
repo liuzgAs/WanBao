@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 18062801
-        versionName "0.2.1"
+        versionCode 18062901
+        versionName "0.2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -66,7 +66,7 @@ dependencies {
     compile 'com.android.support:design:27.0.2'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.amap.api:location:latest.integration'
-    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:3dmap:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile('com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar') {
         exclude module: 'rxjava', group: 'io.reactivex'
