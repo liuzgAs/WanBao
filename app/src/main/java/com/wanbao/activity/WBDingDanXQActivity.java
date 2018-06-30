@@ -119,7 +119,7 @@ public class WBDingDanXQActivity extends BaseActivity {
             case R.id.viewState:
                 if (datas.getData().getStateType() == 1) {
                     Intent intent = new Intent();
-                    intent.putExtra("id", String.valueOf(id));
+                    intent.putExtra("Oid", String.valueOf(id));
                     intent.setClass(context, LiJiZhiFuActivity.class);
                     startActivity(intent);
                 } else if (datas.getData().getStateType() == 4) {

@@ -17,20 +17,18 @@
         android:layout_marginTop="@dimen/dp_5"
         android:background="@color/white"
         android:hint="请输入您的邮箱地址"
+        android:visibility="gone"
         android:inputType="textEmailAddress"
         android:paddingLeft="@dimen/dp_15"
         android:textSize="@dimen/sp_13" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray" />
 
     <EditText
         android:id="@+id/editContent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_150"
         android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_10"
         android:gravity="top|left"
         android:hint="请输入您的反馈意见"
         android:padding="@dimen/dp_15"

@@ -18,38 +18,65 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_40"
             android:src="@mipmap/icon_tjhy" />
-
-        <EditText
-            android:id="@+id/editPhone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_30"
-            android:background="@drawable/bg_text"
-            android:gravity="center_vertical"
-            android:hint="手机号"
-            android:inputType="number"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:background="@drawable/bg_text"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_height="@dimen/dp_45">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|right"
+                    android:hint="手机号"
+                    android:inputType="number"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+                <EditText
+                    android:id="@+id/editPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入正确的手机号"
+                    android:inputType="number"
+                    android:textCursorDrawable="@null"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:background="@drawable/bg_text"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_height="@dimen/dp_45">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right"
+            android:hint="姓名"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_13" />
-
         <EditText
             android:id="@+id/editName"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_6"
-            android:background="@drawable/bg_text"
-            android:gravity="center_vertical"
-            android:hint="姓名"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="请输入姓名"
             android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
+            android:textCursorDrawable="@null"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_13" />
-
+    </LinearLayout>
         <LinearLayout
             android:id="@+id/viewAddCard"
             android:layout_width="match_parent"
@@ -61,9 +88,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingRight="@dimen/dp_5">
-
             <TextView
-                android:id="@+id/textCarName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_weight="1"
@@ -72,6 +97,15 @@
                 android:hint="意向车型"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+            <TextView
+                android:id="@+id/textCarName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="选择意向车型"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
 
@@ -91,54 +125,90 @@
             android:background="@drawable/bg_text"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingRight="@dimen/dp_5">
-
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:hint="购车预算(元)"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
             <EditText
                 android:id="@+id/textMoney"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:hint="购车预算(元)"
+                android:gravity="center_vertical|right"
+                android:hint="请输入购车预算"
+                android:textCursorDrawable="@null"
                 android:inputType="numberDecimal"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
 
         </LinearLayout>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_6"
-            android:background="@drawable/bg_text"
-            android:gravity="center_vertical"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="@drawable/bg_text"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right"
             android:hint="居住城市（可选）"
-            android:id="@+id/textCity"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_13" />
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_6"
-            android:background="@drawable/bg_text"
-            android:gravity="center_vertical"
-            android:hint="职业（可选）"
-            android:id="@+id/textZhiYe"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="请输入居住城市"
+            android:id="@+id/textCity"
+            android:textCursorDrawable="@null"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_13" />
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="@drawable/bg_text"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right"
+            android:hint="职业（可选）"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@color/white"
+            android:gravity="center_vertical|right"
+            android:hint="请输入你的职业"
+            android:id="@+id/textZhiYe"
+            android:textCursorDrawable="@null"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+    </LinearLayout>
         <com.wanbao.base.ui.StateButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"

@@ -145,6 +145,7 @@
                     android:layout_weight="1"
                     android:gravity="right|center_vertical"
                     android:hint="请输入姓名"
+                    android:textCursorDrawable="@null"
                     android:paddingRight="@dimen/dp_23"
                     android:background="@color/white"
                     android:textColor="@color/new_important_text"

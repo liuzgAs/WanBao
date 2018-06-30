@@ -70,8 +70,6 @@ public class FindFragment extends PSFragment {
             view = inflater.inflate(R.layout.fragment_find, container, false);
             unbinder = ButterKnife.bind(this, view);
             aMap = mMapView.getMap();
-            LatLng latLng1 = new LatLng(Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Latitude)),
-                    Double.valueOf(SPUtils.getInstance().getString(Constant.SF.Longitude)));
             aMap.getUiSettings().setMyLocationButtonEnabled(true); //显示默认的定位按钮
             MyLocationStyle myLocationStyle=new MyLocationStyle();
             myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
