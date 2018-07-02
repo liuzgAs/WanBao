@@ -63,6 +63,10 @@ public class Constant {
          */
         public static final String Login_register = "Login/register";
         /**
+         * 注册前请求
+         */
+        public static final String Login_RegBefore = "Login/regBefore";
+        /**
          * 忘记密码验证码请求
          */
         public static final String Login_ForgetSms = "Login/forgetSms";

@@ -56,7 +56,7 @@ import io.reactivex.disposables.Disposable;
 
 public class UpgradeUtils extends Activity{
     public static final String APK_UPGRADE = Environment
-            .getExternalStorageDirectory() + "/danaoleida/upgrade/danaoleida.apk";
+            .getExternalStorageDirectory() + "/qianche/upgrade/qianche.apk";
     private static Context mContext;
     private static NotificationManager mNotifiMgr;
     private static Notification mNotifi;
@@ -65,7 +65,7 @@ public class UpgradeUtils extends Activity{
     private static int contentLength;
     private static ProgressDialog progressDialog;
     public static final String id = "channel_1";
-    public static final String name = "大脑雷达";
+    public static final String name = "牵车";
 
     private static OkObject getOkObject(Context context, String url) {
         HashMap<String, String> params = new HashMap<>();

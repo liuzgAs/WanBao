@@ -15,8 +15,11 @@
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
+        app:ckFocus="continuous"
+        app:ckMethod="still"
+        app:ckCropOutput="false"
         android:layout_height="@dimen/dp_230"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="false" />
     <com.wanbao.base.ui.StateButton
         android:id="@+id/sbtn_QueRen"
         android:layout_width="match_parent"

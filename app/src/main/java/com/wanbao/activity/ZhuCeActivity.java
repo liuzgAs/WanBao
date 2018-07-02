@@ -14,10 +14,13 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.MD5Util;
+import com.wanbao.base.view.EditTextWithDel;
+import com.wanbao.modle.Login_RegBefore;
 import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.Login_register;
 import com.wanbao.modle.OkObject;
@@ -51,6 +54,12 @@ public class ZhuCeActivity extends BaseActivity {
     LinearLayout viewXieYi;
     @BindView(R.id.viewZuCe)
     LinearLayout viewZuCe;
+    @BindView(R.id.editInCode)
+    EditTextWithDel editInCode;
+    @BindView(R.id.viewInCode)
+    LinearLayout viewInCode;
+    @BindView(R.id.lineInCode)
+    View lineInCode;
     private boolean isTongYi = true;
 
     @Override
@@ -78,7 +87,7 @@ public class ZhuCeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        Before();
     }
 
     @OnClick({R.id.btn_right, R.id.imageBack, R.id.btnYzm, R.id.viewXieYi, R.id.viewZuCe})
@@ -91,7 +100,7 @@ public class ZhuCeActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btnYzm:
-                if (TextUtils.isEmpty(editAccount.getText())){
+                if (TextUtils.isEmpty(editAccount.getText())) {
                     ToastUtils.showShort("手机号不能为空");
                     return;
                 }
@@ -106,28 +115,28 @@ public class ZhuCeActivity extends BaseActivity {
                 }
                 break;
             case R.id.viewZuCe:
-                if (TextUtils.isEmpty(editAccount.getText())){
+                if (TextUtils.isEmpty(editAccount.getText())) {
                     ToastUtils.showShort("手机号不能为空");
                     return;
                 }
-                if (TextUtils.isEmpty(editCode.getText())){
+                if (TextUtils.isEmpty(editCode.getText())) {
                     ToastUtils.showShort("验证码不能为空");
                     return;
                 }
-                if (TextUtils.isEmpty(editPwd.getText())||TextUtils.isEmpty(editPwdAg.getText())){
+                if (TextUtils.isEmpty(editPwd.getText()) || TextUtils.isEmpty(editPwdAg.getText())) {
                     ToastUtils.showShort("密码不能为空");
                     return;
-                }else {
-                    if (!editPwd.getText().toString().equals(editPwdAg.getText().toString())){
+                } else {
+                    if (!editPwd.getText().toString().equals(editPwdAg.getText().toString())) {
                         ToastUtils.showShort("密码不一致");
                         return;
                     }
                 }
-                if (!RegexUtils.isMatch(Constant.reg,editPwd.getText().toString())){
+                if (!RegexUtils.isMatch(Constant.reg, editPwd.getText().toString())) {
                     ToastUtils.showShort("密码至少六位字母和数字组合");
                     return;
                 }
-                if (!isTongYi){
+                if (!isTongYi) {
                     ToastUtils.showShort("请同意用户协议");
                     return;
                 }
@@ -237,9 +246,66 @@ public class ZhuCeActivity extends BaseActivity {
         String url = Constant.HOST + Constant.Url.Login_register;
         HashMap<String, String> params = new HashMap<>();
         params.put("userName", editAccount.getText().toString());
-        params.put("userPwd", MD5Util.getMD5(MD5Util.getMD5(editPwd.getText().toString().trim())+ "ad"));
+        params.put("userPwd", MD5Util.getMD5(MD5Util.getMD5(editPwd.getText().toString().trim()) + "ad"));
         params.put("code", editCode.getText().toString());
         params.put("type", "0");
+        params.put("incode", editInCode.getText().toString());
+
+        return new OkObject(params, url);
+    }
+
+    private void Before() {
+        HttpApi.post(context, getOkObjectBefore(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                Log.e("Login_register", s);
+                try {
+                    Login_RegBefore login_regBefore = GsonUtils.parseJSON(s, Login_RegBefore.class);
+                    if (login_regBefore.getStatus() == 1) {
+                        if (login_regBefore.getIscode()==1){
+                            viewInCode.setVisibility(View.VISIBLE);
+                            lineInCode.setVisibility(View.VISIBLE);
+                        }else {
+                            viewInCode.setVisibility(View.GONE);
+                            lineInCode.setVisibility(View.GONE);
+                        }
+                    } else {
+                        MyDialog.dialogFinish(ZhuCeActivity.this,login_regBefore.getInfo());
+                    }
+
+                } catch (Exception e) {
+                    MyDialog.dialogFinish(ZhuCeActivity.this,"数据出错");
+
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                MyDialog.dialogFinish(ZhuCeActivity.this,"网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectBefore() {
+        String url = Constant.HOST + Constant.Url.Login_RegBefore;
+        HashMap<String, String> params = new HashMap<>();
         return new OkObject(params, url);
     }
 

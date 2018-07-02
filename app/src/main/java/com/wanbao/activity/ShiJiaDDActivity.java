@@ -162,7 +162,7 @@ public class ShiJiaDDActivity extends BaseActivity {
     }
 
     private OkObject getOkObjectOrder() {
-        String url = Constant.HOST + Constant.Url.User_Maintain_order;
+        String url = Constant.HOST + Constant.Url.User_Test_drive_order;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("state", "");

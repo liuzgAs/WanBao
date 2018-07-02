@@ -146,7 +146,7 @@
                     android:id="@+id/textxslc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="未设置"
+                    android:hint="请填写行驶里程，单位（km）"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
 
@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="姓名"
+                    android:hint="请填写正确的姓名"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -271,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="车型"
+                    android:hint="请填写正确的车型"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -304,8 +304,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="地址"
-                    android:maxLines="1"
+                    android:hint="请填写正确的地址"
+                    android:maxLines="2"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -338,7 +338,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="车牌号"
+                    android:hint="请填写正确的车牌号"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -372,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="发动机号"
+                    android:hint="请填写正确的发动机号"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -406,7 +406,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="车架号"
+                    android:hint="请填写正确的车架号"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -440,7 +440,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="注册日期"
+                    android:hint="请填写正确的注册日期"
                     android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
@@ -475,7 +475,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="发证日期"
+                    android:hint="请填写正确的发证日期"
                     android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
@@ -557,7 +557,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="年审到期"
+                    android:hint="请填写正确的年审到期日期"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -591,7 +591,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="交强险到期"
+                    android:hint="交强险到期日期"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -624,7 +624,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_36"
                     android:background="@color/white"
-                    android:hint="商业险到期"
+                    android:hint="商业险到期日期"
                     android:gravity="right"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />

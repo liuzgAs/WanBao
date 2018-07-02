@@ -11,7 +11,9 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseNoLeftActivity;
+import com.wanbao.base.http.Constant;
 import com.wanbao.base.tools.DeviceUtils;
+import com.wanbao.base.util.UpgradeUtils;
 import com.wanbao.entity.TabEntity;
 import com.wanbao.fragment.FindFragment;
 import com.wanbao.fragment.MainFragment;
@@ -79,6 +81,7 @@ public class MainActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initData() {
+        UpgradeUtils.checkUpgrade(context, Constant.HOST+Constant.Url.Index_Version);
     }
 
     private void tl_2() {

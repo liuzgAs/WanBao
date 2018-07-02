@@ -802,7 +802,7 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("请设置注册日期");
                         return;
                     }
-                    if (!RegexUtils.isMatch(Constant.Cjh, textFzrq.getText().toString())) {
+                    if (TextUtils.isEmpty(textFzrq.getText().toString())) {
                         ToastUtils.showShort("请设置发证日期");
                         return;
                     }

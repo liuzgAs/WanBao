@@ -210,19 +210,27 @@ public class WBDingDanXQActivity extends BaseActivity {
         if (data.getData().getStateType() == 1) {
             textState.setText("订单待支付");
             textStateTo.setText("确认支付");
+            imageView8.setVisibility(View.VISIBLE);
             imageState.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_ddqzf));
         } else if (data.getData().getStateType() == 2) {
             textState.setText("订单待接车");
             textStateTo.setText("待接车");
+            imageView8.setVisibility(View.GONE);
         } else if (data.getData().getStateType() == 3) {
             textState.setText("订单服务中");
             textStateTo.setText("服务中");
+            imageView8.setVisibility(View.VISIBLE);
+
         } else if (data.getData().getStateType() == 4) {
             textState.setText("订单待评价");
             textStateTo.setText("去评价");
+            imageView8.setVisibility(View.VISIBLE);
+
         } else if (data.getData().getStateType() == 5) {
             textState.setText("订单已完成");
             textStateTo.setText("再次预约");
+            imageView8.setVisibility(View.VISIBLE);
+
         }
     }
 
