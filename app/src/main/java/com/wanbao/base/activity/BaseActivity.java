@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.umeng.analytics.MobclickAgent;
 import com.wanbao.R;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.event.BaseEvent;
@@ -91,10 +92,17 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         if (changeControl != AppConstants.changeControl) {
             initData();
             changeControl++;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private CompositeDisposable compositeDisposable;

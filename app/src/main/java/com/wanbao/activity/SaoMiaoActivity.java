@@ -42,10 +42,10 @@ public class SaoMiaoActivity extends BaseActivity {
     ImageView imageback;
     @BindView(R.id.titleText)
     TextView titleText;
-    @BindView(R.id.camera)
-    CameraView cameraView;
     @BindView(R.id.sbtn_QueRen)
     StateButton sbtnQueRen;
+    @BindView(R.id.camera)
+    CameraView cameraView;
     private String type;
     private String side;
     private String imageId;
@@ -61,7 +61,6 @@ public class SaoMiaoActivity extends BaseActivity {
 
     @Override
     protected void initSP() {
-
     }
 
     @Override
@@ -74,19 +73,19 @@ public class SaoMiaoActivity extends BaseActivity {
     protected void initViews() {
         if ("53".equals(type) && "face".equals(side)) {
             titleText.setText("行驶证正页信息");
-            typeId=0;
+            typeId = 0;
         } else if ("53".equals(type) && "back".equals(side)) {
             titleText.setText("行驶证副页信息");
-            typeId=1;
-        }else if ("51".equals(type) && "face".equals(side)) {
+            typeId = 1;
+        } else if ("51".equals(type) && "face".equals(side)) {
             titleText.setText("身份证正面信息");
-            typeId=2;
-        }else if ("51".equals(type) && "back".equals(side)) {
+            typeId = 2;
+        } else if ("51".equals(type) && "back".equals(side)) {
             titleText.setText("身份证背面信息");
-            typeId=4;
-        }else if ("52".equals(type) && "face".equals(side)) {
+            typeId = 4;
+        } else if ("52".equals(type) && "face".equals(side)) {
             titleText.setText("驾驶证正页信息");
-            typeId=3;
+            typeId = 3;
         }
     }
 
@@ -108,6 +107,13 @@ public class SaoMiaoActivity extends BaseActivity {
                         getAppImgAdd(ImgToBase64.convertIconToString(cameraKitImage.getBitmap()));
                     }
                 });
+//                cameraView.takePhoto(new CameraHelper.takeSuccess() {
+//                    @Override
+//                    public void success(Bitmap mBitmap) {
+//                        getAppImgAdd(ImgToBase64.convertIconToString(mBitmap));
+//
+//                    }
+//                });
                 break;
             default:
                 break;
@@ -168,6 +174,7 @@ public class SaoMiaoActivity extends BaseActivity {
         params.put("type", "png");
         return new OkObject(params, url);
     }
+
     private void getAppText_zb(String id) {
         HttpApi.post(context, getOkObjectText_zb(id), new HttpApi.CallBack() {
             @Override
@@ -185,47 +192,47 @@ public class SaoMiaoActivity extends BaseActivity {
                 dismissDialog();
                 LogUtils.e("getAppImgAdd", s);
                 try {
-                    if (typeId==0){
+                    if (typeId == 0) {
                         XinShiZZM xinShiZZM = GsonUtils.parseJSON(s, XinShiZZM.class);
                         int status = xinShiZZM.getStatus();
                         if (status == 1) {
-                            EventBus.getDefault().post(new BaseEvent(BaseEvent.XinShiZZM,xinShiZZM));
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.XinShiZZM, xinShiZZM));
                             finish();
                         } else {
                             ToastUtils.showShort(xinShiZZM.getInfo());
                         }
-                    }else if (typeId==1){
+                    } else if (typeId == 1) {
                         XingShiZFY xingShiZFY = GsonUtils.parseJSON(s, XingShiZFY.class);
                         int status = xingShiZFY.getStatus();
                         if (status == 1) {
-                            EventBus.getDefault().post(new BaseEvent(BaseEvent.XingShiZFY,xingShiZFY));
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.XingShiZFY, xingShiZFY));
                             finish();
                         } else {
                             ToastUtils.showShort(xingShiZFY.getInfo());
                         }
-                    }else if (typeId==2){
+                    } else if (typeId == 2) {
                         ShenFenZ shenFenZ = GsonUtils.parseJSON(s, ShenFenZ.class);
                         int status = shenFenZ.getStatus();
                         if (status == 1) {
-                            EventBus.getDefault().post(new BaseEvent(BaseEvent.ShenFenZ,shenFenZ));
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.ShenFenZ, shenFenZ));
                             finish();
                         } else {
                             ToastUtils.showShort(shenFenZ.getInfo());
                         }
-                    }else if (typeId==4){
+                    } else if (typeId == 4) {
                         ShenFenB shenFenB = GsonUtils.parseJSON(s, ShenFenB.class);
                         int status = shenFenB.getStatus();
                         if (status == 1) {
-                            EventBus.getDefault().post(new BaseEvent(BaseEvent.ShenFenB,shenFenB));
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.ShenFenB, shenFenB));
                             finish();
                         } else {
                             ToastUtils.showShort(shenFenB.getInfo());
                         }
-                    }else if (typeId==3){
+                    } else if (typeId == 3) {
                         JiaShiZ jiaShiZ = GsonUtils.parseJSON(s, JiaShiZ.class);
                         int status = jiaShiZ.getStatus();
                         if (status == 1) {
-                            EventBus.getDefault().post(new BaseEvent(BaseEvent.JiaShiZ,jiaShiZ));
+                            EventBus.getDefault().post(new BaseEvent(BaseEvent.JiaShiZ, jiaShiZ));
                             finish();
                         } else {
                             ToastUtils.showShort(jiaShiZ.getInfo());

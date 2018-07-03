@@ -45,7 +45,9 @@
         </provider>
 
         <service android:name="com.amap.api.location.APSService" />
-
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5b1f895da40fa33bcf00005d" />
         <meta-data
             android:name="com.alibaba.app.appkey"
             android:value="24913491" /> <!-- 请填写你自己的- appKey -->

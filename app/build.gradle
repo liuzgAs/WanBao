@@ -12,10 +12,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.wanbao"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18070202
-        versionName "0.2.5"
+        versionCode 18070301
+        versionName "0.2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -100,4 +100,6 @@ dependencies {
         exclude module: 'rxjava', group: 'io.reactivex'
         exclude module: 'rxandroid', group: 'io.reactivex'
     }
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
 }

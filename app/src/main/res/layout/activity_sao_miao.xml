@@ -19,7 +19,17 @@
         app:ckMethod="still"
         app:ckCropOutput="false"
         android:layout_height="@dimen/dp_230"
-        android:adjustViewBounds="false" />
+        android:adjustViewBounds="true" />
+    <!--<cn.bertsir.cameralibary.view.CameraView-->
+        <!--android:id="@+id/camera"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_230"-->
+        <!--app:direction="BACK"-->
+        <!--android:layout_marginLeft="@dimen/dp_10"-->
+        <!--android:layout_marginRight="@dimen/dp_10"-->
+        <!--android:layout_marginTop="@dimen/dp_10"-->
+        <!--&gt;-->
+    <!--</cn.bertsir.cameralibary.view.CameraView>-->
     <com.wanbao.base.ui.StateButton
         android:id="@+id/sbtn_QueRen"
         android:layout_width="match_parent"

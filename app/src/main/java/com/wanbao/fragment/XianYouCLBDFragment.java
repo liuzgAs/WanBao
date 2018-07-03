@@ -1,9 +1,13 @@
 package com.wanbao.fragment;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -389,7 +393,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("name", textXm.getText().toString());
         params.put("register_date", textZcrq.getText().toString());
         params.put("issue_date", textFzrq.getText().toString());
-        params.put("Insurance_commerce", textSyx.getText().toString());
+        params.put("insurance_commerce", textSyx.getText().toString());
         params.put("face_img", face_img);
         params.put("back_img", back_img);
         return new OkObject(params, url);
@@ -747,18 +751,42 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialog1.show();
                 break;
             case R.id.viewSzy:
-                intent = new Intent();
-                intent.putExtra("type", "53");
-                intent.putExtra("side", "face");
-                intent.setClass(getActivity(), SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(context,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "face");
+                    intent.setClass(getActivity(), SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.viewSfy:
-                intent = new Intent();
-                intent.putExtra("type", "53");
-                intent.putExtra("side", "back");
-                intent.setClass(getActivity(), SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(context,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "back");
+                    intent.setClass(getActivity(), SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.sbtn_tijiaobdw:
                 if (dataBean == null) {

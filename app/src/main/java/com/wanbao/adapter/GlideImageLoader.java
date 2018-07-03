@@ -3,7 +3,9 @@ package com.wanbao.adapter;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.modle.Index_Home;
 import com.youth.banner.loader.ImageLoader;
 
 /**
@@ -22,6 +24,11 @@ public class GlideImageLoader extends ImageLoader {
          传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
          切记不要胡乱强转！
          */
-        imageView.setImageResource(R.mipmap.banner);
+        Index_Home.BannerBean bannerBean=(Index_Home.BannerBean)path;
+        GlideApp.with(context)
+                .asBitmap()
+                .load(bannerBean.getImg())
+                .placeholder(R.mipmap.ic_empty)
+                .into(imageView);
     }
 }

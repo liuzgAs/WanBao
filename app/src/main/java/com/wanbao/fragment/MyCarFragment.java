@@ -365,7 +365,7 @@ public class MyCarFragment extends PSFragment {
                 return new MyCarBQViewHolder(parent, layout);
             }
         });
-        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(12, context));
+        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(5, context));
         spaceDecoration.setPaddingEdgeSide(false);
         recyclerView.addItemDecoration(spaceDecoration);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -409,6 +409,8 @@ public class MyCarFragment extends PSFragment {
                     User_My user_my = GsonUtils.parseJSON(s, User_My.class);
                     int status = user_my.getStatus();
                     if (status == 1) {
+                        adapter.clear();
+                        adapter.addAll(user_my.getInterest());
                         if (user_my.getCarNum() == 0) {
                             viewSwitcher.setDisplayedChild(0);
                             viewSwitcher0.setDisplayedChild(0);
@@ -423,8 +425,6 @@ public class MyCarFragment extends PSFragment {
                                         .load(user_my.getData().getImg())
                                         .placeholder(R.mipmap.ic_empty)
                                         .into(imageCar);
-                                adapter.clear();
-                                adapter.addAll(user_my.getInterest());
                             }
                         }
                         if (!TextUtils.isEmpty(user_my.getNickname())){

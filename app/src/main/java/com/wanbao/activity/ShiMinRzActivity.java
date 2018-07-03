@@ -1,8 +1,11 @@
 package com.wanbao.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -317,18 +320,42 @@ public class ShiMinRzActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.viewSfzzy:
-                intent = new Intent();
-                intent.putExtra("type", "51");
-                intent.putExtra("side", "face");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "51");
+                    intent.putExtra("side", "face");
+                    intent.setClass(context, SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.viewJszzy:
-                intent = new Intent();
-                intent.putExtra("type", "52");
-                intent.putExtra("side", "face");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "52");
+                    intent.putExtra("side", "face");
+                    intent.setClass(context, SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.textQueren:
                 if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
@@ -343,11 +370,23 @@ public class ShiMinRzActivity extends BaseActivity {
             case R.id.viewZjhm:
                 break;
             case R.id.viewSfzby:
-                intent = new Intent();
-                intent.putExtra("type", "51");
-                intent.putExtra("side", "back");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "51");
+                    intent.putExtra("side", "back");
+                    intent.setClass(context, SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.viewYxqq:
                 break;

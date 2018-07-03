@@ -47,6 +47,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.Index_Home;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_My;
 import com.wanbao.ui.MyEasyRecyclerView;
@@ -87,10 +88,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public AMapLocationClient mLocationClient = null;
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
-    ArrayList<String> images = new ArrayList<>();
     List<String> info = new ArrayList<>();
     int carNum = 0;
-
+    private Index_Home indexHome;
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
         return mf;
@@ -198,20 +198,22 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
             @Override
             public void onBindView(View headerView) {
-                hadapter.clear();
-                hadapter.add(1);
-                hadapter.add(2);
-                hadapter.add(3);
-                hadapter.notifyDataSetChanged();
-                //设置图片加载器
-                banner.setImageLoader(new GlideImageLoader());
-                //设置图片集合
-                banner.setImages(images);
-                //banner设置方法全部调用完毕时最后调用
-                //设置轮播时间
-                banner.setDelayTime(3000);
-                banner.start();
-                marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
+                if (indexHome!=null){
+                    hadapter.clear();
+                    hadapter.add(1);
+                    hadapter.add(2);
+                    hadapter.add(3);
+                    hadapter.notifyDataSetChanged();
+                    //设置图片加载器
+                    banner.setImageLoader(new GlideImageLoader());
+                    //设置图片集合
+                    banner.setImages(indexHome.getBanner());
+                    //banner设置方法全部调用完毕时最后调用
+                    //设置轮播时间
+                    banner.setDelayTime(3000);
+                    banner.start();
+                    marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
+                }
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
@@ -308,9 +310,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public void fetchData() {
         LogUtils.getConfig().setLogSwitch(true);
         initRecycler();
-        images.clear();
-        images.add("1");
-        images.add("2");
         info.clear();
         info.add("400匹全时四驱到底有多快？两小伙阿迪发动");
         info.add("500匹全时四驱到底有多快？两小伙阿迪发动");
@@ -344,10 +343,17 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
             @Override
             public void onSuccess(String s) {
-                adapter.clear();
-                adapter.add("底线了");
                 LogUtils.getConfig().setBorderSwitch(false);
                 LogUtils.e("主页", s);
+                try {
+                     indexHome = GsonUtils.parseJSON(s, Index_Home.class);
+                    int status = indexHome.getStatus();
+                    if (status == 1) {
+                        adapter.notifyDataSetChanged();
+                    } else {
+                    }
+                } catch (Exception e) {
+                }
             }
 
             @Override

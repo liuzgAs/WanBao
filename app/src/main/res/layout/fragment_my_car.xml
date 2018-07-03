@@ -73,9 +73,8 @@
                 android:textColor="#99ffffff"
                 android:text="标签"/>
             <com.wanbao.ui.HorizontalView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:background="@color/transparent"
-                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_height="wrap_content">
@@ -83,10 +82,14 @@
                     app:scrollbars="none"
                     android:id="@+id/recyclerView"
                     app:scrollbarStyle="insideOverlay"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </com.wanbao.ui.MyEasyRecyclerView>
             </com.wanbao.ui.HorizontalView>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></View>
             <TextView
                 android:id="@+id/textCheShouZZ"
                 android:layout_width="wrap_content"

@@ -19,6 +19,8 @@ import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 import com.wanbao.base.util.CrashHandler;
 
 import java.util.ArrayList;
@@ -47,6 +49,9 @@ public class AppContext extends MultApplication {
         instance = this;
         Utils.init(this);
         CrashHandler.getInstance().init(this);
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "5b1f895da40fa33bcf00005d");
+        UMConfigure.setLogEnabled(true);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
         initOkGo();
         initCloudChannel(this);
         initOcr();

@@ -1,9 +1,13 @@
 package com.wanbao.activity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -430,18 +434,42 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialog1.show();
                 break;
             case R.id.viewSzy:
-                intent = new Intent();
-                intent.putExtra("type", "53");
-                intent.putExtra("side", "face");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "face");
+                    intent.setClass(context, SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.viewSfy:
-                intent = new Intent();
-                intent.putExtra("type", "53");
-                intent.putExtra("side", "back");
-                intent.setClass(context, SaoMiaoActivity.class);
-                startActivity(intent);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            0);
+
+                }else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "back");
+                    intent.setClass(context, SaoMiaoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.textFs:
                 yanZM(usercar_getinfo.getData().getPhone());
