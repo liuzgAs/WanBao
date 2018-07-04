@@ -280,4 +280,10 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
         params.put("p", String.valueOf(page));
         return new OkObject(params, url);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dispose();
+    }
 }

@@ -28,6 +28,7 @@ import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.CheShouZiZhuanActivity;
+import com.wanbao.activity.GengDuoFWActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.SheZhiActivity;
 import com.wanbao.activity.ShiJiaDDActivity;
@@ -305,14 +306,14 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewSCSJ:
-                intent = new Intent();
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
-                    intent.setClass(context, LoginActivity.class);
-                    startActivity(intent);
-                    return;
-                }
-                intent.setClass(getActivity(), ShiJiaDDActivity.class);
-                startActivity(intent);
+//                intent = new Intent();
+//                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+//                    intent.setClass(context, LoginActivity.class);
+//                    startActivity(intent);
+//                    return;
+//                }
+//                intent.setClass(getActivity(), ShiJiaDDActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.viewPTGC:
                 intent = new Intent();
@@ -325,6 +326,9 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewGDFW:
+                intent = new Intent();
+                intent.setClass(getActivity(), GengDuoFWActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewACDA:
                 intent = new Intent();

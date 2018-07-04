@@ -211,7 +211,9 @@ public class FindFragment extends PSFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-        mMapView.onSaveInstanceState(outState);
+        if (mMapView!=null){
+            mMapView.onSaveInstanceState(outState);
+        }
     }
 
     public class MyPageAdapter extends FragmentPagerAdapter {

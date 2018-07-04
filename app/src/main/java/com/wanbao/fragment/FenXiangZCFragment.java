@@ -17,8 +17,10 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wanbao.R;
+import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.WebViewActivity;
 import com.wanbao.base.dialog.MyDialog;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -80,6 +82,12 @@ public class FenXiangZCFragment extends PSFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (event.getAction().equals(BaseEvent.Change_Data)) {
+            fetchData();
+        }
     }
 
     private void Share() {
@@ -150,6 +158,12 @@ public class FenXiangZCFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewWx:
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 if (mShare==null){
                     return;
                 }
@@ -157,6 +171,12 @@ public class FenXiangZCFragment extends PSFragment {
                         mShare.getShare().getShareTitle(),mShare.getShare().getShareDes());
                 break;
             case R.id.viewPyq:
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 if (mShare==null){
                     return;
                 }
@@ -164,6 +184,12 @@ public class FenXiangZCFragment extends PSFragment {
                         mShare.getShare().getShareTitle(),mShare.getShare().getShareDes());
                 break;
             case R.id.viewEwm:
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 if (mShare==null){
                     return;
                 }

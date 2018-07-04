@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
@@ -78,6 +79,12 @@ public class CheLiangGZActivity extends BaseActivity {
     protected void initViews() {
 
     }
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (event.getAction().equals(BaseEvent.Change_Data)) {
+            getData();
+        }
+    }
 
     @Override
     protected void initData() {
@@ -95,6 +102,11 @@ public class CheLiangGZActivity extends BaseActivity {
                 break;
             case R.id.ll_weizhi:
                 Intent intent = new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
                 intent.putExtra("sos_index",sos_index);
                 intent.setClass(context, FaSongWZActivity.class);
                 startActivity(intent);

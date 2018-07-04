@@ -112,7 +112,7 @@ public class Usercar_Index {
          * des2 : 自动1.6 | 5座 | 指导价18.88万
          * intro : [{"n":"行驶里程","v":"20000km"},{"n":"年审到期时间","v":"2016-08-08."},{"n":"保险到期时间","v":"2016-08-08."}]
          */
-
+        private int id;
         private int cid;
         private int km;
         private int year_end;
@@ -122,7 +122,13 @@ public class Usercar_Index {
         private String img;
         private String des2;
         private List<IntroBean> intro;
+        public int getId() {
+            return id;
+        }
 
+        public void setId(int id) {
+            this.id = id;
+        }
         public int getCid() {
             return cid;
         }

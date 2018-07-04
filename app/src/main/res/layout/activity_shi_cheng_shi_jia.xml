@@ -23,11 +23,12 @@
 
             <ImageView
                 android:id="@+id/imageCar"
-                android:layout_width="@dimen/dp_120"
-                android:layout_height="@dimen/dp_120"
+                android:layout_width="@dimen/dp_100"
+                android:scaleType="centerCrop"
+                android:layout_height="@dimen/dp_100"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_10"
-                app:srcCompat="@mipmap/scsj_che" />
+                android:layout_marginTop="@dimen/dp_20"
+                />
 
             <TextView
                 android:id="@+id/textTitle"
@@ -162,7 +163,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:gravity="center_vertical"
-                android:text="可选取车时间为45天"
+                android:text="可选取车时间为45天，试驾期限为三天"
                 android:textColor="@color/new_secondary_text"
                 android:textSize="@dimen/sp_12" />
 

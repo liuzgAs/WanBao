@@ -45,6 +45,7 @@
         </provider>
 
         <service android:name="com.amap.api.location.APSService" />
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5b1f895da40fa33bcf00005d" />
@@ -92,70 +93,70 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.ZhuCeActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WangJiMiMaActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.CheShouZiZhuanActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.AiCheDangAnActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XiuGaiCheLiangActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.TiYanZhongXinActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.PeiZhiXinXiActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.BaoYangChouCeActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XuanZheCheXActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WeiXiuBYActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.MianFeiYCActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.LiJiZhiFuActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WeiBaoDDActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WBDingDanXQActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.QueRenWeiBaoXMActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.ShiChengShiJiaActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.LuRuXXActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.FaSongWZActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.LiJiPPActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.SheZhiActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.CheLiangGZActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XuanZheCSActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity android:name=".activity.HuanYinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -165,16 +166,16 @@
         </activity>
         <activity
             android:name=".activity.XuanZheCLActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.BanDingCLActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.YuYueDpActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XiaoShouGWActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
@@ -198,80 +199,88 @@
         <activity android:name=".activity.PaySucessActivity" />
         <activity
             android:name=".activity.XuanZheCheXSJActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.ShiJiaDDActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.SaoMiaoActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XingQuBQActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.ShiMinRzActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XiuGaiMMActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.ShiJiaDDXQActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.YiJianFKActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WebViewActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.ChangjianWTActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.TuiJianJLActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.TuiJianMXActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WoDeJKActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.YongJinActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.YongjinXQActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.TiXianActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.WoDeYHKActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XinZengYHKActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.YinDaoActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.JiFenActivity"
             android:label="@string/title_activity_ji_fen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.JiFenXQActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.TiXianMXActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.ZhangDanMXActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.XinCheZTActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.XinCheZTXQActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".activity.ZhanTingQCXQActivity"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".activity.JiLuZPActivity"
-            android:launchMode="singleTop"></activity>
-
+        <activity
+            android:name=".activity.JiFenXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.TiXianMXActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ZhangDanMXActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.XinCheZTActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.XinCheZTXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ZhanTingQCXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.JiLuZPActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.GengDuoFWActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
