@@ -8,15 +8,23 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -252,5 +260,111 @@ public class MyDialog {
             i = bmp.getHeight();
             j = bmp.getHeight();
         }
+    }
+
+
+    public static void share02(final Context context, final IWXAPI api, final String url, final String title, final String des, final String imageUrl) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View dialog_shengji = inflater.inflate(R.layout.dianlog_share, null);
+        final AlertDialog alertDialog1 = new AlertDialog.Builder(context, R.style.dialog)
+                .setView(dialog_shengji)
+                .create();
+        alertDialog1.show();
+        dialog_shengji.findViewById(R.id.textViewCancle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog1.dismiss();
+            }
+        });
+        dialog_shengji.findViewById(R.id.weixin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!checkIsSupportedWeachatPay(api)) {
+                    Toast.makeText(context, "您暂未安装微信,请下载安装最新版本的微信", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                wxShare(context, api, 0, url, title, des,imageUrl);
+                alertDialog1.dismiss();
+            }
+        });
+        dialog_shengji.findViewById(R.id.pengyouquan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!checkIsSupportedWeachatPay(api)) {
+                    Toast.makeText(context, "您暂未安装微信,请下载安装最新版本的微信", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                wxShare(context, api, 1, url, title, des,imageUrl);
+                alertDialog1.dismiss();
+            }
+        });
+        dialog_shengji.findViewById(R.id.relaShouCang).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                wxShare(context, api, 2, url, title, des,imageUrl);
+                alertDialog1.dismiss();
+                alertDialog1.dismiss();
+            }
+        });
+        Window dialogWindow = alertDialog1.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialogWindow.setWindowAnimations(R.style.dialogFenXiang);
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        lp.width = (int) (d.widthPixels * 1); // 高度设置为屏幕的0.6
+        dialogWindow.setAttributes(lp);
+    }
+    /**
+     * 检查微信版本是否支付支付或是否安装可支付的微信版本
+     */
+    public static boolean checkIsSupportedWeachatPay(IWXAPI api) {
+        boolean isPaySupported = api.getWXAppSupportAPI() >= Build.PAY_SUPPORTED_SDK_INT;
+        return isPaySupported;
+    }
+
+    private static void wxShare(final Context context, final IWXAPI api, final int flag, final String url, final String title, final String des,final String imageUrl) {
+
+        ThreadPoolManager.getInstance().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    api.registerApp(Constant.WXAPPID);
+                    WXWebpageObject webpage = new WXWebpageObject();
+                    webpage.webpageUrl = url;
+                    final WXMediaMessage msg = new WXMediaMessage(webpage);
+                    msg.title = title;
+                    msg.description = des;
+                    if (!TextUtils.isEmpty(imageUrl)){
+                        Bitmap bmp = BitmapFactory.decodeStream(new URL(imageUrl).openStream());
+                        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 120, 120, true);
+                        bmp.recycle();
+                        msg.thumbData = bmpToByteArray(thumbBmp, true);
+                    }else {
+                        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo);
+                        msg.setThumbImage(bitmap);
+                    }
+                    SendMessageToWX.Req req = new SendMessageToWX.Req();
+                    req.transaction = buildTransaction("webpage");
+                    req.message = msg;
+                    switch (flag) {
+                        case 0:
+                            req.scene = SendMessageToWX.Req.WXSceneSession;
+                            break;
+                        case 1:
+                            req.scene = SendMessageToWX.Req.WXSceneTimeline;
+                            break;
+                        case 2:
+                            req.scene = SendMessageToWX.Req.WXSceneFavorite;
+                            break;
+                        default:
+                            break;
+                    }
+                    api.sendReq(req);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 }

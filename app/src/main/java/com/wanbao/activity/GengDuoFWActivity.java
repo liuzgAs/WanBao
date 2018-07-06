@@ -75,8 +75,24 @@ public class GengDuoFWActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewPTFQ:
+                intent = new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, FaQiPTActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewCTJL:
+                intent = new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, CanTuanJLActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

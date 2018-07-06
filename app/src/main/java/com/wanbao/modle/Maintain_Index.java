@@ -11,16 +11,17 @@ import java.util.List;
 public class Maintain_Index {
 
     /**
-     * car_name : 奥迪A6舒适版
-     * ucid : 1
-     * store_name : 测试
-     * store_id : 2
+     * RightBtnTxt : 发起拼单
+     * car_name : 2018款1.5T DX7 prime 尊贵版
+     * ucid : 54
+     * store_name : 东南三菱万宝万腾店
+     * store_id : 3
      * maintain_name : 常规保养
      * maintain_id : 4
      * maintain : [{"id":4,"name":"常规保养"},{"id":3,"name":"外观喷漆"},{"id":2,"name":"其它服务"}]
-     * seller_name : 销售1
-     * seller_id : 1
-     * book_time : 2018-06-02 18:00
+     * seller_name : 互动创想测试账号
+     * seller_id : 12
+     * book_time : 2018-07-06 11:00
      * bag_id : 1
      * data : [{"id":1,"isc":1,"title":"A套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"}],"money":253},{"id":2,"isc":0,"title":"B套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"}],"money":238}]
      * dataShow : 1
@@ -32,6 +33,7 @@ public class Maintain_Index {
      * info : 返回成功！
      */
 
+    private String RightBtnTxt;
     private String car_name;
     private int ucid;
     private String store_name;
@@ -41,7 +43,7 @@ public class Maintain_Index {
     private String seller_name;
     private int seller_id;
     private String book_time;
-    private int bag_id;
+    private String bag_id;
     private int dataShow;
     private String end_time;
     private int online_pay;
@@ -51,6 +53,14 @@ public class Maintain_Index {
     private String info;
     private List<MaintainBean> maintain;
     private List<DataBeanX> data;
+
+    public String getRightBtnTxt() {
+        return RightBtnTxt;
+    }
+
+    public void setRightBtnTxt(String RightBtnTxt) {
+        this.RightBtnTxt = RightBtnTxt;
+    }
 
     public String getCar_name() {
         return car_name;
@@ -124,11 +134,11 @@ public class Maintain_Index {
         this.book_time = book_time;
     }
 
-    public int getBag_id() {
+    public String getBag_id() {
         return bag_id;
     }
 
-    public void setBag_id(int bag_id) {
+    public void setBag_id(String bag_id) {
         this.bag_id = bag_id;
     }
 
@@ -246,16 +256,15 @@ public class Maintain_Index {
         private String des;
         private int money;
         private List<DataBean> data;
+        public DataBeanX(int id,int isc,String title,String des,int money,List<DataBean> data){
+            this.id=id;
+            this.isc=isc;
+            this.title=title;
+            this.des=des;
+            this.money=money;
+            this.data=data;
 
-        public DataBeanX(int id, int isc, String title, String des, int money, List<DataBean> data) {
-            this.id = id;
-            this.isc = isc;
-            this.title = title;
-            this.des = des;
-            this.money = money;
-            this.data = data;
         }
-
         public int getId() {
             return id;
         }

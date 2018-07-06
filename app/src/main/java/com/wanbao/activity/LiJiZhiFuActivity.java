@@ -80,7 +80,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
     private MyHandler myHandler;
     private IWXAPI iwxapi;
     private int paytype;
-
+    private Pay_New_pay pay_new_pay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,11 +121,19 @@ public class LiJiZhiFuActivity extends BaseActivity {
         }
     }
     private void paySuccess(){
-        Intent intent=new Intent();
-        intent.putExtra("paytype",paytype);
-        intent.setClass(context,PaySucessActivity.class);
-        startActivity(intent);
-        finish();
+        if (pay_new_pay.getData().getTeam_state()==0){
+            Intent intent=new Intent();
+            intent.putExtra("paytype",paytype);
+            intent.setClass(context,PaySucessActivity.class);
+            startActivity(intent);
+            finish();
+        }else {
+            Intent intent=new Intent();
+            intent.putExtra("pay_new_pay",pay_new_pay.getOkData());
+            intent.setClass(context,PinTaunCGActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
@@ -234,7 +242,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
                 dismissDialog();
                 try {
                     LogUtils.e("Pay_New_pay", s);
-                    Pay_New_pay pay_new_pay = GsonUtils.parseJSON(s, Pay_New_pay.class);
+                     pay_new_pay = GsonUtils.parseJSON(s, Pay_New_pay.class);
                     if (pay_new_pay.getStatus() == 1) {
                         if (type == 0) {
                             zfbZf(pay_new_pay.getPayAli());

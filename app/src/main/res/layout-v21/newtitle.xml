@@ -39,6 +39,21 @@
             android:text="标题"
             android:textColor="@color/new_important_text"
             android:textSize="@dimen/sp_17" />
+        <TextView
+            android:id="@+id/titleRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="查看规则"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/light_red"
+            android:textSize="@dimen/sp_12" />
         <ImageView
             android:id="@+id/imageRight"
             android:layout_width="@dimen/dp_40"

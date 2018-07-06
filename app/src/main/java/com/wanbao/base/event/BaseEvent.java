@@ -23,6 +23,8 @@ public class BaseEvent {
 	public final static String XingShiZFY = "XingShiZFY";
 	public final static String Change_SjOrder = "ChangeSjOrder";
 	public final static String ChangeWbOrder = "ChangeWbOrder";
+	public final static String ChangePTOrder = "ChangePTOrder";
+	public final static String ChangeCTOrder = "ChangeCTOrder";
 	public final static String Change_Ac = "Change_Ac";
 	public final static String ShenFenZ = "ShenFenZ";
 	public final static String ShenFenB = "ShenFenB";
@@ -32,6 +34,7 @@ public class BaseEvent {
 	public final static String ChangeBank = "ChangeBank";
 	public final static String TiXian = "TiXian";
 	public final static String LatLng = "LatLng";
+	public final static String YangCheId = "YangCheId";
 
 
 	private String action;

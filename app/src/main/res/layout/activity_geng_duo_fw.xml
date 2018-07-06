@@ -34,7 +34,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_26"
                     android:layout_height="@dimen/dp_26"
-                    app:srcCompat="@mipmap/wode_scsj" />
+                    app:srcCompat="@mipmap/icon_new_scsj" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_26"
                     android:layout_height="@dimen/dp_26"
-                    app:srcCompat="@mipmap/wode_ptgc" />
+                    app:srcCompat="@mipmap/icon_new_ptfq" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 <ImageView
                     android:layout_width="@dimen/dp_26"
                     android:layout_height="@dimen/dp_26"
-                    app:srcCompat="@mipmap/wode_yzesc" />
+                    app:srcCompat="@mipmap/icon_new_ctjl" />
 
                 <TextView
                     android:layout_width="wrap_content"

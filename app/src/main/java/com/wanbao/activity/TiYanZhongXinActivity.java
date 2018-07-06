@@ -3,6 +3,8 @@ package com.wanbao.activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.GradientTextView;
 import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ThreadPoolManager;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Usercar_Censor;
 import com.wanbao.ui.CircleImageView;
@@ -80,6 +83,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
             , R.mipmap.yuanhu19, R.mipmap.yuanhu20, R.mipmap.yuanhu21, R.mipmap.yuanhu22};
     private String id;
     private MySumAdapter mySumAdapter;
+    private Handler handler=null;
 
 
     @Override
@@ -102,6 +106,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        handler=new Handler();
     }
 
     @Override
@@ -141,7 +146,6 @@ public class TiYanZhongXinActivity extends BaseActivity {
                 break;
         }
     }
-
     private void getCensor() {
         HttpApi.post(context, getOkObjectCensor(), new HttpApi.CallBack() {
             @Override
@@ -179,8 +183,13 @@ public class TiYanZhongXinActivity extends BaseActivity {
                         textJlxcbys.setText(uCensor.getKmDes().get(3));
                         mySumAdapter = new MySumAdapter(uCensor);
                         listView.setAdapter(mySumAdapter);
-                        setAnim(Math.round(uCensor.getVal()*23 /100));
-
+                        ThreadPoolManager.getInstance().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                setAnim(Math.round(uCensor.getVal()*23 /100));
+                                handler.post(runnableUi);
+                            }
+                        });
                     } else {
                         ToastUtils.showShort(uCensor.getInfo());
                     }
@@ -216,6 +225,10 @@ public class TiYanZhongXinActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         dispose();
+        if (anim!=null){
+            anim.stop();
+            anim=null;
+        }
     }
 
 
@@ -268,15 +281,22 @@ public class TiYanZhongXinActivity extends BaseActivity {
     private void setAnim(int p) {
         anim = new AnimationDrawable();
         for (int i = 0; i < p; i++) {
-            anim.addFrame(getResources().getDrawable(images[i]), 80);
+            anim.addFrame(ContextCompat.getDrawable(context,images[i]), 80);
         }
         // 设置为循环播放
         anim.setOneShot(true);
 
-        // 设置ImageView的背景为AnimationDrawable
-        imageFenShu.setBackground(anim);
-        if (anim != null && !anim.isRunning()) {
-            anim.start();
-        }
     }
+    // 构建Runnable对象，在runnable中更新界面
+    Runnable runnableUi=new  Runnable(){
+        @Override
+        public void run() {
+            // 设置ImageView的背景为AnimationDrawable
+            imageFenShu.setBackground(anim);
+            if (anim != null && !anim.isRunning()) {
+                anim.start();
+            }
+        }
+
+    };
 }

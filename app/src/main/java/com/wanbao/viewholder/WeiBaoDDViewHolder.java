@@ -13,6 +13,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.R;
 import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
+import com.wanbao.activity.PinTaunCGActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
@@ -21,6 +22,7 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.fragment.WeiBaoDDFragment;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Orderteam_CreateTeam;
 import com.wanbao.modle.User_Maintain_order;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +47,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
     private TextView textOrder_amount;
     private Button btn0;
     private Button btn1;
+    private Button btn2;
     private User_Maintain_order.DataBean data;
     private CompositeDisposable compositeDisposable;
     private WeiBaoDDFragment fragment;
@@ -60,6 +63,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         textOrder_amount = $(R.id.textOrder_amount);
         btn0 = $(R.id.btn0);
         btn1 = $(R.id.btn1);
+        btn2 = $(R.id.btn2);
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +96,12 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                 }
             }
         });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oCTeam(data);
+            }
+        });
     }
 
     @Override
@@ -106,6 +116,11 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         textOrder_amount.setText(data.getOrder_amount());
         btn1.setVisibility(View.GONE);
         btn0.setVisibility(View.GONE);
+        btn2.setVisibility(View.GONE);
+        if (data.getIsCreate() == 1) {
+            btn2.setText("发起拼团");
+            btn2.setVisibility(View.VISIBLE);
+        }
         if (data.getGoPay() == 1) {
             btn1.setText("立即付款");
             btn1.setVisibility(View.VISIBLE);
@@ -185,6 +200,61 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("id", id);
+        return new OkObject(params, url);
+    }
+
+    private void oCTeam(final User_Maintain_order.DataBean data) {
+        HttpApi.post(fragment.context, getOkObjectState(data), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                fragment.showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                fragment.dismissDialog();
+                try {
+                    Orderteam_CreateTeam oCreateTeam = GsonUtils.parseJSON(s, Orderteam_CreateTeam.class);
+                    int status = oCreateTeam.getStatus();
+                    if (status == 1) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeWbOrder, null));
+                        Intent intent=new Intent(getContext(), PinTaunCGActivity.class);
+                        intent.putExtra("oCreateTeam",oCreateTeam);
+                        getContext().startActivity(intent);
+                    } else {
+                        ToastUtils.showShort(oCreateTeam.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                fragment.dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                fragment.dismissDialog();
+                dispose();
+            }
+
+
+        });
+    }
+
+    private OkObject getOkObjectState(User_Maintain_order.DataBean data) {
+        String url = Constant.HOST + Constant.Url.Orderteam_CreateTeam;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("oid", String.valueOf(data.getOid()));
         return new OkObject(params, url);
     }
 

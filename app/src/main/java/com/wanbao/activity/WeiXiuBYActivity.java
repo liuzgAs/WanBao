@@ -123,6 +123,11 @@ public class WeiXiuBYActivity extends BaseActivity {
     private MyTcAdapter myTcAdapter;
     private ArrayList<String> maintainString = new ArrayList<>();
     private String xslc;
+    private String id = "0";
+    private String team_state = "0";
+    private String team_id = "0";
+    private String ctid = "0";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +164,18 @@ public class WeiXiuBYActivity extends BaseActivity {
         if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
             finish();
         }
+        if (BaseEvent.YangCheId.equals(event.getAction())) {
+            HashMap<String, String> states = (HashMap<String, String>) event.getData();
+            if (states != null) {
+                team_state=states.get("team_state");
+                id=states.get("id");
+                if ("1".equals(team_state)) {
+                    ctid=states.get("id");
+                } else if ("2".equals(team_state)) {
+                    team_id=states.get("id");
+                }
+            }
+        }
         if (BaseEvent.Choose_Dp.equals(event.getAction())) {
             index_store = (Index_Store.DataBean) event.getData();
             if (index_store != null) {
@@ -192,7 +209,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 break;
             case R.id.viewXuanZheCX:
                 intent = new Intent();
-                intent.putExtra("type",1);
+                intent.putExtra("type", 1);
                 intent.setClass(context, AiCheDangAnActivity.class);
                 startActivity(intent);
                 break;
@@ -237,7 +254,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                                 dialog.dismiss();
                                 textYyxm.setText(maintain_index.getMaintain().get(position).getName());
                                 maintain_id = String.valueOf(maintain_index.getMaintain().get(position).getId());
-                                bag_id="";
+                                bag_id = "";
                                 getTc();
                             }
                         })
@@ -262,7 +279,7 @@ public class WeiXiuBYActivity extends BaseActivity {
 
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
                 break;
             case R.id.viewFwry:
@@ -283,7 +300,11 @@ public class WeiXiuBYActivity extends BaseActivity {
                 }
                 break;
             case R.id.viewQt:
-                isOnline(0);
+                if ("0".equals(team_state)){
+                    isOnline(0);
+                }else {
+                    ToastUtils.showShort("拼团和参团订单只能线上支付！");
+                }
                 break;
             case R.id.btnZf:
                 if (TextUtils.isEmpty(textLc.getText().toString())) {
@@ -293,6 +314,10 @@ public class WeiXiuBYActivity extends BaseActivity {
                 getOrder();
                 break;
             case R.id.btnYc:
+                intent = new Intent();
+                intent.putExtra("id", id);
+                intent.setClass(context, MianFeiYCActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewBx:
                 if (isBx == 1) {
@@ -340,6 +365,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                         seller_id = String.valueOf(maintain_index.getSeller_id());
                         book_time = String.valueOf(maintain_index.getBook_time());
                         bag_id = String.valueOf(maintain_index.getBag_id());
+                        btnYc.setText(maintain_index.getRightBtnTxt());
                         isOnline(maintain_index.getOnline_pay());
                         isBx(maintain_index.getInsurance());
                         if (maintain_index.getData().size() > 0) {
@@ -382,6 +408,10 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("seller_id", seller_id);
         params.put("book_time", book_time);
         params.put("bag_id", bag_id);
+        params.put("team_state", team_state);
+        params.put("team_id", team_id);
+        params.put("ctid", ctid);
+
         return new OkObject(params, url);
     }
 
@@ -591,6 +621,9 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("pay_msg", editmsgDes.getText().toString());
         params.put("online_pay", String.valueOf(isOnline));
         params.put("km", textLc.getText().toString());
+        params.put("team_state", team_state);
+        params.put("team_id", team_id);
+        params.put("ctid", ctid);
         return new OkObject(params, url);
     }
 

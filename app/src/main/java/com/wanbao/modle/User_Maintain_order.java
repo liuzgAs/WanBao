@@ -178,7 +178,14 @@ public class User_Maintain_order {
         private int isAgain;
         private int isDel;
         private int isCancel;
+        private int isCreate;
+        public int getIsCreate() {
+            return isCreate;
+        }
 
+        public void setIsCreate(int isCreate) {
+            this.isCreate = isCreate;
+        }
         public int getId() {
             return id;
         }

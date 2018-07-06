@@ -2,25 +2,28 @@ package com.wanbao.modle;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by liuzhigang on 2018/6/2/002.
  *
  * @author LiuZG
  */
 
-public class Pay_New_pay {
-
+public class Pay_New_pay implements Serializable{
 
     /**
-     * data : {"orderSn":"WBP2018060217275","orderAmount":"193.00","uid":2,"id":8}
+     * okData : {"share":{"shareImg":"http://p7b347z0p.bkt.clouddn.com/FlcQPuerzYMjItu6AMFBrYLBwwQ0","shareTitle":"向您推荐了牵车app","shareUrl":"http://www.wanbaoauto.com/mobile/download/reg/v/MQ==.html","shareDes":"向您推荐了牵车app"},"title":"发起成功","urlTitle":"查看活动内容","url":"https://www.wanbaoauto.com/api/Article/info/id/5","des":"您已成功发起拼团查看相关规则或邀请您的好友来参团吧","btnTxt":"邀请参团"}
+     * data : {"orderSn":"WBP2018070509485","orderAmount":"193.00","uid":1,"id":8,"team_state":0}
      * aliPayUrl : http://www.wanbaoauto.com/api/Respond/alipay.html
      * wechatUrl : http://www.wanbaoauto.com/api/Respond/wechat.html
-     * pay : {"pay_info":"WBP2018060217275","payment_name":"微信支付","pay_money":193,"class_name":"WxApp","config":{"appid":"wx3f8d58bf32cf9bb4","noncestr":"pkp5mmjkqmvnkfq51ivmhcw1myyr3l15","package":"prepay_id=wx02172756311293ed908e95a31460100491","partnerid":"1504783831","prepayid":"wx02172756311293ed908e95a31460100491","timestamp":1527931676,"sign":"a66c4caae041826a268717305e3aa42a","ios":{"appid":"wx3f8d58bf32cf9bb4","noncestr":"pkp5mmjkqmvnkfq51ivmhcw1myyr3l15","package":"Sign=Wxpay","partnerid":"1504783831","prepayid":"wx02172756311293ed908e95a31460100491","timestamp":1527931676,"sign":"137be95073fd2f1e73190a40ac856b21"},"packagevalue":"prepay_id=wx02172756311293ed908e95a31460100491","subject":"WBP2018060217275","body":"","total_fee":193,"total_fee_format":193,"out_trade_no":"WBP2018060217275","notify_url":"http://www.wanbaoauto.com/api/Respond/wechat.html","key":"E8YAslLYvUR88fFWBx88OyuE9GQwbwba","secret":"e5d8f2edf320ad5b7b66674118583acf"}}
-     * payAli : alipay_sdk=alipay-sdk-php-20161101&app_id=2018053160281379&biz_content=%7B%22body%22%3A%22WBP2018060217275%22%2C%22subject%22%3A+%22WBP2018060217275%22%2C%22out_trade_no%22%3A+%22WBP2018060217275%22%2C%22timeout_express%22%3A+%2230m%22%2C%22total_amount%22%3A+%22193.00%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=https%3A%2F%2Fwww.wanbaoauto.com%2Fapi%2Frespond%2Falipay.html&sign_type=RSA2&timestamp=2018-06-02+17%3A27%3A56&version=1.0&sign=dlWPUsHCJE6wpmpnwVH0On7QvdeQdtSMyjEt7%2FdDy4iJ%2B2iCBDhyoMbPrJoe%2BipofkVIfeNKDr7cm6%2B3bw60%2FX1M9%2FpbKm6ZgJXoftweQm7%2B36qQOWla07hCm6sKyuLBrhfT18l1CSm8XG4WCO5gVWLCIOK3OFI0ROV3PFBC0Nogf21iCBCom7scbXpt0wcK7Q30laVEBKeVr6SOfvvx3%2BfOQlCjuaCdZWDYecN52pNNL4fxJwpXihy1R7cICs41TR8t%2FYNXHCZ4t5YxJ%2FSV2LTNCQDnfrjCLu2HLpm8gbpvgETW3mW%2BSrft89cdfVu5Wn3Ygj5nC%2FqAtfqW1wSIlA%3D%3D
+     * pay : {"pay_info":"WBP2018070509485","payment_name":"微信支付","pay_money":193,"class_name":"WxApp","config":{"appid":"wx3f8d58bf32cf9bb4","noncestr":"apup79ldu6ttup9ntgqyrnsnf65az4cm","package":"prepay_id=wx061119417751130adc9ad72f0374181223","partnerid":"1504783831","prepayid":"wx061119417751130adc9ad72f0374181223","timestamp":1530847181,"sign":"9fea33ba38cb58c990bd6d4d65e6b76b","ios":{"appid":"wx3f8d58bf32cf9bb4","noncestr":"apup79ldu6ttup9ntgqyrnsnf65az4cm","package":"Sign=Wxpay","partnerid":"1504783831","prepayid":"wx061119417751130adc9ad72f0374181223","timestamp":1530847181,"sign":"4cd88bd3d9dcfc53664a12061b0036be"},"packagevalue":"prepay_id=wx061119417751130adc9ad72f0374181223","subject":"WBP2018070509485","body":"","total_fee":193,"total_fee_format":193,"out_trade_no":"WBP2018070509485","notify_url":"http://www.wanbaoauto.com/api/Respond/wechat.html","key":"Y6YEslLYvUR66fFWBx82OyuE9GQwxvsc","secret":"e5d8f2edf320ad5b7b66674118583acf"}}
+     * payAli : alipay_sdk=alipay-sdk-php-20161101&app_id=2018053160281379&biz_content=%7B%22body%22%3A%22WBP2018070509485%22%2C%22subject%22%3A+%22WBP2018070509485%22%2C%22out_trade_no%22%3A+%22WBP2018070509485%22%2C%22timeout_express%22%3A+%2230m%22%2C%22total_amount%22%3A+%22193.00%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay¬ify_url=http%3A%2F%2Fwww.wanbaoauto.com%2Fapi%2Frespond%2Falipay.html&sign_type=RSA2×tamp=2018-07-06+11%3A19%3A41&version=1.0&sign=CU2Rm4BhONdKxJO9TTd%2F%2Fy%2F%2BUM0BKZ%2Bwaq6oqPmX4qf8Xp0NVnleuNiLA6d%2FFMR9pVeUG4F2prFLoxHcM2j%2BJCnV2QmEpjoSzaBAlZllPSOJ0426zWwWfY5jT3EmFuZe6PMHJ9aXxojS%2F37gdYN8JQKqHzEajE9DMnuHYMbfPaCkiyuEs2vtLqXSmk08CxmU9QUEjOWww2tv%2B4RUtim3tRYG3BlY5FP6WrvII9bpQf2%2FPNmqpe94wvq9BSr1W%2F30dtWse2dY4BuEngsIoVTaBV7bwA%2Bicpbyy7ZHXReFRkgM6FSZF9ufbTckOxbUQ0C3JdWEI7O5XXgVX66uY9%2F4Kw%3D%3D
      * status : 1
      * info : 返回成功！
      */
 
+    private OkDataBean okData;
     private DataBean data;
     private String aliPayUrl;
     private String wechatUrl;
@@ -28,6 +31,14 @@ public class Pay_New_pay {
     private String payAli;
     private int status;
     private String info;
+
+    public OkDataBean getOkData() {
+        return okData;
+    }
+
+    public void setOkData(OkDataBean okData) {
+        this.okData = okData;
+    }
 
     public DataBean getData() {
         return data;
@@ -85,18 +96,132 @@ public class Pay_New_pay {
         this.info = info;
     }
 
-    public static class DataBean {
+    public static class OkDataBean implements Serializable{
         /**
-         * orderSn : WBP2018060217275
+         * share : {"shareImg":"http://p7b347z0p.bkt.clouddn.com/FlcQPuerzYMjItu6AMFBrYLBwwQ0","shareTitle":"向您推荐了牵车app","shareUrl":"http://www.wanbaoauto.com/mobile/download/reg/v/MQ==.html","shareDes":"向您推荐了牵车app"}
+         * title : 发起成功
+         * urlTitle : 查看活动内容
+         * url : https://www.wanbaoauto.com/api/Article/info/id/5
+         * des : 您已成功发起拼团查看相关规则或邀请您的好友来参团吧
+         * btnTxt : 邀请参团
+         */
+
+        private ShareBean share;
+        private String title;
+        private String urlTitle;
+        private String url;
+        private String des;
+        private String btnTxt;
+
+        public ShareBean getShare() {
+            return share;
+        }
+
+        public void setShare(ShareBean share) {
+            this.share = share;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getUrlTitle() {
+            return urlTitle;
+        }
+
+        public void setUrlTitle(String urlTitle) {
+            this.urlTitle = urlTitle;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getDes() {
+            return des;
+        }
+
+        public void setDes(String des) {
+            this.des = des;
+        }
+
+        public String getBtnTxt() {
+            return btnTxt;
+        }
+
+        public void setBtnTxt(String btnTxt) {
+            this.btnTxt = btnTxt;
+        }
+
+        public static class ShareBean implements Serializable{
+            /**
+             * shareImg : http://p7b347z0p.bkt.clouddn.com/FlcQPuerzYMjItu6AMFBrYLBwwQ0
+             * shareTitle : 向您推荐了牵车app
+             * shareUrl : http://www.wanbaoauto.com/mobile/download/reg/v/MQ==.html
+             * shareDes : 向您推荐了牵车app
+             */
+
+            private String shareImg;
+            private String shareTitle;
+            private String shareUrl;
+            private String shareDes;
+
+            public String getShareImg() {
+                return shareImg;
+            }
+
+            public void setShareImg(String shareImg) {
+                this.shareImg = shareImg;
+            }
+
+            public String getShareTitle() {
+                return shareTitle;
+            }
+
+            public void setShareTitle(String shareTitle) {
+                this.shareTitle = shareTitle;
+            }
+
+            public String getShareUrl() {
+                return shareUrl;
+            }
+
+            public void setShareUrl(String shareUrl) {
+                this.shareUrl = shareUrl;
+            }
+
+            public String getShareDes() {
+                return shareDes;
+            }
+
+            public void setShareDes(String shareDes) {
+                this.shareDes = shareDes;
+            }
+        }
+    }
+
+    public static class DataBean implements Serializable{
+        /**
+         * orderSn : WBP2018070509485
          * orderAmount : 193.00
-         * uid : 2
+         * uid : 1
          * id : 8
+         * team_state : 0
          */
 
         private String orderSn;
         private String orderAmount;
         private int uid;
         private int id;
+        private int team_state;
 
         public String getOrderSn() {
             return orderSn;
@@ -129,20 +254,28 @@ public class Pay_New_pay {
         public void setId(int id) {
             this.id = id;
         }
+
+        public int getTeam_state() {
+            return team_state;
+        }
+
+        public void setTeam_state(int team_state) {
+            this.team_state = team_state;
+        }
     }
 
-    public static class PayBean {
+    public static class PayBean implements Serializable{
         /**
-         * pay_info : WBP2018060217275
+         * pay_info : WBP2018070509485
          * payment_name : 微信支付
          * pay_money : 193
          * class_name : WxApp
-         * config : {"appid":"wx3f8d58bf32cf9bb4","noncestr":"pkp5mmjkqmvnkfq51ivmhcw1myyr3l15","package":"prepay_id=wx02172756311293ed908e95a31460100491","partnerid":"1504783831","prepayid":"wx02172756311293ed908e95a31460100491","timestamp":1527931676,"sign":"a66c4caae041826a268717305e3aa42a","ios":{"appid":"wx3f8d58bf32cf9bb4","noncestr":"pkp5mmjkqmvnkfq51ivmhcw1myyr3l15","package":"Sign=Wxpay","partnerid":"1504783831","prepayid":"wx02172756311293ed908e95a31460100491","timestamp":1527931676,"sign":"137be95073fd2f1e73190a40ac856b21"},"packagevalue":"prepay_id=wx02172756311293ed908e95a31460100491","subject":"WBP2018060217275","body":"","total_fee":193,"total_fee_format":193,"out_trade_no":"WBP2018060217275","notify_url":"http://www.wanbaoauto.com/api/Respond/wechat.html","key":"E8YAslLYvUR88fFWBx88OyuE9GQwbwba","secret":"e5d8f2edf320ad5b7b66674118583acf"}
+         * config : {"appid":"wx3f8d58bf32cf9bb4","noncestr":"apup79ldu6ttup9ntgqyrnsnf65az4cm","package":"prepay_id=wx061119417751130adc9ad72f0374181223","partnerid":"1504783831","prepayid":"wx061119417751130adc9ad72f0374181223","timestamp":1530847181,"sign":"9fea33ba38cb58c990bd6d4d65e6b76b","ios":{"appid":"wx3f8d58bf32cf9bb4","noncestr":"apup79ldu6ttup9ntgqyrnsnf65az4cm","package":"Sign=Wxpay","partnerid":"1504783831","prepayid":"wx061119417751130adc9ad72f0374181223","timestamp":1530847181,"sign":"4cd88bd3d9dcfc53664a12061b0036be"},"packagevalue":"prepay_id=wx061119417751130adc9ad72f0374181223","subject":"WBP2018070509485","body":"","total_fee":193,"total_fee_format":193,"out_trade_no":"WBP2018070509485","notify_url":"http://www.wanbaoauto.com/api/Respond/wechat.html","key":"Y6YEslLYvUR66fFWBx82OyuE9GQwxvsc","secret":"e5d8f2edf320ad5b7b66674118583acf"}
          */
 
         private String pay_info;
         private String payment_name;
-        private float pay_money;
+        private double pay_money;
         private String class_name;
         private ConfigBean config;
 
@@ -162,11 +295,11 @@ public class Pay_New_pay {
             this.payment_name = payment_name;
         }
 
-        public float getPay_money() {
+        public double getPay_money() {
             return pay_money;
         }
 
-        public void setPay_money(float pay_money) {
+        public void setPay_money(double pay_money) {
             this.pay_money = pay_money;
         }
 
@@ -186,24 +319,24 @@ public class Pay_New_pay {
             this.config = config;
         }
 
-        public static class ConfigBean {
+        public static class ConfigBean implements Serializable{
             /**
              * appid : wx3f8d58bf32cf9bb4
-             * noncestr : pkp5mmjkqmvnkfq51ivmhcw1myyr3l15
-             * package : prepay_id=wx02172756311293ed908e95a31460100491
+             * noncestr : apup79ldu6ttup9ntgqyrnsnf65az4cm
+             * package : prepay_id=wx061119417751130adc9ad72f0374181223
              * partnerid : 1504783831
-             * prepayid : wx02172756311293ed908e95a31460100491
-             * timestamp : 1527931676
-             * sign : a66c4caae041826a268717305e3aa42a
-             * ios : {"appid":"wx3f8d58bf32cf9bb4","noncestr":"pkp5mmjkqmvnkfq51ivmhcw1myyr3l15","package":"Sign=Wxpay","partnerid":"1504783831","prepayid":"wx02172756311293ed908e95a31460100491","timestamp":1527931676,"sign":"137be95073fd2f1e73190a40ac856b21"}
-             * packagevalue : prepay_id=wx02172756311293ed908e95a31460100491
-             * subject : WBP2018060217275
+             * prepayid : wx061119417751130adc9ad72f0374181223
+             * timestamp : 1530847181
+             * sign : 9fea33ba38cb58c990bd6d4d65e6b76b
+             * ios : {"appid":"wx3f8d58bf32cf9bb4","noncestr":"apup79ldu6ttup9ntgqyrnsnf65az4cm","package":"Sign=Wxpay","partnerid":"1504783831","prepayid":"wx061119417751130adc9ad72f0374181223","timestamp":1530847181,"sign":"4cd88bd3d9dcfc53664a12061b0036be"}
+             * packagevalue : prepay_id=wx061119417751130adc9ad72f0374181223
+             * subject : WBP2018070509485
              * body :
              * total_fee : 193
              * total_fee_format : 193
-             * out_trade_no : WBP2018060217275
+             * out_trade_no : WBP2018070509485
              * notify_url : http://www.wanbaoauto.com/api/Respond/wechat.html
-             * key : E8YAslLYvUR88fFWBx88OyuE9GQwbwba
+             * key : Y6YEslLYvUR66fFWBx82OyuE9GQwxvsc
              * secret : e5d8f2edf320ad5b7b66674118583acf
              */
 
@@ -219,8 +352,8 @@ public class Pay_New_pay {
             private String packagevalue;
             private String subject;
             private String body;
-            private float total_fee;
-            private float total_fee_format;
+            private double total_fee;
+            private double total_fee_format;
             private String out_trade_no;
             private String notify_url;
             private String key;
@@ -314,19 +447,19 @@ public class Pay_New_pay {
                 this.body = body;
             }
 
-            public float getTotal_fee() {
+            public double getTotal_fee() {
                 return total_fee;
             }
 
-            public void setTotal_fee(float total_fee) {
+            public void setTotal_fee(double total_fee) {
                 this.total_fee = total_fee;
             }
 
-            public float getTotal_fee_format() {
+            public double getTotal_fee_format() {
                 return total_fee_format;
             }
 
-            public void setTotal_fee_format(float total_fee_format) {
+            public void setTotal_fee_format(double total_fee_format) {
                 this.total_fee_format = total_fee_format;
             }
 
@@ -362,15 +495,15 @@ public class Pay_New_pay {
                 this.secret = secret;
             }
 
-            public static class IosBean {
+            public static class IosBean implements Serializable{
                 /**
                  * appid : wx3f8d58bf32cf9bb4
-                 * noncestr : pkp5mmjkqmvnkfq51ivmhcw1myyr3l15
+                 * noncestr : apup79ldu6ttup9ntgqyrnsnf65az4cm
                  * package : Sign=Wxpay
                  * partnerid : 1504783831
-                 * prepayid : wx02172756311293ed908e95a31460100491
-                 * timestamp : 1527931676
-                 * sign : 137be95073fd2f1e73190a40ac856b21
+                 * prepayid : wx061119417751130adc9ad72f0374181223
+                 * timestamp : 1530847181
+                 * sign : 4cd88bd3d9dcfc53664a12061b0036be
                  */
 
                 private String appid;

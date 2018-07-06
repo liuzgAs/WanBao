@@ -366,6 +366,34 @@ public class Constant {
          * 查看记录照片
          */
         public static final String Usercar_LogPics = "Usercar/logPics";
+        /**
+         * 拼团发起记录
+         */
+        public static final String Orderteam_Index = "Orderteam/index";
+        /**
+         * 发起拼团
+         */
+        public static final String Orderteam_CreateTeam = "Orderteam/createTeam";
+        /**
+         * 拼团取消功能
+         */
+        public static final String Orderteam_CancleCreate = "Orderteam/cancleCreate";
+        /**
+         * 拼团发起记录详情
+         */
+        public static final String Orderteam_Info = "Orderteam/info";
+        /**
+         * 参与拼团记录
+         */
+        public static final String Orderteam_Joinlog = "Orderteam/joinlog";
+        /**
+         * 参团取消功能
+         */
+        public static final String Orderteam_CancleJoin = "Orderteam/cancleJoin";
+        /**
+         * 免费养车
+         */
+        public static final String Orderteam_Free = "Orderteam/Free";
     }
 
     public static class SF{
