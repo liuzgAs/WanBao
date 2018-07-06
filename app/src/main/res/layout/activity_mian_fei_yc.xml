@@ -6,20 +6,24 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context="com.wanbao.activity.MianFeiYCActivity">
+
     <com.wanbao.base.view.ObservableScrollView
-        android:layout_width="match_parent"
-        android:background="@color/white"
         android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/dp_46"
-        android:layout_height="match_parent">
+        android:background="@color/white">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <com.youth.banner.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_150" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
@@ -32,119 +36,124 @@
                     android:id="@+id/textPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/new_red"
-                    android:textSize="@dimen/sp_16"
                     android:layout_weight="1"
-                    android:text="¥0.00" />
+                    android:textColor="@color/new_red"
+                    android:textSize="@dimen/sp_16" />
 
 
                 <TextView
                     android:id="@+id/textPriceDes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_12"
                     android:textColor="@color/new_secondary_text"
-                    android:text="人拼单" />
+                    android:textSize="@dimen/sp_12" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/textTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/dp_10"
                 android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
                 android:textColor="@color/new_important_text"
-                android:text="撒的发生的阿斯顿发送到发阿斯顿发送到发是阿斯顿发送到发"
-                android:textSize="@dimen/sp_14"/>
+                android:textSize="@dimen/sp_14" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_5"
-                android:background="@color/background"
-                android:layout_marginTop="@dimen/dp_10"></View>
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/background"></View>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="@dimen/dp_40"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:layout_height="@dimen/dp_40">
+                android:paddingRight="@dimen/dp_10">
+
                 <TextView
                     android:id="@+id/textListDesR"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_14"
                     android:textColor="@color/new_red"
-                    android:text="0"/>
+                    android:textSize="@dimen/sp_14" />
+
                 <TextView
                     android:id="@+id/textListDesV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_14"
                     android:textColor="@color/new_secondary_text"
-                    android:text="人在拼单，可直接参与"/>
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
-                android:background="@color/background"
-                ></View>
+                android:background="@color/background"></View>
+
             <com.wanbao.base.ui.ListViewForScrollView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:divider="@color/background"
-                android:dividerHeight="@dimen/dp_1"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
-                android:layout_height="wrap_content">
-            </com.wanbao.base.ui.ListViewForScrollView>
+                android:divider="@color/background"
+                android:dividerHeight="@dimen/dp_1"></com.wanbao.base.ui.ListViewForScrollView>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_5"
-                android:background="@color/background"
-                android:layout_marginTop="@dimen/dp_10"></View>
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/background"></View>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="@dimen/dp_45"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:layout_height="@dimen/dp_45">
+                android:paddingRight="@dimen/dp_10">
+
                 <View
                     android:layout_width="@dimen/dp_23"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/new_red">
-                </View>
+                    android:background="@color/new_red"></View>
+
                 <TextView
                     android:id="@+id/textUrlTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_14"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
                     android:textColor="@color/new_secondary_text"
-                    android:text="活动详情"/>
+                    android:textSize="@dimen/sp_14" />
+
                 <View
                     android:layout_width="@dimen/dp_23"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/new_red">
-                </View>
+                    android:background="@color/new_red"></View>
             </LinearLayout>
+
             <com.wanbao.base.view.NoScrollWebView
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </com.wanbao.base.view.NoScrollWebView>
+                android:layout_height="wrap_content"></com.wanbao.base.view.NoScrollWebView>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_5"
-                android:background="@color/background"
-                android:layout_marginTop="@dimen/dp_10"></View>
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/background"></View>
         </LinearLayout>
     </com.wanbao.base.view.ObservableScrollView>
+
     <LinearLayout
         android:id="@+id/viewTitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_70"
         android:gravity="bottom">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
@@ -170,62 +179,69 @@
                 android:textSize="@dimen/sp_17" />
         </RelativeLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/background"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dp_45"></View>
+        android:layout_marginBottom="@dimen/dp_45"
+        android:background="@color/background"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
-        android:orientation="horizontal"
+        android:layout_gravity="bottom"
         android:background="@color/white"
-        android:layout_gravity="bottom">
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/viewKeFu"
             android:layout_width="@dimen/dp_50"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <ImageView
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
-                app:srcCompat="@mipmap/mfby_kf"
-                 />
+                app:srcCompat="@mipmap/mfby_kf" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_1"
+                android:text="客服"
                 android:textColor="@color/new_secondary_text"
-                android:text="客服"/>
+                android:textSize="@dimen/sp_12" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@mipmap/mfby_gm"
             android:orientation="horizontal">
+
             <com.wanbao.base.ui.StateButton
                 android:id="@+id/btn0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="参团预约"
-                app:normalTextColor="@color/white"
                 app:normalBackgroundColor="@color/transparent"
+                app:normalTextColor="@color/white"
                 app:unableBackgroundColor="@color/new_secondary_text"
-                app:unableTextColor="@color/white"/>
+                app:unableTextColor="@color/white" />
+
             <com.wanbao.base.ui.StateButton
                 android:id="@+id/btn1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="发起拼单"
-                app:normalTextColor="@color/white"
                 app:normalBackgroundColor="@color/transparent"
+                app:normalTextColor="@color/white"
                 app:unableBackgroundColor="@color/new_secondary_text"
-                app:unableTextColor="@color/white"/>
+                app:unableTextColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

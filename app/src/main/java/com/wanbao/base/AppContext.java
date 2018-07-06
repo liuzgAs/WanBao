@@ -35,7 +35,7 @@ public class AppContext extends MultApplication {
     private static AppContext instance;
     public List<Long> idList = new ArrayList<>();
     public boolean islogin;
-    public String password_status;
+    public String dates="";
     private List<Activity> activityList = new LinkedList<Activity>();
 
 

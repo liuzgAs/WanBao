@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -241,6 +242,7 @@ public class LuRuXXActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
                     if (order_newOrder.getStatus() == 1) {
+                        AppContext.getIntance().dates= messages.get("book_time");
                         Intent intent = new Intent();
                         intent.putExtra("Oid", order_newOrder.getOid());
                         intent.putExtra("paytype",1);

@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18070601
-        versionName "0.2.8"
+        versionCode 18070602
+        versionName "0.2.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -103,4 +103,7 @@ dependencies {
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
     compile 'com.github.iwgang:countdownview:2.1.6'
+    implementation 'com.tapadoo.android:alerter:2.0.6'
+    compile 'com.crystal:crystalrangeseekbar:1.1.3'
+
 }

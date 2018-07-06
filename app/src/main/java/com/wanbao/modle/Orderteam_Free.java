@@ -131,14 +131,14 @@ public class Orderteam_Free {
          * v : 人在拼单，可直接参与
          */
 
-        private int r;
+        private String r;
         private String v;
 
-        public int getR() {
+        public String getR() {
             return r;
         }
 
-        public void setR(int r) {
+        public void setR(String r) {
             this.r = r;
         }
 

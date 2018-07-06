@@ -25,6 +25,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
@@ -315,7 +316,6 @@ public class WeiXiuBYActivity extends BaseActivity {
                 break;
             case R.id.btnYc:
                 intent = new Intent();
-                intent.putExtra("id", id);
                 intent.setClass(context, MianFeiYCActivity.class);
                 startActivity(intent);
                 break;
@@ -572,6 +572,8 @@ public class WeiXiuBYActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
                     if (order_newOrder.getStatus() == 1) {
+                        AppContext.getIntance().dates= book_time;
+
                         if (isOnline == 1) {
                             Intent intent = new Intent();
                             intent.putExtra("Oid", order_newOrder.getOid());

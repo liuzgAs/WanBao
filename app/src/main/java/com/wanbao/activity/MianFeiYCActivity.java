@@ -46,7 +46,7 @@ import butterknife.OnClick;
 import cn.iwgang.countdownview.CountdownView;
 import io.reactivex.disposables.Disposable;
 
-public class MianFeiYCActivity extends BaseActivity implements ObservableScrollView.OnObservableScrollViewListener{
+public class MianFeiYCActivity extends BaseActivity implements ObservableScrollView.OnObservableScrollViewListener {
 
     @BindView(R.id.banner)
     Banner banner;
@@ -78,12 +78,13 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
     StateButton btn0;
     @BindView(R.id.btn1)
     StateButton btn1;
-    String id;
+    String id = "0";
     private MySumAdapter mySumAdapter;
     private int mHeight;
     private WebSettings mSettings;
     private Orderteam_Free oFree;
-    HashMap<String,String> states=new HashMap<>();
+    HashMap<String, String> states = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +109,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
     @Override
     protected void initIntent() {
-        id=getIntent().getStringExtra("id");
+//        id=getIntent().getStringExtra("id");
     }
 
     @Override
@@ -161,7 +162,6 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
                 } catch (Exception e) {
                     ToastUtils.showShort("数据出错");
-
                 }
             }
 
@@ -186,7 +186,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         return new OkObject(params, url);
     }
 
-    private void setInfo(Orderteam_Free oFree){
+    private void setInfo(Orderteam_Free oFree) {
         //设置图片加载器
         banner.setImageLoader(new YangCheImageLoader());
         //设置图片集合
@@ -195,20 +195,20 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         //设置轮播时间
         banner.setDelayTime(3000);
         banner.start();
-        if ("0".equals(id)){
+        if ("0".equals(id)) {
             btn0.setEnabled(false);
             btn1.setEnabled(true);
-        }else {
+        } else {
             btn0.setEnabled(true);
             btn1.setEnabled(false);
         }
-        id=String.valueOf(oFree.getId());
+        id = String.valueOf(oFree.getId());
         textPrice.setText(oFree.getPrice());
         textPriceDes.setText(oFree.getPriceDes());
         textTitle.setText(oFree.getTitle());
-        textListDesR.setText(oFree.getListDes().getR()+"");
+        textListDesR.setText(oFree.getListDes().getR() + "");
         textListDesV.setText(oFree.getListDes().getV());
-        mySumAdapter=new MySumAdapter(oFree);
+        mySumAdapter = new MySumAdapter(oFree);
         listView.setAdapter(mySumAdapter);
         textUrlTitle.setText(oFree.getUrlTitle());
         webView.loadUrl(oFree.getUrl());
@@ -232,15 +232,15 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             case R.id.viewKeFu:
                 break;
             case R.id.btn0:
-                states.put("id",id);
-                states.put("team_state","2");
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId,states));
+                states.put("id", id);
+                states.put("team_state", "2");
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId, states));
                 finish();
                 break;
             case R.id.btn1:
-                states.put("id",id);
-                states.put("team_state","1");
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId,states));
+                states.put("id", id);
+                states.put("team_state", "1");
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId, states));
                 finish();
                 break;
             default:
@@ -257,11 +257,11 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             //滑动过程中，渐变
             float scale = (float) t / mHeight;//算出滑动距离比例
             float alpha = (255 * scale);//得到透明度
-            viewTitle.setBackgroundColor(Color.argb((int) alpha, 255,91,82));
+            viewTitle.setBackgroundColor(Color.argb((int) alpha, 255, 91, 82));
             textTitle.setTextColor(Color.argb((int) alpha, 255, 255, 255));
         } else {
             //过顶部图区域，标题栏定色
-            viewTitle.setBackgroundColor(Color.argb(255, 255,91,82));
+            viewTitle.setBackgroundColor(Color.argb(255, 255, 91, 82));
             textTitle.setTextColor(Color.argb(255, 255, 255, 255));
 
         }
@@ -335,7 +335,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             holder.sBtnPinDan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    id=String.valueOf(dataBean.getList().get(position).getId());
+                    id = String.valueOf(dataBean.getList().get(position).getId());
 //                    EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId,id));
 //                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Team_State,"2"));
                     initData();
