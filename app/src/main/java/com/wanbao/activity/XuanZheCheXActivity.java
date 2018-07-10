@@ -223,7 +223,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
         recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Car_Index.DataBean>(XuanZheCheXActivity.this) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_xuanzhecx;
+                int layout = R.layout.item_xuanzhecxn;
                 return new XuanZheCXViewHolder(parent, layout);
             }
         });

@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18070602
-        versionName "0.2.9"
+        versionCode 18071001
+        versionName "0.3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -36,7 +36,10 @@ android {
         exclude 'META-INF/rxjava.properties'
         // ... and any other excludes go here
     }
-    productFlavors {
+    sourceSets {
+        main() {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 }
 
@@ -105,5 +108,9 @@ dependencies {
     compile 'com.github.iwgang:countdownview:2.1.6'
     implementation 'com.tapadoo.android:alerter:2.0.6'
     compile 'com.crystal:crystalrangeseekbar:1.1.3'
+    implementation files('libs/ThreadPoolHelp-2.0.jar')
+    compile 'com.github.huburt-Hu:NewbieGuide:v1.2.0'
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.3'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
 
 }

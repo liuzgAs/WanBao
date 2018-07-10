@@ -394,6 +394,18 @@ public class Constant {
          * 免费养车
          */
         public static final String Orderteam_Free = "Orderteam/Free";
+        /**
+         * 二手车列表页
+         */
+        public static final String Carold_Index = "Carold/index";
+        /**
+         * 二手车筛选参数
+         */
+        public static final String Carold_GetSearchData = "Carold/getSearchData";
+        /**
+         * 二手车详情页
+         */
+        public static final String Carold_Details = "Carold/details";
     }
 
     public static class SF{
@@ -403,10 +415,31 @@ public class Constant {
         public static final String Longitude = "Longitude";
 
         public static final String Did = "Did";
+        public static final String City = "City";
+        public static final String CityId = "CityId";
+
         public static final String UserName = "UserName";
         public static final String Nickname = "Nickname";
         public static final String HeadImg = "HeadImg";
 
+    }
+    public static class IntentKey {
+        public static final String TYPE = "type";
+        public static final String POSITION = "position";
+        public static final String PHONE = "phone";
+        public static final String ID = "id";
+        public static final String BSID = "bsid";
+        public static final String VALUE = "value";
+        public static final String BEAN = "bean";
+        public static final String NICKNAME = "nickName";
+        public static final String URL = "url";
+        public static final String TITLE = "title";
+        public static final String NAME = "name";
+        public static final String BRAND = "brand";
+        public static final String IS_FROM_DUI_BI = "is_from_dui_bi";
+        public static final String BIG_IMG = "bigImg";
+        public static final String BIG_IMG_POSITION = "bigImgPosition";
+        public static final String DUI_BI = "duiBi";
     }
 
 }

@@ -18,12 +18,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.luoxudong.app.threadpool.ThreadPoolHelp;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
@@ -106,6 +109,93 @@ public class MyDialog {
         void doConfirm(String intro);
 
         void doCancel();
+    }
+
+    /**
+     * 搜索dialog
+     *
+     * @param context
+     * @param keywords
+     */
+    public static void showSearchDialog(final Context context, String keywords) {
+        View dialog_tu_pian = LayoutInflater.from(context).inflate(R.layout.dialog_search, null);
+        final AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.dialog)
+                .setView(dialog_tu_pian)
+                .create();
+        alertDialog.show();
+        final EditText editSearch = dialog_tu_pian.findViewById(R.id.editSearch);
+        editSearch.setText(keywords);
+        editSearch.setSelection(keywords.length());
+        dialog_tu_pian.findViewById(R.id.imageSearch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) v
+                        .getContext().getSystemService(
+                                Context.INPUT_METHOD_SERVICE);
+                if (imm.isActive()) {
+                    imm.hideSoftInputFromWindow(
+                            v.getApplicationWindowToken(), 0);
+                }
+                alertDialog.dismiss();
+                onSearchDoneListener.searchDone(editSearch.getText().toString().trim());
+            }
+        });
+        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
+                         /*判断是否是“GO”键*/
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    /*隐藏软键盘*/
+                    InputMethodManager imm = (InputMethodManager) v
+                            .getContext().getSystemService(
+                                    Context.INPUT_METHOD_SERVICE);
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow(
+                                v.getApplicationWindowToken(), 0);
+                    }
+                    alertDialog.dismiss();
+                    onSearchDoneListener.searchDone(editSearch.getText().toString().trim());
+                    return true;
+                }
+                return false;
+            }
+        });
+        Window dialogWindow = alertDialog.getWindow();
+        dialogWindow.setGravity(Gravity.TOP);
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        DisplayMetrics d = context.getResources().getDisplayMetrics();
+        lp.width = (int) (d.widthPixels * 1);
+        dialogWindow.setAttributes(lp);
+        ThreadPoolHelp.Builder
+                .cached()
+                .builder()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(200);
+                            //设置可获得焦点
+                            editSearch.setFocusable(true);
+                            editSearch.setFocusableInTouchMode(true);
+                            //请求获得焦点
+                            editSearch.requestFocus();
+                            //调用系统输入法
+                            InputMethodManager inputManager = (InputMethodManager) editSearch
+                                    .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inputManager.showSoftInput(editSearch, 0);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+    public interface OnSearchDoneListener {
+        void searchDone(String keywords);
+    }
+    public static OnSearchDoneListener onSearchDoneListener;
+
+    public static void setOnSearchDoneListener(OnSearchDoneListener onOnSearchDoneListener) {
+        MyDialog.onSearchDoneListener = onOnSearchDoneListener;
     }
 
     public static void wxShare1(Context context, final IWXAPI api, final int flag, String url, final String img, String title, String des) {

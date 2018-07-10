@@ -38,7 +38,7 @@ public class XuanZheCXViewHolder extends BaseViewHolder<Car_Index.DataBean> {
         textTitle.setText(data.getTitle());
         textDes.setText(data.getDes());
         textDes2.setText(data.getDes2());
-        textPrice.setText(data.getPrice());
+        textPrice.setText(data.getPrice()+"万");
         GlideApp.with(getContext())
                 .asBitmap()
                 .load(data.getImg())

@@ -24,6 +24,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
@@ -36,7 +37,6 @@ import com.wanbao.modle.Comment;
 import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Usercar_Getinfo;
-import com.wanbao.modle.Usercar_Query;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
 
@@ -130,9 +130,28 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
     TextView textSyx;
     @BindView(R.id.viewSyx)
     LinearLayout viewSyx;
+    @BindView(R.id.textDabh)
+    TextView textDabh;
+    @BindView(R.id.viewDabh)
+    LinearLayout viewDabh;
+    @BindView(R.id.textHdzrs)
+    TextView textHdzrs;
+    @BindView(R.id.viewHdzrs)
+    LinearLayout viewHdzrs;
+    @BindView(R.id.textZzl)
+    TextView textZzl;
+    @BindView(R.id.viewZzl)
+    LinearLayout viewZzl;
+    @BindView(R.id.textWkcc)
+    TextView textWkcc;
+    @BindView(R.id.viewWkcc)
+    LinearLayout viewWkcc;
+    @BindView(R.id.textZbzl)
+    TextView textZbzl;
+    @BindView(R.id.viewZbzl)
+    LinearLayout viewZbzl;
     private String id;
     private Usercar_Getinfo usercar_getinfo;
-    private Usercar_Query usercar_query;
     private XinShiZZM xinShiZZM;
     private XingShiZFY xingShiZFY;
     private Car_Index.DataBean dataBean;
@@ -189,21 +208,104 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
             xingShiZFY = (XingShiZFY) event.getData();
             textNsdq.setText(xingShiZFY.getData().getYear_end());
             textBxdq.setText(xingShiZFY.getData().getInsurance_end());
+
+            textDabh.setText(xingShiZFY.getData().getFile_no());
+            textHdzrs.setText(xingShiZFY.getData().getAppproved_passenger_capacity());
+            textZzl.setText(xingShiZFY.getData().getGross_mass());
+            textWkcc.setText(xingShiZFY.getData().getOverall_dimension());
+            textZbzl.setText(xingShiZFY.getData().getUnladen_mass());
             usercar_getinfo.getData().setYear_end(xingShiZFY.getData().getYear_end());
             usercar_getinfo.getData().setInsurance_end(xingShiZFY.getData().getInsurance_end());
 
         }
     }
 
-    @OnClick({R.id.imageback, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.textFs, R.id.sbtn_tijiaobdw,
-            R.id.viewSyx,R.id.viewFzrq,R.id.viewZcrq,R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
+    @OnClick({R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl,R.id.imageback, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.textFs, R.id.sbtn_tijiaobdw,
+            R.id.viewSyx, R.id.viewFzrq, R.id.viewZcrq, R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewDabh:
+                final EditDialogText editDialogDanb = new EditDialogText(context, "输入档案编号", textDabh.getText().toString(), "确认", "取消");
+                editDialogDanb.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogDanb.dismiss();
+                        textDabh.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogDanb.dismiss();
+                    }
+                });
+                editDialogDanb.show();
+                break;
+            case R.id.viewHdzrs:
+                final EditDialog editDialogHdzrs = new EditDialog(context, "输入核定载人数（人）", textHdzrs.getText().toString(), "确认", "取消");
+                editDialogHdzrs.setClicklistener(new EditDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogHdzrs.dismiss();
+                        textHdzrs.setText(intro+"人");
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogHdzrs.dismiss();
+                    }
+                });
+                editDialogHdzrs.show();
+                break;
+            case R.id.viewZzl:
+                final EditDialog editDialogZzl = new EditDialog(context, "输入总质量（kg）", textZzl.getText().toString(), "确认", "取消");
+                editDialogZzl.setClicklistener(new EditDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogZzl.dismiss();
+                        textZzl.setText(intro+"kg");
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogZzl.dismiss();
+                    }
+                });
+                editDialogZzl.show();
+                break;
+            case R.id.viewWkcc:
+                final EditDialogText editDialogWkcc = new EditDialogText(context, "输入外廓尺寸（mm）", textWkcc.getText().toString(), "确认", "取消");
+                editDialogWkcc.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogWkcc.dismiss();
+                        textWkcc.setText(intro+"mm");
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogWkcc.dismiss();
+                    }
+                });
+                editDialogWkcc.show();
+                break;
+            case R.id.viewZbzl:
+                final EditDialog editDialogZbzl = new EditDialog(context, "输入整备质量（kg）", textZbzl.getText().toString(), "确认", "取消");
+                editDialogZbzl.setClicklistener(new EditDialog.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogZbzl.dismiss();
+                        textZbzl.setText(intro+"kg");
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogZbzl.dismiss();
+                    }
+                });
+                editDialogZbzl.show();
+                break;
             case R.id.viewZcrq:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar czc = Calendar.getInstance();
                 DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -216,9 +318,6 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialogzc.show();
                 break;
             case R.id.viewFzrq:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar cfz = Calendar.getInstance();
                 DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -231,9 +330,6 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialogfz.show();
                 break;
             case R.id.viewSyx:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar csy = Calendar.getInstance();
                 DatePickerDialog datePickerDialogsy = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -436,15 +532,14 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
             case R.id.viewSzy:
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
                         Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
+                        != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
                             0);
 
-                }else {
+                } else {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "face");
@@ -455,15 +550,14 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
             case R.id.viewSfy:
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
                         Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
+                        != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
                             0);
 
-                }else {
+                } else {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "back");
@@ -475,6 +569,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 yanZM(usercar_getinfo.getData().getPhone());
                 break;
             case R.id.sbtn_tijiaobdw:
+                if (usercar_getinfo.getStatus()==1){
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 if (TextUtils.isEmpty(textGcsj.getText().toString())) {
                     ToastUtils.showShort("请设置购车时间");
                     return;
@@ -558,6 +656,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     usercar_getinfo = GsonUtils.parseJSON(s, Usercar_Getinfo.class);
                     int status = usercar_getinfo.getStatus();
                     if (status == 1) {
+                        sbtnTijiaobdw.setText("审核中");
                         textClxx.setText(usercar_getinfo.getData().getCid_name());
                         textGcsj.setText(usercar_getinfo.getData().getBc_time());
                         textxslc.setText(usercar_getinfo.getData().getKm() + "");
@@ -573,18 +672,26 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         textZcrq.setText(usercar_getinfo.getData().getRegister_date());
                         textFzrq.setText(usercar_getinfo.getData().getIssue_date());
                         textSyx.setText(usercar_getinfo.getData().getInsurance_commerce());
-                    } else {
-                        ToastUtils.showShort(usercar_getinfo.getInfo());
+
+                        textDabh.setText(usercar_getinfo.getData().getFile_no());
+                        textHdzrs.setText(usercar_getinfo.getData().getAppproved_passenger_capacity());
+                        textZzl.setText(usercar_getinfo.getData().getGross_mass());
+                        textWkcc.setText(usercar_getinfo.getData().getOverall_dimension());
+                        textZbzl.setText(usercar_getinfo.getData().getUnladen_mass());
+                    }else if (status == 2){
+                        sbtnTijiaobdw.setText("提交审核");
+                    }else {
+                        MyDialog.dialogFinish(XiuGaiCheLiangActivity.this,usercar_getinfo.getInfo());
                     }
                 } catch (Exception e) {
-                    ToastUtils.showShort("数据异常！");
+                    MyDialog.dialogFinish(XiuGaiCheLiangActivity.this,"数据异常！");
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                ToastUtils.showShort("网络异常");
+                MyDialog.dialogFinish(XiuGaiCheLiangActivity.this,"网络异常");
             }
 
             @Override
@@ -718,6 +825,12 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
         params.put("address", usercar_getinfo.getData().getAddress());
         params.put("name", usercar_getinfo.getData().getName() + "");
         params.put("id", usercar_getinfo.getData().getId() + "");
+
+        params.put("file_no", textDabh.getText().toString());
+        params.put("appproved_passenger_capacity", textHdzrs.getText().toString());
+        params.put("gross_mass", textZzl.getText().toString());
+        params.put("overall_dimension", textWkcc.getText().toString());
+        params.put("unladen_mass", textZbzl.getText().toString());
         return new OkObject(params, url);
     }
 

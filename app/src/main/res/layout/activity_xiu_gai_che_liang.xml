@@ -642,6 +642,176 @@
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/background"></View>
+
+            <LinearLayout
+                android:id="@+id/viewDabh"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="档案编号"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textDabh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="请填写正确的档案编号"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/background"></View>
+
+            <LinearLayout
+                android:id="@+id/viewHdzrs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="核定载人数"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textHdzrs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="请填写正确的核定载人数"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/background"></View>
+
+            <LinearLayout
+                android:id="@+id/viewZzl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="总质量"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textZzl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="请填写正确的总质量"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/background"></View>
+
+            <LinearLayout
+                android:id="@+id/viewWkcc"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="外廓尺寸"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textWkcc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="请填写正确的外廓尺寸"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/background"></View>
+
+            <LinearLayout
+                android:id="@+id/viewZbzl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="整备质量"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/textZbzl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_36"
+                    android:background="@color/white"
+                    android:hint="请填写正确的整备质量"
+                    android:gravity="right"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
                 android:background="@color/background"></View>
 
@@ -749,7 +919,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_43"
         android:background="#343434"
-        android:text="保存"
+        android:text="提交审核"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_15" />
 

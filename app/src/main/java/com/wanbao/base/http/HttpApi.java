@@ -7,8 +7,10 @@ import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
+import com.wanbao.base.util.MD5Util;
 import com.wanbao.modle.OkObject;
 
 import java.text.SimpleDateFormat;
@@ -123,5 +125,32 @@ public class HttpApi {
                         callBack.onComplete();
                     }
                 });
+    }
+
+    public static void postJson(Context context, String url, String json, final NCallBack callBack) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.put("smsKey", MD5Util.getMD5Time());
+        LogUtils.e("ApiClient--发送", "" + json);
+        OkGo.<String>post(url)
+                .tag(context)
+                .headers(httpHeaders)
+                .upJson(json)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        callBack.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        callBack.onError();
+                    }
+                });
+    }
+    public interface NCallBack {
+        void onSuccess(String s);
+
+        void onError();
     }
 }

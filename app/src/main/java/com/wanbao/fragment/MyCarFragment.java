@@ -36,6 +36,7 @@ import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.WoDeJKActivity;
 import com.wanbao.activity.XinCheZTActivity;
+import com.wanbao.activity.YouZhiESCActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -306,14 +307,14 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewSCSJ:
-//                intent = new Intent();
-//                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
-//                    intent.setClass(context, LoginActivity.class);
-//                    startActivity(intent);
-//                    return;
-//                }
-//                intent.setClass(getActivity(), ShiJiaDDActivity.class);
-//                startActivity(intent);
+                intent = new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent.setClass(getActivity(), YouZhiESCActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewPTGC:
                 intent = new Intent();

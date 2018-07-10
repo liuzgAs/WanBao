@@ -10,14 +10,34 @@ public class Usercar_Getinfo {
 
 
     /**
-     * data : {"id":1,"car_name":"奥迪A6舒适版","name":"","cid_name":"Q3 2018","cid":1,"bc_time":"2016-08-08","engine":"4768486456854","engine_show":"476****6854","vin":"d56w4d5165fs46f4s56fsf","vin_show":"d56****6fsf","address":"1470585600","phone":"15860026753","phone_show":"158****6753","car_no":"闽B88888","km":5888,"face_img":0,"back_img":0,"year_end":"2016-08","issue_date":"1970-01-01","register_date":"1970-01-01","insurance_commerce":"1970-01-01","insurance_end":"2016-08-08."}
+     * stateDes : 审核通过
+     * state : 3
+     * data : {"id":51,"car_name":"2018款 经典版 1.5T 手动启航版","name":"","cid_name":"2018款 经典版 1.5T 手动启航版","cid":3,"bc_time":"2018-07-18","engine":"123","engine_show":"****123","vin":"wsxedcrfvtgb78944","vin_show":"wsx****8944","address":null,"phone":"13023973380","phone_show":"130****3380","car_no":"闽D55555","km":5000,"face_img":0,"back_img":0,"year_end":"","issue_date":"","register_date":"","insurance_commerce":"","insurance_end":"","file_no":"","appproved_passenger_capacity":"","gross_mass":"","overall_dimension":"","unladen_mass":""}
      * status : 1
      * info : 返回成功！
      */
 
+    private String stateDes;
+    private int state;
     private DataBean data;
     private int status;
     private String info;
+
+    public String getStateDes() {
+        return stateDes;
+    }
+
+    public void setStateDes(String stateDes) {
+        this.stateDes = stateDes;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public DataBean getData() {
         return data;
@@ -45,28 +65,33 @@ public class Usercar_Getinfo {
 
     public static class DataBean {
         /**
-         * id : 1
-         * car_name : 奥迪A6舒适版
+         * id : 51
+         * car_name : 2018款 经典版 1.5T 手动启航版
          * name :
-         * cid_name : Q3 2018
-         * cid : 1
-         * bc_time : 2016-08-08
-         * engine : 4768486456854
-         * engine_show : 476****6854
-         * vin : d56w4d5165fs46f4s56fsf
-         * vin_show : d56****6fsf
-         * address : 1470585600
-         * phone : 15860026753
-         * phone_show : 158****6753
-         * car_no : 闽B88888
-         * km : 5888
+         * cid_name : 2018款 经典版 1.5T 手动启航版
+         * cid : 3
+         * bc_time : 2018-07-18
+         * engine : 123
+         * engine_show : ****123
+         * vin : wsxedcrfvtgb78944
+         * vin_show : wsx****8944
+         * address : null
+         * phone : 13023973380
+         * phone_show : 130****3380
+         * car_no : 闽D55555
+         * km : 5000
          * face_img : 0
          * back_img : 0
-         * year_end : 2016-08
-         * issue_date : 1970-01-01
-         * register_date : 1970-01-01
-         * insurance_commerce : 1970-01-01
-         * insurance_end : 2016-08-08.
+         * year_end :
+         * issue_date :
+         * register_date :
+         * insurance_commerce :
+         * insurance_end :
+         * file_no :
+         * appproved_passenger_capacity :
+         * gross_mass :
+         * overall_dimension :
+         * unladen_mass :
          */
 
         private int id;
@@ -91,6 +116,11 @@ public class Usercar_Getinfo {
         private String register_date;
         private String insurance_commerce;
         private String insurance_end;
+        private String file_no;
+        private String appproved_passenger_capacity;
+        private String gross_mass;
+        private String overall_dimension;
+        private String unladen_mass;
 
         public int getId() {
             return id;
@@ -266,6 +296,46 @@ public class Usercar_Getinfo {
 
         public void setInsurance_end(String insurance_end) {
             this.insurance_end = insurance_end;
+        }
+
+        public String getFile_no() {
+            return file_no;
+        }
+
+        public void setFile_no(String file_no) {
+            this.file_no = file_no;
+        }
+
+        public String getAppproved_passenger_capacity() {
+            return appproved_passenger_capacity;
+        }
+
+        public void setAppproved_passenger_capacity(String appproved_passenger_capacity) {
+            this.appproved_passenger_capacity = appproved_passenger_capacity;
+        }
+
+        public String getGross_mass() {
+            return gross_mass;
+        }
+
+        public void setGross_mass(String gross_mass) {
+            this.gross_mass = gross_mass;
+        }
+
+        public String getOverall_dimension() {
+            return overall_dimension;
+        }
+
+        public void setOverall_dimension(String overall_dimension) {
+            this.overall_dimension = overall_dimension;
+        }
+
+        public String getUnladen_mass() {
+            return unladen_mass;
+        }
+
+        public void setUnladen_mass(String unladen_mass) {
+            this.unladen_mass = unladen_mass;
         }
     }
 }

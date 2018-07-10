@@ -289,6 +289,8 @@
         <activity android:name=".activity.CanTuanJLActivity" />
         <activity android:name=".activity.PinTuanXQActivity" />
         <activity android:name=".activity.YouZhiESCActivity"></activity>
+        <activity android:name=".activity.CheLiangXQActivity"></activity>
+
     </application>
 
 </manifest>

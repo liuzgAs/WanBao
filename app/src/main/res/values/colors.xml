@@ -6,6 +6,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="light_gray">#cfcfcf</color>
+    <color name="basic_color">#e3c787</color>
 
     <color name="viewfinder_frame">#ff000000</color>
     <color name="viewfinder_laser">#ffff0000</color>
@@ -14,6 +15,8 @@
     <color name="possible_result_points">#c0ffff00</color>
     <color name="light_green">#2bd084</color>
     <color name="light_black">#444444</color>
+    <color name="tranwhite">#66ffffff</color>
+    <color name="tran">#00ffffff</color>
 
 
     <color name="transparent">#00000000</color>
@@ -53,5 +56,6 @@
     <color name="line_gray">#f0f0f0</color>
 
     <color name="color_f6">#f6f6f6</color>
+    <color name="priceAgeBg">#f5f0e6</color>
 
 </resources>

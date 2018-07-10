@@ -116,6 +116,8 @@ public class HuanYinActivity extends BaseNoLeftActivity {
                     finish();
                 }
                 SPUtils.getInstance().put(Constant.SF.Did,indexStartad.getDid());
+                SPUtils.getInstance().put(Constant.SF.City,indexStartad.getCityName());
+                SPUtils.getInstance().put(Constant.SF.CityId,indexStartad.getCityId());
             }
 
             @Override
