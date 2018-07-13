@@ -1,5 +1,7 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -66,10 +68,12 @@ public class ZhanTingQCXQActivity extends BaseActivity {
     TextView textStoreTitle;
     @BindView(R.id.listView)
     ListViewForScrollView listView;
+    @BindView(R.id.textJiSuanQi)
+    ImageView textJiSuanQi;
     private String id;
     private WebSettings mSettings;
     private MySumAdapter mySumAdapter;
-
+    private Showbrand_Car showbrand_car;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,17 +89,22 @@ public class ZhanTingQCXQActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
     }
 
     @Override
     protected void initViews() {
-            titleText.setText("汽车详情");
+        titleText.setText("汽车详情");
         webView.setWebViewClient(new WebViewClient());//覆盖第三方浏览器
         mSettings = webView.getSettings();
         mSettings.setJavaScriptEnabled(true);
+        mSettings.setBlockNetworkImage(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         mSettings.setUseWideViewPort(true);
         mSettings.setLoadWithOverviewMode(true);
+
     }
 
     @Override
@@ -103,9 +112,15 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         getCar();
     }
 
-    @OnClick({R.id.imageback, R.id.linearCoupon})
+    @OnClick({R.id.textJiSuanQi,R.id.imageback, R.id.linearCoupon})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
+            case R.id.textJiSuanQi:
+                intent=new Intent(context,JiSuanQActivity.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -115,6 +130,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
                 break;
         }
     }
+
     private void getCar() {
         HttpApi.post(context, getOkObjectCar(), new HttpApi.CallBack() {
             @Override
@@ -131,16 +147,16 @@ public class ZhanTingQCXQActivity extends BaseActivity {
             public void onSuccess(String s) {
                 try {
                     LogUtils.e("Showbrand_Car", s);
-                    Showbrand_Car showbrand_car = GsonUtils.parseJSON(s, Showbrand_Car.class);
+                    showbrand_car = GsonUtils.parseJSON(s, Showbrand_Car.class);
                     int status = showbrand_car.getStatus();
                     if (status == 1) {
                         titleText.setText(showbrand_car.getTitle());
                         textName.setText(showbrand_car.getTitle());
                         textPicNum.setText(showbrand_car.getTotal_des());
                         textPrice.setText(showbrand_car.getGuide_price());
-                        if (showbrand_car.getCoupon_show()==0){
+                        if (showbrand_car.getCoupon_show() == 0) {
                             linearCoupon.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             linearCoupon.setVisibility(View.VISIBLE);
                         }
                         textCouponTitle.setText(showbrand_car.getCoupon_title());
@@ -156,7 +172,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
                                 }
                             }
                         });
-                        mySumAdapter=new MySumAdapter(showbrand_car);
+                        mySumAdapter = new MySumAdapter(showbrand_car);
                         listView.setAdapter(mySumAdapter);
                         banner.setImageLoader(new ZhanTingQCXQGlideImageLoader());
                         //设置图片集合
@@ -167,18 +183,18 @@ public class ZhanTingQCXQActivity extends BaseActivity {
                         banner.start();
                     } else {
                         dismissDialog();
-                        MyDialog.dialogFinish(ZhanTingQCXQActivity.this,showbrand_car.getInfo());
+                        MyDialog.dialogFinish(ZhanTingQCXQActivity.this, showbrand_car.getInfo());
                     }
                 } catch (Exception e) {
                     dismissDialog();
-                    MyDialog.dialogFinish(ZhanTingQCXQActivity.this,"数据异常！");
+                    MyDialog.dialogFinish(ZhanTingQCXQActivity.this, "数据异常！");
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                MyDialog.dialogFinish(ZhanTingQCXQActivity.this,"网络异常");
+                MyDialog.dialogFinish(ZhanTingQCXQActivity.this, "网络异常");
             }
 
             @Override
@@ -197,6 +213,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         return new OkObject(params, url);
     }
 
+
     class MySumAdapter extends BaseAdapter {
 
         private Showbrand_Car dataBean;
@@ -213,7 +230,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-                return dataBean.getStore().size();
+            return dataBean.getStore().size();
         }
 
         @Override
@@ -228,16 +245,16 @@ public class ZhanTingQCXQActivity extends BaseActivity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            MySumAdapter.ViewHolder holder;
+            ViewHolder holder;
             if (convertView == null) {
-                holder = new MySumAdapter.ViewHolder();
+                holder = new ViewHolder();
                 convertView = getLayoutInflater().inflate(R.layout.item_xincheztxq, null);
                 holder.textTitle = (TextView) convertView.findViewById(R.id.textTitle);
                 holder.textAddress = (TextView) convertView.findViewById(R.id.textAddress);
                 holder.imageGo = (ImageView) convertView.findViewById(R.id.imageGo);
                 convertView.setTag(holder);
             } else {
-                holder = (MySumAdapter.ViewHolder) convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
             holder.textTitle.setText(dataBean.getStore().get(position).getN());
             holder.textAddress.setText(dataBean.getStore().get(position).getV());

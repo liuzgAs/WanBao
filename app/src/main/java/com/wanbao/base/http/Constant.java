@@ -406,6 +406,23 @@ public class Constant {
          * 二手车详情页
          */
         public static final String Carold_Details = "Carold/details";
+        /**
+         * 购车计算器请求（全款）
+         */
+        public static final String Calculator_Index = "Calculator/index";
+        /**
+         * 购车计算器请求（贷款）
+         */
+        public static final String Calculator_Loan = "Calculator/loan";
+
+        /**
+         * 购二手车计算器请求（全款）
+         */
+        public static final String Calculator_Index2 = "Calculator/index2";
+        /**
+         * 购二手车计算器请求（贷款）
+         */
+        public static final String Calculator_Loan2 = "Calculator/loan2";
     }
 
     public static class SF{

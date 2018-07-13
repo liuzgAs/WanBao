@@ -36,7 +36,9 @@ public class AppContext extends MultApplication {
     public List<Long> idList = new ArrayList<>();
     public boolean islogin;
     public String dates="";
+    public String money="";
     private List<Activity> activityList = new LinkedList<Activity>();
+    public List<Integer> xcqk = new ArrayList<>();
 
 
     public static synchronized AppContext getIntance() {

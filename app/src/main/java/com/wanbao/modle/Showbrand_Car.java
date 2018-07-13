@@ -1,5 +1,6 @@
 package com.wanbao.modle;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @author LiuZG
  */
 
-public class Showbrand_Car {
+public class Showbrand_Car implements Serializable{
 
     /**
      * banner : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png","code":"","url":"","title":""}]
@@ -164,7 +165,7 @@ public class Showbrand_Car {
         this.store = store;
     }
 
-    public static class BannerBean {
+    public static class BannerBean implements Serializable{
         /**
          * img : http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png
          * code :
@@ -210,7 +211,7 @@ public class Showbrand_Car {
         }
     }
 
-    public static class ImgsBean {
+    public static class ImgsBean implements Serializable{
         /**
          * img : http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png
          * thumb : http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png
@@ -236,7 +237,7 @@ public class Showbrand_Car {
         }
     }
 
-    public static class StoreBean {
+    public static class StoreBean implements Serializable{
         /**
          * n : 三菱汽车宁波销售服务点
          * v : 宁波市雅虎大道666号

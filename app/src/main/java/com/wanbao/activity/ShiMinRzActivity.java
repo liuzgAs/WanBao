@@ -2,16 +2,20 @@ package com.wanbao.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,6 +25,7 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.view.EditDialogText;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.JiaShiZ;
 import com.wanbao.modle.OkObject;
@@ -30,6 +35,7 @@ import com.wanbao.modle.User_Card_before;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -361,13 +367,93 @@ public class ShiMinRzActivity extends BaseActivity {
                 if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
                     return;
                 }
+                if (TextUtils.isEmpty(textXm.getText().toString())){
+                    ToastUtils.showShort("请扫描身份证正面");
+                    return;
+                }
+                if (TextUtils.isEmpty(textXb.getText().toString())){
+                    ToastUtils.showShort("请扫描身份证正面");
+                    return;
+                }
+                if (TextUtils.isEmpty(textZjhm.getText().toString())){
+                    ToastUtils.showShort("请扫描身份证正面");
+                    return;
+                }
+                if (TextUtils.isEmpty(textYxqq.getText().toString())){
+                    ToastUtils.showShort("请扫描身份证背面");
+                    return;
+                }
+                if (TextUtils.isEmpty(textYxqz.getText().toString())){
+                    ToastUtils.showShort("请扫描身份证背面");
+                    return;
+                }
+                if (TextUtils.isEmpty(textXmj.getText().toString())){
+                    ToastUtils.showShort("请扫描驾驶证正页");
+                    return;
+                }
+                if (TextUtils.isEmpty(textXbj.getText().toString())){
+                    ToastUtils.showShort("请扫描驾驶证正页");
+                    return;
+                }
+                if (TextUtils.isEmpty(textCclzrq.getText().toString())){
+                    ToastUtils.showShort("请扫描驾驶证正页");
+                    return;
+                }
+                if (TextUtils.isEmpty(textZjcx.getText().toString())){
+                    ToastUtils.showShort("请扫描驾驶证正页");
+                    return;
+                }
+                if (TextUtils.isEmpty(textYxq.getText().toString())){
+                    ToastUtils.showShort("请扫描驾驶证正页");
+                    return;
+                }
                 useradd();
                 break;
             case R.id.viewXm:
+                final EditDialogText editDialogDanb = new EditDialogText(context, "输入身份证姓名", textXm.getText().toString(), "确认", "取消");
+                editDialogDanb.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogDanb.dismiss();
+                        textXm.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogDanb.dismiss();
+                    }
+                });
+                editDialogDanb.show();
                 break;
             case R.id.viewXb:
+                final String[] sexs={"男","女"};
+                new MaterialDialog.Builder(context)
+                        .title("选择你的性别")
+                        .items(sexs)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textXb.setText(sexs[position]);
+                            }
+                        })
+                        .show();
                 break;
             case R.id.viewZjhm:
+                final EditDialogText editDialogZjhm = new EditDialogText(context, "输入身份证号码", textZjhm.getText().toString(), "确认", "取消");
+                editDialogZjhm.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogZjhm.dismiss();
+                        textZjhm.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogZjhm.dismiss();
+                    }
+                });
+                editDialogZjhm.show();
                 break;
             case R.id.viewSfzby:
                 if (ContextCompat.checkSelfPermission(context,
@@ -389,18 +475,86 @@ public class ShiMinRzActivity extends BaseActivity {
                 }
                 break;
             case R.id.viewYxqq:
+                Calendar czc = Calendar.getInstance();
+                DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textYxqq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, czc.get(Calendar.YEAR), czc.get(Calendar.MONTH), czc.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogzc.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogzc.show();
                 break;
             case R.id.viewYxqz:
+                Calendar cfz = Calendar.getInstance();
+                DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textYxqz.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, cfz.get(Calendar.YEAR), cfz.get(Calendar.MONTH), cfz.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogfz.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialogfz.show();
                 break;
             case R.id.viewXmj:
+                final EditDialogText editDialogXmj = new EditDialogText(context, "输入驾驶证姓名", textXmj.getText().toString(), "确认", "取消");
+                editDialogXmj.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogXmj.dismiss();
+                        textXmj.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogXmj.dismiss();
+                    }
+                });
+                editDialogXmj.show();
                 break;
             case R.id.viewXbj:
+                final String[] sexsj={"男","女"};
+                new MaterialDialog.Builder(context)
+                        .title("选择你的性别")
+                        .items(sexsj)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textXbj.setText(sexsj[position]);
+                            }
+                        })
+                        .show();
                 break;
             case R.id.viewCclzrq:
+                Calendar Cclzrq = Calendar.getInstance();
+                DatePickerDialog datePickerDialogCclzrq = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textCclzrq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, Cclzrq.get(Calendar.YEAR), Cclzrq.get(Calendar.MONTH), Cclzrq.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogCclzrq.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogCclzrq.show();
                 break;
             case R.id.viewZjcx:
+                final EditDialogText editDialogZjcx = new EditDialogText(context, "输入准驾车型", textZjcx.getText().toString(), "确认", "取消");
+                editDialogZjcx.setClicklistener(new EditDialogText.ClickListenerInterface() {
+                    @Override
+                    public void doConfirm(String intro) {
+                        editDialogZjcx.dismiss();
+                        textZjcx.setText(intro);
+                    }
+
+                    @Override
+                    public void doCancel() {
+                        editDialogZjcx.dismiss();
+                    }
+                });
+                editDialogZjcx.show();
                 break;
             case R.id.viewYxq:
+
                 break;
             default:
                 break;

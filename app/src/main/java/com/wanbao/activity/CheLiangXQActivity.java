@@ -167,6 +167,8 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
             private TextView textIntro;
             private TextView textName;
             private ImageView imageLogo;
+            private ImageView textJiSuanQi;
+
             private TextView textPurchasePrice;
             private TextView textPrice;
             private TextView textTitle;
@@ -235,6 +237,8 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
                 imageLogo = header_che_liang_xq.findViewById(R.id.imageLogo);
                 textName = header_che_liang_xq.findViewById(R.id.textName);
                 textIntro = header_che_liang_xq.findViewById(R.id.textIntro);
+                textJiSuanQi = header_che_liang_xq.findViewById(R.id.textJiSuanQi);
+
                 jzVideoPlayerStandard = header_che_liang_xq.findViewById(R.id.videoplayer);
                 jzVideoPlayerStandard.batteryLevel.setVisibility(View.GONE);
                 jzVideoPlayerStandard.backButton.setVisibility(View.GONE);
@@ -253,6 +257,15 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
 //                        intent.putExtra(Constant.IntentKey.ID, storeBean.getId());
 //                        intent.setClass(CheLiangXQActivity.this, CheHangXXActivity.class);
 //                        startActivity(intent);
+                    }
+                });
+                textJiSuanQi.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.putExtra("id", String.valueOf(carBean.getId()));
+                        intent.setClass(CheLiangXQActivity.this, JiSuanQEActivity.class);
+                        startActivity(intent);
                     }
                 });
                 return header_che_liang_xq;

@@ -110,12 +110,48 @@
                     android:layout_height="@dimen/dp_24"
                     android:src="@mipmap/next_btn" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/layout_selector_white_system_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:src="@mipmap/icon_chexingld" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:text="车型亮点"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+                <ImageView
+                    android:id="@+id/textJiSuanQi"
+                    android:layout_width="@dimen/dp_45"
+                    android:layout_height="@dimen/dp_45"
+                    android:padding="@dimen/dp_12"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:src="@mipmap/icon_jisuanqi"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+
+            </LinearLayout>
 
             <com.wanbao.base.view.NoScrollWebView
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10">
+                >
             </com.wanbao.base.view.NoScrollWebView>
 
             <LinearLayout

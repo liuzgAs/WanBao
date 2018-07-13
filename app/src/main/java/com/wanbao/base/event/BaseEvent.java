@@ -35,6 +35,10 @@ public class BaseEvent {
 	public final static String TiXian = "TiXian";
 	public final static String LatLng = "LatLng";
 	public final static String YangCheId = "YangCheId";
+	public final static String ChangeXinQuan = "ChangeXinQuan";
+	public final static String Third_Part = "Third_Part";
+	public final static String Iscn = "Iscn";
+	public final static String Body_Scratches = "Body_Scratches";
 
 
 	private String action;

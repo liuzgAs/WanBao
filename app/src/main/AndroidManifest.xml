@@ -33,6 +33,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -288,8 +289,16 @@
         <activity android:name=".activity.PinTaunCGActivity" />
         <activity android:name=".activity.CanTuanJLActivity" />
         <activity android:name=".activity.PinTuanXQActivity" />
-        <activity android:name=".activity.YouZhiESCActivity"></activity>
-        <activity android:name=".activity.CheLiangXQActivity"></activity>
+        <activity android:name=".activity.YouZhiESCActivity" />
+        <activity android:name=".activity.CheLiangXQActivity" />
+        <activity android:name=".activity.JiSuanQActivity" />
+        <activity android:name=".activity.BiYaoHFActivity" />
+        <activity android:name=".activity.ShangYeBXActivity"></activity>
+        <activity android:name=".activity.BiYaoHFDKActivity"></activity>
+        <activity android:name=".activity.ShangYeBXDKActivity"></activity>
+        <activity android:name=".activity.JiSuanQEActivity"></activity>
+        <activity android:name=".activity.ShangYeBXDKEActivity"></activity>
+
 
     </application>
 

@@ -225,12 +225,16 @@ public class TiYanZhongXinActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         dispose();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         if (anim!=null){
             anim.stop();
             anim=null;
         }
     }
-
 
     class MySumAdapter extends BaseAdapter {
 
@@ -282,6 +286,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
         anim = new AnimationDrawable();
         for (int i = 0; i < p; i++) {
             anim.addFrame(ContextCompat.getDrawable(context,images[i]), 80);
+//            anim.addFrame(new BitmapDrawable(getResources(),BitmapFactory.decodeResource(getResources(),images[i])), 80);
         }
         // 设置为循环播放
         anim.setOneShot(true);
