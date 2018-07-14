@@ -170,7 +170,7 @@
             android:layout_height="@dimen/dp_15"
             android:src="@mipmap/icon_gouche_jiage" />
 
-        <EditText
+        <com.wanbao.base.view.LastInputEditText
             android:id="@+id/editMoney"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

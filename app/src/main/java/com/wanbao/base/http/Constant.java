@@ -423,6 +423,10 @@ public class Constant {
          * 购二手车计算器请求（贷款）
          */
         public static final String Calculator_Loan2 = "Calculator/loan2";
+        /**
+         * 消息列表
+         */
+        public static final String Massage_Msg = "massage/msg";
     }
 
     public static class SF{

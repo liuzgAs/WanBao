@@ -14,7 +14,7 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18071301
+        versionCode 18071401
         versionName "0.3.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config

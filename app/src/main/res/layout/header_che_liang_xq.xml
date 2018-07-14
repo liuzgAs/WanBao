@@ -194,7 +194,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/dangan01" />
+                    android:src="@mipmap/icon_ershouche3" />
 
                 <TextView
                     android:id="@+id/textArchives0000"
@@ -236,7 +236,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/dangan02" />
+                    android:src="@mipmap/icon_ershouche1" />
 
                 <TextView
                     android:id="@+id/textArchives0100"
@@ -278,7 +278,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/dangan03" />
+                    android:src="@mipmap/icon_ershouche2" />
 
                 <TextView
                     android:id="@+id/textArchives0200"
@@ -326,7 +326,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/dangan04" />
+                    android:src="@mipmap/icon_ershouche5" />
 
                 <TextView
                     android:id="@+id/textArchives0300"
@@ -368,7 +368,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/dangan05" />
+                    android:src="@mipmap/icon_ershouche4" />
 
                 <TextView
                     android:id="@+id/textArchives0400"
@@ -410,7 +410,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="20dp"
-                    android:src="@mipmap/dangan06" />
+                    android:src="@mipmap/icon_ershouche6" />
 
                 <TextView
                     android:id="@+id/textArchives0500"

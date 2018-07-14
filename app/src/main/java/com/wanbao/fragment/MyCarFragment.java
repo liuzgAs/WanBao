@@ -35,6 +35,7 @@ import com.wanbao.activity.ShiJiaDDActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.WoDeJKActivity;
+import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XinCheZTActivity;
 import com.wanbao.activity.YouZhiESCActivity;
 import com.wanbao.base.event.BaseEvent;
@@ -234,6 +235,15 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.imageViewXX:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(getActivity(), XiaoXiActivity.class);
+                startActivity(intent);
                 break;
             case R.id.imageViewSheZ:
                 intent = new Intent();

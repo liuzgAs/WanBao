@@ -293,13 +293,15 @@
         <activity android:name=".activity.CheLiangXQActivity" />
         <activity android:name=".activity.JiSuanQActivity" />
         <activity android:name=".activity.BiYaoHFActivity" />
-        <activity android:name=".activity.ShangYeBXActivity"></activity>
-        <activity android:name=".activity.BiYaoHFDKActivity"></activity>
-        <activity android:name=".activity.ShangYeBXDKActivity"></activity>
-        <activity android:name=".activity.JiSuanQEActivity"></activity>
-        <activity android:name=".activity.ShangYeBXDKEActivity"></activity>
-
-
+        <activity android:name=".activity.ShangYeBXActivity" />
+        <activity android:name=".activity.BiYaoHFDKActivity" />
+        <activity android:name=".activity.ShangYeBXDKActivity" />
+        <activity android:name=".activity.JiSuanQEActivity" />
+        <activity android:name=".activity.ShangYeBXDKEActivity" />
+        <activity
+            android:name=".activity.XiaoXiActivity"
+            android:label="@string/title_activity_xiao_xi"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

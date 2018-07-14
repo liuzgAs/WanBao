@@ -38,6 +38,7 @@ import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XuanZheCheXSJActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
@@ -440,7 +441,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     @OnClick({R.id.address, R.id.imageSousuo})
     public void onViewClicked(View view) {
-        Intent intent = new Intent();
+        Intent intent;
         switch (view.getId()) {
             case R.id.address:
                 getAddressPermissions();
@@ -448,10 +449,15 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 //                startActivity(intent);
                 break;
             case R.id.imageSousuo:
-//                UpgradeUtils.checkUpgrade(context);
-//                Intent intent1 = new Intent();
-//                intent1.setClass(context, LoginActivity.class);
-//                startActivity(intent1);
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(getActivity(), XiaoXiActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

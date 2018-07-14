@@ -127,6 +127,10 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         webView.setWebViewClient(new WebViewClient());//覆盖第三方浏览器
         mSettings = webView.getSettings();
         mSettings.setJavaScriptEnabled(true);
+        mSettings.setBlockNetworkImage(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         mSettings.setUseWideViewPort(true);
         mSettings.setLoadWithOverviewMode(true);
     }

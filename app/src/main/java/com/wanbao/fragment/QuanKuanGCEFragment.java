@@ -4,6 +4,8 @@ package com.wanbao.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,6 +82,7 @@ public class QuanKuanGCEFragment extends PSFragment {
     private String body_scratches;
     private String insurance;
     private Calculator_Index cIndex;
+    private int lenth;
 
     public QuanKuanGCEFragment() {
         // Required empty public constructor
@@ -115,23 +118,27 @@ public class QuanKuanGCEFragment extends PSFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        editMoney.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                money=s.toString();
-//                getCalculator();
-//            }
-//        });
+        editMoney.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (lenth==s.length()) {
+                    return;
+                }else {
+                    money=s.toString();
+                    getCalculator();
+                }
+            }
+        });
     }
 
     @Override
@@ -169,7 +176,6 @@ public class QuanKuanGCEFragment extends PSFragment {
         HttpApi.post(context, getOkObjectCalculator(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
-                showDialog("");
             }
 
             @Override
@@ -189,6 +195,7 @@ public class QuanKuanGCEFragment extends PSFragment {
                         textBookVal.setText(cIndex.getBookVal());
                         textCarName.setText(cIndex.getCar_name());
                         editMoney.setText(cIndex.getMoney());
+                        lenth=editMoney.getText().toString().length();
                         textDex1N.setText(cIndex.getDes1().getN());
                         textDex1V.setText(cIndex.getDes1().getV());
                         textDex2N.setText(cIndex.getDes2().getN());

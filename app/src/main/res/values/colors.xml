@@ -6,7 +6,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="light_gray">#cfcfcf</color>
-    <color name="basic_color">#e3c787</color>
+    <color name="basic_color">#ff5b52</color>
 
     <color name="viewfinder_frame">#ff000000</color>
     <color name="viewfinder_laser">#ffff0000</color>

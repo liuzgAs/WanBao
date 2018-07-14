@@ -4,6 +4,8 @@ package com.wanbao.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,6 +108,7 @@ public class DaiKuanGCFragment extends PSFragment {
     private String year;
     ArrayList<String> viewDes10s=new ArrayList<>();
     ArrayList<String> viewDes20s=new ArrayList<>();
+    private int lenth;
 
     private Calculator_Loan cIndex;
     public DaiKuanGCFragment() {
@@ -136,6 +139,31 @@ public class DaiKuanGCFragment extends PSFragment {
             getCalculator();
         }
         return view;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        editMoney.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (lenth==s.length()) {
+                    return;
+                }else {
+                    money=s.toString();
+                    getCalculator();
+                }
+            }
+        });
     }
 
     @Override
@@ -173,7 +201,6 @@ public class DaiKuanGCFragment extends PSFragment {
         HttpApi.post(context, getOkObjectCalculator(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
-                showDialog("");
             }
 
             @Override
@@ -193,6 +220,7 @@ public class DaiKuanGCFragment extends PSFragment {
                         textBookVal.setText(cIndex.getBookVal());
                         textCarName.setText(cIndex.getCar_name());
                         editMoney.setText(cIndex.getMoney());
+                        lenth=editMoney.getText().toString().length();
                         textDex1N.setText(cIndex.getDes1().getN());
                         textDex1V.setText(cIndex.getDes1().getV());
                         textDex2N.setText(cIndex.getDes2().getN());

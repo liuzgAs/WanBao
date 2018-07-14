@@ -176,7 +176,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:src="@mipmap/fuwu01" />
+                    android:src="@mipmap/icon_ershouche7" />
 
                 <TextView
                     android:textStyle="bold"
@@ -216,7 +216,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:src="@mipmap/fuwu02" />
+                    android:src="@mipmap/icon_ershouche8" />
 
                 <TextView
                     android:textStyle="bold"
@@ -256,7 +256,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:src="@mipmap/fuwu03" />
+                    android:src="@mipmap/icon_ershouche9" />
 
                 <TextView
                     android:textStyle="bold"
@@ -296,7 +296,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:src="@mipmap/fuwu04" />
+                    android:src="@mipmap/icon_ershouche10" />
 
                 <TextView
                     android:textStyle="bold"
