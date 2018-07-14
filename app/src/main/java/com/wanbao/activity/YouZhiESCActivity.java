@@ -672,6 +672,7 @@ public class YouZhiESCActivity extends BaseActivity implements SwipeRefreshLayou
         HttpApi.postJson(context, url, getOkObject(), new HttpApi.NCallBack() {
             @Override
             public void onSuccess(String s) {
+                LogUtils.e("Buyer",s);
                 try {
                     page++;
                     Buyer buyer = GsonUtils.parseJSON(s, Buyer.class);

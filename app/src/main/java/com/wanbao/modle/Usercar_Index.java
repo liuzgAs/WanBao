@@ -11,7 +11,7 @@ import java.util.List;
 public class Usercar_Index {
 
     /**
-     * data : [{"cid":1,"km":20000,"year_end":1470585600,"insurance_end":1470585600,"title":"Q3 2018","des":"Q3 2018 Q3 2018","img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","des2":"自动1.6 | 5座 | 指导价18.88万","intro":[{"n":"行驶里程","v":"20000km"},{"n":"年审到期时间","v":"2016-08-08."},{"n":"保险到期时间","v":"2016-08-08."}]}]
+     * data : [{"id":51,"cid":51,"car_no":"闽D55555","km":5000,"title":"2018款 经典版 1.5T 手动启航版","des":"2018款 经典版 1.5T 手动启航版","img":"http://p7b347z0p.bkt.clouddn.com/image/jiwx641c_4he44pg1yjp25b33593690144.jpg","des2":"闽D55555 手动1.5升 涡轮增压 156马力 | 5座","stateDes":"已认证","isv":1,"intro":[{"n":"行驶里程","v":"5000km"},{"n":"年审到期时间","v":"未填写"},{"n":"保险到期时间","v":"未填写"}]}]
      * page : {"page":1,"pageTotal":1,"pageSize":10,"dataTotal":1}
      * status : 1
      * info : 返回成功！
@@ -102,26 +102,31 @@ public class Usercar_Index {
 
     public static class DataBean {
         /**
-         * cid : 1
-         * km : 20000
-         * year_end : 1470585600
-         * insurance_end : 1470585600
-         * title : Q3 2018
-         * des : Q3 2018 Q3 2018
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg
-         * des2 : 自动1.6 | 5座 | 指导价18.88万
-         * intro : [{"n":"行驶里程","v":"20000km"},{"n":"年审到期时间","v":"2016-08-08."},{"n":"保险到期时间","v":"2016-08-08."}]
+         * id : 51
+         * cid : 51
+         * car_no : 闽D55555
+         * km : 5000
+         * title : 2018款 经典版 1.5T 手动启航版
+         * des : 2018款 经典版 1.5T 手动启航版
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jiwx641c_4he44pg1yjp25b33593690144.jpg
+         * des2 : 闽D55555 手动1.5升 涡轮增压 156马力 | 5座
+         * stateDes : 已认证
+         * isv : 1
+         * intro : [{"n":"行驶里程","v":"5000km"},{"n":"年审到期时间","v":"未填写"},{"n":"保险到期时间","v":"未填写"}]
          */
+
         private int id;
         private int cid;
+        private String car_no;
         private int km;
-        private int year_end;
-        private int insurance_end;
         private String title;
         private String des;
         private String img;
         private String des2;
+        private String stateDes;
+        private int isv;
         private List<IntroBean> intro;
+
         public int getId() {
             return id;
         }
@@ -129,6 +134,7 @@ public class Usercar_Index {
         public void setId(int id) {
             this.id = id;
         }
+
         public int getCid() {
             return cid;
         }
@@ -137,28 +143,20 @@ public class Usercar_Index {
             this.cid = cid;
         }
 
+        public String getCar_no() {
+            return car_no;
+        }
+
+        public void setCar_no(String car_no) {
+            this.car_no = car_no;
+        }
+
         public int getKm() {
             return km;
         }
 
         public void setKm(int km) {
             this.km = km;
-        }
-
-        public int getYear_end() {
-            return year_end;
-        }
-
-        public void setYear_end(int year_end) {
-            this.year_end = year_end;
-        }
-
-        public int getInsurance_end() {
-            return insurance_end;
-        }
-
-        public void setInsurance_end(int insurance_end) {
-            this.insurance_end = insurance_end;
         }
 
         public String getTitle() {
@@ -193,6 +191,22 @@ public class Usercar_Index {
             this.des2 = des2;
         }
 
+        public String getStateDes() {
+            return stateDes;
+        }
+
+        public void setStateDes(String stateDes) {
+            this.stateDes = stateDes;
+        }
+
+        public int getIsv() {
+            return isv;
+        }
+
+        public void setIsv(int isv) {
+            this.isv = isv;
+        }
+
         public List<IntroBean> getIntro() {
             return intro;
         }
@@ -204,7 +218,7 @@ public class Usercar_Index {
         public static class IntroBean {
             /**
              * n : 行驶里程
-             * v : 20000km
+             * v : 5000km
              */
 
             private String n;

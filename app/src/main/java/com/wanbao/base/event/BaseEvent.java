@@ -39,6 +39,7 @@ public class BaseEvent {
 	public final static String Third_Part = "Third_Part";
 	public final static String Iscn = "Iscn";
 	public final static String Body_Scratches = "Body_Scratches";
+	public final static String MyMessage = "MyMessage";
 
 
 	private String action;

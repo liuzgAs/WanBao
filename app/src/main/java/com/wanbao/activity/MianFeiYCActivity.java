@@ -109,7 +109,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
     @Override
     protected void initIntent() {
-//        id=getIntent().getStringExtra("id");
+        id=getIntent().getStringExtra("id");
     }
 
     @Override

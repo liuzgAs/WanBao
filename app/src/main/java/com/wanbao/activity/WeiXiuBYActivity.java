@@ -211,6 +211,7 @@ public class WeiXiuBYActivity extends BaseActivity {
             case R.id.viewXuanZheCX:
                 intent = new Intent();
                 intent.putExtra("type", 1);
+                intent.putExtra("state", "10");
                 intent.setClass(context, AiCheDangAnActivity.class);
                 startActivity(intent);
                 break;

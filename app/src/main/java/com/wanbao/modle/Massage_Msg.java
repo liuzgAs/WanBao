@@ -11,8 +11,8 @@ import java.util.List;
 public class Massage_Msg {
 
     /**
-     * data : [{"id":64,"title":"test11111","create_time":"2018-03-10","des":"","url":"","url_title":"","img":"","express_no":""},{"id":63,"title":"test11111","create_time":"2018-03-10","des":"","url":"","url_title":"","img":"","express_no":""},{"id":56,"title":"订单已发货","create_time":"2018-03-10","des":"您的订单已发货订单已发货","url":"","url_title":"","img":"","express_no":""},{"id":49,"title":"订单已发货","create_time":"2018-03-10","des":"您的订单已发货订单已发货","url":"","url_title":"","img":"","express_no":""},{"id":47,"title":"因条件不符，卖家已驳回您的申请","create_time":"2018-03-10","des":"您申请的退款 因条件不符，卖家已驳回您的申请","url":"","url_title":"","img":"","express_no":""},{"id":45,"title":"订单已发货","create_time":"2018-03-10","des":"您的订单已发货订单已发货","url":"","url_title":"","img":"","express_no":""}]
-     * page : {"page":1,"pageTotal":1,"pageSize":15,"dataTotal":6}
+     * data : [{"id":7,"title":"有新的维保订单请注意接车检查","create_time":"2018-07-14","des":"有新的维保订单请注意接车检查","code":"","item_id":0,"uid":13,"url":"","url_title":"","img":"","express_no":""},{"id":5,"title":"有新的维保订单请注意接车检查","create_time":"2018-07-14","des":"有新的维保订单请注意接车检查","code":"","item_id":0,"uid":13,"url":"","url_title":"","img":"","express_no":""},{"id":3,"title":"有新的维保订单请注意接车检查","create_time":"2018-07-14","des":"有新的维保订单请注意接车检查","code":"","item_id":0,"uid":13,"url":"","url_title":"","img":"","express_no":""}]
+     * page : {"page":1,"pageTotal":1,"pageSize":15,"dataTotal":3}
      * status : 1
      * info : 获取成功
      */
@@ -59,7 +59,7 @@ public class Massage_Msg {
          * page : 1
          * pageTotal : 1
          * pageSize : 15
-         * dataTotal : 6
+         * dataTotal : 3
          */
 
         private int page;
@@ -102,10 +102,13 @@ public class Massage_Msg {
 
     public static class DataBean {
         /**
-         * id : 64
-         * title : test11111
-         * create_time : 2018-03-10
-         * des :
+         * id : 7
+         * title : 有新的维保订单请注意接车检查
+         * create_time : 2018-07-14
+         * des : 有新的维保订单请注意接车检查
+         * code :
+         * item_id : 0
+         * uid : 13
          * url :
          * url_title :
          * img :
@@ -116,6 +119,9 @@ public class Massage_Msg {
         private String title;
         private String create_time;
         private String des;
+        private String code;
+        private int item_id;
+        private int uid;
         private String url;
         private String url_title;
         private String img;
@@ -151,6 +157,30 @@ public class Massage_Msg {
 
         public void setDes(String des) {
             this.des = des;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public int getItem_id() {
+            return item_id;
+        }
+
+        public void setItem_id(int item_id) {
+            this.item_id = item_id;
+        }
+
+        public int getUid() {
+            return uid;
+        }
+
+        public void setUid(int uid) {
+            this.uid = uid;
         }
 
         public String getUrl() {

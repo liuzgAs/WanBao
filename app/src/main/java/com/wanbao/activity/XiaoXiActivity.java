@@ -1,9 +1,11 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,6 +161,9 @@ public class XiaoXiActivity extends BaseActivity implements SwipeRefreshLayout.O
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                if (!TextUtils.isEmpty(adapter.getItem(position).getCode())){
+                    goMessage(adapter.getItem(position));
+                }
             }
         });
         recyclerView.setRefreshListener(this);
@@ -247,5 +252,140 @@ public class XiaoXiActivity extends BaseActivity implements SwipeRefreshLayout.O
     @OnClick(R.id.imageback)
     public void onViewClicked() {
         finish();
+    }
+    private void goMessage(Massage_Msg.DataBean myMessage){
+        Intent intent;
+        switch (myMessage.getCode()) {
+            case "web":
+                intent=new Intent();
+                intent.putExtra("title","消息");
+                intent.putExtra("mUrl",myMessage.getUrl());
+                intent.setClass(context, WebViewActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_i":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_my":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_find":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_money":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_sos":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_mo":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, WeiBaoDDActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_mo_info":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, WBDingDanXQActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_to":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, ShiJiaDDActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_to_info":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, ShiJiaDDXQActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_user_msg":
+                break;
+            case "app_user_account":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, WoDeJKActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_team_order_info":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, MianFeiYCActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_like_car":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, AiCheDangAnActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_comment":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, LiJiPPActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_money_recom_log":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, TuiJianJLActivity.class);
+                context.startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 }

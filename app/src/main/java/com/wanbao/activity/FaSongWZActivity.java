@@ -1,6 +1,7 @@
 package com.wanbao.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.StateButton;
@@ -34,6 +36,7 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Sos_Index;
+import com.wanbao.modle.Usercar_Index;
 
 import java.util.HashMap;
 
@@ -130,6 +133,17 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     }
 
     @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.Choose_MyCar.equals(event.getAction())) {
+            Usercar_Index.DataBean usercar_Index = (Usercar_Index.DataBean) event.getData();
+            if (usercar_Index != null) {
+                textCarName.setText(usercar_Index.getTitle());
+                textCarNo.setText(usercar_Index.getCar_no());
+            }
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
@@ -197,30 +211,23 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
         aMap.setMyLocationEnabled(true);
     }
 
-    @OnClick({R.id.viewName, R.id.imageback, R.id.fasong, R.id.address})
+    @OnClick({R.id.viewChooseCar,R.id.viewName, R.id.imageback, R.id.fasong, R.id.address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.viewChooseCar:
+                Intent intent = new Intent();
+                intent.putExtra("type", 1);
+                intent.putExtra("state", "10");
+                intent.setClass(context, AiCheDangAnActivity.class);
+                startActivity(intent);
+                break;
             case R.id.viewName:
-//                final EditDialogText editDialog = new EditDialogText(context, "请输入名称", "", "确认", "取消");
-//                editDialog.setClicklistener(new EditDialogText.ClickListenerInterface() {
-//                    @Override
-//                    public void doConfirm(String intro) {
-//                        editDialog.dismiss();
-//                        textName.setText(intro);
-//                    }
-//
-//                    @Override
-//                    public void doCancel() {
-//                        editDialog.dismiss();
-//                    }
-//                });
-//                editDialog.show();
                 break;
             case R.id.imageback:
                 finish();
                 break;
             case R.id.fasong:
-                if (TextUtils.isEmpty(textName.getText().toString())){
+                if (TextUtils.isEmpty(textName.getText().toString())) {
                     ToastUtils.showShort("请输入联系人姓名！");
                     return;
                 }

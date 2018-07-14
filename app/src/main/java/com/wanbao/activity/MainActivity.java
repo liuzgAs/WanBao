@@ -1,16 +1,19 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseNoLeftActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.tools.DeviceUtils;
 import com.wanbao.base.util.UpgradeUtils;
@@ -20,6 +23,7 @@ import com.wanbao.fragment.MainFragment;
 import com.wanbao.fragment.MakeMoneyFragment;
 import com.wanbao.fragment.MyCarFragment;
 import com.wanbao.fragment.SosFragment;
+import com.wanbao.modle.MyMessage;
 import com.wanbao.ui.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -84,6 +88,14 @@ public class MainActivity extends BaseNoLeftActivity {
         UpgradeUtils.checkUpgrade(context, Constant.HOST+Constant.Url.Index_Version);
     }
 
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.MyMessage.equals(event.getAction())){
+            MyMessage myMessage=(MyMessage) event.getData();
+            goMessage(myMessage);
+        }
+    }
+
     private void tl_2() {
         ctlayout.setTabData(mTabEntities);
         ctlayout.setOnTabSelectListener(new OnTabSelectListener() {
@@ -132,6 +144,141 @@ public class MainActivity extends BaseNoLeftActivity {
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);
+        }
+    }
+    private void goMessage(MyMessage myMessage){
+        Intent intent;
+        switch (myMessage.getCode()) {
+            case "web":
+                intent=new Intent();
+                intent.putExtra("title","消息");
+                intent.putExtra("mUrl",myMessage.getUrl());
+                intent.setClass(context, WebViewActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_i":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_my":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_find":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_money":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_sos":
+                intent=new Intent();
+                intent.setClass(context, MainActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_mo":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, WeiBaoDDActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_mo_info":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, WBDingDanXQActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_to":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, ShiJiaDDActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_to_info":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, ShiJiaDDXQActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_user_msg":
+                break;
+            case "app_user_account":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, WoDeJKActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_team_order_info":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, MianFeiYCActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_like_car":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, AiCheDangAnActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_comment":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, LiJiPPActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_money_recom_log":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.setClass(context, TuiJianJLActivity.class);
+                context.startActivity(intent);
+                break;
+            default:
+                break;
         }
     }
 }

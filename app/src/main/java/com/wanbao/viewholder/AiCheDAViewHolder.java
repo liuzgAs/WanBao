@@ -33,7 +33,10 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
     private final ImageView imageCar;
     private final TextView textName;
     private final TextView textDes;
+    private final TextView textState;
+    private final View viewAiChe;
     private final TextView textDes2;
+
     private final ListView listView;
     private final Button btnTjzx;
     private final Button btnPzxx;
@@ -48,6 +51,9 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
         imageCar = $(R.id.imageCar);
         textName = $(R.id.textName);
         textDes = $(R.id.textDes);
+        viewAiChe = $(R.id.viewAiChe);
+
+        textState = $(R.id.textState);
         textDes2 = $(R.id.textDes2);
         listView = $(R.id.listView);
         btnTjzx = $(R.id.btnTjzx);
@@ -64,6 +70,12 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
         myAdapter=new MyAdapter(data);
         listView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
+        textState.setText(data.getStateDes());
+        if (data.getIsv()==1){
+            viewAiChe.setVisibility(View.VISIBLE);
+        }else {
+            viewAiChe.setVisibility(View.GONE);
+        }
         GlideApp.with(getContext())
                 .asBitmap()
                 .load(data.getImg())

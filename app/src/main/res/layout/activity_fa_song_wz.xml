@@ -42,8 +42,10 @@
                 android:textSize="@dimen/sp_14" />
 
             <LinearLayout
+                android:id="@+id/viewChooseCar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10">

@@ -179,12 +179,13 @@
             android:layout_height="80dp"
             android:orientation="horizontal">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView48"
@@ -193,16 +194,12 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
                     android:src="@mipmap/icon_ershouche3" />
 
                 <TextView
                     android:id="@+id/textArchives0000"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView48"
-                    android:layout_alignStart="@+id/imageView48"
-                    android:layout_below="@+id/imageView48"
                     android:layout_marginTop="5dp"
                     android:text="2015年02月上牌"
                     android:textColor="@color/new_secondary_text"
@@ -212,39 +209,30 @@
                     android:id="@+id/textArchives0001"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textArchives0000"
-                    android:layout_alignStart="@+id/textArchives0000"
-                    android:layout_below="@+id/textArchives0000"
                     android:layout_marginTop="2dp"
                     android:text="2年8个月"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView49"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
                     android:src="@mipmap/icon_ershouche1" />
 
                 <TextView
                     android:id="@+id/textArchives0100"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView49"
-                    android:layout_alignStart="@+id/imageView49"
-                    android:layout_below="@+id/imageView49"
                     android:layout_marginTop="5dp"
                     android:text="表显里程"
                     android:textColor="@color/new_secondary_text"
@@ -254,39 +242,30 @@
                     android:id="@+id/textArchives0101"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textArchives0100"
-                    android:layout_alignStart="@+id/textArchives0100"
-                    android:layout_below="@+id/textArchives0100"
                     android:layout_marginTop="2dp"
                     android:text="2.6万公里"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView50"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
                     android:src="@mipmap/icon_ershouche2" />
 
                 <TextView
                     android:id="@+id/textArchives0200"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView50"
-                    android:layout_alignStart="@+id/imageView50"
-                    android:layout_below="@+id/imageView50"
                     android:layout_marginTop="5dp"
                     android:text="排放标准"
                     android:textColor="@color/new_secondary_text"
@@ -296,14 +275,11 @@
                     android:id="@+id/textArchives0201"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textArchives0200"
-                    android:layout_alignStart="@+id/textArchives0200"
-                    android:layout_below="@+id/textArchives0200"
                     android:layout_marginTop="2dp"
                     android:text="欧5"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -311,30 +287,24 @@
             android:layout_height="80dp"
             android:orientation="horizontal">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView51"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
                     android:src="@mipmap/icon_ershouche5" />
 
                 <TextView
                     android:id="@+id/textArchives0300"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView51"
-                    android:layout_alignStart="@+id/imageView51"
-                    android:layout_below="@+id/imageView51"
                     android:layout_marginTop="5dp"
                     android:text="上架时间"
                     android:textColor="@color/new_secondary_text"
@@ -344,39 +314,30 @@
                     android:id="@+id/textArchives0301"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textArchives0300"
-                    android:layout_alignStart="@+id/textArchives0300"
-                    android:layout_below="@+id/textArchives0300"
                     android:layout_marginTop="2dp"
                     android:text="17天前"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView52"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
                     android:src="@mipmap/icon_ershouche4" />
 
                 <TextView
                     android:id="@+id/textArchives0400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView52"
-                    android:layout_alignStart="@+id/imageView52"
-                    android:layout_below="@+id/imageView52"
                     android:layout_marginTop="5dp"
                     android:text="涡轮增压"
                     android:textColor="@color/new_secondary_text"
@@ -386,39 +347,30 @@
                     android:id="@+id/textArchives0401"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textArchives0400"
-                    android:layout_alignStart="@+id/textArchives0400"
-                    android:layout_below="@+id/textArchives0400"
                     android:layout_marginTop="2dp"
                     android:text="1.6L"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imageView53"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="20dp"
                     android:src="@mipmap/icon_ershouche6" />
 
                 <TextView
                     android:id="@+id/textArchives0500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView53"
-                    android:layout_alignStart="@+id/imageView53"
-                    android:layout_below="@+id/imageView53"
                     android:layout_marginTop="5dp"
                     android:text="所在城市"
                     android:textColor="@color/new_secondary_text"
@@ -428,14 +380,11 @@
                     android:id="@+id/textArchives0501"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/textArchives0500"
-                    android:layout_alignStart="@+id/textArchives0500"
-                    android:layout_below="@+id/textArchives0500"
                     android:layout_marginTop="2dp"
                     android:text="厦门"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

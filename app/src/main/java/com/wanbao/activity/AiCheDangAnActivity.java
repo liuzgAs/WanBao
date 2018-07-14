@@ -52,6 +52,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
     private RecyclerArrayAdapter<Usercar_Index.DataBean> adapter;
     int page = 1;
     private int type;
+    private String state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
     @Override
     protected void initIntent() {
         type = getIntent().getIntExtra("type", 0);
+        state=getIntent().getStringExtra("state");
     }
 
 
@@ -278,6 +280,8 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("p", String.valueOf(page));
+        params.put("state",state);
+
         return new OkObject(params, url);
     }
 
