@@ -427,6 +427,10 @@ public class Constant {
          * 消息列表
          */
         public static final String Massage_Msg = "massage/msg";
+        /**
+         * 车队
+         */
+        public static final String User_Teamlog = "User/teamlog";
     }
 
     public static class SF{

@@ -3,11 +3,13 @@ package com.wanbao.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.ListDropDownAdapter;
@@ -33,14 +36,17 @@ import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Car_CarParam;
 import com.wanbao.modle.Car_CarStyle;
 import com.wanbao.modle.Car_Index;
 import com.wanbao.modle.OkObject;
+import com.wanbao.ui.MyEasyRecyclerView;
 import com.wanbao.viewholder.HotCarHolder;
 import com.wanbao.viewholder.XuanZheCXViewHolder;
 import com.wanbao.viewholder.XzCarCarParamDHolder;
+import com.wanbao.viewholder.YearViewHolder;
 import com.yyydjk.library.DropDownMenu;
 
 import org.greenrobot.eventbus.EventBus;
@@ -68,6 +74,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
     @BindView(R.id.dropDownMenu)
     DropDownMenu dropDownMenu;
     private RecyclerArrayAdapter<Car_Index.DataBean> adapter;
+    private RecyclerArrayAdapter<Car_Index.YearBean> adapterN;
     private RecyclerArrayAdapter<Car_CarParam.HotbrandBean> hadapter;
     private RecyclerArrayAdapter<Car_CarStyle.DataBean> adaptercx;
     private String bsid = "";
@@ -85,6 +92,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
     private ListView jiagelist;
     private String price;
     private String sort;
+    private String year;
     private ListDropDownAdapter paixuAdapter;
     private  ListDropDownAdapter jiageAdapter;
     private ArrayList<String> paixu;
@@ -93,7 +101,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xuan_zhe_che_xsj);
+        setContentView(R.layout.activity_xuan_zhe_che_x);
         ButterKnife.bind(this);
         init();
     }
@@ -229,12 +237,14 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
         });
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             private EasyRecyclerView hrecyclerView;
-
+            private MyEasyRecyclerView recyclerViewN;
 
             @Override
             public View onCreateView(ViewGroup parent) {
-                View view = LayoutInflater.from(context).inflate(R.layout.header_xuanzhepp, null);
+                View view = LayoutInflater.from(context).inflate(R.layout.header_xuanzheppx, null);
                 hrecyclerView = view.findViewById(R.id.recyclerViewHead);
+                recyclerViewN = view.findViewById(R.id.recyclerViewN);
+
                 hrecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
                 hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Car_CarParam.HotbrandBean>(context) {
 
@@ -261,6 +271,44 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
                             textCheMing.setText(hadapter.getItem(position).getName());
                             drawerLayout.openDrawer(GravityCompat.END);
                         }
+                    }
+                });
+                recyclerViewN.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                recyclerViewN.setAdapter(adapterN = new RecyclerArrayAdapter<Car_Index.YearBean>(context) {
+
+                    @Override
+                    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+                        int layout = R.layout.item_year;
+                        return new YearViewHolder(parent, layout);
+                    }
+                });
+                SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(12, context));
+                spaceDecoration.setPaddingEdgeSide(false);
+                recyclerViewN.addItemDecoration(spaceDecoration);
+                recyclerViewN.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                    }
+                });
+
+                recyclerViewN.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(RecyclerView recycler, int dx, int dy) {
+                        super.onScrolled(recycler, dx, dy);
+                        recyclerViewN.setScroll(true);
+                    }
+                });
+                recyclerViewN.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
+                    @Override
+                    public void daoDiLe() {
+                    }
+                });
+                adapterN.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        year=adapterN.getItem(position).getV()+"";
+                        onRefresh();
                     }
                 });
                 return view;
@@ -343,7 +391,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
         itemDecoration.setDrawLastItem(false);
         recyclerViewCheXi.addItemDecoration(itemDecoration);
         recyclerViewCheXi.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewCheXi.setAdapter(adaptercx = new RecyclerArrayAdapter<Car_CarStyle.DataBean>(context) {
+        recyclerViewCheXi.setAdapterWithProgress(adaptercx = new RecyclerArrayAdapter<Car_CarStyle.DataBean>(context) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_xuanzhechexi;
@@ -358,6 +406,28 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
                     drawerLayout.closeDrawers();
                 }
                 onRefresh();
+            }
+        });
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                adaptercx.clear();
+                adaptercx.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
             }
         });
     }
@@ -448,6 +518,8 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
                     Car_Index car_index = GsonUtils.parseJSON(s, Car_Index.class);
                     int status = car_index.getStatus();
                     if (status == 1) {
+                        adapterN.clear();
+                        adapterN.addAll(car_index.getYear());
                         adapter.clear();
                         adapter.addAll(car_index.getData());
                     } else {
@@ -502,7 +574,7 @@ public class XuanZheCheXActivity extends BaseActivity implements SwipeRefreshLay
         params.put("p", String.valueOf(page));
         params.put("price", price);
         params.put("sort", sort);
-
+        params.put("year", year);
         return new OkObject(params, url);
     }
 

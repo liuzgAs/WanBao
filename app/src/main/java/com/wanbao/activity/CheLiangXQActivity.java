@@ -66,7 +66,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
     private CarDetails.CarBean carBean;
     private CarDetails.StoreBean storeBean;
     private CarDetails.videoBean video;
-
+    private CarDetails carDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +167,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
             private TextView textIntro;
             private TextView textName;
             private ImageView imageLogo;
-            private ImageView textJiSuanQi;
+            private View viewJiSuanQi;
 
             private TextView textPurchasePrice;
             private TextView textPrice;
@@ -237,7 +237,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
                 imageLogo = header_che_liang_xq.findViewById(R.id.imageLogo);
                 textName = header_che_liang_xq.findViewById(R.id.textName);
                 textIntro = header_che_liang_xq.findViewById(R.id.textIntro);
-                textJiSuanQi = header_che_liang_xq.findViewById(R.id.textJiSuanQi);
+                viewJiSuanQi = header_che_liang_xq.findViewById(R.id.viewJiSuanQi);
 
                 jzVideoPlayerStandard = header_che_liang_xq.findViewById(R.id.videoplayer);
                 jzVideoPlayerStandard.batteryLevel.setVisibility(View.GONE);
@@ -259,11 +259,12 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
 //                        startActivity(intent);
                     }
                 });
-                textJiSuanQi.setOnClickListener(new View.OnClickListener() {
+                viewJiSuanQi.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
                         intent.putExtra("id", String.valueOf(carBean.getId()));
+                        intent.putExtra("money", String.valueOf(carDetails.getMoney()));
                         intent.setClass(CheLiangXQActivity.this, JiSuanQEActivity.class);
                         startActivity(intent);
                     }
@@ -464,7 +465,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
             public void onSuccess(String s) {
                 LogUtils.e("车辆详情", s);
                 try {
-                    CarDetails carDetails = GsonUtils.parseJSON(s, CarDetails.class);
+                     carDetails = GsonUtils.parseJSON(s, CarDetails.class);
                     if (carDetails.getStatus() == 1) {
                         viewBar.getBackground().mutate().setAlpha(0);
                         imageShare.setVisibility(View.VISIBLE);

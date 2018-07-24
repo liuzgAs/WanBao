@@ -70,10 +70,13 @@ public class ZhanTingQCXQActivity extends BaseActivity {
     ListViewForScrollView listView;
     @BindView(R.id.textJiSuanQi)
     ImageView textJiSuanQi;
+    @BindView(R.id.viewJiSuanQi)
+    LinearLayout viewJiSuanQi;
     private String id;
     private WebSettings mSettings;
     private MySumAdapter mySumAdapter;
     private Showbrand_Car showbrand_car;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,13 +115,14 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         getCar();
     }
 
-    @OnClick({R.id.textJiSuanQi,R.id.imageback, R.id.linearCoupon})
+    @OnClick({R.id.imageback, R.id.linearCoupon, R.id.viewJiSuanQi})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.textJiSuanQi:
-                intent=new Intent(context,JiSuanQActivity.class);
-                intent.putExtra("id",id);
+            case R.id.viewJiSuanQi:
+                intent = new Intent(context, JiSuanQActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("money", String.valueOf(showbrand_car.getMoney()));
                 startActivity(intent);
                 break;
             case R.id.imageback:

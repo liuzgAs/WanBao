@@ -12,11 +12,12 @@ public class User_My {
 
 
     /**
-     * nickname : 测试
-     * headimg : http://p7b347z0p.bkt.clouddn.com/FgJkmWuKbHCG-NSGUrLCtpHOWTcQ
-     * data : {"img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","car_name":"Q3 2018","car_no":"闽F88888"}
-     * carNum : 8
-     * interest : [{"id":2,"name":"篮球"}]
+     * nickname : 15860026753
+     * headimg : https://www.wanbaoauto.com/Uploads/avstar.png
+     * data : {"img":"https://www.wanbaoauto.com/Uploads/car_img/car_img_3.jpg","car_name":"2018款 经典版 1.5T 手动启航版","car_no":"闽D55555"}
+     * carNum : 1
+     * interest : []
+     * car_team : {"is_show":1,"is_img":1,"headimg":["https://www.wanbaoauto.com/Uploads/avstar.png","https://www.wanbaoauto.com/Uploads/avstar.png"],"more_num":"+45","des":"暂无车队成员"}
      * status : 1
      * info : 返回成功！
      */
@@ -25,6 +26,7 @@ public class User_My {
     private String headimg;
     private DataBean data;
     private int carNum;
+    private CarTeamBean car_team;
     private int status;
     private String info;
     private List<InterestBean> interest;
@@ -61,6 +63,14 @@ public class User_My {
         this.carNum = carNum;
     }
 
+    public CarTeamBean getCar_team() {
+        return car_team;
+    }
+
+    public void setCar_team(CarTeamBean car_team) {
+        this.car_team = car_team;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -85,11 +95,37 @@ public class User_My {
         this.interest = interest;
     }
 
+    public static class InterestBean {
+        /**
+         * id : 2
+         * name : 篮球
+         */
+
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
     public static class DataBean {
         /**
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg
-         * car_name : Q3 2018
-         * car_no : 闽F88888
+         * img : https://www.wanbaoauto.com/Uploads/car_img/car_img_3.jpg
+         * car_name : 2018款 经典版 1.5T 手动启航版
+         * car_no : 闽D55555
          */
 
         private String img;
@@ -121,29 +157,59 @@ public class User_My {
         }
     }
 
-    public static class InterestBean {
+    public static class CarTeamBean {
         /**
-         * id : 2
-         * name : 篮球
+         * is_show : 1
+         * is_img : 1
+         * headimg : ["https://www.wanbaoauto.com/Uploads/avstar.png","https://www.wanbaoauto.com/Uploads/avstar.png"]
+         * more_num : +45
+         * des : 暂无车队成员
          */
 
-        private int id;
-        private String name;
+        private int is_show;
+        private int is_img;
+        private String more_num;
+        private String des;
+        private List<String> headimg;
 
-        public int getId() {
-            return id;
+        public int getIs_show() {
+            return is_show;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setIs_show(int is_show) {
+            this.is_show = is_show;
         }
 
-        public String getName() {
-            return name;
+        public int getIs_img() {
+            return is_img;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setIs_img(int is_img) {
+            this.is_img = is_img;
+        }
+
+        public String getMore_num() {
+            return more_num;
+        }
+
+        public void setMore_num(String more_num) {
+            this.more_num = more_num;
+        }
+
+        public String getDes() {
+            return des;
+        }
+
+        public void setDes(String des) {
+            this.des = des;
+        }
+
+        public List<String> getHeadimg() {
+            return headimg;
+        }
+
+        public void setHeadimg(List<String> headimg) {
+            this.headimg = headimg;
         }
     }
 }

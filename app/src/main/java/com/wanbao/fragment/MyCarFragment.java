@@ -31,9 +31,9 @@ import com.wanbao.activity.CheShouZiZhuanActivity;
 import com.wanbao.activity.GengDuoFWActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.SheZhiActivity;
-import com.wanbao.activity.ShiJiaDDActivity;
 import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
+import com.wanbao.activity.WoDeCheDuiActivity;
 import com.wanbao.activity.WoDeJKActivity;
 import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XinCheZTActivity;
@@ -48,6 +48,7 @@ import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_My;
 import com.wanbao.ui.CircleImageView;
 import com.wanbao.ui.MyEasyRecyclerView;
+import com.wanbao.viewholder.CheDuiImgViewHolder;
 import com.wanbao.viewholder.MyCarBQViewHolder;
 
 import java.util.HashMap;
@@ -121,8 +122,13 @@ public class MyCarFragment extends PSFragment {
     LinearLayout viewYZESC0;
     @BindView(R.id.viewSwitcher0)
     ViewSwitcher viewSwitcher0;
+    @BindView(R.id.recyclerViewcd)
+    MyEasyRecyclerView recyclerViewcd;
+    @BindView(R.id.textMoreNum)
+    TextView textMoreNum;
     private View view;
     private RecyclerArrayAdapter<User_My.InterestBean> adapter;
+    private RecyclerArrayAdapter<String> adaptercd;
 
     public static MyCarFragment newInstance() {
         MyCarFragment mf = new MyCarFragment();
@@ -150,34 +156,38 @@ public class MyCarFragment extends PSFragment {
     @Override
     public void fetchData() {
         initRecycler();
+        initRecyclercd();
         getMyCar();
     }
 
-    @OnClick({R.id.viewSCSJ0, R.id.viewPTGC0, R.id.viewYZESC0,R.id.btnBangD, R.id.textCheShouZZ, R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
+    @OnClick({R.id.viewSCSJ0, R.id.viewPTGC0, R.id.viewYZESC0, R.id.btnBangD, R.id.textCheShouZZ, R.id.aichetiyan, R.id.imageViewTouX, R.id.imageViewXX, R.id.imageViewSheZ, R.id.viewQBDD, R.id.viewDZF, R.id.viewDQR, R.id.viewDPJ, R.id.viewWXBY, R.id.viewYZESC, R.id.viewSCSJ, R.id.viewPTGC, R.id.viewGDFW, R.id.viewACDA, R.id.viewWDCD, R.id.cardViewHuiYuan})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.viewSCSJ0:
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
-                    intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent = new Intent();
-                intent.setClass(getActivity(), ShiJiaDDActivity.class);
+                intent.setClass(getActivity(), YouZhiESCActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewPTGC0:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
-                    intent = new Intent();
-                    intent.setClass(context, LoginActivity.class);
-                    startActivity(intent);
-                    return;
-                }
                 intent = new Intent();
-                intent.setClass(getActivity(), WoDeJKActivity.class);
+                intent.setClass(getActivity(), GengDuoFWActivity.class);
+                intent.putExtra("type", 1);
                 startActivity(intent);
+//                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+//                    intent = new Intent();
+//                    intent.setClass(context, LoginActivity.class);
+//                    startActivity(intent);
+//                    return;
+//                }
+//                intent = new Intent();
+//                intent.setClass(getActivity(), WoDeJKActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.viewYZESC0:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
@@ -352,6 +362,15 @@ public class MyCarFragment extends PSFragment {
                 startActivity(intent);
                 break;
             case R.id.viewWDCD:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(getActivity(), WoDeCheDuiActivity.class);
+                startActivity(intent);
                 break;
             case R.id.cardViewHuiYuan:
                 break;
@@ -363,7 +382,7 @@ public class MyCarFragment extends PSFragment {
     @Override
     public void onEventMainThread(BaseEvent event) {
         if (event.getAction().equals(BaseEvent.Change_Data)) {
-           fetchData();
+            fetchData();
         }
     }
 
@@ -398,6 +417,42 @@ public class MyCarFragment extends PSFragment {
             }
         });
         recyclerView.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
+            @Override
+            public void daoDiLe() {
+            }
+        });
+    }
+    /**
+     * 初始化recyclerview
+     */
+    private void initRecyclercd() {
+        recyclerViewcd.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewcd.setAdapter(adaptercd = new RecyclerArrayAdapter<String>(context) {
+
+            @Override
+            public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+                int layout = R.layout.item_image_cd;
+                return new CheDuiImgViewHolder(parent, layout);
+            }
+        });
+        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(5, context));
+        spaceDecoration.setPaddingEdgeSide(false);
+        recyclerViewcd.addItemDecoration(spaceDecoration);
+        recyclerViewcd.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        recyclerViewcd.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recycler, int dx, int dy) {
+                super.onScrolled(recycler, dx, dy);
+                recyclerViewcd.setScroll(true);
+            }
+        });
+        recyclerViewcd.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
             @Override
             public void daoDiLe() {
             }
@@ -441,10 +496,20 @@ public class MyCarFragment extends PSFragment {
                                         .placeholder(R.mipmap.ic_empty)
                                         .into(imageCar);
                             }
+                            if (user_my.getCar_team().getIs_show()==1){
+                                viewWDCD.setVisibility(View.VISIBLE);
+                                adaptercd.clear();
+                                adaptercd.addAll(user_my.getCar_team().getHeadimg());
+                                if (user_my.getCar_team().getHeadimg().size()>0){
+                                    textMoreNum.setText(user_my.getCar_team().getMore_num());
+                                }
+                            }else {
+                                viewWDCD.setVisibility(View.GONE);
+                            }
                         }
-                        if (!TextUtils.isEmpty(user_my.getNickname())){
+                        if (!TextUtils.isEmpty(user_my.getNickname())) {
                             textName.setText(user_my.getNickname());
-                        }else {
+                        } else {
                             textName.setText("");
                         }
                         GlideApp.with(getContext())
@@ -456,7 +521,7 @@ public class MyCarFragment extends PSFragment {
                         ToastUtils.showShort(user_my.getInfo());
                     }
                 } catch (Exception e) {
-                    if(viewSwitcher!=null&&viewSwitcher0!=null){
+                    if (viewSwitcher != null && viewSwitcher0 != null) {
                         viewSwitcher.setDisplayedChild(0);
                         viewSwitcher0.setDisplayedChild(0);
                     }
@@ -466,7 +531,7 @@ public class MyCarFragment extends PSFragment {
             @Override
             public void onError() {
                 dismissDialog();
-                if(viewSwitcher!=null&&viewSwitcher0!=null){
+                if (viewSwitcher != null && viewSwitcher0 != null) {
                     viewSwitcher.setDisplayedChild(0);
                     viewSwitcher0.setDisplayedChild(0);
                 }

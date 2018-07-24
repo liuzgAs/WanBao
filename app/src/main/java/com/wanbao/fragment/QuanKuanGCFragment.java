@@ -47,6 +47,7 @@ public class QuanKuanGCFragment extends PSFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "cid";
+    private static final String ARG_PARAM2 = "money";
 
     @BindView(R.id.textBookTitle)
     TextView textBookTitle;
@@ -87,10 +88,11 @@ public class QuanKuanGCFragment extends PSFragment {
         // Required empty public constructor
     }
 
-    public static QuanKuanGCFragment newInstance(String param1) {
+    public static QuanKuanGCFragment newInstance(String param1,String param2) {
         QuanKuanGCFragment fragment = new QuanKuanGCFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -100,6 +102,7 @@ public class QuanKuanGCFragment extends PSFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             cid = getArguments().getString(ARG_PARAM1);
+            money= getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -151,6 +154,7 @@ public class QuanKuanGCFragment extends PSFragment {
             Car_Index.DataBean dataBean = (Car_Index.DataBean) event.getData();
             if (dataBean != null) {
 //                money=String.valueOf(Double.valueOf(dataBean.getPrice())*10000);
+                money="";
                 cid=String.valueOf(dataBean.getId());
                 getCalculator();
             }

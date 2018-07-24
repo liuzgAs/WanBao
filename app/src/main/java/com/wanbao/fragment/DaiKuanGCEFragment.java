@@ -47,6 +47,8 @@ import io.reactivex.disposables.Disposable;
  */
 public class DaiKuanGCEFragment extends PSFragment {
     private static final String ARG_PARAM1 = "cid";
+    private static final String ARG_PARAM2 = "money";
+
     @BindView(R.id.textBookTitle)
     TextView textBookTitle;
     @BindView(R.id.textBookVal)
@@ -114,10 +116,11 @@ public class DaiKuanGCEFragment extends PSFragment {
     public DaiKuanGCEFragment() {
     }
 
-    public static DaiKuanGCEFragment newInstance(String param1) {
+    public static DaiKuanGCEFragment newInstance(String param1,String param2) {
         DaiKuanGCEFragment fragment = new DaiKuanGCEFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -127,6 +130,7 @@ public class DaiKuanGCEFragment extends PSFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             cid = getArguments().getString(ARG_PARAM1);
+            money = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -177,6 +181,7 @@ public class DaiKuanGCEFragment extends PSFragment {
             Car_Index.DataBean dataBean = (Car_Index.DataBean) event.getData();
             if (dataBean != null) {
 //                money=String.valueOf(Double.valueOf(dataBean.getPrice())*10000);
+                money="";
                 cid=String.valueOf(dataBean.getId());
                 getCalculator();
             }

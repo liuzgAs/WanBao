@@ -28,6 +28,13 @@ public class GengDuoFWActivity extends BaseActivity {
     LinearLayout viewPTFQ;
     @BindView(R.id.viewCTJL)
     LinearLayout viewCTJL;
+    @BindView(R.id.viewBand)
+    LinearLayout viewBand;
+    @BindView(R.id.viewNoBand)
+    LinearLayout viewNoBand;
+    @BindView(R.id.viewJinKu)
+    LinearLayout viewJinKu;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +51,19 @@ public class GengDuoFWActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-
+        type = getIntent().getIntExtra("type", 0);
     }
 
     @Override
     protected void initViews() {
         titleText.setText("更多服务");
+        if (type == 0) {
+            viewBand.setVisibility(View.VISIBLE);
+            viewNoBand.setVisibility(View.GONE);
+        } else {
+            viewBand.setVisibility(View.GONE);
+            viewNoBand.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -57,10 +71,21 @@ public class GengDuoFWActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.imageback, R.id.viewSCSJ, R.id.viewPTFQ, R.id.viewCTJL})
+    @OnClick({R.id.viewJinKu,R.id.imageback, R.id.viewSCSJ, R.id.viewPTFQ, R.id.viewCTJL})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewJinKu:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(context, WoDeJKActivity.class);
+                startActivity(intent);
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -98,4 +123,5 @@ public class GengDuoFWActivity extends BaseActivity {
                 break;
         }
     }
+
 }

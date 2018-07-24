@@ -3,6 +3,7 @@ package com.wanbao.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -339,7 +340,7 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
         itemDecoration.setDrawLastItem(false);
         recyclerViewCheXi.addItemDecoration(itemDecoration);
         recyclerViewCheXi.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewCheXi.setAdapter(adaptercx = new RecyclerArrayAdapter<Car_CarStyle.DataBean>(context) {
+        recyclerViewCheXi.setAdapterWithProgress(adaptercx = new RecyclerArrayAdapter<Car_CarStyle.DataBean>(context) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_xuanzhechexi;
@@ -354,6 +355,28 @@ public class XuanZheCheXSJActivity extends BaseActivity implements SwipeRefreshL
                     drawerLayout.closeDrawers();
                 }
                 onRefresh();
+            }
+        });
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                adaptercx.clear();
+                adaptercx.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
             }
         });
     }

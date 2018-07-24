@@ -67,8 +67,10 @@
                     android:background="@color/background"></View>
 
                 <LinearLayout
+                    android:id="@+id/viewAddress"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
+                    android:background="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">
@@ -82,7 +84,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="1"
                         android:text="地点"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
@@ -90,8 +91,9 @@
                     <TextView
                         android:id="@+id/textAddress"
                         android:layout_width="wrap_content"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>

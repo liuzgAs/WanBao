@@ -1,5 +1,7 @@
 package com.wanbao.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -26,13 +29,16 @@ import com.wanbao.adapter.XinCheZTXQGlideImageLoader;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.util.AmapUtil;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.MapApps;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Showbrand_Info;
 import com.wanbao.viewholder.XinCheZTXQViewHolder;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -52,6 +58,7 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
     private Showbrand_Info showbrand_info;
     private String id;
     private MySumAdapter mySumAdapter;
+    private ArrayList<MapApps> mapApps;
 
 
     @Override
@@ -64,7 +71,7 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
 
     @Override
     protected void initSP() {
-
+        getAmp();
     }
 
     @Override
@@ -117,6 +124,7 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
             private TextView textName;
             private TextView textPicNum;
             private View linearCoupon;
+            private View viewAddress;
 
             @Override
             public View onCreateView(ViewGroup parent) {
@@ -133,6 +141,7 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
                 textName = view.findViewById(R.id.textName);
                 textPicNum = view.findViewById(R.id.textPicNum);
                 linearCoupon = view.findViewById(R.id.linearCoupon);
+                viewAddress = view.findViewById(R.id.viewAddress);
                 return view;
             }
 
@@ -168,6 +177,38 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
                     banner.setDelayTime(3000);
                     banner.start();
                 }
+                viewAddress.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mapApps == null) {
+                            return;
+                        }
+                        if (mapApps.size() == 0) {
+                            Toast.makeText(context, "未安装任何地图APP", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ArrayList<String> stringsmap = new ArrayList<>();
+                        for (int i = 0; i < mapApps.size(); i++) {
+                            stringsmap.add(mapApps.get(i).getName());
+                        }
+                        final String[] strings = (String[]) stringsmap.toArray(new String[stringsmap.size()]);
+                        if (strings == null) {
+                            return;
+                        }
+                        new AlertDialog.Builder(context)
+                                .setItems(strings, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        if (mapApps.get(i).getId() == 1) {
+                                            AmapUtil.getInstance().invokingBD(context,showbrand_info.getAddress());
+                                        } else if (mapApps.get(i).getId() == 2) {
+                                            AmapUtil.getInstance().invokingGD(context,showbrand_info.getAddress());
+                                        }
+                                    }
+                                })
+                                .show();
+                    }
+                });
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
@@ -350,5 +391,14 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
     protected void onDestroy() {
         super.onDestroy();
         dispose();
+    }
+    private void getAmp() {
+        mapApps = new ArrayList<>();
+        if (AmapUtil.isInstallByRead("com.baidu.BaiduMap")) {
+            mapApps.add(new MapApps(1, "百度地图", "com.baidu.BaiduMap"));
+        }
+        if (AmapUtil.isInstallByRead("com.autonavi.minimap")) {
+            mapApps.add(new MapApps(2, "高德地图", "com.autonavi.minimap"));
+        }
     }
 }

@@ -23,6 +23,7 @@ public class CarDetails {
 
     private CarBean car;
     private String info;
+    private double money;
     private ShareBean share;
     private int status;
     private StoreBean store;
@@ -45,6 +46,14 @@ public class CarDetails {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 
     public ShareBean getShare() {

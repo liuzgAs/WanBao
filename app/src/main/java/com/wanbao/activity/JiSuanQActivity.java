@@ -36,6 +36,7 @@ public class JiSuanQActivity extends BaseActivity {
     List<String> list = new ArrayList<>();
     private int currentItem;
     private String id;
+    private String money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class JiSuanQActivity extends BaseActivity {
     @Override
     protected void initIntent() {
         id=getIntent().getStringExtra("id");
+        money=getIntent().getStringExtra("money");
     }
 
     @Override
@@ -95,11 +97,11 @@ public class JiSuanQActivity extends BaseActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return QuanKuanGCFragment.newInstance(id);
+                return QuanKuanGCFragment.newInstance(id,money);
             } else if (position == 1) {
-                return DaiKuanGCFragment.newInstance(id);
+                return DaiKuanGCFragment.newInstance(id,money);
             } else {
-                return QuanKuanGCFragment.newInstance(id);
+                return QuanKuanGCFragment.newInstance(id,money);
             }
 
         }

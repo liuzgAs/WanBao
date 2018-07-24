@@ -134,16 +134,30 @@
                     android:text="车型亮点"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
-                <ImageView
-                    android:id="@+id/textJiSuanQi"
-                    android:layout_width="@dimen/dp_45"
-                    android:layout_height="@dimen/dp_45"
-                    android:padding="@dimen/dp_12"
+                <LinearLayout
+                    android:id="@+id/viewJiSuanQi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:src="@mipmap/icon_jisuanqi"
-                    android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_13" />
+                    android:background="?android:attr/selectableItemBackground"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/textJiSuanQi"
+                        android:layout_width="@dimen/dp_16"
+                        android:layout_height="@dimen/dp_16"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:src="@mipmap/icon_jisuanqi"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:text="计算器"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
 
             </LinearLayout>
 

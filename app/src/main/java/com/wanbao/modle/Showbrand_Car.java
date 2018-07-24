@@ -12,19 +12,21 @@ import java.util.List;
 public class Showbrand_Car implements Serializable{
 
     /**
-     * banner : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png","code":"","url":"","title":""}]
-     * title : 测试111
-     * des : 莆田财富中心广场一号门
-     * guide_price : 指导价：10.88万-12.66万
+     * banner : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jjryvqtk_3m13udu06phh5b4ffe857413e.png","code":"","url":"","title":""}]
+     * title : 奥迪
+     * des :
+     * guide_price : 指导价55万
+     * money : 550000
      * total_des : 共1张图
-     * imgs : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png","thumb":"http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png"}]
+     * imgs : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jjryvqtk_3m13udu06phh5b4ffe857413e.png","thumb":"http://p7b347z0p.bkt.clouddn.com/image/jjryvqtk_3m13udu06phh5b4ffe857413e.png"}]
      * coupon_show : 1
      * coupon_title : 车型优惠
-     * coupon_des : 满4000减200
-     * coupon : ["满4000减200","买一送十大礼包"]
-     * url :
+     * coupon_des :
+     * coupon : null
+     * url : https://www.wanbaoauto.com/api/article/showcar/id/7.html
      * store_title : 经销商信息
-     * store : [{"n":"三菱汽车宁波销售服务点","v":"宁波市雅虎大道666号","t":"0594-66666666"},{"n":"三菱汽车宁波销售服务点","v":"宁波市雅虎大道888号","t":"0594-88888888"}]
+     * store : [{"n":"福建省莆田市万宝万腾东南店","v":"莆田市荔城区西天尾镇城涵西大道889号","t":"0592-5218501"}]
+     * cid : 6
      * status : 1
      * info : 返回成功！
      */
@@ -32,17 +34,19 @@ public class Showbrand_Car implements Serializable{
     private String title;
     private String des;
     private String guide_price;
+    private double money;
     private String total_des;
     private int coupon_show;
     private String coupon_title;
     private String coupon_des;
+    private Object coupon;
     private String url;
     private String store_title;
+    private int cid;
     private int status;
     private String info;
     private List<BannerBean> banner;
     private List<ImgsBean> imgs;
-    private List<String> coupon;
     private List<StoreBean> store;
 
     public String getTitle() {
@@ -67,6 +71,14 @@ public class Showbrand_Car implements Serializable{
 
     public void setGuide_price(String guide_price) {
         this.guide_price = guide_price;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
     }
 
     public String getTotal_des() {
@@ -101,6 +113,14 @@ public class Showbrand_Car implements Serializable{
         this.coupon_des = coupon_des;
     }
 
+    public Object getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Object coupon) {
+        this.coupon = coupon;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -115,6 +135,14 @@ public class Showbrand_Car implements Serializable{
 
     public void setStore_title(String store_title) {
         this.store_title = store_title;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 
     public int getStatus() {
@@ -149,14 +177,6 @@ public class Showbrand_Car implements Serializable{
         this.imgs = imgs;
     }
 
-    public List<String> getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(List<String> coupon) {
-        this.coupon = coupon;
-    }
-
     public List<StoreBean> getStore() {
         return store;
     }
@@ -165,9 +185,9 @@ public class Showbrand_Car implements Serializable{
         this.store = store;
     }
 
-    public static class BannerBean implements Serializable{
+    public static class BannerBean {
         /**
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jjryvqtk_3m13udu06phh5b4ffe857413e.png
          * code :
          * url :
          * title :
@@ -211,10 +231,10 @@ public class Showbrand_Car implements Serializable{
         }
     }
 
-    public static class ImgsBean implements Serializable{
+    public static class ImgsBean {
         /**
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png
-         * thumb : http://p7b347z0p.bkt.clouddn.com/image/jinw4yiw_70k2shydjksg5b2b04ade1708.png
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jjryvqtk_3m13udu06phh5b4ffe857413e.png
+         * thumb : http://p7b347z0p.bkt.clouddn.com/image/jjryvqtk_3m13udu06phh5b4ffe857413e.png
          */
 
         private String img;
@@ -237,11 +257,11 @@ public class Showbrand_Car implements Serializable{
         }
     }
 
-    public static class StoreBean implements Serializable{
+    public static class StoreBean {
         /**
-         * n : 三菱汽车宁波销售服务点
-         * v : 宁波市雅虎大道666号
-         * t : 0594-66666666
+         * n : 福建省莆田市万宝万腾东南店
+         * v : 莆田市荔城区西天尾镇城涵西大道889号
+         * t : 0592-5218501
          */
 
         private String n;

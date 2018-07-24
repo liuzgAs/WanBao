@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.wanbao.base.AppContext;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -106,23 +107,6 @@ public class AmapUtil {
         context.startActivity(intent);
     }
 
-    public void invokingBD(Context context, String address) {
-
-        //  com.baidu.BaiduMap这是高德地图的包名
-        //调起百度地图客户端try {
-//        Intent intent = null;
-//        try {
-//            String uri = "intent://map/direction?origin=latlng:0,0|name:我的位置&destination=" + address + "&mode=drivingion=" + "城市" + "&referer=Autohome|GasStation#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end";
-//
-//            intent = Intent.getIntent(uri);
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-        Intent intent = new Intent();
-//        intent.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&address="+address));
-        intent.setData(Uri.parse("baidumap://map/direction?region=beijing&destination=" + address + "&mode=driving"));
-        context.startActivity(intent);
-    }
 
 
     /**
@@ -200,6 +184,21 @@ public class AmapUtil {
         intent.setData(Uri.parse("androidamap://keywordNavi?sourceApplication=softname&keyword=" + address + "&style=2"));
         context.startActivity(intent);
     }
+
+    public void invokingBD(Context context, String address){
+
+        //  com.baidu.BaiduMap这是高德地图的包名
+        //调起百度地图客户端try {
+        Intent intent;
+        try {
+            String uri = "intent://map/direction?origin=latlng:0,0|name:我的位置&destination=" +address + "&mode=drivingion=" + "城市" + "&referer=Autohome|GasStation#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end";
+            intent = Intent.getIntent(uri);
+            context.startActivity(intent);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     //    /**
