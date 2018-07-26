@@ -2,14 +2,15 @@ package com.wanbao.activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -90,14 +91,8 @@ public class WeiXiuBYActivity extends BaseActivity {
     RadioButton radioQt;
     @BindView(R.id.viewQt)
     LinearLayout viewQt;
-    @BindView(R.id.checkBoxBx)
-    CheckBox checkBoxBx;
-    @BindView(R.id.viewBx)
-    LinearLayout viewBx;
     @BindView(R.id.btnZf)
     Button btnZf;
-    @BindView(R.id.btnYc)
-    Button btnYc;
     @BindView(R.id.textXzcl)
     TextView textXzcl;
     @BindView(R.id.listView)
@@ -108,6 +103,14 @@ public class WeiXiuBYActivity extends BaseActivity {
     EditText editmsgDes;
     @BindView(R.id.viewBysc)
     LinearLayout viewBysc;
+    @BindView(R.id.textFreeN)
+    TextView textFreeN;
+    @BindView(R.id.textFreeV)
+    TextView textFreeV;
+    @BindView(R.id.textTeamDes)
+    TextView textTeamDes;
+    @BindView(R.id.viewFree)
+    LinearLayout viewFree;
     private Index_Store.DataBean index_store;
     private Usercar_Index.DataBean usercar_Index;
     private Index_Seller.DataBean index_Seller;
@@ -128,6 +131,7 @@ public class WeiXiuBYActivity extends BaseActivity {
     private String team_state = "0";
     private String team_id = "0";
     private String ctid = "0";
+    private boolean isShowDialog = true;
 
 
     @Override
@@ -145,7 +149,16 @@ public class WeiXiuBYActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-
+        HashMap<String, String> states=(HashMap) getIntent().getSerializableExtra("states");
+        if (states!=null){
+            team_state = states.get("team_state");
+            id = states.get("id");
+            if ("1".equals(team_state)) {
+                ctid = states.get("id");
+            } else if ("2".equals(team_state)) {
+                team_id = states.get("id");
+            }
+        }
     }
 
     @Override
@@ -153,6 +166,7 @@ public class WeiXiuBYActivity extends BaseActivity {
         titleText.setText("维修保养");
         myTcAdapter = new MyTcAdapter();
         listView.setAdapter(myTcAdapter);
+        getTc();
     }
 
     @Override
@@ -165,24 +179,13 @@ public class WeiXiuBYActivity extends BaseActivity {
         if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
             finish();
         }
-        if (BaseEvent.YangCheId.equals(event.getAction())) {
-            HashMap<String, String> states = (HashMap<String, String>) event.getData();
-            if (states != null) {
-                team_state=states.get("team_state");
-                id=states.get("id");
-                if ("1".equals(team_state)) {
-                    ctid=states.get("id");
-                } else if ("2".equals(team_state)) {
-                    team_id=states.get("id");
-                }
-            }
-        }
         if (BaseEvent.Choose_Dp.equals(event.getAction())) {
             index_store = (Index_Store.DataBean) event.getData();
             if (index_store != null) {
                 textDp.setText(index_store.getTitle());
                 store_id = String.valueOf(index_store.getId());
             }
+            getTc();
         }
         if (BaseEvent.Choose_MyCar.equals(event.getAction())) {
             usercar_Index = (Usercar_Index.DataBean) event.getData();
@@ -190,6 +193,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                 textXzcl.setText(usercar_Index.getTitle());
                 ucid = String.valueOf(usercar_Index.getCid());
             }
+            getTc();
         }
         if (BaseEvent.Choose_Xsgw.equals(event.getAction())) {
             index_Seller = (Index_Seller.DataBean) event.getData();
@@ -198,10 +202,9 @@ public class WeiXiuBYActivity extends BaseActivity {
                 seller_id = String.valueOf(index_Seller.getId());
             }
         }
-        getTc();
     }
 
-    @OnClick({R.id.viewBx, R.id.imageback, R.id.viewXuanZheCX, R.id.viewSzlc, R.id.viewXzdp, R.id.viewYyxm, R.id.viewYysj, R.id.viewFwry, R.id.viewZx, R.id.viewQt, R.id.btnZf, R.id.btnYc})
+    @OnClick({R.id.imageback, R.id.viewXuanZheCX, R.id.viewSzlc, R.id.viewXzdp, R.id.viewYyxm, R.id.viewYysj, R.id.viewFwry, R.id.viewZx, R.id.viewQt, R.id.btnZf, R.id.textFreeV})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -216,21 +219,6 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewSzlc:
-//                final EditDialog editDialog = new EditDialog(context, "行驶里程（km）", "", "确认", "取消");
-//                editDialog.setClicklistener(new EditDialog.ClickListenerInterface() {
-//                    @Override
-//                    public void doConfirm(String intro) {
-//                        editDialog.dismiss();
-//                        textLc.setText(intro+"km");
-//                        xslc=intro;
-//                    }
-//
-//                    @Override
-//                    public void doCancel() {
-//                        editDialog.dismiss();
-//                    }
-//                });
-//                editDialog.show();
                 break;
             case R.id.viewXzdp:
                 if (TextUtils.isEmpty(ucid)) {
@@ -243,6 +231,10 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewYyxm:
+                if (maintain_index.getMaintain_lock() == 1) {
+                    ToastUtils.showShort("不可选择！");
+                    return;
+                }
                 maintainString.clear();
                 for (int i = 0; i < maintain_index.getMaintain().size(); i++) {
                     maintainString.add(maintain_index.getMaintain().get(i).getName());
@@ -295,18 +287,10 @@ public class WeiXiuBYActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.viewZx:
-                if (maintain_index.getOnline_pay() == 1) {
-                    isOnline(1);
-                } else {
-                    ToastUtils.showShort("该套餐只能前台支付！");
-                }
+                isOnline(1);
                 break;
             case R.id.viewQt:
-                if ("0".equals(team_state)){
-                    isOnline(0);
-                }else {
-                    ToastUtils.showShort("拼团和参团订单只能线上支付！");
-                }
+                isOnline(0);
                 break;
             case R.id.btnZf:
                 if (TextUtils.isEmpty(textLc.getText().toString())) {
@@ -315,17 +299,11 @@ public class WeiXiuBYActivity extends BaseActivity {
                 }
                 getOrder();
                 break;
-            case R.id.btnYc:
+            case R.id.textFreeV:
                 intent = new Intent();
-                intent.setClass(context, MianFeiYCActivity.class);
+                intent.setClass(context, YangCheLBActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.viewBx:
-                if (isBx == 1) {
-                    isBx(0);
-                } else {
-                    isBx(1);
-                }
+                finish();
                 break;
             default:
                 break;
@@ -352,29 +330,84 @@ public class WeiXiuBYActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     maintain_index = GsonUtils.parseJSON(s, Maintain_Index.class);
                     if (maintain_index.getStatus() == 1) {
+                        if (maintain_index.getDataShow() == 1) {
+                            viewTc.setVisibility(View.VISIBLE);
+                            viewBysc.setVisibility(View.VISIBLE);
+                        } else {
+                            viewTc.setVisibility(View.GONE);
+                            viewBysc.setVisibility(View.GONE);
+                        }
+                        if (maintain_index.getPayMsgShow() == 1) {
+                            editmsgDes.setVisibility(View.VISIBLE);
+                        } else {
+                            editmsgDes.setVisibility(View.GONE);
+                        }
+                        if (maintain_index.getOnline_pay() == 1) {
+                            viewZx.setVisibility(View.VISIBLE);
+                            isOnline(maintain_index.getOnline_pay());
+                        } else {
+                            isOnline(0);
+                            viewZx.setVisibility(View.GONE);
+                        }
+                        if (maintain_index.getOffline_pay() == 1) {
+                            viewQt.setVisibility(View.VISIBLE);
+                        } else {
+                            viewQt.setVisibility(View.GONE);
+                        }
+                        if (maintain_index.getFreeShow() == 1) {
+                            viewFree.setVisibility(View.VISIBLE);
+                            textFreeN.setText(maintain_index.getFree().getN());
+                            textFreeV.setText(maintain_index.getFree().getV());
+                        } else {
+                            viewFree.setVisibility(View.GONE);
+                        }
+                        if (maintain_index.getTeamDes().size() > 0) {
+                            StringBuffer teamDes = new StringBuffer();
+                            for (int i = 0; i < maintain_index.getTeamDes().size(); i++) {
+                                if (i == 0) {
+                                    teamDes.append(maintain_index.getTeamDes().get(i));
+                                } else {
+                                    teamDes.append("\n" + maintain_index.getTeamDes().get(i));
+                                }
+                            }
+                            textTeamDes.setText(teamDes.toString());
+                        }
                         textXzcl.setText(maintain_index.getCar_name());
                         textDp.setText(maintain_index.getStore_name());
                         textYyxm.setText(maintain_index.getMaintain_name());
                         textYysj.setText(maintain_index.getBook_time());
                         textFwry.setText(maintain_index.getSeller_name());
-                        textWcsj.setText(maintain_index.getEnd_time());
-//                        textWcsj.setText(String.valueOf(maintain_index.getInsurance()));
+                        textWcsj.setText(maintain_index.getEnd_time() + "");
                         editmsgDes.setHint(maintain_index.getMsgDes());
+
                         ucid = String.valueOf(maintain_index.getUcid());
                         store_id = String.valueOf(maintain_index.getStore_id());
                         maintain_id = String.valueOf(maintain_index.getMaintain_id());
                         seller_id = String.valueOf(maintain_index.getSeller_id());
                         book_time = String.valueOf(maintain_index.getBook_time());
                         bag_id = String.valueOf(maintain_index.getBag_id());
-                        btnYc.setText(maintain_index.getRightBtnTxt());
-                        isOnline(maintain_index.getOnline_pay());
-                        isBx(maintain_index.getInsurance());
+//                        btnYc.setText(maintain_index.getRightBtnTxt());
                         if (maintain_index.getData().size() > 0) {
                             dataBeanXES.clear();
                             dataBeanXES.addAll(maintain_index.getData());
                         }
                         myTcAdapter.notifyDataSetChanged();
-                        viewMaintain(maintain_index.getDataShow());
+                        if (maintain_index.getAlert_state() == 1 && isShowDialog) {
+                            isShowDialog = false;
+                            new AlertDialog.Builder(context)
+                                    .setTitle(maintain_index.getAlert_title())
+                                    .setMessage(maintain_index.getAlert_des())
+                                    .setPositiveButton("去看看", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            Intent intent=new Intent(context,YangCheLBActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    })
+                                    .show();
+                        }
                     } else {
                         ToastUtils.showShort(maintain_index.getInfo());
                     }
@@ -414,16 +447,6 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("ctid", ctid);
 
         return new OkObject(params, url);
-    }
-
-
-    private void isBx(int isBx) {
-        this.isBx = isBx;
-        if (isBx == 1) {
-            checkBoxBx.setChecked(true);
-        } else {
-            checkBoxBx.setChecked(false);
-        }
     }
 
 
@@ -573,7 +596,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
                     if (order_newOrder.getStatus() == 1) {
-                        AppContext.getIntance().dates= book_time;
+                        AppContext.getIntance().dates = book_time;
 
                         if (isOnline == 1) {
                             Intent intent = new Intent();
@@ -636,30 +659,14 @@ public class WeiXiuBYActivity extends BaseActivity {
         dispose();
     }
 
-    private void viewMaintain(int id) {
-        if (id == 1) {
-            isOnline(1);
-            viewTc.setVisibility(View.VISIBLE);
-            viewBysc.setVisibility(View.VISIBLE);
-            editmsgDes.setVisibility(View.GONE);
-        } else {
-            isOnline(0);
-            viewTc.setVisibility(View.GONE);
-            viewBysc.setVisibility(View.GONE);
-            editmsgDes.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void isOnline(int isOnline) {
         this.isOnline = isOnline;
         if (isOnline == 1) {
             radioZx.setChecked(true);
             radioQt.setChecked(false);
-            btnZf.setText("立即支付");
         } else {
             radioZx.setChecked(false);
             radioQt.setChecked(true);
-            btnZf.setText("立即预约");
         }
     }
 }

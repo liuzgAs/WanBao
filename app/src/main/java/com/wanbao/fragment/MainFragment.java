@@ -37,6 +37,8 @@ import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.LoginActivity;
+import com.wanbao.activity.MianFeiYCActivity;
+import com.wanbao.activity.WebViewActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XuanZheCheXSJActivity;
@@ -97,7 +99,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         return mf;
     }
 
-    private RecyclerArrayAdapter<Integer> hadapter;
+    private RecyclerArrayAdapter<Index_Home.TeamDataBean> hadapter;
 
 
     @Override
@@ -164,7 +166,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 marqueeView = view.findViewById(R.id.marqueeView);
                 hrecyclerView = view.findViewById(R.id.recyclerView);
                 hrecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Integer>(context) {
+                hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Index_Home.TeamDataBean>(context) {
 
                     @Override
                     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
@@ -194,17 +196,20 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                     public void daoDiLe() {
                     }
                 });
+                hadapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Intent intent=new Intent(context,MianFeiYCActivity.class);
+                        intent.putExtra("ctid",String.valueOf(hadapter.getItem(position).getId()));
+                        startActivity(intent);
+                    }
+                });
                 return view;
             }
 
             @Override
             public void onBindView(View headerView) {
                 if (indexHome!=null){
-                    hadapter.clear();
-                    hadapter.add(1);
-                    hadapter.add(2);
-                    hadapter.add(3);
-                    hadapter.notifyDataSetChanged();
                     //设置图片加载器
                     banner.setImageLoader(new GlideImageLoader());
                     //设置图片集合
@@ -213,8 +218,22 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                     //设置轮播时间
                     banner.setDelayTime(3000);
                     banner.start();
+                    info.clear();
+                    for (int i=0;i<indexHome.getNews().size();i++){
+                        info.add(indexHome.getNews().get(i).getTitle());
+                    }
                     marqueeView.startWithList(info, R.anim.anim_bottom_in, R.anim.anim_top_out);
                 }
+                marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, TextView textView) {
+                        Intent intent=new Intent();
+                        intent.putExtra("title",indexHome.getNews().get(position).getTitle());
+                        intent.putExtra("mUrl",indexHome.getNews().get(position).getUrl());
+                        intent.setClass(context, WebViewActivity.class);
+                        startActivity(intent);
+                    }
+                });
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
@@ -311,10 +330,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     public void fetchData() {
         LogUtils.getConfig().setLogSwitch(true);
         initRecycler();
-        info.clear();
-        info.add("400匹全时四驱到底有多快？两小伙阿迪发动");
-        info.add("500匹全时四驱到底有多快？两小伙阿迪发动");
-        info.add("600匹全时四驱到底有多快？两小伙阿迪发动");
 
         //初始化定位
         mLocationClient = new AMapLocationClient(AppContext.getIntance());
@@ -350,6 +365,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                      indexHome = GsonUtils.parseJSON(s, Index_Home.class);
                     int status = indexHome.getStatus();
                     if (status == 1) {
+                        hadapter.clear();
+                        hadapter.addAll(indexHome.getTeamData());
                         adapter.notifyDataSetChanged();
                     } else {
                     }

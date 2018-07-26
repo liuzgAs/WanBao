@@ -1,6 +1,5 @@
 package com.wanbao.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -193,10 +192,6 @@ public class WoDeCheDuiActivity extends BaseActivity implements SwipeRefreshLayo
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent=new Intent();
-                intent.putExtra("id",adapter.getItem(position).getId());
-                intent.setClass(context,TuiJianMXActivity.class);
-                startActivity(intent);
             }
         });
         recyclerView.setRefreshListener(this);
@@ -289,7 +284,7 @@ public class WoDeCheDuiActivity extends BaseActivity implements SwipeRefreshLayo
                     mRecomlog = GsonUtils.parseJSON(s, User_Teamlog.class);
                     if (mRecomlog.getStatus() == 1) {
                         textSumNum.setText(mRecomlog.getSum_num()+"");
-                        textJiaoL.setText("教练："+mRecomlog.getTitle());
+                        textJiaoL.setText(mRecomlog.getTitle());
                         if (mRecomlog.getType().size()>0){
                             for (int i=0;i<mRecomlog.getType().size();i++){
                                 list.add(mRecomlog.getType().get(i).getName());

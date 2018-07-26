@@ -43,18 +43,41 @@
             android:textColor="@color/light_red"
             android:textSize="@dimen/sp_20" />
     </LinearLayout>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_marginTop="@dimen/dp_10"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
         android:background="@color/white"
-        app:tabIndicatorColor="@color/deep_red"
-        app:tabIndicatorHeight="0dp"
-        app:tabMode="fixed" />
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:layout_height="@dimen/dp_30">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp_13"
+            android:gravity="center"
+            android:textColor="@color/new_important_text"
+            android:layout_weight="1"
+            android:text="推荐手机号"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp_13"
+            android:gravity="center"
+            android:textColor="@color/new_important_text"
+            android:layout_weight="1"
+            android:text="注册状态"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp_13"
+            android:gravity="center"
+            android:textColor="@color/new_important_text"
+            android:layout_weight="1"
+            android:text="激活状态"/>
+    </LinearLayout>
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recyclerView"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
         app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"

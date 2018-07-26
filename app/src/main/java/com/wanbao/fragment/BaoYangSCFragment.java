@@ -1,22 +1,17 @@
 package com.wanbao.fragment;
 
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.adapter.CustomAdapter;
 import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -25,34 +20,33 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Usercar_Manual;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.zhouchaoyuan.excelpanel.ExcelPanel;
 import io.reactivex.disposables.Disposable;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BaoYangSCFragment extends PSFragment {
-    @BindView(R.id.imageCar)
-    ImageView imageCar;
-    @BindView(R.id.textTitle)
-    TextView textTitle;
+    Unbinder unbinder;
+    @BindView(R.id.content_container)
+    ExcelPanel contentContainer;
     @BindView(R.id.textDes)
     TextView textDes;
-    @BindView(R.id.webView)
-    WebView webView;
-    Unbinder unbinder;
     private View view;
     private String id;
-    private WebSettings mSettings;
-
+    private CustomAdapter adapter;
 
     public BaoYangSCFragment() {
         // Required empty public constructor
     }
+
     // TODO: Rename and change types and number of parameters
     public static BaoYangSCFragment newInstance(String id) {
         BaoYangSCFragment fragment = new BaoYangSCFragment();
@@ -80,6 +74,7 @@ public class BaoYangSCFragment extends PSFragment {
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
+
     private void getStore() {
         HttpApi.post(context, getOkObjectStore(), new HttpApi.CallBack() {
             @Override
@@ -100,20 +95,35 @@ public class BaoYangSCFragment extends PSFragment {
                     Usercar_Manual uManual = GsonUtils.parseJSON(s, Usercar_Manual.class);
                     int status = uManual.getStatus();
                     if (status == 1) {
-                        GlideApp.with(getContext())
-                                .asBitmap()
-                                .load(uManual.getData().getImg())
-                                .placeholder(R.mipmap.ic_empty)
-                                .into(imageCar);
-                        textTitle.setText(uManual.getData().getCar_name());
-                        textDes.setText(uManual.getData().getCar_no());
-                        webView.loadUrl(uManual.getData().getUrl());
+                        StringBuffer stringBuffer=new StringBuffer();
+                        for (int j=0;j<uManual.getDes().size();j++){
+                            if (j==0){
+                                stringBuffer.append(uManual.getDes().get(j).getV());
+                            }else {
+                                stringBuffer.append("\n"+uManual.getDes().get(j).getV());
+                            }
+                        }
+                        textDes.setText(stringBuffer.toString());
+                        adapter = new CustomAdapter(context, new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        });
+                        contentContainer.setAdapter(adapter);
+                        List<List<String>> majorData = new ArrayList<>();
+                        for (int i = 0; i < uManual.getData().size(); i++) {
+                            majorData.add(uManual.getData().get(i).getV0());
+                        }
+                        LogUtils.e("majorData", majorData.toString());
+                        adapter.setAllData(uManual.getData(), uManual.getCm21km(), majorData);
+//                        adapter.enableFooter();//load more
+//                        adapter.enableHeader();//load history
                     } else {
                         ToastUtils.showShort(uManual.getInfo());
-                        MyDialog.dialogFinish(getActivity(), uManual.getInfo());
                     }
                 } catch (Exception e) {
-                    MyDialog.dialogFinish(getActivity(), "数据异常");
+//                    MyDialog.dialogFinish(getActivity(), "数据异常");
                 }
             }
 
@@ -133,7 +143,7 @@ public class BaoYangSCFragment extends PSFragment {
     }
 
     private OkObject getOkObjectStore() {
-        String url = Constant.HOST + Constant.Url.Usercar_Manual;
+        String url = Constant.HOST + Constant.Url.Usercar_Maintenance_Manual;
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
         return new OkObject(params, url);
@@ -147,14 +157,7 @@ public class BaoYangSCFragment extends PSFragment {
 
     @Override
     public void fetchData() {
-        webView.setWebViewClient(new WebViewClient());//覆盖第三方浏览器
-        mSettings = webView.getSettings();
-        mSettings.setJavaScriptEnabled(true);
-        mSettings.setUseWideViewPort(true);
-        mSettings.setLoadWithOverviewMode(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
         getStore();
     }
+
 }

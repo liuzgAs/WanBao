@@ -650,7 +650,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_2"
+                    android:layout_height="@dimen/dp_1"
                     android:background="@color/background"></View>
 
                 <LinearLayout
@@ -675,13 +675,13 @@
                         android:layout_weight="1"></View>
 
                     <com.wanbao.ui.HorizontalView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/white">
 
                         <com.wanbao.ui.MyEasyRecyclerView
                             android:id="@+id/recyclerViewcd"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:scrollbarStyle="insideOverlay"
                             app:scrollbars="none">

@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18072401
-        versionName "0.3.4"
+        versionCode 18072602
+        versionName "0.3.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -112,5 +112,5 @@ dependencies {
     compile 'com.github.huburt-Hu:NewbieGuide:v1.2.0'
     compile 'cn.jzvd:jiaozivideoplayer:6.2.3'
     compile 'com.bigkoo:convenientbanner:2.0.5'
-
+    compile 'cn.zhouchaoyuan:excelpanel:1.0.4'
 }

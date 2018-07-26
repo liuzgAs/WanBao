@@ -335,6 +335,10 @@ public class Constant {
          */
         public static final String Money_Recomlog = "Money/recomlog";
         /**
+         * 推荐记录(新)
+         */
+        public static final String Money_Recom_Log = "Money/recom_log";
+        /**
          * 推荐明细积分
          */
         public static final String Money_Score = "Money/score";
@@ -357,7 +361,7 @@ public class Constant {
         /**
          * 保养手册
          */
-        public static final String Usercar_Manual = "Usercar/manual";
+        public static final String Usercar_Maintenance_Manual = "Usercar/maintenance_manual";
         /**
          * 常规保养记录
          */
@@ -431,6 +435,18 @@ public class Constant {
          * 车队
          */
         public static final String User_Teamlog = "User/teamlog";
+        /**
+         * 推荐记录邀请注册
+         */
+        public static final String Money_Act1 = "Money/act1";
+        /**
+         * 推荐记录通知激活
+         */
+        public static final String Money_Act2 = "Money/act2";
+        /**
+         * 免费养车列表
+         */
+        public static final String Maintain_Carteam = "Maintain/carteam";
     }
 
     public static class SF{

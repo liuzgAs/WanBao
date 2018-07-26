@@ -3,7 +3,6 @@ package com.wanbao.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -21,11 +20,10 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
-import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.modle.Money_Recomlog;
+import com.wanbao.modle.Money_Recom_Log;
 import com.wanbao.modle.OkObject;
 import com.wanbao.viewholder.TuiJianJLViewHolder;
 
@@ -48,14 +46,9 @@ public class TuiJianJLActivity extends BaseActivity implements SwipeRefreshLayou
     EasyRecyclerView recyclerView;
     @BindView(R.id.textSumNum)
     TextView textSumNum;
-    @BindView(R.id.tablayout)
-    TabLayout tablayout;
-    private String type;
     List<String> list = new ArrayList<>();
-    private int currentItem;
-    private RecyclerArrayAdapter<Money_Recomlog.DataBean> adapter;
+    private RecyclerArrayAdapter<Money_Recom_Log.DataBean> adapter;
     private int page = 1;
-    private Money_Recomlog mRecomlog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,32 +70,12 @@ public class TuiJianJLActivity extends BaseActivity implements SwipeRefreshLayou
     @Override
     protected void initViews() {
         titleText.setText("推荐记录");
-        getRecomlog();
         initRecycler();
     }
 
     @Override
     protected void initData() {
         onRefresh();
-        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (mRecomlog!=null){
-                    type=String.valueOf(mRecomlog.getType().get(tab.getPosition()).getId());
-                    onRefresh();
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     /**
@@ -114,11 +87,11 @@ public class TuiJianJLActivity extends BaseActivity implements SwipeRefreshLayou
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red);
-        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Money_Recomlog.DataBean>(TuiJianJLActivity.this) {
+        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Money_Recom_Log.DataBean>(TuiJianJLActivity.this) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_tjjl;
-                return new TuiJianJLViewHolder(parent, layout);
+                int layout = R.layout.item_tjjlx;
+                return new TuiJianJLViewHolder(parent, layout,TuiJianJLActivity.this);
             }
         });
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
@@ -138,7 +111,7 @@ public class TuiJianJLActivity extends BaseActivity implements SwipeRefreshLayou
                     public void onSuccess(String s) {
                         try {
                             page++;
-                            Money_Recomlog usercar_index = GsonUtils.parseJSON(s, Money_Recomlog.class);
+                            Money_Recom_Log usercar_index = GsonUtils.parseJSON(s, Money_Recom_Log.class);
                             int status = usercar_index.getStatus();
                             if (status == 1) {
                                 adapter.addAll(usercar_index.getData());
@@ -217,9 +190,10 @@ public class TuiJianJLActivity extends BaseActivity implements SwipeRefreshLayou
                 try {
                     LogUtils.e("Withdraw_Balance", s);
                     page++;
-                    Money_Recomlog usercar_index = GsonUtils.parseJSON(s, Money_Recomlog.class);
+                    Money_Recom_Log usercar_index = GsonUtils.parseJSON(s, Money_Recom_Log.class);
                     int status = usercar_index.getStatus();
                     if (status == 1) {
+                        textSumNum.setText(usercar_index.getSum_num()+"");
                         adapter.clear();
                         adapter.addAll(usercar_index.getData());
                     } else {
@@ -268,70 +242,11 @@ public class TuiJianJLActivity extends BaseActivity implements SwipeRefreshLayou
     public void onViewClicked() {
         finish();
     }
-    private void getRecomlog() {
-        HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
-            @Override
-            public void onStart() {
-                showDialog("");
-            }
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                addDisposable(d);
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                dismissDialog();
-                try {
-                    LogUtils.e("Money_Recomlog", s);
-                     mRecomlog = GsonUtils.parseJSON(s, Money_Recomlog.class);
-                    if (mRecomlog.getStatus() == 1) {
-                        textSumNum.setText(mRecomlog.getSum_num()+"");
-                        if (mRecomlog.getType().size()>0){
-                            for (int i=0;i<mRecomlog.getType().size();i++){
-                                list.add(mRecomlog.getType().get(i).getName());
-                            }
-                        }
-                        tablayout.removeAllTabs();
-                        for (int i = 0; i < list.size(); i++) {
-                            View view = LayoutInflater.from(context).inflate(R.layout.item_tablayout, null);
-                            TextView textTitle = view.findViewById(R.id.textTitle);
-                            textTitle.setText(list.get(i));
-                            if (i == currentItem) {
-                                tablayout.addTab(tablayout.newTab().setCustomView(view), true);
-                            } else {
-                                tablayout.addTab(tablayout.newTab().setCustomView(view), false);
-                            }
-                        }
-                    } else {
-                        ToastUtils.showShort(mRecomlog.getInfo());
-                    }
-                } catch (Exception e) {
-                    MyDialog.dialogFinish(TuiJianJLActivity.this,"数据异常");
-                    dismissDialog();
-                }
-            }
-
-            @Override
-            public void onError() {
-                MyDialog.dialogFinish(TuiJianJLActivity.this,"网络异常");
-                dismissDialog();
-            }
-
-            @Override
-            public void onComplete() {
-                dismissDialog();
-            }
-
-        });
-    }
 
     private OkObject getOkObjectOrder() {
-        String url = Constant.HOST + Constant.Url.Money_Recomlog;
+        String url = Constant.HOST + Constant.Url.Money_Recom_Log;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("type", type);
         params.put("p", page+"");
         return new OkObject(params, url);
     }

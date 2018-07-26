@@ -10,23 +10,33 @@ import java.util.List;
 
 public class Maintain_Index {
 
+
     /**
-     * RightBtnTxt : 发起拼单
-     * car_name : 2018款1.5T DX7 prime 尊贵版
-     * ucid : 54
+     * RightBtnTxt : 免费养车
+     * car_name : 2009款 2.5T 柴油两驱豪华版
+     * ucid : 6
      * store_name : 东南三菱万宝万腾店
      * store_id : 3
-     * maintain_name : 常规保养
-     * maintain_id : 4
-     * maintain : [{"id":4,"name":"常规保养"},{"id":3,"name":"外观喷漆"},{"id":2,"name":"其它服务"}]
-     * seller_name : 互动创想测试账号
-     * seller_id : 12
-     * book_time : 2018-07-06 11:00
-     * bag_id : 1
-     * data : [{"id":1,"isc":1,"title":"A套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"}],"money":253},{"id":2,"isc":0,"title":"B套餐","des":"套餐内容","data":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"}],"money":238}]
-     * dataShow : 1
-     * end_time : 3小时
-     * online_pay : 1
+     * maintain_name :
+     * maintain_id : 0
+     * maintain_lock : 0
+     * alert_state : 1
+     * FreeShow : 1
+     * Free : {"n":"免费养车","v":"去看看"}
+     * teamDes : []
+     * alert_title : 免费养车提醒
+     * alert_des : 有免费养车活动是否要去查看！
+     * maintain : [{"id":3,"name":"外观喷漆","is_bag":"外观喷漆"},{"id":2,"name":"其它服务","is_bag":"其它服务"}]
+     * seller_name : 林海
+     * seller_id : 18
+     * book_time : 2018-07-25 15:00
+     * bag_id : 0
+     * data : []
+     * dataShow : 0
+     * payMsgShow : 0
+     * end_time : 0
+     * online_pay : 0
+     * Offline_pay : 1
      * msgDes : 有详细的备注，我们将更效率的为您服务！
      * insurance : 0
      * status : 1
@@ -40,17 +50,26 @@ public class Maintain_Index {
     private int store_id;
     private String maintain_name;
     private int maintain_id;
+    private int maintain_lock;
+    private int alert_state;
+    private int FreeShow;
+    private FreeBean Free;
+    private String alert_title;
+    private String alert_des;
     private String seller_name;
     private int seller_id;
     private String book_time;
-    private String bag_id;
+    private int bag_id;
     private int dataShow;
+    private int payMsgShow;
     private String end_time;
     private int online_pay;
+    private int Offline_pay;
     private String msgDes;
     private int insurance;
     private int status;
     private String info;
+    private List<String> teamDes;
     private List<MaintainBean> maintain;
     private List<DataBeanX> data;
 
@@ -110,6 +129,54 @@ public class Maintain_Index {
         this.maintain_id = maintain_id;
     }
 
+    public int getMaintain_lock() {
+        return maintain_lock;
+    }
+
+    public void setMaintain_lock(int maintain_lock) {
+        this.maintain_lock = maintain_lock;
+    }
+
+    public int getAlert_state() {
+        return alert_state;
+    }
+
+    public void setAlert_state(int alert_state) {
+        this.alert_state = alert_state;
+    }
+
+    public int getFreeShow() {
+        return FreeShow;
+    }
+
+    public void setFreeShow(int FreeShow) {
+        this.FreeShow = FreeShow;
+    }
+
+    public FreeBean getFree() {
+        return Free;
+    }
+
+    public void setFree(FreeBean Free) {
+        this.Free = Free;
+    }
+
+    public String getAlert_title() {
+        return alert_title;
+    }
+
+    public void setAlert_title(String alert_title) {
+        this.alert_title = alert_title;
+    }
+
+    public String getAlert_des() {
+        return alert_des;
+    }
+
+    public void setAlert_des(String alert_des) {
+        this.alert_des = alert_des;
+    }
+
     public String getSeller_name() {
         return seller_name;
     }
@@ -134,11 +201,11 @@ public class Maintain_Index {
         this.book_time = book_time;
     }
 
-    public String getBag_id() {
+    public int getBag_id() {
         return bag_id;
     }
 
-    public void setBag_id(String bag_id) {
+    public void setBag_id(int bag_id) {
         this.bag_id = bag_id;
     }
 
@@ -148,6 +215,14 @@ public class Maintain_Index {
 
     public void setDataShow(int dataShow) {
         this.dataShow = dataShow;
+    }
+
+    public int getPayMsgShow() {
+        return payMsgShow;
+    }
+
+    public void setPayMsgShow(int payMsgShow) {
+        this.payMsgShow = payMsgShow;
     }
 
     public String getEnd_time() {
@@ -164,6 +239,14 @@ public class Maintain_Index {
 
     public void setOnline_pay(int online_pay) {
         this.online_pay = online_pay;
+    }
+
+    public int getOffline_pay() {
+        return Offline_pay;
+    }
+
+    public void setOffline_pay(int Offline_pay) {
+        this.Offline_pay = Offline_pay;
     }
 
     public String getMsgDes() {
@@ -198,6 +281,14 @@ public class Maintain_Index {
         this.info = info;
     }
 
+    public List<String> getTeamDes() {
+        return teamDes;
+    }
+
+    public void setTeamDes(List<String> teamDes) {
+        this.teamDes = teamDes;
+    }
+
     public List<MaintainBean> getMaintain() {
         return maintain;
     }
@@ -212,32 +303,6 @@ public class Maintain_Index {
 
     public void setData(List<DataBeanX> data) {
         this.data = data;
-    }
-
-    public static class MaintainBean {
-        /**
-         * id : 4
-         * name : 常规保养
-         */
-
-        private int id;
-        private String name;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 
     public static class DataBeanX {
@@ -338,5 +403,59 @@ public class Maintain_Index {
                 this.v = v;
             }
         }
+    }
+
+    public static class FreeBean {
+        /**
+         * n : 免费养车
+         * v : 去看看
+         */
+
+        private String n;
+        private String v;
+
+        public String getN() {
+            return n;
+        }
+
+        public void setN(String n) {
+            this.n = n;
+        }
+
+        public String getV() {
+            return v;
+        }
+
+        public void setV(String v) {
+            this.v = v;
+        }
+    }
+
+    public static class MaintainBean {
+        /**
+         * id : 3
+         * name : 外观喷漆
+         * is_bag : 外观喷漆
+         */
+
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
     }
 }

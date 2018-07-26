@@ -78,8 +78,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="设置里程"
                     android:layout_weight="1"
+                    android:text="设置里程"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_14" />
 
@@ -88,13 +88,14 @@
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_5"
+                    android:background="@color/white"
                     android:gravity="right|center_vertical"
                     android:hint="请设置"
-                    android:paddingRight="@dimen/dp_6"
                     android:inputType="numberDecimal"
-                    android:background="@color/white"
+                    android:paddingRight="@dimen/dp_6"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_12" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -268,26 +269,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
-                android:background="@color/background">
-            </View>
-            <EditText
-                android:id="@+id/editmsgDes"
-                android:layout_width="match_parent"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
-                android:padding="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:gravity="left|top"
-                android:visibility="gone"
-                android:textColor="@color/new_important_text"
-                android:textSize="@dimen/sp_13"
-                android:background="@drawable/yuanjiao_wxby"
-                android:layout_height="@dimen/dp_100" />
+                android:background="@color/background"></View>
 
-            <include
-                layout="@layout/include_wbdd">
-            </include>
+            <include layout="@layout/include_wbdd"></include>
+
             <LinearLayout
                 android:id="@+id/viewBysc"
                 android:layout_width="match_parent"
@@ -295,7 +280,8 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10">
+                android:paddingRight="@dimen/dp_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -317,6 +303,21 @@
 
             </LinearLayout>
 
+            <EditText
+                android:id="@+id/editmsgDes"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/yuanjiao_wxby"
+                android:gravity="left|top"
+                android:padding="@dimen/dp_5"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13"
+                android:visibility="gone" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_32"
@@ -334,7 +335,8 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10">
+                android:paddingRight="@dimen/dp_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -355,8 +357,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_1"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/new_underline"></View>
 
             <LinearLayout
@@ -366,7 +366,8 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10">
+                android:paddingRight="@dimen/dp_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -386,65 +387,64 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
-                android:visibility="gone"
-                android:background="@color/background"></View>
+                android:background="@color/background"
+                android:visibility="gone"></View>
 
-            <LinearLayout
-                android:id="@+id/viewBx"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:visibility="gone"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="是否保险"
-                    android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_14" />
-
-                <CheckBox
-                    android:id="@+id/checkBoxBx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="false" />
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_8"
                 android:background="@color/background"></View>
+
+
+                <LinearLayout
+                    android:id="@+id/viewFree"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:id="@+id/textFreeN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:id="@+id/textFreeV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_30"
+                        android:background="@drawable/yuanjiao_red"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/textTeamDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
         </LinearLayout>
-
     </ScrollView>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/btnZf"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_43"
-        android:background="@mipmap/wxby_anjian">
-
-        <Button
-            android:id="@+id/btnZf"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:text="立即支付"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_14" />
-
-        <Button
-            android:id="@+id/btnYc"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:text="免费养车"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/new_important_text"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14" />
 </LinearLayout>

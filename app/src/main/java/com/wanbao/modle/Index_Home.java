@@ -11,7 +11,9 @@ import java.util.List;
 public class Index_Home {
 
     /**
-     * banner : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png","code":"","item_id":0,"url":"?uapp=1","title":"1"},{"img":"http://p7b347z0p.bkt.clouddn.com/image/jiwy81s0_1nbq1up3nnz45b33602034f8f.png","code":"","item_id":0,"url":"?uapp=1","title":""}]
+     * banner : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jj822aog_4e0cqzgz0ol65b3d9f7a8d0f5.jpg","code":"","item_id":0,"url":"?uapp=1","title":" "},{"img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","code":"","item_id":0,"url":"?uapp=1","title":" "}]
+     * news : [{"id":39,"title":"头条1","url":"https://www.wanbaoauto.com/api/Article/info/id/39"}]
+     * teamData : [{"des":"￥20.00","id":1,"title":"6人同行一人免单","img":"http://p7b347z0p.bkt.clouddn.com/image/jjzdfko0_3f4vn7prd3rw5b56d35c6dee3.jpg"},{"des":"￥80.00","id":12,"title":"12","img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg"}]
      * status : 1
      * info : 操作成功！
      */
@@ -19,6 +21,8 @@ public class Index_Home {
     private int status;
     private String info;
     private List<BannerBean> banner;
+    private List<NewsBean> news;
+    private List<TeamDataBean> teamData;
 
     public int getStatus() {
         return status;
@@ -44,13 +48,29 @@ public class Index_Home {
         this.banner = banner;
     }
 
+    public List<NewsBean> getNews() {
+        return news;
+    }
+
+    public void setNews(List<NewsBean> news) {
+        this.news = news;
+    }
+
+    public List<TeamDataBean> getTeamData() {
+        return teamData;
+    }
+
+    public void setTeamData(List<TeamDataBean> teamData) {
+        this.teamData = teamData;
+    }
+
     public static class BannerBean {
         /**
-         * img : http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jj822aog_4e0cqzgz0ol65b3d9f7a8d0f5.jpg
          * code :
          * item_id : 0
          * url : ?uapp=1
-         * title : 1
+         * title :
          */
 
         private String img;
@@ -97,6 +117,88 @@ public class Index_Home {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+    }
+
+    public static class NewsBean {
+        /**
+         * id : 39
+         * title : 头条1
+         * url : https://www.wanbaoauto.com/api/Article/info/id/39
+         */
+
+        private int id;
+        private String title;
+        private String url;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+    }
+
+    public static class TeamDataBean {
+        /**
+         * des : ￥20.00
+         * id : 1
+         * title : 6人同行一人免单
+         * img : http://p7b347z0p.bkt.clouddn.com/image/jjzdfko0_3f4vn7prd3rw5b56d35c6dee3.jpg
+         */
+
+        private String des;
+        private int id;
+        private String title;
+        private String img;
+
+        public String getDes() {
+            return des;
+        }
+
+        public void setDes(String des) {
+            this.des = des;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
         }
     }
 }

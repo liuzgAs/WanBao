@@ -40,6 +40,7 @@ public class BaseEvent {
 	public final static String Iscn = "Iscn";
 	public final static String Body_Scratches = "Body_Scratches";
 	public final static String MyMessage = "MyMessage";
+	public final static String TuiJianJL = "TuiJianJL";
 
 
 	private String action;

@@ -154,7 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_3"
-                        android:text="计算器"
+                        android:text="购车计算器"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>

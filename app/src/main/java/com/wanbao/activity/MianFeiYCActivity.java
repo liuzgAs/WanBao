@@ -1,8 +1,10 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,6 @@ import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.YangCheImageLoader;
 import com.wanbao.base.activity.BaseActivity;
-import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
@@ -35,8 +36,6 @@ import com.wanbao.base.view.ObservableScrollView;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Orderteam_Free;
 import com.youth.banner.Banner;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -84,6 +83,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
     private WebSettings mSettings;
     private Orderteam_Free oFree;
     HashMap<String, String> states = new HashMap<>();
+    private String ctid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,8 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
     @Override
     protected void initIntent() {
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
+        ctid = getIntent().getStringExtra("ctid");
     }
 
     @Override
@@ -187,6 +188,8 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("id", id);
+        params.put("ctid", ctid);
+
         return new OkObject(params, url);
     }
 
@@ -209,7 +212,11 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         id = String.valueOf(oFree.getId());
         textPrice.setText(oFree.getPrice());
         textPriceDes.setText(oFree.getPriceDes());
-        textTitle.setText(oFree.getTitle());
+        if (TextUtils.isEmpty(oFree.getTitle())) {
+            textTitle.setText("免费养车");
+        } else {
+            textTitle.setText(oFree.getTitle());
+        }
         textListDesR.setText(oFree.getListDes().getR() + "");
         textListDesV.setText(oFree.getListDes().getV());
         mySumAdapter = new MySumAdapter(oFree);
@@ -229,6 +236,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
     @OnClick({R.id.imageback, R.id.viewKeFu, R.id.btn0, R.id.btn1})
     public void onViewClicked(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.imageback:
                 finish();
@@ -238,13 +246,19 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             case R.id.btn0:
                 states.put("id", id);
                 states.put("team_state", "2");
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId, states));
+//                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId, states));
+                intent = new Intent(context, WeiXiuBYActivity.class);
+                intent.putExtra("states", states);
+                startActivity(intent);
                 finish();
                 break;
             case R.id.btn1:
                 states.put("id", id);
                 states.put("team_state", "1");
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId, states));
+                intent = new Intent(context, WeiXiuBYActivity.class);
+                intent.putExtra("states", states);
+                startActivity(intent);
+//                EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId, states));
                 finish();
                 break;
             default:
@@ -340,8 +354,6 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
                 @Override
                 public void onClick(View v) {
                     id = String.valueOf(dataBean.getList().get(position).getId());
-//                    EventBus.getDefault().post(new BaseEvent(BaseEvent.YangCheId,id));
-//                    EventBus.getDefault().post(new BaseEvent(BaseEvent.Team_State,"2"));
                     initData();
                 }
             });
