@@ -65,7 +65,7 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
     public void setData(final Usercar_Index.DataBean data) {
         super.setData(data);
         textName.setText(data.getTitle());
-        textDes.setText(data.getDes());
+        textDes.setText(data.getCar_no());
         textDes2.setText(data.getDes2());
         myAdapter=new MyAdapter(data);
         listView.setAdapter(myAdapter);

@@ -326,6 +326,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.viewSfzzy:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
@@ -345,6 +348,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 }
                 break;
             case R.id.viewJszzy:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
@@ -410,6 +416,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 useradd();
                 break;
             case R.id.viewXm:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 final EditDialogText editDialogDanb = new EditDialogText(context, "输入身份证姓名", textXm.getText().toString(), "确认", "取消");
                 editDialogDanb.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -426,6 +435,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 editDialogDanb.show();
                 break;
             case R.id.viewXb:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 final String[] sexs={"男","女"};
                 new MaterialDialog.Builder(context)
                         .title("选择你的性别")
@@ -440,6 +452,9 @@ public class ShiMinRzActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.viewZjhm:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 final EditDialogText editDialogZjhm = new EditDialogText(context, "输入身份证号码", textZjhm.getText().toString(), "确认", "取消");
                 editDialogZjhm.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -456,6 +471,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 editDialogZjhm.show();
                 break;
             case R.id.viewSfzby:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED||ContextCompat.checkSelfPermission(context,
@@ -475,6 +493,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 }
                 break;
             case R.id.viewYxqq:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 Calendar czc = Calendar.getInstance();
                 DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -486,6 +507,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 datePickerDialogzc.show();
                 break;
             case R.id.viewYxqz:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 Calendar cfz = Calendar.getInstance();
                 DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -497,6 +521,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 datePickerDialogfz.show();
                 break;
             case R.id.viewXmj:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 final EditDialogText editDialogXmj = new EditDialogText(context, "输入驾驶证姓名", textXmj.getText().toString(), "确认", "取消");
                 editDialogXmj.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -513,6 +540,9 @@ public class ShiMinRzActivity extends BaseActivity {
                 editDialogXmj.show();
                 break;
             case R.id.viewXbj:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 final String[] sexsj={"男","女"};
                 new MaterialDialog.Builder(context)
                         .title("选择你的性别")
@@ -527,6 +557,9 @@ public class ShiMinRzActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.viewCclzrq:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
                 Calendar Cclzrq = Calendar.getInstance();
                 DatePickerDialog datePickerDialogCclzrq = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -538,6 +571,10 @@ public class ShiMinRzActivity extends BaseActivity {
                 datePickerDialogCclzrq.show();
                 break;
             case R.id.viewZjcx:
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    ToastUtils.showShort("不可修改！");
+                    return;
+                }
                 final EditDialogText editDialogZjcx = new EditDialogText(context, "输入准驾车型", textZjcx.getText().toString(), "确认", "取消");
                 editDialogZjcx.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -554,7 +591,18 @@ public class ShiMinRzActivity extends BaseActivity {
                 editDialogZjcx.show();
                 break;
             case R.id.viewYxq:
-
+                if (uCBefore.getState() == 1 || uCBefore.getState() == 3) {
+                    return;
+                }
+                Calendar CclYxq = Calendar.getInstance();
+                DatePickerDialog datePickerDialogYxq = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        textYxq.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                    }
+                }, CclYxq.get(Calendar.YEAR), CclYxq.get(Calendar.MONTH), CclYxq.get(Calendar.DAY_OF_MONTH));
+                datePickerDialogYxq.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+                datePickerDialogYxq.show();
                 break;
             default:
                 break;

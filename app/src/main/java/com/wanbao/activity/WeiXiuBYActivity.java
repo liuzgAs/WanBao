@@ -406,6 +406,12 @@ public class WeiXiuBYActivity extends BaseActivity {
                                             finish();
                                         }
                                     })
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
                                     .show();
                         }
                     } else {

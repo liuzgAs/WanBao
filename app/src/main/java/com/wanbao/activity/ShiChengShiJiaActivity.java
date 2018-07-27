@@ -141,15 +141,20 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                         TimePickerDialog dialog = new TimePickerDialog(ShiChengShiJiaActivity.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                textSj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + IntChange.iChange(hourOfDay) + ":" + IntChange.iChange(minute));
-                                book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
+                                int hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                                if (hourOfDay<=hour){
+                                    ToastUtils.showShort("试驾时间不能在当前时间以前！");
+                                }else {
+                                    textSj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + IntChange.iChange(hourOfDay) + ":" + IntChange.iChange(minute));
+                                    book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
+                                }
                             }
                         }, c1.get(Calendar.HOUR_OF_DAY), c1.get(Calendar.MINUTE), true);
                         dialog.show();
 
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()+1000);
                 datePickerDialog.show();
                 break;
             case R.id.btnLjyy:
