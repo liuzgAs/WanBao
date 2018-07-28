@@ -41,6 +41,8 @@ public class BaseEvent {
 	public final static String Body_Scratches = "Body_Scratches";
 	public final static String MyMessage = "MyMessage";
 	public final static String TuiJianJL = "TuiJianJL";
+	public final static String DeleteImg = "DeleteImg";
+	public final static String CarImage = "CarImage";
 
 
 	private String action;

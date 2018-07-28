@@ -303,7 +303,8 @@
             android:label="@string/title_activity_xiao_xi"
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.WoDeCheDuiActivity" />
-        <activity android:name=".activity.YangCheLBActivity"></activity>
+        <activity android:name=".activity.YangCheLBActivity" />
+        <activity android:name=".activity.CheShenTpActivity"></activity>
     </application>
 
 </manifest>

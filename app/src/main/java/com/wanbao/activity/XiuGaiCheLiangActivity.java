@@ -2,12 +2,14 @@ package com.wanbao.activity;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.dialog.MyDialog;
@@ -36,14 +40,17 @@ import com.wanbao.modle.City_List;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Respond_AppImgAdd;
 import com.wanbao.modle.Usercar_Getinfo;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,13 +157,20 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
     TextView textZbzl;
     @BindView(R.id.viewZbzl)
     LinearLayout viewZbzl;
+    @BindView(R.id.textWgtp)
+    TextView textWgtp;
+    @BindView(R.id.viewWgtp)
+    LinearLayout viewWgtp;
     private String id;
     private Usercar_Getinfo usercar_getinfo;
     private XinShiZZM xinShiZZM;
     private XingShiZFY xingShiZFY;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
-
+    ArrayList<String> images = new ArrayList<>();
+    List<String> imageUrls = new ArrayList<>();
+    private int themeId = R.style.picture_default_style;
+    private List<LocalMedia> imageList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,16 +230,66 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
             textZbzl.setText(xingShiZFY.getData().getUnladen_mass());
             usercar_getinfo.getData().setYear_end(xingShiZFY.getData().getYear_end());
             usercar_getinfo.getData().setInsurance_end(xingShiZFY.getData().getInsurance_end());
-
+        }
+        if (BaseEvent.CarImage.equals(event.getAction())) {
+            ArrayList<Respond_AppImgAdd> userUpload = (ArrayList<Respond_AppImgAdd>) event.getData();
+            if (userUpload != null) {
+                imageUrls.clear();
+                images.clear();
+                textWgtp.setText("已上传" + userUpload.size() + "张图片");
+                for (int i = 0; i < userUpload.size(); i++) {
+                    images.add(userUpload.get(i).getImgId());
+                    imageUrls.add(userUpload.get(i).getImg());
+                }
+            }
         }
     }
 
-    @OnClick({R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl,R.id.imageback, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.textFs, R.id.sbtn_tijiaobdw,
+    @OnClick({R.id.viewWgtp,R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.imageback, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.textFs, R.id.sbtn_tijiaobdw,
             R.id.viewSyx, R.id.viewFzrq, R.id.viewZcrq, R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewWgtp:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
+                if (imageUrls.size() == 0) {
+                    intent = new Intent(context, CheShenTpActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                new AlertDialog.Builder(context)
+                        .setTitle("提示")
+                        .setMessage("上传车身外观图片")
+                        .setPositiveButton("查看", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                imageList.clear();
+                                for (int i = 0; i < imageUrls.size(); i++) {
+                                    LocalMedia localMedia = new LocalMedia();
+                                    localMedia.setPath(imageUrls.get(i));
+                                    imageList.add(localMedia);
+                                }
+                                PictureSelector.create(XiuGaiCheLiangActivity.this).themeStyle(themeId).openExternalPreview(0, imageList);
+                            }
+                        })
+                        .setNegativeButton("修改", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent intent = new Intent(context, CheShenTpActivity.class);
+                                startActivity(intent);
+                            }
+                        }).show();
+                break;
             case R.id.viewDabh:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 final EditDialogText editDialogDanb = new EditDialogText(context, "输入档案编号", textDabh.getText().toString(), "确认", "取消");
                 editDialogDanb.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -242,12 +306,16 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogDanb.show();
                 break;
             case R.id.viewHdzrs:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 final EditDialog editDialogHdzrs = new EditDialog(context, "输入核定载人数（人）", textHdzrs.getText().toString(), "确认", "取消");
                 editDialogHdzrs.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogHdzrs.dismiss();
-                        textHdzrs.setText(intro+"人");
+                        textHdzrs.setText(intro + "人");
                     }
 
                     @Override
@@ -258,12 +326,16 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogHdzrs.show();
                 break;
             case R.id.viewZzl:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 final EditDialog editDialogZzl = new EditDialog(context, "输入总质量（kg）", textZzl.getText().toString(), "确认", "取消");
                 editDialogZzl.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogZzl.dismiss();
-                        textZzl.setText(intro+"kg");
+                        textZzl.setText(intro + "kg");
                     }
 
                     @Override
@@ -274,12 +346,16 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogZzl.show();
                 break;
             case R.id.viewWkcc:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 final EditDialogText editDialogWkcc = new EditDialogText(context, "输入外廓尺寸（mm）", textWkcc.getText().toString(), "确认", "取消");
                 editDialogWkcc.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogWkcc.dismiss();
-                        textWkcc.setText(intro+"mm");
+                        textWkcc.setText(intro + "mm");
                     }
 
                     @Override
@@ -290,12 +366,16 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogWkcc.show();
                 break;
             case R.id.viewZbzl:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 final EditDialog editDialogZbzl = new EditDialog(context, "输入整备质量（kg）", textZbzl.getText().toString(), "确认", "取消");
                 editDialogZbzl.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogZbzl.dismiss();
-                        textZbzl.setText(intro+"kg");
+                        textZbzl.setText(intro + "kg");
                     }
 
                     @Override
@@ -306,6 +386,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogZbzl.show();
                 break;
             case R.id.viewZcrq:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 Calendar czc = Calendar.getInstance();
                 DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -318,6 +402,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialogzc.show();
                 break;
             case R.id.viewFzrq:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 Calendar cfz = Calendar.getInstance();
                 DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -330,6 +418,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialogfz.show();
                 break;
             case R.id.viewSyx:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 Calendar csy = Calendar.getInstance();
                 DatePickerDialog datePickerDialogsy = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -342,6 +434,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialogsy.show();
                 break;
             case R.id.viewXm:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 String stringXm = "";
                 if (xinShiZZM != null) {
                     stringXm = xinShiZZM.getData().getName();
@@ -363,6 +459,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogXm.show();
                 break;
             case R.id.viewCx:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 String stringCx = "";
                 if (xinShiZZM != null) {
                     stringCx = xinShiZZM.getData().getCar_name();
@@ -384,6 +484,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogCx.show();
                 break;
             case R.id.viewDz:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 String stringDz = "";
                 if (xinShiZZM != null) {
                     stringDz = xinShiZZM.getData().getAddress();
@@ -405,6 +509,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogDz.show();
                 break;
             case R.id.viewCph:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 String stringCph = "";
                 if (xinShiZZM != null) {
                     stringCph = xinShiZZM.getData().getAddress();
@@ -426,6 +534,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogCph.show();
                 break;
             case R.id.viewFdjh:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 String stringFdjh = "";
                 if (xinShiZZM != null) {
                     stringFdjh = xinShiZZM.getData().getAddress();
@@ -447,6 +559,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogFdjh.show();
                 break;
             case R.id.viewCjh:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 String stringCjh = "";
                 if (xinShiZZM != null) {
                     stringCjh = xinShiZZM.getData().getAddress();
@@ -468,6 +584,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialogCjh.show();
                 break;
             case R.id.viewNcdq:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 Calendar c0 = Calendar.getInstance();
                 DatePickerDialog datePickerDialog0 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -480,6 +600,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialog0.show();
                 break;
             case R.id.viewBxdq:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 Calendar c = Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -492,14 +616,26 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialog.show();
                 break;
             case R.id.imageback:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 finish();
                 break;
             case R.id.viewCxxx:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 intent = new Intent();
                 intent.setClass(context, XuanZheCheXActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewGcsj:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 Calendar c1 = Calendar.getInstance();
                 DatePickerDialog datePickerDialog1 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -513,6 +649,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialog1.show();
                 break;
             case R.id.viewXslc:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 final EditDialog editDialog1 = new EditDialog(context, "行驶里程（km）", "", "确认", "取消");
                 editDialog1.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
@@ -530,6 +670,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 editDialog1.show();
                 break;
             case R.id.viewSzy:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -548,6 +692,10 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 }
                 break;
             case R.id.viewSfy:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -566,10 +714,14 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 }
                 break;
             case R.id.textFs:
+                if (usercar_getinfo.getState() == 1) {
+                    ToastUtils.showShort("审核中，不可修改");
+                    return;
+                }
                 yanZM(usercar_getinfo.getData().getPhone());
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (usercar_getinfo.getStatus()==1){
+                if (usercar_getinfo.getState() == 1) {
                     ToastUtils.showShort("审核中，不可修改");
                     return;
                 }
@@ -656,7 +808,6 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     usercar_getinfo = GsonUtils.parseJSON(s, Usercar_Getinfo.class);
                     int status = usercar_getinfo.getStatus();
                     if (status == 1) {
-                        sbtnTijiaobdw.setText("审核中");
                         textClxx.setText(usercar_getinfo.getData().getCid_name());
                         textGcsj.setText(usercar_getinfo.getData().getBc_time());
                         textxslc.setText(usercar_getinfo.getData().getKm() + "");
@@ -678,20 +829,27 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         textZzl.setText(usercar_getinfo.getData().getGross_mass());
                         textWkcc.setText(usercar_getinfo.getData().getOverall_dimension());
                         textZbzl.setText(usercar_getinfo.getData().getUnladen_mass());
-                    }else if (status == 2){
-                        sbtnTijiaobdw.setText("提交审核");
-                    }else {
-                        MyDialog.dialogFinish(XiuGaiCheLiangActivity.this,usercar_getinfo.getInfo());
+                        if (usercar_getinfo.getImgs().size()>0){
+                            imageUrls.addAll(usercar_getinfo.getImgs());
+                            textWgtp.setText("已上传" +usercar_getinfo.getImgs().size() + "张图片");
+                        }
+                        if (usercar_getinfo.getState()==1){
+                            sbtnTijiaobdw.setText("审核中");
+                        }else if (usercar_getinfo.getState()==2){
+                            sbtnTijiaobdw.setText("提交审核");
+                        }
+                    } else {
+                        MyDialog.dialogFinish(XiuGaiCheLiangActivity.this, usercar_getinfo.getInfo());
                     }
                 } catch (Exception e) {
-                    MyDialog.dialogFinish(XiuGaiCheLiangActivity.this,"数据异常！");
+                    MyDialog.dialogFinish(XiuGaiCheLiangActivity.this, "数据异常！");
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                MyDialog.dialogFinish(XiuGaiCheLiangActivity.this,"网络异常");
+                MyDialog.dialogFinish(XiuGaiCheLiangActivity.this, "网络异常");
             }
 
             @Override

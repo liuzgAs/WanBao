@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.BuildConfig;
 import com.wanbao.R;
@@ -116,6 +117,7 @@ public class UpgradeUtils extends Activity{
     }
 
     private static void checkUpDialog(String json) {
+        LogUtils.e("更新",json);
         upgrade = GsonUtils.parseJSON(json, Upgrade.class);
         int currVersion = AppUtils.getAppVersionCode();
         if (upgrade.getVersion() > currVersion) {

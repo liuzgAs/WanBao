@@ -2,12 +2,14 @@ package com.wanbao.fragment;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +29,10 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.R;
+import com.wanbao.activity.CheShenTpActivity;
 import com.wanbao.activity.SaoMiaoActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.event.BaseEvent;
@@ -44,6 +49,7 @@ import com.wanbao.modle.City_List;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Respond_AppImgAdd;
 import com.wanbao.modle.Usercar_Query;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
@@ -51,8 +57,10 @@ import com.weiwangcn.betterspinner.library.BetterSpinner;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -170,6 +178,10 @@ public class XianYouCLBDFragment extends PSFragment {
     TextView textZbzl;
     @BindView(R.id.viewZbzl)
     LinearLayout viewZbzl;
+    @BindView(R.id.textWgtp)
+    TextView textWgtp;
+    @BindView(R.id.viewWgtp)
+    LinearLayout viewWgtp;
     private View view;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
@@ -188,6 +200,10 @@ public class XianYouCLBDFragment extends PSFragment {
     private String face_img;
     private String back_img;
     private String xslc;
+    ArrayList<String> images = new ArrayList<>();
+    List<String> imageUrls = new ArrayList<>();
+    private int themeId = R.style.picture_default_style;
+    private List<LocalMedia> imageList = new ArrayList<>();
 
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
@@ -258,6 +274,7 @@ public class XianYouCLBDFragment extends PSFragment {
             textCx.setText(xinShiZZM.getData().getCar_name());
             textDz.setText(xinShiZZM.getData().getAddress());
             textZcrq.setText(xinShiZZM.getData().getRegister_date());
+            textGcsj.setText(xinShiZZM.getData().getRegister_date());
             textFzrq.setText(xinShiZZM.getData().getIssue_date());
             face_img = xinShiZZM.getImg_id();
         }
@@ -272,6 +289,18 @@ public class XianYouCLBDFragment extends PSFragment {
             textZbzl.setText(xingShiZFY.getData().getUnladen_mass());
 
             back_img = xingShiZFY.getImg_id();
+        }
+        if (BaseEvent.CarImage.equals(event.getAction())) {
+            ArrayList<Respond_AppImgAdd> userUpload = (ArrayList<Respond_AppImgAdd>) event.getData();
+            if (userUpload != null) {
+                imageUrls.clear();
+                images.clear();
+                textWgtp.setText("已上传" + userUpload.size() + "张图片");
+                for (int i = 0; i < userUpload.size(); i++) {
+                    images.add(userUpload.get(i).getImgId());
+                    imageUrls.add(userUpload.get(i).getImg());
+                }
+            }
         }
     }
 
@@ -427,6 +456,8 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("gross_mass", textZzl.getText().toString());
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
+        params.put("imgs", images.toString().replace("[", "").replace("]", ""));
+
         return new OkObject(params, url);
     }
 
@@ -458,6 +489,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("gross_mass", textZzl.getText().toString());
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
+        params.put("imgs", images.toString().replace("[", "").replace("]", ""));
 
         return new OkObject(params, url);
     }
@@ -531,11 +563,42 @@ public class XianYouCLBDFragment extends PSFragment {
         }
     };
 
-    @OnClick({R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl,R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
+    @OnClick({R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
             R.id.viewSyx, R.id.viewFzrq, R.id.viewZcrq, R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewWgtp:
+                if (imageUrls.size() == 0) {
+                    intent = new Intent(context, CheShenTpActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                new AlertDialog.Builder(context)
+                        .setTitle("提示")
+                        .setMessage("上传车身外观图片")
+                        .setPositiveButton("查看", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                imageList.clear();
+                                for (int i = 0; i < imageUrls.size(); i++) {
+                                    LocalMedia localMedia = new LocalMedia();
+                                    localMedia.setPath(imageUrls.get(i));
+                                    imageList.add(localMedia);
+                                }
+                                PictureSelector.create(context).themeStyle(themeId).openExternalPreview(0, imageList);
+                            }
+                        })
+                        .setNegativeButton("修改", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent intent = new Intent(context, CheShenTpActivity.class);
+                                startActivity(intent);
+                            }
+                        }).show();
+                break;
             case R.id.viewDabh:
                 if (usercar_query.getR() != 0) {
                     return;
@@ -564,7 +627,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogHdzrs.dismiss();
-                        textHdzrs.setText(intro+"人");
+                        textHdzrs.setText(intro + "人");
                     }
 
                     @Override
@@ -583,7 +646,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogZzl.dismiss();
-                        textZzl.setText(intro+"kg");
+                        textZzl.setText(intro + "kg");
                     }
 
                     @Override
@@ -602,7 +665,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogWkcc.dismiss();
-                        textWkcc.setText(intro+"mm");
+                        textWkcc.setText(intro + "mm");
                     }
 
                     @Override
@@ -621,7 +684,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogZbzl.dismiss();
-                        textZbzl.setText(intro+"kg");
+                        textZbzl.setText(intro + "kg");
                     }
 
                     @Override

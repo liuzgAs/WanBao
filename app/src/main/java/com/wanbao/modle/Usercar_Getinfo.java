@@ -1,5 +1,7 @@
 package com.wanbao.modle;
 
+import java.util.List;
+
 /**
  * Created by liuzhigang on 2018/6/8/008.
  *
@@ -10,9 +12,10 @@ public class Usercar_Getinfo {
 
 
     /**
-     * stateDes : 审核通过
-     * state : 3
-     * data : {"id":51,"car_name":"2018款 经典版 1.5T 手动启航版","name":"","cid_name":"2018款 经典版 1.5T 手动启航版","cid":3,"bc_time":"2018-07-18","engine":"123","engine_show":"****123","vin":"wsxedcrfvtgb78944","vin_show":"wsx****8944","address":null,"phone":"13023973380","phone_show":"130****3380","car_no":"闽D55555","km":5000,"face_img":0,"back_img":0,"year_end":"","issue_date":"","register_date":"","insurance_commerce":"","insurance_end":"","file_no":"","appproved_passenger_capacity":"","gross_mass":"","overall_dimension":"","unladen_mass":""}
+     * stateDes : 审核中，不可修改
+     * state : 1
+     * data : {"id":23,"car_name":"迈凯伦","name":"测试","cid_name":"2020款 AMR Pro","cid":1265,"bc_time":"2018-07-28","engine":"Ghjjdjdjjdjdjd6646464","engine_show":"Ghj****6464","vin":"hjjjggjuhgft14765","vin_show":"hjj****4765","address":"厦门观音山","phone":"13023973380","phone_show":"130****3380","car_no":"Ghjj","km":5000,"face_img":0,"back_img":0,"year_end":"2018-07","issue_date":"2018-07-28","register_date":"2018-07-28","insurance_commerce":"2018-07-28","insurance_end":"2018-07-28","file_no":"6464646464","appproved_passenger_capacity":"20人","gross_mass":"50kg","overall_dimension":"666mm","unladen_mass":"60008kg"}
+     * imgs : ["http://p7b347z0p.bkt.clouddn.com/Foy_AX_tsQ-1IjU3fSem4Q7ASaEd","http://p7b347z0p.bkt.clouddn.com/FrYuwFzzBgeaGPOoRjiX3L88Oi_X","http://p7b347z0p.bkt.clouddn.com/FunYjRhZzn-FBR20N5EAHbaq3SZP"]
      * status : 1
      * info : 返回成功！
      */
@@ -22,6 +25,7 @@ public class Usercar_Getinfo {
     private DataBean data;
     private int status;
     private String info;
+    private List<String> imgs;
 
     public String getStateDes() {
         return stateDes;
@@ -63,35 +67,43 @@ public class Usercar_Getinfo {
         this.info = info;
     }
 
+    public List<String> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<String> imgs) {
+        this.imgs = imgs;
+    }
+
     public static class DataBean {
         /**
-         * id : 51
-         * car_name : 2018款 经典版 1.5T 手动启航版
-         * name :
-         * cid_name : 2018款 经典版 1.5T 手动启航版
-         * cid : 3
-         * bc_time : 2018-07-18
-         * engine : 123
-         * engine_show : ****123
-         * vin : wsxedcrfvtgb78944
-         * vin_show : wsx****8944
-         * address : null
+         * id : 23
+         * car_name : 迈凯伦
+         * name : 测试
+         * cid_name : 2020款 AMR Pro
+         * cid : 1265
+         * bc_time : 2018-07-28
+         * engine : Ghjjdjdjjdjdjd6646464
+         * engine_show : Ghj****6464
+         * vin : hjjjggjuhgft14765
+         * vin_show : hjj****4765
+         * address : 厦门观音山
          * phone : 13023973380
          * phone_show : 130****3380
-         * car_no : 闽D55555
+         * car_no : Ghjj
          * km : 5000
          * face_img : 0
          * back_img : 0
-         * year_end :
-         * issue_date :
-         * register_date :
-         * insurance_commerce :
-         * insurance_end :
-         * file_no :
-         * appproved_passenger_capacity :
-         * gross_mass :
-         * overall_dimension :
-         * unladen_mass :
+         * year_end : 2018-07
+         * issue_date : 2018-07-28
+         * register_date : 2018-07-28
+         * insurance_commerce : 2018-07-28
+         * insurance_end : 2018-07-28
+         * file_no : 6464646464
+         * appproved_passenger_capacity : 20人
+         * gross_mass : 50kg
+         * overall_dimension : 666mm
+         * unladen_mass : 60008kg
          */
 
         private int id;
