@@ -548,7 +548,7 @@ public class MyCarFragment extends PSFragment {
     private OkObject getOkObjectMyCar() {
         String url = Constant.HOST + Constant.Url.User_My;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
         return new OkObject(params, url);
     }
 

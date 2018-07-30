@@ -257,7 +257,7 @@ public class ShiJiaDDFragment extends PSFragment implements SwipeRefreshLayout.O
     private OkObject getOkObjectOrder() {
         String url = Constant.HOST + Constant.Url.User_Test_drive_order;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
         params.put("p", String.valueOf(page));
         params.put("state", state);
         return new OkObject(params, url);

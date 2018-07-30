@@ -206,7 +206,7 @@ public class TuiJianHYGCFragment extends PSFragment {
     private OkObject getOkObjectRecomadd() {
         String url = Constant.HOST + Constant.Url.Money_Recomadd;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
         params.put("name", editName.getText().toString());
         params.put("phone", editPhone.getText().toString());
         params.put("car", carId);

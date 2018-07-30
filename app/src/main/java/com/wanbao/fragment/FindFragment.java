@@ -178,7 +178,7 @@ public class FindFragment extends PSFragment {
     private OkObject getOkObjectStore() {
         String url = Constant.HOST + Constant.Url.Store_Index;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
         params.put("lng", SPUtils.getInstance().getString(Constant.SF.Longitude) + "");
         params.put("lat", SPUtils.getInstance().getString(Constant.SF.Latitude) + "");
         return new OkObject(params, url);

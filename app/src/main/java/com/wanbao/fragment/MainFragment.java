@@ -407,7 +407,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     private OkObject getOkObjectSms() {
         String url = Constant.HOST + Constant.Url.Home;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
         return new OkObject(params, url);
     }
 

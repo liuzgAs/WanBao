@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -61,6 +62,10 @@ public class WebViewActivity extends BaseActivity {
         webView.setWebViewClient(new WebViewClient());//覆盖第三方浏览器
         mSettings = webView.getSettings();
         mSettings.setJavaScriptEnabled(true);
+        mSettings.setBlockNetworkImage(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         mSettings.setUseWideViewPort(true);
         mSettings.setLoadWithOverviewMode(true);
         webView.setWebChromeClient(new WebChromeClient() {

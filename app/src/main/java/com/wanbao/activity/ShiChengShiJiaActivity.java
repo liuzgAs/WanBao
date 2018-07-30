@@ -142,7 +142,9 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 int hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                                if (hourOfDay<=hour){
+                                int day=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+                                if (day==dayOfMonth&&hourOfDay<=hour){
                                     ToastUtils.showShort("试驾时间不能在当前时间以前！");
                                 }else {
                                     textSj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + IntChange.iChange(hourOfDay) + ":" + IntChange.iChange(minute));

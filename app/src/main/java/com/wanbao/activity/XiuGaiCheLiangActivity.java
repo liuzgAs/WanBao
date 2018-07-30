@@ -616,10 +616,6 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                 datePickerDialog.show();
                 break;
             case R.id.imageback:
-                if (usercar_getinfo.getState() == 1) {
-                    ToastUtils.showShort("审核中，不可修改");
-                    return;
-                }
                 finish();
                 break;
             case R.id.viewCxxx:

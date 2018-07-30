@@ -83,7 +83,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
             , R.mipmap.yuanhu19, R.mipmap.yuanhu20, R.mipmap.yuanhu21, R.mipmap.yuanhu22};
     private String id;
     private MySumAdapter mySumAdapter;
-    private Handler handler=null;
+    private Handler handler = null;
 
 
     @Override
@@ -106,7 +106,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        handler=new Handler();
+        handler = new Handler();
     }
 
     @Override
@@ -114,31 +114,37 @@ public class TiYanZhongXinActivity extends BaseActivity {
         getCensor();
     }
 
-    @OnClick({R.id.imageBack, R.id.viewBYSC, R.id.viewCgby, R.id.viewWxjl})
+    @OnClick({R.id.imageFx,R.id.imageBack, R.id.viewBYSC, R.id.viewCgby, R.id.viewWxjl})
     public void onViewClicked(View view) {
-        Intent intent ;
+        Intent intent;
         switch (view.getId()) {
+            case R.id.imageFx:
+                intent=new Intent();
+                intent.putExtra("id",id);
+                intent.setClass(context,XiuGaiCheLiangActivity.class);
+                startActivity(intent);
+                break;
             case R.id.imageBack:
                 finish();
                 break;
             case R.id.viewBYSC:
                 intent = new Intent();
-                intent.putExtra("id",String.valueOf(id));
-                intent.putExtra("pos",0);
+                intent.putExtra("id", String.valueOf(id));
+                intent.putExtra("pos", 0);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewCgby:
                 intent = new Intent();
-                intent.putExtra("id",String.valueOf(id));
-                intent.putExtra("pos",1);
+                intent.putExtra("id", String.valueOf(id));
+                intent.putExtra("pos", 1);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewWxjl:
                 intent = new Intent();
-                intent.putExtra("id",String.valueOf(id));
-                intent.putExtra("pos",2);
+                intent.putExtra("id", String.valueOf(id));
+                intent.putExtra("pos", 2);
                 intent.setClass(context, BaoYangChouCeActivity.class);
                 startActivity(intent);
                 break;
@@ -146,6 +152,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
                 break;
         }
     }
+
     private void getCensor() {
         HttpApi.post(context, getOkObjectCensor(), new HttpApi.CallBack() {
             @Override
@@ -186,7 +193,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
                         ThreadPoolManager.getInstance().execute(new Runnable() {
                             @Override
                             public void run() {
-                                setAnim(Math.round(uCensor.getVal()*23 /100));
+                                setAnim(Math.round(uCensor.getVal() * 23 / 100));
                                 handler.post(runnableUi);
                             }
                         });
@@ -230,11 +237,12 @@ public class TiYanZhongXinActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (anim!=null){
+        if (anim != null) {
             anim.stop();
-            anim=null;
+            anim = null;
         }
     }
+
 
     class MySumAdapter extends BaseAdapter {
 
@@ -285,15 +293,16 @@ public class TiYanZhongXinActivity extends BaseActivity {
     private void setAnim(int p) {
         anim = new AnimationDrawable();
         for (int i = 0; i < p; i++) {
-            anim.addFrame(ContextCompat.getDrawable(context,images[i]), 80);
+            anim.addFrame(ContextCompat.getDrawable(context, images[i]), 80);
 //            anim.addFrame(new BitmapDrawable(getResources(),BitmapFactory.decodeResource(getResources(),images[i])), 80);
         }
         // 设置为循环播放
         anim.setOneShot(true);
 
     }
+
     // 构建Runnable对象，在runnable中更新界面
-    Runnable runnableUi=new  Runnable(){
+    Runnable runnableUi = new Runnable() {
         @Override
         public void run() {
             // 设置ImageView的背景为AnimationDrawable
