@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.R;
 import com.wanbao.adapter.ZhanTingQCXQGlideImageLoader;
 import com.wanbao.base.activity.BaseActivity;
@@ -26,12 +29,16 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.base.view.NoScrollWebView;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Showbrand_Car;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,7 +83,8 @@ public class ZhanTingQCXQActivity extends BaseActivity {
     private WebSettings mSettings;
     private MySumAdapter mySumAdapter;
     private Showbrand_Car showbrand_car;
-
+    private int themeId= R.style.picture_default_style;
+    private List<LocalMedia> imageList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +115,24 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         }
         mSettings.setUseWideViewPort(true);
         mSettings.setLoadWithOverviewMode(true);
-
+        int screenWidth = ScreenUtils.getScreenWidth(context);
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+        layoutParams.width = screenWidth;
+        banner.setLayoutParams(layoutParams);
+        LogUtils.e("ShouYeFragment--onCreateView", ""+(int) (480f * (float) screenWidth / 1080f));
+        layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                imageList.clear();
+                for (int i=0;i<showbrand_car.getBanner().size();i++){
+                    LocalMedia localMedia=new LocalMedia();
+                    localMedia.setPath(showbrand_car.getBanner().get(i).getImg());
+                    imageList.add(localMedia);
+                }
+                PictureSelector.create((Activity)context).themeStyle(themeId).openExternalPreview(position, imageList);
+            }
+        });
     }
 
     @Override

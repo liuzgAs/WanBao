@@ -107,6 +107,10 @@ public class Constant {
          */
         public static final String Usercar_Index = "Usercar/index";
         /**
+         * 头条资讯
+         */
+        public static final String News_Headline = "News/headline";
+        /**
          * 绑定银爱车请求验证码
          */
         public static final String Login_BindCarSms = "Login/bindCarSms";

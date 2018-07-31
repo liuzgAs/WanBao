@@ -1,5 +1,6 @@
 package com.wanbao.modle;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @author LiuZG
  */
 
-public class Index_Home {
+public class Index_Home implements Serializable{
 
     /**
      * banner : [{"img":"http://p7b347z0p.bkt.clouddn.com/image/jj822aog_4e0cqzgz0ol65b3d9f7a8d0f5.jpg","code":"","item_id":0,"url":"?uapp=1","title":" "},{"img":"http://p7b347z0p.bkt.clouddn.com/image/jhsey6n4_7ehgs2ev5gkk5b0df9d4eddf4.jpg","code":"","item_id":0,"url":"?uapp=1","title":" "}]
@@ -64,7 +65,7 @@ public class Index_Home {
         this.teamData = teamData;
     }
 
-    public static class BannerBean {
+    public static class BannerBean implements Serializable{
         /**
          * img : http://p7b347z0p.bkt.clouddn.com/image/jj822aog_4e0cqzgz0ol65b3d9f7a8d0f5.jpg
          * code :
@@ -120,7 +121,7 @@ public class Index_Home {
         }
     }
 
-    public static class NewsBean {
+    public static class NewsBean implements Serializable{
         /**
          * id : 39
          * title : 头条1
@@ -156,7 +157,7 @@ public class Index_Home {
         }
     }
 
-    public static class TeamDataBean {
+    public static class TeamDataBean implements Serializable{
         /**
          * des : ￥20.00
          * id : 1

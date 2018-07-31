@@ -48,7 +48,6 @@ public class XuanZheCSActivity extends BaseActivity {
     TextView tvLetterOverlay;
     private List<City_List.CityBean> indexCitylistCity = new ArrayList<>();
     private MyAdapter mAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

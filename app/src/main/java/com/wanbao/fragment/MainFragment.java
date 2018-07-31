@@ -38,10 +38,13 @@ import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.MianFeiYCActivity;
+import com.wanbao.activity.TouTiaoLBActivity;
 import com.wanbao.activity.WebViewActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XuanZheCheXSJActivity;
+import com.wanbao.activity.YangCheLBActivity;
+import com.wanbao.activity.YouZhiESCActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.event.BaseEvent;
@@ -50,6 +53,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.Index_Home;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_My;
@@ -163,6 +167,12 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewPmzc = view.findViewById(R.id.viewPmzc);
                 viewScsj = view.findViewById(R.id.viewScsj);
                 viewHdxx = view.findViewById(R.id.viewHdxx);
+                int screenWidth = ScreenUtils.getScreenWidth(context);
+                ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+                layoutParams.width = (int) (screenWidth-context.getResources().getDimension(R.dimen.dp_20));
+                banner.setLayoutParams(layoutParams);
+                LogUtils.e("ShouYeFragment--onCreateView", ""+(int) (480f * (float) screenWidth / 1080f));
+                layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
                 marqueeView = view.findViewById(R.id.marqueeView);
                 hrecyclerView = view.findViewById(R.id.recyclerView);
                 hrecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -243,7 +253,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewGsc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent=new Intent(context,YangCheLBActivity.class);
+                        startActivity(intent);
                     }
                 });
                 viewWxby.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +280,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewSsfy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent=new Intent(context,TouTiaoLBActivity.class);
+                        startActivity(intent);
                     }
                 });
                 viewAcrj.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +301,14 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewPmzc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent();
+                        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                            intent.setClass(context, LoginActivity.class);
+                            startActivity(intent);
+                            return;
+                        }
+                        intent.setClass(getActivity(), YouZhiESCActivity.class);
+                        startActivity(intent);
                     }
                 });
                 viewScsj.setOnClickListener(new View.OnClickListener() {
@@ -309,7 +328,8 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 viewHdxx.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent=new Intent(context,TouTiaoLBActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

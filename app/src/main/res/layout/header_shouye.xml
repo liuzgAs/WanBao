@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:padding="@dimen/dp_10"
         android:background="@color/white"
-        android:layout_height="@dimen/dp_120">
+        android:layout_height="wrap_content">
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_2"
                 android:textColor="#505050"
-                android:text="拍卖众筹" />
+                android:text="优质二手车" />
         </LinearLayout>
     </LinearLayout>
     <View
@@ -248,7 +248,7 @@
                 android:textSize="@dimen/sp_13"
                 android:maxLines="1"
                 android:textColor="@color/new_secondary_text"
-                android:text="400匹全时四驱到底" />
+                android:text="活动讯息详情" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout

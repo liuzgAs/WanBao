@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18073001
-        versionName "0.4.0"
+        versionCode 18073101
+        versionName "0.4.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true

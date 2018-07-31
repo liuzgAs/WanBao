@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,8 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.XinCheZTXQGlideImageLoader;
@@ -31,6 +34,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.AmapUtil;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.MapApps;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Showbrand_Info;
@@ -40,6 +44,7 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,7 +130,8 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
             private TextView textPicNum;
             private View linearCoupon;
             private View viewAddress;
-
+            private int themeId= R.style.picture_default_style;
+            private List<LocalMedia> imageList = new ArrayList<>();
             @Override
             public View onCreateView(ViewGroup parent) {
                 View view = LayoutInflater.from(context).inflate(R.layout.header_xincheztxq, null);
@@ -142,6 +148,12 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
                 textPicNum = view.findViewById(R.id.textPicNum);
                 linearCoupon = view.findViewById(R.id.linearCoupon);
                 viewAddress = view.findViewById(R.id.viewAddress);
+                int screenWidth = ScreenUtils.getScreenWidth(context);
+                ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+                layoutParams.width = screenWidth;
+                banner.setLayoutParams(layoutParams);
+                LogUtils.e("ShouYeFragment--onCreateView", ""+(int) (480f * (float) screenWidth / 1080f));
+                layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
                 return view;
             }
 
@@ -212,7 +224,13 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-
+                        imageList.clear();
+                        for (int i=0;i<showbrand_info.getBanner().size();i++){
+                            LocalMedia localMedia=new LocalMedia();
+                            localMedia.setPath(showbrand_info.getBanner().get(i).getImg());
+                            imageList.add(localMedia);
+                        }
+                        PictureSelector.create((Activity)context).themeStyle(themeId).openExternalPreview(position, imageList);
                     }
                 });
             }

@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.jude.easyrecyclerview.decoration.SpaceDecoration;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.R;
 import com.wanbao.adapter.XinCheZTGlideImageLoader;
 import com.wanbao.base.activity.BaseActivity;
@@ -27,6 +30,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Showbrand_Index;
 import com.wanbao.ui.MyEasyRecyclerView;
@@ -35,7 +39,9 @@ import com.wanbao.viewholder.XinCheZTViewHolder;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +61,8 @@ public class XinCheZTActivity extends BaseActivity implements SwipeRefreshLayout
     private RecyclerArrayAdapter<Showbrand_Index.BrandBean> hadapter;
     private Showbrand_Index showbrand_index;
     private String bid;
+    private int themeId= R.style.picture_default_style;
+    private List<LocalMedia> imageList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +115,12 @@ public class XinCheZTActivity extends BaseActivity implements SwipeRefreshLayout
             public View onCreateView(ViewGroup parent) {
                 View view = LayoutInflater.from(context).inflate(R.layout.header_xinchezt, null);
                 banner = view.findViewById(R.id.banner);
+                int screenWidth = ScreenUtils.getScreenWidth(context);
+                ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+                layoutParams.width = screenWidth;
+                banner.setLayoutParams(layoutParams);
+                LogUtils.e("ShouYeFragment--onCreateView", ""+(int) (480f * (float) screenWidth / 1080f));
+                layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
                 hrecyclerView = view.findViewById(R.id.recyclerView);
                 hrecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
                 hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Showbrand_Index.BrandBean>(context) {
@@ -165,7 +179,13 @@ public class XinCheZTActivity extends BaseActivity implements SwipeRefreshLayout
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-
+                        imageList.clear();
+                        for (int i=0;i<showbrand_index.getBanner().size();i++){
+                            LocalMedia localMedia=new LocalMedia();
+                            localMedia.setPath(showbrand_index.getBanner().get(i).getImg());
+                            imageList.add(localMedia);
+                        }
+                        PictureSelector.create((Activity)context).themeStyle(themeId).openExternalPreview(position, imageList);
                     }
                 });
             }
