@@ -343,7 +343,7 @@ public class ShiMinRzActivity extends BaseActivity {
                     intent = new Intent();
                     intent.putExtra("type", "51");
                     intent.putExtra("side", "face");
-                    intent.setClass(context, SaoMiaoActivity.class);
+                    intent.setClass(context, CameraActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -365,7 +365,7 @@ public class ShiMinRzActivity extends BaseActivity {
                     intent = new Intent();
                     intent.putExtra("type", "52");
                     intent.putExtra("side", "face");
-                    intent.setClass(context, SaoMiaoActivity.class);
+                    intent.setClass(context, CameraActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -488,7 +488,7 @@ public class ShiMinRzActivity extends BaseActivity {
                     intent = new Intent();
                     intent.putExtra("type", "51");
                     intent.putExtra("side", "back");
-                    intent.setClass(context, SaoMiaoActivity.class);
+                    intent.setClass(context, CameraActivity.class);
                     startActivity(intent);
                 }
                 break;

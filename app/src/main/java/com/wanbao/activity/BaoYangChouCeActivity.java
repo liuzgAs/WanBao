@@ -65,7 +65,7 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initViews() {
-        imageRight.setVisibility(View.VISIBLE);
+        imageRight.setVisibility(View.INVISIBLE);
         switch (pos){
             case 0:
                 titleText.setText("保养手册");
@@ -161,7 +161,7 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
                     mfragment= BaoYangJLFragment.newInstance(id);
                     break;
                 case 2:
-                    mfragment= new WeiXiuJLFragment();
+                    mfragment= WeiXiuJLFragment.newInstance(id);
                     break;
                 default:
                     mfragment= BaoYangSCFragment.newInstance(id);

@@ -32,8 +32,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.R;
+import com.wanbao.activity.CameraActivity;
 import com.wanbao.activity.CheShenTpActivity;
-import com.wanbao.activity.SaoMiaoActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
@@ -957,7 +957,8 @@ public class XianYouCLBDFragment extends PSFragment {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "face");
-                    intent.setClass(getActivity(), SaoMiaoActivity.class);
+//                    intent.setClass(getActivity(), SaoMiaoActivity.class);
+                    intent.setClass(getActivity(), CameraActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -975,7 +976,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "back");
-                    intent.setClass(getActivity(), SaoMiaoActivity.class);
+                    intent.setClass(getActivity(), CameraActivity.class);
                     startActivity(intent);
                 }
                 break;

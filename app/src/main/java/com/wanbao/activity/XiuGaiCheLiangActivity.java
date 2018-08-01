@@ -683,7 +683,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "face");
-                    intent.setClass(context, SaoMiaoActivity.class);
+                    intent.setClass(context, CameraActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -705,7 +705,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "back");
-                    intent.setClass(context, SaoMiaoActivity.class);
+                    intent.setClass(context, CameraActivity.class);
                     startActivity(intent);
                 }
                 break;

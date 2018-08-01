@@ -371,6 +371,10 @@ public class Constant {
          */
         public static final String Usercar_Maintain_Log = "Usercar/maintain_log";
         /**
+         * 常规维修记录
+         */
+        public static final String Usercar_Service_Log = "Usercar/service_log";
+        /**
          * 查看记录照片
          */
         public static final String Usercar_LogPics = "Usercar/logPics";

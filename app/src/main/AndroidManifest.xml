@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.wanbao">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -37,7 +38,8 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:theme">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.wanbao.myprovider"
@@ -306,7 +308,10 @@
         <activity android:name=".activity.WoDeCheDuiActivity" />
         <activity android:name=".activity.YangCheLBActivity" />
         <activity android:name=".activity.CheShenTpActivity" />
-        <activity android:name=".activity.TouTiaoLBActivity"></activity>
+        <activity android:name=".activity.TouTiaoLBActivity" />
+        <activity android:name=".activity.CameraActivity"
+            android:screenOrientation="landscape"
+            ></activity>
     </application>
 
 </manifest>
