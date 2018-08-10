@@ -121,7 +121,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
             case R.id.imageFx:
                 intent=new Intent();
                 intent.putExtra("id",id);
-                intent.setClass(context,XiuGaiCheLiangActivity.class);
+                intent.setClass(context,CheLiangBJActivity.class);
                 startActivity(intent);
                 break;
             case R.id.imageBack:

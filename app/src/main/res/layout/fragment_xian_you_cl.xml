@@ -345,7 +345,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="车型"
+                        android:text="行驶证车型"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
 
@@ -355,7 +355,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的车型"
+                        android:hint="请填写正确的行驶证车型"
                         android:gravity="right"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />

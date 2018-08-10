@@ -204,7 +204,7 @@ public class XianYouCLBDFragment extends PSFragment {
     List<String> imageUrls = new ArrayList<>();
     private int themeId = R.style.picture_default_style;
     private List<LocalMedia> imageList = new ArrayList<>();
-
+    private String img_id;
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
         return sf;
@@ -267,6 +267,7 @@ public class XianYouCLBDFragment extends PSFragment {
         }
         if (BaseEvent.XinShiZZM.equals(event.getAction())) {
             xinShiZZM = (XinShiZZM) event.getData();
+            img_id=xinShiZZM.getImg_id();
             textCph.setText(xinShiZZM.getData().getCar_no());
             textFdjh.setText(xinShiZZM.getData().getEngine());
             textCjh.setText(xinShiZZM.getData().getVin());
@@ -976,6 +977,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     intent = new Intent();
                     intent.putExtra("type", "53");
                     intent.putExtra("side", "back");
+                    intent.putExtra("img_id", img_id);
                     intent.setClass(getActivity(), CameraActivity.class);
                     startActivity(intent);
                 }
@@ -1042,13 +1044,53 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("短信验证码不能为空！");
                         return;
                     }
-                    usercar_Add_car(getOkObjectBD1());
+                    if (TextUtils.isEmpty(usercar_query.getAdd_tips())){
+                        usercar_Add_car(getOkObjectBD1());
+                    }else {
+                        new AlertDialog.Builder(context)
+                                .setTitle("提示")
+                                .setMessage(usercar_query.getAdd_tips())
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        usercar_Add_car(getOkObjectBD1());
+
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+                    }
                 } else if (usercar_query.getR() == 1) {
                     if (TextUtils.isEmpty(editYzm.getText().toString())) {
                         ToastUtils.showShort("短信验证码不能为空！");
                         return;
                     }
-                    usercar_Add_car(getOkObjectBD());
+                    if (TextUtils.isEmpty(usercar_query.getAdd_tips())){
+                        usercar_Add_car(getOkObjectBD1());
+                    }else {
+                        new AlertDialog.Builder(context)
+                                .setTitle("提示")
+                                .setMessage(usercar_query.getAdd_tips())
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        usercar_Add_car(getOkObjectBD());
+
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).show();
+                    }
                 }
                 break;
             default:

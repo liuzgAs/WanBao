@@ -171,6 +171,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
     List<String> imageUrls = new ArrayList<>();
     private int themeId = R.style.picture_default_style;
     private List<LocalMedia> imageList = new ArrayList<>();
+    private String vinCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,6 +214,12 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
             textCph.setText(xinShiZZM.getData().getCar_no());
             textFdjh.setText(xinShiZZM.getData().getEngine());
             textCjh.setText(xinShiZZM.getData().getVin());
+            textXm.setText(xinShiZZM.getData().getName());
+            textCx.setText(xinShiZZM.getData().getCar_name());
+            textDz.setText(xinShiZZM.getData().getAddress());
+            textZcrq.setText(xinShiZZM.getData().getRegister_date());
+            textGcsj.setText(xinShiZZM.getData().getRegister_date());
+            textFzrq.setText(xinShiZZM.getData().getIssue_date());
             usercar_getinfo.getData().setCar_no(xinShiZZM.getData().getCar_no());
             usercar_getinfo.getData().setEngine(xinShiZZM.getData().getEngine());
             usercar_getinfo.getData().setVin(xinShiZZM.getData().getVin());
@@ -572,8 +579,9 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogCjh.dismiss();
-                        textCjh.setText(intro);
-                        usercar_getinfo.getData().setVin(intro);
+                        vinCode=intro;
+                        textCjh.setText(vinCode);
+                        usercar_getinfo.getData().setVin(vinCode);
                     }
 
                     @Override
@@ -757,7 +765,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     ToastUtils.showShort("请设置发证日期");
                     return;
                 }
-                if (!RegexUtils.isMatch(Constant.Cjh, textCjh.getText().toString())) {
+                if (!RegexUtils.isMatch(Constant.Cjh, vinCode)) {
                     ToastUtils.showShort("请输入正确车架号");
                     return;
                 }
@@ -810,6 +818,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         textCph.setText(usercar_getinfo.getData().getCar_no());
                         textFdjh.setText(usercar_getinfo.getData().getEngine_show());
                         textCjh.setText(usercar_getinfo.getData().getVin_show());
+                        vinCode=usercar_getinfo.getData().getVin();
                         textNsdq.setText(usercar_getinfo.getData().getYear_end());
                         textBxdq.setText(usercar_getinfo.getData().getInsurance_end());
                         textSjhm.setText(usercar_getinfo.getData().getPhone_show());

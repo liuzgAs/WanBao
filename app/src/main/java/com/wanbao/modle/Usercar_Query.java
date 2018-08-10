@@ -20,6 +20,7 @@ public class Usercar_Query {
     private int r;
     private int status;
     private String info;
+    private String add_tips;
 
     public DataBean getData() {
         return data;
@@ -51,6 +52,13 @@ public class Usercar_Query {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+    public String getAdd_tips() {
+        return add_tips;
+    }
+
+    public void setAdd_tips(String add_tips) {
+        this.add_tips = add_tips;
     }
 
     public static class DataBean {

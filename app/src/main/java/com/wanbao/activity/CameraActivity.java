@@ -1,8 +1,11 @@
 package com.wanbao.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -14,6 +17,8 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.android.camera2basic.Camera2BasicFragment;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.tools.PictureFileUtils;
 import com.wanbao.R;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.event.QuitEvent;
@@ -28,6 +33,8 @@ import com.wanbao.modle.ShenFenB;
 import com.wanbao.modle.ShenFenZ;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.UCropActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +52,7 @@ public class CameraActivity extends AppCompatActivity {
     private int typeId;
     private String title;
     protected MaterialDialog dialog;
-
+    private String img_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,7 @@ public class CameraActivity extends AppCompatActivity {
         }
         type = getIntent().getStringExtra("type");
         side = getIntent().getStringExtra("side");
+        img_id=getIntent().getStringExtra("img_id");
         initViews();
         initData();
     }
@@ -67,6 +75,7 @@ public class CameraActivity extends AppCompatActivity {
 
 
     private void initViews() {
+
         if ("53".equals(type) && "face".equals(side)) {
             title="行驶证正页信息";
             typeId = 0;
@@ -94,7 +103,46 @@ public class CameraActivity extends AppCompatActivity {
     public void onEventMainThread(com.example.android.camera2basic.BaseEvent event) {
         if (event.getAction().equals(com.example.android.camera2basic.BaseEvent.ImageFile)){
             File file=(File) event.getData();
-            getAppImgAdd(ImgToBase64.toBase64(file.toString()));
+//            getAppImgAdd(ImgToBase64.toBase64(file.toString()));
+//            UCrop.of(sourceUri, destinationUri)
+//                    .withAspectRatio(9, 16)
+//                    .withMaxResultSize(maxWidth, maxHeight)
+//                    .start(CameraActivity.this);
+            String imgType = PictureMimeType.getLastImgType(file.getPath());
+            startUcrop(file.getPath(),imgType);
+        }
+    }
+    private void startUcrop(String path,String imgType) {
+//        Uri uri_crop = Uri.parse(path);
+        Uri uri_crop = Uri.fromFile(new File(path));
+        //裁剪后保存到文件中
+//        Uri destinationUri = Uri.fromFile(new File(getCacheDir(), "SampleCropImage.jpg"));
+        UCrop uCrop = UCrop.of(uri_crop, Uri.fromFile(new File(PictureFileUtils.getDiskCacheDir(this),
+                System.currentTimeMillis() + imgType)));
+        UCrop.Options options = new UCrop.Options();
+        //设置裁剪图片可操作的手势
+        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
+        //设置隐藏底部容器，默认显示
+//        options.setHideBottomControls(true);
+        //设置toolbar颜色
+        options.setToolbarColor(ActivityCompat.getColor(this, R.color.colorPrimary));
+        //设置状态栏颜色
+        options.setStatusBarColor(ActivityCompat.getColor(this, R.color.colorPrimary));
+        //是否能调整裁剪框
+//        options.setFreeStyleCropEnabled(true);
+        uCrop.withOptions(options);
+        uCrop.withAspectRatio(11,16);
+        uCrop.start(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+           getAppImgAdd(ImgToBase64.toBase64(ImgToBase64.getRealFilePath(CameraActivity.this,resultUri)));
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+            LogUtils.e("cropError",cropError.getMessage());
         }
     }
 
@@ -149,6 +197,9 @@ public class CameraActivity extends AppCompatActivity {
         params.put("code", "");
         params.put("img", img);
         params.put("type", "png");
+        if (!TextUtils.isEmpty(img_id)){
+            params.put("faceid",img_id);
+        }
         return new OkObject(params, url);
     }
 

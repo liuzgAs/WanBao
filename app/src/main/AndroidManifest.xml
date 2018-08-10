@@ -309,9 +309,13 @@
         <activity android:name=".activity.YangCheLBActivity" />
         <activity android:name=".activity.CheShenTpActivity" />
         <activity android:name=".activity.TouTiaoLBActivity" />
-        <activity android:name=".activity.CameraActivity"
-            android:screenOrientation="landscape"
-            ></activity>
+        <activity
+            android:name=".activity.CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CheLiangBJActivity"
+            android:label="@string/title_activity_che_liang_bj"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

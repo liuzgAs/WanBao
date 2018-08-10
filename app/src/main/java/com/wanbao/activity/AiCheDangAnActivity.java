@@ -198,7 +198,7 @@ public class AiCheDangAnActivity extends BaseActivity implements SwipeRefreshLay
                 if (type == 0) {
                     Intent intent=new Intent();
                     intent.putExtra("id",String.valueOf(adapter.getItem(position).getCid()));
-                    intent.setClass(context,XiuGaiCheLiangActivity.class);
+                    intent.setClass(context,CheLiangBJActivity.class);
                     startActivity(intent);
                 } else {
                     EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_MyCar, adapter.getItem(position)));
