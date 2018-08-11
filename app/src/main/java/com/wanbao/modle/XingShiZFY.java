@@ -1,12 +1,14 @@
 package com.wanbao.modle;
 
+import java.io.Serializable;
+
 /**
  * Created by liuzhigang on 2018/6/7/007.
  *
  * @author LiuZG
  */
 
-public class XingShiZFY {
+public class XingShiZFY implements Serializable {
 
     /**
      * img_id : 574
@@ -52,7 +54,7 @@ public class XingShiZFY {
         this.info = info;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * car_no : 鲁R18D81
          * file_no : 530300182849

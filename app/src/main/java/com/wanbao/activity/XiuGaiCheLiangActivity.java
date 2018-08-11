@@ -663,7 +663,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                     public void doConfirm(String intro) {
                         editDialog1.dismiss();
                         textxslc.setText(intro);
-                        usercar_getinfo.getData().setKm(Integer.valueOf(intro));
+                        usercar_getinfo.getData().setKm(String.valueOf(intro));
                     }
 
                     @Override
@@ -835,7 +835,7 @@ public class XiuGaiCheLiangActivity extends BaseActivity {
                         textWkcc.setText(usercar_getinfo.getData().getOverall_dimension());
                         textZbzl.setText(usercar_getinfo.getData().getUnladen_mass());
                         if (usercar_getinfo.getImgs().size()>0){
-                            imageUrls.addAll(usercar_getinfo.getImgs());
+//                            imageUrls.addAll(usercar_getinfo.getImgs());
                             textWgtp.setText("已上传" +usercar_getinfo.getImgs().size() + "张图片");
                         }
                         if (usercar_getinfo.getState()==1){

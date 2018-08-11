@@ -293,6 +293,13 @@
                             android:textColor="@color/new_important_text"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
+                    <ImageView
+                        android:id="@+id/imageZy"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_width="@dimen/dp_18"
+                        android:visibility="gone"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/icon_xszbd" />
                 </LinearLayout>
 
                 <View
@@ -621,6 +628,13 @@
                             android:textColor="@color/new_important_text"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
+                    <ImageView
+                        android:id="@+id/imageFy"
+                        android:layout_width="@dimen/dp_18"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:src="@mipmap/icon_cxbd" />
                 </LinearLayout>
 
                 <View

@@ -12,10 +12,10 @@ public class Usercar_Getinfo {
 
 
     /**
-     * stateDes : 审核中，不可修改
-     * state : 1
-     * data : {"id":23,"car_name":"迈凯伦","name":"测试","cid_name":"2020款 AMR Pro","cid":1265,"bc_time":"2018-07-28","engine":"Ghjjdjdjjdjdjd6646464","engine_show":"Ghj****6464","vin":"hjjjggjuhgft14765","vin_show":"hjj****4765","address":"厦门观音山","phone":"13023973380","phone_show":"130****3380","car_no":"Ghjj","km":5000,"face_img":0,"back_img":0,"year_end":"2018-07","issue_date":"2018-07-28","register_date":"2018-07-28","insurance_commerce":"2018-07-28","insurance_end":"2018-07-28","file_no":"6464646464","appproved_passenger_capacity":"20人","gross_mass":"50kg","overall_dimension":"666mm","unladen_mass":"60008kg"}
-     * imgs : ["http://p7b347z0p.bkt.clouddn.com/Foy_AX_tsQ-1IjU3fSem4Q7ASaEd","http://p7b347z0p.bkt.clouddn.com/FrYuwFzzBgeaGPOoRjiX3L88Oi_X","http://p7b347z0p.bkt.clouddn.com/FunYjRhZzn-FBR20N5EAHbaq3SZP"]
+     * stateDes : 审核通过
+     * state : 3
+     * data : {"id":27,"car_name":"北京现代BH7200MX","name":"张磊","cid_name":"Valkyrie2020款 AMR Pro","cid":1265,"bc_time":"2015-04-27","engine":"88158976","engine_show":"881****8976","vin":"1234567890963hhbb","vin_show":"123****hhbb","address":"福建","phone":"13023973380","phone_show":"130****3380","car_no":"鲁R18D81","km":258,"face_img":995,"back_img":997,"year_end":"2017-04","issue_date":"","register_date":"2018-08-02","insurance_commerce":"2018-08-03","insurance_end":"2017-04-01","file_no":"530300182849","appproved_passenger_capacity":"6人","gross_mass":"1875kg","overall_dimension":"4747X1820X1420mm","unladen_mass":"11kg"}
+     * imgs : [{"img_id":"998","img_url":"http://p7b347z0p.bkt.clouddn.com/Fls0nDll8IDoMjg0nG8EqqULsa1s"}]
      * status : 1
      * info : 返回成功！
      */
@@ -25,7 +25,7 @@ public class Usercar_Getinfo {
     private DataBean data;
     private int status;
     private String info;
-    private List<String> imgs;
+    private List<ImgsBean> imgs;
 
     public String getStateDes() {
         return stateDes;
@@ -67,43 +67,43 @@ public class Usercar_Getinfo {
         this.info = info;
     }
 
-    public List<String> getImgs() {
+    public List<ImgsBean> getImgs() {
         return imgs;
     }
 
-    public void setImgs(List<String> imgs) {
+    public void setImgs(List<ImgsBean> imgs) {
         this.imgs = imgs;
     }
 
     public static class DataBean {
         /**
-         * id : 23
-         * car_name : 迈凯伦
-         * name : 测试
-         * cid_name : 2020款 AMR Pro
+         * id : 27
+         * car_name : 北京现代BH7200MX
+         * name : 张磊
+         * cid_name : Valkyrie2020款 AMR Pro
          * cid : 1265
-         * bc_time : 2018-07-28
-         * engine : Ghjjdjdjjdjdjd6646464
-         * engine_show : Ghj****6464
-         * vin : hjjjggjuhgft14765
-         * vin_show : hjj****4765
-         * address : 厦门观音山
+         * bc_time : 2015-04-27
+         * engine : 88158976
+         * engine_show : 881****8976
+         * vin : 1234567890963hhbb
+         * vin_show : 123****hhbb
+         * address : 福建
          * phone : 13023973380
          * phone_show : 130****3380
-         * car_no : Ghjj
-         * km : 5000
-         * face_img : 0
-         * back_img : 0
-         * year_end : 2018-07
-         * issue_date : 2018-07-28
-         * register_date : 2018-07-28
-         * insurance_commerce : 2018-07-28
-         * insurance_end : 2018-07-28
-         * file_no : 6464646464
-         * appproved_passenger_capacity : 20人
-         * gross_mass : 50kg
-         * overall_dimension : 666mm
-         * unladen_mass : 60008kg
+         * car_no : 鲁R18D81
+         * km : 258
+         * face_img : 995
+         * back_img : 997
+         * year_end : 2017-04
+         * issue_date :
+         * register_date : 2018-08-02
+         * insurance_commerce : 2018-08-03
+         * insurance_end : 2017-04-01
+         * file_no : 530300182849
+         * appproved_passenger_capacity : 6人
+         * gross_mass : 1875kg
+         * overall_dimension : 4747X1820X1420mm
+         * unladen_mass : 11kg
          */
 
         private int id;
@@ -120,7 +120,7 @@ public class Usercar_Getinfo {
         private String phone;
         private String phone_show;
         private String car_no;
-        private int km;
+        private String km;
         private int face_img;
         private int back_img;
         private String year_end;
@@ -246,11 +246,11 @@ public class Usercar_Getinfo {
             this.car_no = car_no;
         }
 
-        public int getKm() {
+        public String getKm() {
             return km;
         }
 
-        public void setKm(int km) {
+        public void setKm(String km) {
             this.km = km;
         }
 
@@ -348,6 +348,32 @@ public class Usercar_Getinfo {
 
         public void setUnladen_mass(String unladen_mass) {
             this.unladen_mass = unladen_mass;
+        }
+    }
+
+    public static class ImgsBean {
+        /**
+         * img_id : 998
+         * img_url : http://p7b347z0p.bkt.clouddn.com/Fls0nDll8IDoMjg0nG8EqqULsa1s
+         */
+
+        private String img_id;
+        private String img_url;
+
+        public String getImg_id() {
+            return img_id;
+        }
+
+        public void setImg_id(String img_id) {
+            this.img_id = img_id;
+        }
+
+        public String getImg_url() {
+            return img_url;
+        }
+
+        public void setImg_url(String img_url) {
+            this.img_url = img_url;
         }
     }
 }

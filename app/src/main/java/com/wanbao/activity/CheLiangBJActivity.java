@@ -3,15 +3,13 @@ package com.wanbao.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +32,6 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.view.LastInputEditText;
 import com.wanbao.modle.Car_Index;
 import com.wanbao.modle.Comment;
-import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Respond_AppImgAdd;
 import com.wanbao.modle.Usercar_Getinfo;
@@ -101,12 +98,6 @@ public class CheLiangBJActivity extends BaseActivity {
     TextView textSyx;
     @BindView(R.id.editDabh)
     LastInputEditText editDabh;
-    @BindView(R.id.textSjhm)
-    TextView textSjhm;
-    @BindView(R.id.editYzm)
-    EditText editYzm;
-    @BindView(R.id.textFs)
-    TextView textFs;
     @BindView(R.id.textShangChuanTP)
     TextView textShangChuanTP;
     private String id;
@@ -251,7 +242,6 @@ public class CheLiangBJActivity extends BaseActivity {
                         textCjh.setText(usercar_getinfo.getData().getVin_show());
                         textNsdq.setText(usercar_getinfo.getData().getYear_end());
                         textJqx.setText(usercar_getinfo.getData().getInsurance_end());
-                        textSjhm.setText(usercar_getinfo.getData().getPhone_show());
                         textXm.setText(usercar_getinfo.getData().getName());
                         textCx.setText(usercar_getinfo.getData().getCar_name());
                         editDz.setText(usercar_getinfo.getData().getAddress());
@@ -264,15 +254,24 @@ public class CheLiangBJActivity extends BaseActivity {
                         textZzl.setText(usercar_getinfo.getData().getGross_mass());
                         textWkcc.setText(usercar_getinfo.getData().getOverall_dimension());
                         textZbzl.setText(usercar_getinfo.getData().getUnladen_mass());
-                        adapter.clear();
-                        adapter.addAll(usercar_getinfo.getImgs());
-                        if (usercar_getinfo.getImgs().size() > 0) {
-                            imageUrls.addAll(usercar_getinfo.getImgs());
+                        imageUrls.clear();
+                        images.clear();
+                        for (int i=0;i<usercar_getinfo.getImgs().size();i++){
+                            imageUrls.add(usercar_getinfo.getImgs().get(i).getImg_url());
+                            images.add(usercar_getinfo.getImgs().get(i).getImg_id());
                         }
+                        adapter.clear();
+                        adapter.addAll(imageUrls);
                         if (usercar_getinfo.getState() == 1) {
                             sbtnTijiaobdw.setText("审核中");
+                            editDabh.setEnabled(false);
+                            editDz.setEnabled(false);
+                            editXslc.setEnabled(false);
                         } else if (usercar_getinfo.getState() == 2) {
                             sbtnTijiaobdw.setText("提交审核");
+                            editDabh.setEnabled(true);
+                            editDz.setEnabled(true);
+                            editXslc.setEnabled(true);
                         }
                     } else {
                         MyDialog.dialogFinish(CheLiangBJActivity.this, usercar_getinfo.getInfo());
@@ -304,7 +303,7 @@ public class CheLiangBJActivity extends BaseActivity {
         return new OkObject(params, url);
     }
 
-    @OnClick({R.id.textShangChuanTP, R.id.imageback, R.id.textClxx, R.id.textGcsj, R.id.textNsdq, R.id.textJqx, R.id.textSyx, R.id.textFs, R.id.sbtn_tijiaobdw})
+    @OnClick({R.id.textShangChuanTP, R.id.imageback, R.id.textClxx, R.id.textGcsj, R.id.textNsdq, R.id.textJqx, R.id.textSyx, R.id.sbtn_tijiaobdw})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -393,14 +392,39 @@ public class CheLiangBJActivity extends BaseActivity {
                 datePickerDialogsy.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialogsy.show();
                 break;
-            case R.id.textFs:
+            case R.id.sbtn_tijiaobdw:
                 if (usercar_getinfo.getState() == 1) {
                     ToastUtils.showShort("审核中，不可修改");
                     return;
                 }
-                yanZM(usercar_getinfo.getData().getPhone());
-                break;
-            case R.id.sbtn_tijiaobdw:
+                if (TextUtils.isEmpty(textClxx.getText().toString())){
+                    ToastUtils.showShort("请设置正确的车辆信息！");
+                    return;
+                }
+                if (TextUtils.isEmpty(textGcsj.getText().toString())){
+                    ToastUtils.showShort("请设置正确的购车时间！");
+                    return;
+                }
+                if (TextUtils.isEmpty(editXslc.getText().toString())){
+                    ToastUtils.showShort("请设置正确的行驶里程！");
+                    return;
+                }
+                if (TextUtils.isEmpty(editDz.getText().toString())){
+                    ToastUtils.showShort("请设置正确的地址！");
+                    return;
+                }
+                if (TextUtils.isEmpty(textNsdq.getText().toString())){
+                    ToastUtils.showShort("请设置正确的年审到期时间！");
+                    return;
+                }
+                if (TextUtils.isEmpty(textJqx.getText().toString())){
+                    ToastUtils.showShort("请设置正确的交强险到期时间！");
+                    return;
+                }
+                if (TextUtils.isEmpty(textSyx.getText().toString())){
+                    ToastUtils.showShort("请设置正确的商业险到期时间！");
+                    return;
+                }
                 usercar_Add_car();
                 break;
             default:
@@ -468,96 +492,24 @@ public class CheLiangBJActivity extends BaseActivity {
         params.put("phone", usercar_getinfo.getData().getPhone());
         params.put("year_end", usercar_getinfo.getData().getYear_end());
         params.put("insurance_end", usercar_getinfo.getData().getInsurance_end());
-        params.put("code", editYzm.getText().toString());
         params.put("address", usercar_getinfo.getData().getAddress());
         params.put("name", usercar_getinfo.getData().getName() + "");
         params.put("id", usercar_getinfo.getData().getId() + "");
-
         params.put("file_no", editDabh.getText().toString());
         params.put("appproved_passenger_capacity", textHdzrs.getText().toString());
         params.put("gross_mass", textZzl.getText().toString());
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
+        params.put("imgs", images.toString().replace("[", "").replace("]", ""));
+
         return new OkObject(params, url);
     }
 
-    private void yanZM(String phone) {
-        HttpApi.post(context, getOkObjectYZM(phone), new HttpApi.CallBack() {
-            @Override
-            public void onStart() {
-                showDialog("发送中...");
-            }
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                addDisposable(d);
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                dismissDialog();
-                Log.e("fasong", s);
-                try {
-                    Login_RegSms login_regSms = GsonUtils.parseJSON(s, Login_RegSms.class);
-                    if (login_regSms.getStatus() == 1) {
-                        timer.start();
-                        ToastUtils.showShort("发送成功！");
-                    } else {
-                        ToastUtils.showShort(login_regSms.getInfo());
-                    }
-
-                } catch (Exception e) {
-                    ToastUtils.showShort("数据出错");
-
-                }
-            }
-
-            @Override
-            public void onError() {
-                dismissDialog();
-                ToastUtils.showShort("网络异常！");
-            }
-
-            @Override
-            public void onComplete() {
-                dismissDialog();
-            }
-        });
-    }
-
-    private OkObject getOkObjectYZM(String phone) {
-        String url = Constant.HOST + Constant.Url.Login_BindCarSms;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("userName", phone);
-        return new OkObject(params, url);
-    }
-
-    /**
-     * 倒计时60秒，一次1秒
-     */
-    CountDownTimer timer = new CountDownTimer(60 * 1000, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            // TODO Auto-generated method stub
-            textFs.setEnabled(false);
-            textFs.setText(millisUntilFinished / 1000 + "秒后重发");
-        }
-
-        @Override
-        public void onFinish() {
-            textFs.setEnabled(true);
-            textFs.setText("重新发送");
-        }
-    };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         dispose();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
     }
 
 }

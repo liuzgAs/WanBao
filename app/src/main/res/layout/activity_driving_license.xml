@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wanbao.activity.DrivingLicenseActivity">
+
+    <include layout="@layout/newtitle"></include>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardZy"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        app:cardBackgroundColor="#eff7ff"
+        app:cardElevation="@dimen/dp_3"
+        app:cardCornerRadius="@dimen/dp_4"
+        app:contentPadding="@dimen/dp_10">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:divider="@drawable/line_dime1"
+            app:showDividers="middle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="车牌号码"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="Plate No"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textCphm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="注册日期"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="Register Date"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textZcrq"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="品牌型号"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="Brand No"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textPpxh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="车辆识别代码"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="VIN"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textVin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发动机号码"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_4"
+                        android:text="Engine No"
+                        android:textColor="@color/new_secondary_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textFdjh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardFy"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        app:cardBackgroundColor="#eff7ff"
+        app:cardElevation="@dimen/dp_3"
+        app:cardCornerRadius="@dimen/dp_4"
+        app:contentPadding="@dimen/dp_10">
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:divider="@drawable/line_dime1"
+            app:showDividers="middle">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号码"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textCphmf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="档案编号"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textDabh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="核定载人数"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textHdzrs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总质量"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textZzl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="整备质量"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textZbzl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="外廓尺寸"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textWkcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检验记录"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+                <TextView
+                    android:id="@+id/textJyjl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.CardView>
+    <com.wanbao.base.ui.StateButton
+        android:id="@+id/sbtn_QueRen"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        app:normalTextColor="@color/white"
+        android:textSize="@dimen/sp_13"
+        android:text="确认"
+        app:normalBackgroundColor="@color/light_red"
+        app:pressedTextColor="@color/white"
+        app:pressedBackgroundColor="@color/new_secondary_text"
+        android:textColor="@color/white"/>
+</LinearLayout>

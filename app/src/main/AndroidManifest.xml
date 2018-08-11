@@ -315,7 +315,8 @@
         <activity
             android:name=".activity.CheLiangBJActivity"
             android:label="@string/title_activity_che_liang_bj"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.DrivingLicenseActivity"></activity>
     </application>
 
 </manifest>

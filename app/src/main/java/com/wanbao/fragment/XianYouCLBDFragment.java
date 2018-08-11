@@ -34,6 +34,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.wanbao.R;
 import com.wanbao.activity.CameraActivity;
 import com.wanbao.activity.CheShenTpActivity;
+import com.wanbao.activity.DrivingLicenseActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
@@ -182,6 +183,10 @@ public class XianYouCLBDFragment extends PSFragment {
     TextView textWgtp;
     @BindView(R.id.viewWgtp)
     LinearLayout viewWgtp;
+    @BindView(R.id.imageZy)
+    ImageView imageZy;
+    @BindView(R.id.imageFy)
+    ImageView imageFy;
     private View view;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
@@ -205,6 +210,7 @@ public class XianYouCLBDFragment extends PSFragment {
     private int themeId = R.style.picture_default_style;
     private List<LocalMedia> imageList = new ArrayList<>();
     private String img_id;
+
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
         return sf;
@@ -267,7 +273,8 @@ public class XianYouCLBDFragment extends PSFragment {
         }
         if (BaseEvent.XinShiZZM.equals(event.getAction())) {
             xinShiZZM = (XinShiZZM) event.getData();
-            img_id=xinShiZZM.getImg_id();
+            img_id = xinShiZZM.getImg_id();
+            imageZy.setVisibility(View.VISIBLE);
             textCph.setText(xinShiZZM.getData().getCar_no());
             textFdjh.setText(xinShiZZM.getData().getEngine());
             textCjh.setText(xinShiZZM.getData().getVin());
@@ -281,6 +288,7 @@ public class XianYouCLBDFragment extends PSFragment {
         }
         if (BaseEvent.XingShiZFY.equals(event.getAction())) {
             xingShiZFY = (XingShiZFY) event.getData();
+            imageFy.setVisibility(View.VISIBLE);
             textNsdq.setText(xingShiZFY.getData().getYear_end());
             textBxdq.setText(xingShiZFY.getData().getInsurance_end());
             textDabh.setText(xingShiZFY.getData().getFile_no());
@@ -564,11 +572,23 @@ public class XianYouCLBDFragment extends PSFragment {
         }
     };
 
-    @OnClick({R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
+    @OnClick({R.id.imageZy, R.id.imageFy,R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
             R.id.viewSyx, R.id.viewFzrq, R.id.viewZcrq, R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.imageZy:
+                intent=new Intent(context, DrivingLicenseActivity.class);
+                intent.putExtra("type",0);
+                intent.putExtra("zy",xinShiZZM);
+                startActivity(intent);
+                break;
+            case R.id.imageFy:
+                intent=new Intent(context, DrivingLicenseActivity.class);
+                intent.putExtra("type",1);
+                intent.putExtra("fy",xingShiZFY);
+                startActivity(intent);
+                break;
             case R.id.viewWgtp:
                 if (imageUrls.size() == 0) {
                     intent = new Intent(context, CheShenTpActivity.class);
@@ -1044,9 +1064,9 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("短信验证码不能为空！");
                         return;
                     }
-                    if (TextUtils.isEmpty(usercar_query.getAdd_tips())){
+                    if (TextUtils.isEmpty(usercar_query.getAdd_tips())) {
                         usercar_Add_car(getOkObjectBD1());
-                    }else {
+                    } else {
                         new AlertDialog.Builder(context)
                                 .setTitle("提示")
                                 .setMessage(usercar_query.getAdd_tips())
@@ -1070,9 +1090,9 @@ public class XianYouCLBDFragment extends PSFragment {
                         ToastUtils.showShort("短信验证码不能为空！");
                         return;
                     }
-                    if (TextUtils.isEmpty(usercar_query.getAdd_tips())){
+                    if (TextUtils.isEmpty(usercar_query.getAdd_tips())) {
                         usercar_Add_car(getOkObjectBD1());
-                    }else {
+                    } else {
                         new AlertDialog.Builder(context)
                                 .setTitle("提示")
                                 .setMessage(usercar_query.getAdd_tips())
@@ -1098,5 +1118,4 @@ public class XianYouCLBDFragment extends PSFragment {
 
         }
     }
-
 }
