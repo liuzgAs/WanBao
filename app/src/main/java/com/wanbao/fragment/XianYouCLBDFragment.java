@@ -341,7 +341,7 @@ public class XianYouCLBDFragment extends PSFragment {
                             imagexslc.setVisibility(View.VISIBLE);
                             viewSzy.setVisibility(View.VISIBLE);
                             viewSfy.setVisibility(View.VISIBLE);
-                            textCph.setText(editChePai.getText().toString());
+                            textCph.setText(betterSpinner.getText().toString()+editChePai.getText().toString());
                             textSjhm.setText(usercar_query.getData().getPhone_show());
                         } else {
                             imageCxxx.setVisibility(View.VISIBLE);
@@ -350,10 +350,13 @@ public class XianYouCLBDFragment extends PSFragment {
                             viewSzy.setVisibility(View.GONE);
                             viewSfy.setVisibility(View.GONE);
                             textState.setText("查询到以下车辆信息");
+                            textClxx.setText(usercar_query.getData().getCid_name());
                             textCx.setText(usercar_query.getData().getCar_name());
                             textGcsj.setText(usercar_query.getData().getBc_time());
-//                            textxslc.setText(usercar_query.getData().);
+                            textxslc.setText(usercar_query.getData().getKm() + "");
                             textCph.setText(usercar_query.getData().getCar_no());
+                            textXm.setText(usercar_query.getData().getName());
+                            textDz.setText(usercar_query.getData().getAddress());
                             textFdjh.setText(usercar_query.getData().getEngine_show());
                             textCjh.setText(usercar_query.getData().getVin_show());
 //                            textNsdq.setText(usercar_query.getData());
@@ -361,6 +364,20 @@ public class XianYouCLBDFragment extends PSFragment {
                             textZcrq.setText(usercar_query.getData().getRegister_date());
                             textFzrq.setText(usercar_query.getData().getIssue_date());
                             textSyx.setText(usercar_query.getData().getInsurance_commerce());
+                            textNsdq.setText(usercar_query.getData().getYear_end());
+                            textBxdq.setText(usercar_query.getData().getInsurance_end());
+                            textDabh.setText(usercar_query.getData().getFile_no());
+                            textHdzrs.setText(usercar_query.getData().getAppproved_passenger_capacity());
+                            textZzl.setText(usercar_query.getData().getGross_mass());
+                            textWkcc.setText(usercar_query.getData().getOverall_dimension());
+                            textZbzl.setText(usercar_query.getData().getUnladen_mass());
+                            imageUrls.clear();
+                            images.clear();
+                            textWgtp.setText("已上传" + usercar_query.getImgs().size() + "张图片");
+                            for (int i = 0; i < usercar_query.getImgs().size(); i++) {
+                                images.add(usercar_query.getImgs().get(i).getImg_id());
+                                imageUrls.add(usercar_query.getImgs().get(i).getImg_url());
+                            }
                         }
                         scrollView.scrollTo(0, 0);
                     } else {

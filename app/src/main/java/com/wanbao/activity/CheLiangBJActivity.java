@@ -146,7 +146,7 @@ public class CheLiangBJActivity extends BaseActivity {
             dataBean = (Car_Index.DataBean) event.getData();
             if (dataBean != null) {
                 textClxx.setText(dataBean.getTitle());
-                usercar_getinfo.getData().setCid_name(dataBean.getTitle());
+                usercar_getinfo.getData().setCid(dataBean.getId());
             }
         }
         if (BaseEvent.CarImage.equals(event.getAction())) {
@@ -268,6 +268,11 @@ public class CheLiangBJActivity extends BaseActivity {
                             editDz.setEnabled(false);
                             editXslc.setEnabled(false);
                         } else if (usercar_getinfo.getState() == 2) {
+                            sbtnTijiaobdw.setText("提交审核");
+                            editDabh.setEnabled(true);
+                            editDz.setEnabled(true);
+                            editXslc.setEnabled(true);
+                        }else {
                             sbtnTijiaobdw.setText("提交审核");
                             editDabh.setEnabled(true);
                             editDz.setEnabled(true);
@@ -488,11 +493,12 @@ public class CheLiangBJActivity extends BaseActivity {
         params.put("engine", usercar_getinfo.getData().getEngine());
         params.put("car_no", usercar_getinfo.getData().getCar_no());
         params.put("vin", usercar_getinfo.getData().getVin());
-        params.put("km", usercar_getinfo.getData().getKm() + "");
+        params.put("km", editXslc.getText().toString());
         params.put("phone", usercar_getinfo.getData().getPhone());
         params.put("year_end", usercar_getinfo.getData().getYear_end());
         params.put("insurance_end", usercar_getinfo.getData().getInsurance_end());
-        params.put("address", usercar_getinfo.getData().getAddress());
+        params.put("Insurance_commerce", usercar_getinfo.getData().getInsurance_commerce());
+        params.put("address",editDz.getText().toString());
         params.put("name", usercar_getinfo.getData().getName() + "");
         params.put("id", usercar_getinfo.getData().getId() + "");
         params.put("file_no", editDabh.getText().toString());

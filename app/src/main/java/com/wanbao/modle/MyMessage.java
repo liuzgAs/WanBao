@@ -1,12 +1,14 @@
 package com.wanbao.modle;
 
+import java.io.Serializable;
+
 /**
  * Created by liuzhigang on 2018/6/15/015.
  *
  * @author LiuZG
  */
 
-public class MyMessage {
+public class MyMessage implements Serializable{
 
 
     /**

@@ -22,6 +22,7 @@ import com.lzy.okgo.cache.CacheMode;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.wanbao.base.util.CrashHandler;
+import com.wanbao.modle.MyMessage;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ public class AppContext extends MultApplication {
     public String money="";
     private List<Activity> activityList = new LinkedList<Activity>();
     public List<Integer> xcqk = new ArrayList<>();
+    public MyMessage myMessage;
 
 
     public static synchronized AppContext getIntance() {

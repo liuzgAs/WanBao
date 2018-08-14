@@ -183,7 +183,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
                         textPjhy.setText(uCensor.getVal1() + "");
                         textXh.setText(uCensor.getVal2() + "");
                         textState.setText(uCensor.getVal3() + "");
-                        textLc.setText(uCensor.getData().getKm() + "");
+                        textLc.setText(uCensor.getKm()+ "");
                         textScbysj.setText(uCensor.getKmDes().get(0));
                         textScbylc.setText(uCensor.getKmDes().get(1));
                         textJlxcby.setText(uCensor.getKmDes().get(2));

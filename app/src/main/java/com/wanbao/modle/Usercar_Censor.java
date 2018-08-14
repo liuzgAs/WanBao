@@ -27,6 +27,7 @@ public class Usercar_Censor {
     private double val1;
     private int val2;
     private String val3;
+    private String km;
     private int status;
     private String info;
     private List<String> kmDes;
@@ -70,6 +71,13 @@ public class Usercar_Censor {
 
     public void setVal3(String val3) {
         this.val3 = val3;
+    }
+    public String getKm() {
+        return km;
+    }
+
+    public void setKm(String km) {
+        this.km = km;
     }
 
     public int getStatus() {

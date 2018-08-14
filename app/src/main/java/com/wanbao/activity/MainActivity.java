@@ -12,6 +12,7 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.wanbao.R;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseNoLeftActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
@@ -86,6 +87,22 @@ public class MainActivity extends BaseNoLeftActivity {
     @Override
     protected void initData() {
         UpgradeUtils.checkUpgrade(context, Constant.HOST+Constant.Url.Index_Version);
+        if (AppContext.getIntance().myMessage!=null){
+            MyMessage myMessage=AppContext.getIntance().myMessage;
+            goMessage(myMessage);
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        setMessage();
+    }
+    private void setMessage(){
+        MyMessage myMessage=(MyMessage)getIntent().getSerializableExtra("myMessage");
+        if (myMessage!=null){
+            goMessage(myMessage);
+        }
     }
 
     @Override
@@ -148,6 +165,7 @@ public class MainActivity extends BaseNoLeftActivity {
     }
     private void goMessage(MyMessage myMessage){
         Intent intent;
+        AppContext.getIntance().myMessage=null;
         switch (myMessage.getCode()) {
             case "web":
                 intent=new Intent();
@@ -275,6 +293,29 @@ public class MainActivity extends BaseNoLeftActivity {
                     return;
                 }
                 intent.setClass(context, TuiJianJLActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_mo_pay":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("Oid",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, LiJiZhiFuActivity.class);
+                context.startActivity(intent);
+                break;
+            case "app_to_pay":
+                intent=new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    context.startActivity(intent);
+                    return;
+                }
+                intent.putExtra("paytype",1);
+                intent.putExtra("Oid",String.valueOf(myMessage.getItem_id()));
+                intent.setClass(context, LiJiZhiFuActivity.class);
                 context.startActivity(intent);
                 break;
             default:
