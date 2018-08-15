@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
-import com.wanbao.activity.CheLiangBJActivity;
 import com.wanbao.activity.PeiZhiXinXiActivity;
 import com.wanbao.activity.TiYanZhongXinActivity;
 import com.wanbao.base.event.BaseEvent;
@@ -103,10 +102,10 @@ public class AiCheDAViewHolder extends BaseViewHolder<Usercar_Index.DataBean> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (type == 0) {
-                    Intent intent=new Intent();
-                    intent.putExtra("id",String.valueOf(data.getCid()));
-                    intent.setClass(getContext(),CheLiangBJActivity.class);
-                    getContext().startActivity(intent);
+//                    Intent intent=new Intent();
+//                    intent.putExtra("id",String.valueOf(data.getCid()));
+//                    intent.setClass(getContext(),CheLiangBJActivity.class);
+//                    getContext().startActivity(intent);
                 } else {
                     EventBus.getDefault().post(new BaseEvent(BaseEvent.Choose_MyCar, data));
                     activity.finish();

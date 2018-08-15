@@ -111,7 +111,13 @@ public class TiYanZhongXinActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getCensor();
+
     }
 
     @OnClick({R.id.imageFx,R.id.imageBack, R.id.viewBYSC, R.id.viewCgby, R.id.viewWxjl})
