@@ -227,6 +227,9 @@ public class XianYouCLBDFragment extends PSFragment {
         unbinder = ButterKnife.bind(this, view);
         editChePai.setTransformationMethod(new A2bigA());
         textCph.setTransformationMethod(new A2bigA());
+        textFdjh.setTransformationMethod(new A2bigA());
+        textCjh.setTransformationMethod(new A2bigA());
+
         return view;
     }
 
@@ -406,7 +409,7 @@ public class XianYouCLBDFragment extends PSFragment {
         String url = Constant.HOST + Constant.Url.Usercar_Query;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("car_no", betterSpinner.getText().toString() + editChePai.getText().toString());
+        params.put("car_no", betterSpinner.getText().toString() + editChePai.getText().toString().toUpperCase());
         return new OkObject(params, url);
     }
 
@@ -494,9 +497,9 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("car_name", textCx.getText().toString());
         params.put("cid", dataBean.getId() + "");
         params.put("bc_time", textGcsj.getText().toString());
-        params.put("engine", textFdjh.getText().toString());
-        params.put("car_no", textCph.getText().toString());
-        params.put("vin", textCjh.getText().toString());
+        params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
+        params.put("car_no", textCph.getText().toString().toUpperCase());
+        params.put("vin", textCjh.getText().toString().toUpperCase());
         params.put("km", xslc);
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
@@ -843,27 +846,27 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogDz.show();
                 break;
             case R.id.viewCph:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
-                String stringCph = "";
-                if (xinShiZZM != null) {
-                    stringCph = xinShiZZM.getData().getAddress();
-                }
-                final EditDialogText editDialogCph = new EditDialogText(context, "输入车牌号", stringCph, "确认", "取消");
-                editDialogCph.setClicklistener(new EditDialogText.ClickListenerInterface() {
-                    @Override
-                    public void doConfirm(String intro) {
-                        editDialogCph.dismiss();
-                        textCph.setText(intro);
-                    }
-
-                    @Override
-                    public void doCancel() {
-                        editDialogCph.dismiss();
-                    }
-                });
-                editDialogCph.show();
+//                if (usercar_query.getR() != 0) {
+//                    return;
+//                }
+//                String stringCph = "";
+//                if (xinShiZZM != null) {
+//                    stringCph = xinShiZZM.getData().getAddress();
+//                }
+//                final EditDialogText editDialogCph = new EditDialogText(context, "输入车牌号", stringCph, "确认", "取消");
+//                editDialogCph.setClicklistener(new EditDialogText.ClickListenerInterface() {
+//                    @Override
+//                    public void doConfirm(String intro) {
+//                        editDialogCph.dismiss();
+//                        textCph.setText(intro);
+//                    }
+//
+//                    @Override
+//                    public void doCancel() {
+//                        editDialogCph.dismiss();
+//                    }
+//                });
+//                editDialogCph.show();
                 break;
             case R.id.viewFdjh:
                 if (usercar_query.getR() != 0) {

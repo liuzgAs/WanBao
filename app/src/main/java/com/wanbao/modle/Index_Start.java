@@ -14,7 +14,7 @@ public class Index_Start {
      * cityName : 厦门
      * cityId : 60
      * did : 11
-     * advs : []
+     * advs : [{"img":"http://img.wanbaoauto.com/image/jkxtqt40_72vyvnx8m1ho5b769d0ce388e.jpg","code":"app_i","item_id":0,"url":"?uapp=1"}]
      * status : 1
      * info : 操作成功！
      */
@@ -24,7 +24,7 @@ public class Index_Start {
     private int did;
     private int status;
     private String info;
-    private List<?> advs;
+    private List<AdvsBean> advs;
 
     public String getCityName() {
         return cityName;
@@ -66,11 +66,57 @@ public class Index_Start {
         this.info = info;
     }
 
-    public List<?> getAdvs() {
+    public List<AdvsBean> getAdvs() {
         return advs;
     }
 
-    public void setAdvs(List<?> advs) {
+    public void setAdvs(List<AdvsBean> advs) {
         this.advs = advs;
+    }
+
+    public static class AdvsBean {
+        /**
+         * img : http://img.wanbaoauto.com/image/jkxtqt40_72vyvnx8m1ho5b769d0ce388e.jpg
+         * code : app_i
+         * item_id : 0
+         * url : ?uapp=1
+         */
+
+        private String img;
+        private String code;
+        private int item_id;
+        private String url;
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public int getItem_id() {
+            return item_id;
+        }
+
+        public void setItem_id(int item_id) {
+            this.item_id = item_id;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 }
