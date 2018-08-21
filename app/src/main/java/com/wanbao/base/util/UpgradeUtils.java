@@ -322,6 +322,7 @@ public class UpgradeUtils extends Activity{
                     .setTicker("正在下载")
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
+                    .setOnlyAlertOnce(true)
                     .setChannelId(id);
             mNotifi=builder.build();
         } else {

@@ -7,9 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +28,6 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
-import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
@@ -51,14 +48,11 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
-import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.Index_Home;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_My;
-import com.wanbao.ui.MyEasyRecyclerView;
-import com.wanbao.viewholder.IndexItemViewHolder;
 import com.wanbao.viewholder.IndexViewHolder;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -89,7 +83,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     ImageView imageSousuo;
     @BindView(R.id.viewBar)
     LinearLayout viewBar;
-    private RecyclerArrayAdapter<String> adapter;
+    private RecyclerArrayAdapter<Index_Home.TeamDataBean> adapter;
     private View view;
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -98,12 +92,12 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     List<String> info = new ArrayList<>();
     int carNum = 0;
     private Index_Home indexHome;
+    private int page=1;
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
         return mf;
     }
 
-    private RecyclerArrayAdapter<Index_Home.TeamDataBean> hadapter;
 
 
     @Override
@@ -130,16 +124,15 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     }
 
     private void initRecycler() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
-        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_5), 0, 0);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, 0,0 , 0);
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<String>(context) {
+        recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
+        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Index_Home.TeamDataBean>(context) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item;
+                int layout = R.layout.item_yangche;
                 return new IndexViewHolder(parent, layout);
             }
         });
@@ -153,7 +146,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             private View viewScsj;
             private View viewHdxx;
             private MarqueeView marqueeView;
-            private MyEasyRecyclerView hrecyclerView;
 
 
             @Override
@@ -174,46 +166,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 LogUtils.e("ShouYeFragment--onCreateView", ""+(int) (480f * (float) screenWidth / 1080f));
                 layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
                 marqueeView = view.findViewById(R.id.marqueeView);
-                hrecyclerView = view.findViewById(R.id.recyclerView);
-                hrecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                hrecyclerView.setAdapter(hadapter = new RecyclerArrayAdapter<Index_Home.TeamDataBean>(context) {
-
-                    @Override
-                    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                        int layout = R.layout.item_index_item;
-                        return new IndexItemViewHolder(parent, layout);
-                    }
-                });
-                SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(12, context));
-                spaceDecoration.setPaddingEdgeSide(false);
-                hrecyclerView.addItemDecoration(spaceDecoration);
-                hrecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                        super.onScrolled(recyclerView, dx, dy);
-                    }
-                });
-
-                hrecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrolled(RecyclerView recycler, int dx, int dy) {
-                        super.onScrolled(recycler, dx, dy);
-                        hrecyclerView.setScroll(true);
-                    }
-                });
-                hrecyclerView.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
-                    @Override
-                    public void daoDiLe() {
-                    }
-                });
-                hadapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position) {
-                        Intent intent=new Intent(context,MianFeiYCActivity.class);
-                        intent.putExtra("ctid",String.valueOf(hadapter.getItem(position).getId()));
-                        startActivity(intent);
-                    }
-                });
                 return view;
             }
 
@@ -334,9 +286,79 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 });
             }
         });
+        adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
+            @Override
+            public void onMoreShow() {
+                HttpApi.post(context, getOkObjectSms(), new HttpApi.CallBack() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        try {
+                            page++;
+                            Index_Home usercar_index = GsonUtils.parseJSON(s, Index_Home.class);
+                            int status = usercar_index.getStatus();
+                            if (status == 1) {
+                                adapter.addAll(usercar_index.getTeamData());
+                            } else {
+                                ToastUtils.showShort(usercar_index.getInfo());
+                            }
+                        } catch (Exception e) {
+                            adapter.pauseMore();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+                        adapter.pauseMore();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+
+                });
+            }
+
+            @Override
+            public void onMoreClick() {
+
+            }
+        });
+        adapter.setNoMore(R.layout.view_nomore, new RecyclerArrayAdapter.OnNoMoreListener() {
+            @Override
+            public void onNoMoreShow() {
+
+            }
+
+            @Override
+            public void onNoMoreClick() {
+            }
+        });
+        adapter.setError(R.layout.view_error, new RecyclerArrayAdapter.OnErrorListener() {
+            @Override
+            public void onErrorShow() {
+                adapter.resumeMore();
+            }
+
+            @Override
+            public void onErrorClick() {
+                adapter.resumeMore();
+            }
+        });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                Intent intent=new Intent(context,MianFeiYCActivity.class);
+                intent.putExtra("ctid",String.valueOf(adapter.getItem(position).getId()));
+                startActivity(intent);
             }
         });
         recyclerView.setRefreshListener(this);
@@ -367,6 +389,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
     }
 
     private void getMain() {
+        page=1;
         HttpApi.post(context, getOkObjectSms(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
@@ -382,11 +405,12 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
                 LogUtils.getConfig().setBorderSwitch(false);
                 LogUtils.e("主页", s);
                 try {
-                     indexHome = GsonUtils.parseJSON(s, Index_Home.class);
+                    page++;
+                    indexHome = GsonUtils.parseJSON(s, Index_Home.class);
                     int status = indexHome.getStatus();
                     if (status == 1) {
-                        hadapter.clear();
-                        hadapter.addAll(indexHome.getTeamData());
+                        adapter.clear();
+                        adapter.addAll(indexHome.getTeamData());
                         adapter.notifyDataSetChanged();
                     } else {
                     }
@@ -428,6 +452,7 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         String url = Constant.HOST + Constant.Url.Home;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
+        params.put("p", page+ "");
         return new OkObject(params, url);
     }
 

@@ -53,6 +53,7 @@ public class Maintain_Index {
     private int maintain_lock;
     private int alert_state;
     private int FreeShow;
+    private int stock_lock;
     private FreeBean Free;
     private String alert_title;
     private String alert_des;
@@ -105,6 +106,13 @@ public class Maintain_Index {
         this.store_name = store_name;
     }
 
+    public int getStock_lock() {
+        return stock_lock;
+    }
+
+    public void setStock_lock(int stock_lock) {
+        this.stock_lock = stock_lock;
+    }
     public int getStore_id() {
         return store_id;
     }
@@ -319,9 +327,9 @@ public class Maintain_Index {
         private int isc;
         private String title;
         private String des;
-        private int money;
+        private double money;
         private List<DataBean> data;
-        public DataBeanX(int id,int isc,String title,String des,int money,List<DataBean> data){
+        public DataBeanX(int id,int isc,String title,String des,double money,List<DataBean> data){
             this.id=id;
             this.isc=isc;
             this.title=title;
@@ -362,11 +370,11 @@ public class Maintain_Index {
             this.des = des;
         }
 
-        public int getMoney() {
+        public double getMoney() {
             return money;
         }
 
-        public void setMoney(int money) {
+        public void setMoney(double money) {
             this.money = money;
         }
 

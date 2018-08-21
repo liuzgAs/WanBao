@@ -20,12 +20,12 @@ public class YangCheViewHolder extends BaseViewHolder<Maintain_Carteam.DataBean>
     private final TextView textName;
     private final ImageView imageGoods;
     private final TextView textPrice;
+
     public YangCheViewHolder(ViewGroup parent, @LayoutRes int res) {
         super(parent,res);
         textName = $(R.id.textName);
         imageGoods = $(R.id.imageGoods);
         textPrice = $(R.id.textPrice);
-
     }
 
     @Override

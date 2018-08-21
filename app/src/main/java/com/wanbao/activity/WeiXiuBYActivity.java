@@ -225,6 +225,10 @@ public class WeiXiuBYActivity extends BaseActivity {
                     ToastUtils.showShort("请先选择车辆！");
                     return;
                 }
+                if (maintain_index.getStock_lock() == 1) {
+                    ToastUtils.showShort("不可选择！");
+                    return;
+                }
                 intent = new Intent();
                 intent.putExtra("cid", ucid);
                 intent.setClass(context, YuYueDpActivity.class);

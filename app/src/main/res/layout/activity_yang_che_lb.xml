@@ -10,9 +10,6 @@
     <include layout="@layout/newtitle"></include>
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recyclerView"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
         android:layout_width="match_parent"
         app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
