@@ -2,8 +2,11 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +29,7 @@ import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.YangCheImageLoader;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
@@ -110,6 +114,40 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
     @Override
     protected void initIntent() {
         ctid = getIntent().getStringExtra("ctid");
+        Intent i_getvalue = getIntent();
+        String action = i_getvalue.getAction();
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Uri uri = i_getvalue.getData();
+            if (uri != null) {
+                id = uri.getQueryParameter("item_id");
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //NavUtils.getParentActivityIntent()方法可以获取到跳转至父Activity的Intent
+        //如果父Activity和当前Activity是在同一个Task中的，则直接调用navigateUpTo()方法进行跳转
+        //如果不在同一个Task中的，则需要借助TaskStackBuilder创建一个新的Task
+        Intent upIntent = NavUtils.getParentActivityIntent(this);
+        if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+            TaskStackBuilder.create(this)
+                    .addNextIntentWithParentStack(upIntent)
+                    .startActivities();
+        } else {
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.Change_Data.equals(event.getAction())) {
+            initData();
+        }
     }
 
     @Override
@@ -137,7 +175,13 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
     @Override
     protected void initData() {
-        getInfo();
+        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) != 0) {
+            getInfo();
+        }else {
+            Intent intent = new Intent();
+            intent.setClass(context, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void getInfo() {
@@ -185,7 +229,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
     private OkObject getOkObjectOrderInfo() {
         String url = Constant.HOST + Constant.Url.Orderteam_Free;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid, 0) + "");
         params.put("id", id);
         params.put("ctid", ctid);
 
@@ -238,7 +282,17 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         Intent intent;
         switch (view.getId()) {
             case R.id.imageback:
-                finish();
+                Intent upIntent = NavUtils.getParentActivityIntent(this);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    TaskStackBuilder.create(this)
+                            .addNextIntentWithParentStack(upIntent)
+                            .startActivities();
+                } else {
+                    intent = new Intent(context, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
             case R.id.viewKeFu:
                 break;
