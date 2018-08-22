@@ -79,6 +79,7 @@ public class PinTuanXQActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_tuan_xq);
         ButterKnife.bind(this);
+        init();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class PinTuanXQActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        titleText.setText("发起详情");
+        titleText.setText(getIntent().getStringExtra("title"));
         titleRight.setVisibility(View.VISIBLE);
     }
 
@@ -169,7 +170,7 @@ public class PinTuanXQActivity extends BaseActivity {
         String url = Constant.HOST + Constant.Url.Orderteam_Info;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("id", id);
+        params.put("oid", id);
         return new OkObject(params, url);
     }
 
@@ -246,11 +247,11 @@ public class PinTuanXQActivity extends BaseActivity {
                 holder.textJinel.setText(dataBean.getBag_des().get(position).getV());
             } else {
                 if (position == 0) {
-                    holder.textName.setTextSize(getResources().getDimension(R.dimen.sp_15));
-                    holder.textName.setTextColor(getColor(R.color.new_important_text));
+                    holder.textName.setTextSize(15);
+                    holder.textName.setTextColor(ContextCompat.getColor(context,R.color.new_important_text));
                 } else {
-                    holder.textName.setTextSize(getResources().getDimension(R.dimen.sp_13));
-                    holder.textName.setTextColor(getColor(R.color.new_secondary_text));
+                    holder.textName.setTextSize(13);
+                    holder.textName.setTextColor(ContextCompat.getColor(context,R.color.new_secondary_text));
                 }
                 holder.textName.setText(dataBean.getDes().get(position).getN());
                 holder.textJinel.setText(dataBean.getDes().get(position).getV());

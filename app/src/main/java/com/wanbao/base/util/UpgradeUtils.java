@@ -318,7 +318,7 @@ public class UpgradeUtils extends Activity{
             Notification.Builder builder =new Notification.Builder(mContext)
                     .setContent(mNotifiviews)
                     .setAutoCancel(true)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.logo)
                     .setTicker("正在下载")
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
@@ -332,7 +332,7 @@ public class UpgradeUtils extends Activity{
                     // 单击后自动删除
                     // .setOngoing(true)// 无法删除的通知
                     // 定制通知布局
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.mipmap.logo)
                     .setTicker("正在下载")
                     .setWhen(System.currentTimeMillis())
 //                .setSound(Uri.parse("")) //声音

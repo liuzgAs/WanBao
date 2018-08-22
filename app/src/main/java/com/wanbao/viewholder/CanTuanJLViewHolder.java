@@ -1,5 +1,6 @@
 package com.wanbao.viewholder;
 
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wanbao.R;
+import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
@@ -77,10 +79,13 @@ public class CanTuanJLViewHolder extends BaseViewHolder<Orderteam_Joinlog.DataBe
             btn1.setText("邀请参团");
             btn1.setVisibility(View.VISIBLE);
         }
-
         if (data.getIsCancel() == 1) {
             btn0.setText("取消拼团");
             btn0.setVisibility(View.VISIBLE);
+        }
+        if (data.getGoFree() == 1) {
+            btn2.setText("免费养车");
+            btn2.setVisibility(View.VISIBLE);
         }
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +97,17 @@ public class CanTuanJLViewHolder extends BaseViewHolder<Orderteam_Joinlog.DataBe
             @Override
             public void onClick(View v) {
                 MyDialog.share02(getContext(), WXAPIFactory.createWXAPI(getContext(), Constant.WXAPPID,true),data.getShare().getShareUrl(),data.getShare().getShareTitle(),data.getShare().getShareDes(),"");
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap<String,String> states=new HashMap<>();
+                states.put("id", String.valueOf(data.getId()));
+                states.put("team_state", "2");
+                Intent intent = new Intent(getContext(), WeiXiuBYActivity.class);
+                intent.putExtra("states", states);
+                getContext().startActivity(intent);
             }
         });
     }

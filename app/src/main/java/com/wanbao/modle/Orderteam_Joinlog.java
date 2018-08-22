@@ -177,6 +177,7 @@ public class Orderteam_Joinlog {
         private int isShare;
         private int isJoin;
         private int isCancel;
+        private int goFree;
         private ShareBean share;
 
         public int getId() {
@@ -185,6 +186,13 @@ public class Orderteam_Joinlog {
 
         public void setId(int id) {
             this.id = id;
+        }
+        public int getGoFree() {
+            return goFree;
+        }
+
+        public void setGoFree(int goFree) {
+            this.goFree = goFree;
         }
 
         public int getOid() {

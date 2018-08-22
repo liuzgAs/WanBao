@@ -183,7 +183,8 @@ public class FaQiPTFragment extends PSFragment implements SwipeRefreshLayout.OnR
             public void onItemClick(int position) {
                 if (adapter.getItem(position).getIsView()==1){
                     Intent intent = new Intent();
-                    intent.putExtra("id",String.valueOf(adapter.getItem(position).getId()));
+                    intent.putExtra("id",String.valueOf(adapter.getItem(position).getOid()));
+                    intent.putExtra("title","发起详情");
                     intent.setClass(context, PinTuanXQActivity.class);
                     startActivity(intent);
                 }

@@ -1,6 +1,7 @@
 package com.wanbao.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.R;
+import com.wanbao.activity.PinTuanXQActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -180,10 +182,11 @@ public class CanTuanJLFragment extends PSFragment implements SwipeRefreshLayout.
             @Override
             public void onItemClick(int position) {
                 if (adapter.getItem(position).getIsView()==1){
-//                    Intent intent = new Intent();
-//                    intent.putExtra("id",String.valueOf(adapter.getItem(position).getId()));
-//                    intent.setClass(context, WBDingDanXQActivity.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent();
+                    intent.putExtra("id",String.valueOf(adapter.getItem(position).getOid()));
+                    intent.putExtra("title","参团详情");
+                    intent.setClass(context, PinTuanXQActivity.class);
+                    startActivity(intent);
                 }
             }
         });
