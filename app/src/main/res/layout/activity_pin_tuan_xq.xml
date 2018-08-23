@@ -73,7 +73,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40"
                     android:gravity="center_vertical"
-                    android:text="厦门市东之星"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
@@ -95,7 +94,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
-                        android:text="服务地址"
                         android:maxLines="2"
                         android:textColor="@color/new_secondary_text"
                         android:textSize="@dimen/sp_12" />
@@ -118,7 +116,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
-                        android:text="服务时间"
                         android:textColor="@color/new_secondary_text"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -140,7 +137,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:layout_weight="1"
-                        android:text="服务人员"
                         android:textColor="@color/new_secondary_text"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -161,7 +157,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40"
                     android:gravity="center_vertical"
-                    android:text="保养套餐：A套餐"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
                     android:textColor="@color/new_important_text"

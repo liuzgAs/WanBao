@@ -248,9 +248,13 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         if ("0".equals(id)) {
             btn0.setEnabled(false);
             btn1.setEnabled(true);
+            btn0.setVisibility(View.GONE);
+            btn1.setVisibility(View.VISIBLE);
         } else {
             btn0.setEnabled(true);
             btn1.setEnabled(false);
+            btn0.setVisibility(View.VISIBLE);
+            btn1.setVisibility(View.GONE);
         }
         id = String.valueOf(oFree.getId());
         textPrice.setText(oFree.getPrice());
@@ -395,8 +399,8 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             holder.textDesN.setText(dataBean.getList().get(position).getDes().getN());
             holder.textDesR.setText(dataBean.getList().get(position).getDes().getR());
             holder.textDesV.setText(dataBean.getList().get(position).getDes().getV());
-            holder.textTimeDesN.setText(dataBean.getList().get(position).getTimeDes().getN());
-            holder.countdownView.start(dataBean.getList().get(position).getTimeDes().getV());
+            holder.textTimeDesN.setText(dataBean.getList().get(position).getTimeDes().getN()+"：");
+            holder.countdownView.start(dataBean.getList().get(position).getTimeDes().getV()*1000);
             holder.sBtnPinDan.setText(dataBean.getList().get(position).getBtnTxt());
             GlideApp.with(context)
                     .asBitmap()

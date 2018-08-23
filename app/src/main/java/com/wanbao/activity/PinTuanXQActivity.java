@@ -111,6 +111,9 @@ public class PinTuanXQActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.titleRight:
+                if (datas==null){
+                    return;
+                }
                 intent = new Intent(context, WebViewActivity.class);
                 intent.putExtra("title", datas.getUrlTitle());
                 intent.putExtra("mUrl", datas.getUrl());

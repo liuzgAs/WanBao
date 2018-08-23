@@ -219,7 +219,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@mipmap/mfby_gm"
             android:orientation="horizontal">
 
             <com.wanbao.base.ui.StateButton
@@ -228,7 +227,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="参团预约"
-                app:normalBackgroundColor="@color/transparent"
+                android:visibility="gone"
+                app:normalBackgroundColor="@color/new_main_colors"
                 app:normalTextColor="@color/white"
                 app:unableBackgroundColor="@color/new_secondary_text"
                 app:unableTextColor="@color/white" />
@@ -239,7 +239,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="发起拼单"
-                app:normalBackgroundColor="@color/transparent"
+                android:visibility="gone"
+                app:normalBackgroundColor="@color/new_red"
                 app:normalTextColor="@color/white"
                 app:unableBackgroundColor="@color/new_secondary_text"
                 app:unableTextColor="@color/white" />
