@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -83,8 +84,9 @@ public class ZhanTingQCXQActivity extends BaseActivity {
     private WebSettings mSettings;
     private MySumAdapter mySumAdapter;
     private Showbrand_Car showbrand_car;
-    private int themeId= R.style.picture_default_style;
+    private int themeId = R.style.picture_default_style;
     private List<LocalMedia> imageList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,18 +121,18 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
         layoutParams.width = screenWidth;
         banner.setLayoutParams(layoutParams);
-        LogUtils.e("ShouYeFragment--onCreateView", ""+(int) (480f * (float) screenWidth / 1080f));
+        LogUtils.e("ShouYeFragment--onCreateView", "" + (int) (480f * (float) screenWidth / 1080f));
         layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
                 imageList.clear();
-                for (int i=0;i<showbrand_car.getBanner().size();i++){
-                    LocalMedia localMedia=new LocalMedia();
+                for (int i = 0; i < showbrand_car.getBanner().size(); i++) {
+                    LocalMedia localMedia = new LocalMedia();
                     localMedia.setPath(showbrand_car.getBanner().get(i).getImg());
                     imageList.add(localMedia);
                 }
-                PictureSelector.create((Activity)context).themeStyle(themeId).openExternalPreview(position, imageList);
+                PictureSelector.create((Activity) context).themeStyle(themeId).openExternalPreview(position, imageList);
             }
         });
     }
@@ -145,6 +147,9 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.viewJiSuanQi:
+                if (showbrand_car==null){
+                    return;
+                }
                 intent = new Intent(context, JiSuanQActivity.class);
                 intent.putExtra("id", id);
                 intent.putExtra("money", String.valueOf(showbrand_car.getMoney()));
@@ -154,6 +159,22 @@ public class ZhanTingQCXQActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.linearCoupon:
+                if (showbrand_car==null){
+                    return;
+                }
+                if (showbrand_car.getCoupon()==null){
+                    return;
+                }
+                new MaterialDialog.Builder(context)
+                        .title(showbrand_car.getCoupon_title())
+                        .items(showbrand_car.getCoupon())
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
                 break;
             default:
                 break;

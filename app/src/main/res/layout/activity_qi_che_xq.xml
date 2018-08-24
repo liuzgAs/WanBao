@@ -81,19 +81,19 @@
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10"
-                android:visibility="gone">
+                android:visibility="gone"
+                >
 
                 <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
-                    android:src="@mipmap/icon_xinchezsyh" />
+                    android:src="@mipmap/icon_chexingld"/>
 
                 <TextView
                     android:id="@+id/textCouponTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_weight="1"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
 
@@ -102,6 +102,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:gravity="right|center_vertical"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
 
@@ -124,14 +128,14 @@
                 <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
-                    android:src="@mipmap/icon_chexingld" />
+                    android:src="@mipmap/icon_xinchezsyh"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_weight="1"
-                    android:text="车型亮点"
+                    android:text="车型优惠"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
                 <LinearLayout

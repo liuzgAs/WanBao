@@ -93,6 +93,7 @@
                         android:id="@+id/textAddress"
                         android:layout_width="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="right|center_vertical"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/dp_10"
                         android:textColor="@color/new_important_text"
@@ -157,11 +158,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:divider="@color/background"
-        android:dividerHeight="@dimen/dp_1"></com.wanbao.base.ui.ListViewForScrollView>
+        android:dividerHeight="@dimen/dp_1">
+    </com.wanbao.base.ui.ListViewForScrollView>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/new_underline"></View>
+        android:background="@color/new_underline">
+    </View>
     <TextView
         android:id="@+id/textMore"
         android:layout_width="match_parent"

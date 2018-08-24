@@ -164,11 +164,6 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
                     textAddress.setText(showbrand_info.getAddress());
                     textName.setText(showbrand_info.getBrand_name());
                     textPicNum.setText(showbrand_info.getTotal_des());
-                    if (showbrand_info.getCarlist().size() > showbrand_info.getMore_num()) {
-                        textMore.setVisibility(View.VISIBLE);
-                    } else {
-                        textMore.setVisibility(View.GONE);
-                    }
                     if (showbrand_info.getCoupon_show() == 0) {
                         viewCoupon.setVisibility(View.GONE);
                         linearCoupon.setVisibility(View.GONE);
@@ -355,11 +350,11 @@ public class XinCheZTXQActivity extends BaseActivity implements SwipeRefreshLayo
 
         @Override
         public int getCount() {
-            if (dataBean.getCarlist().size() > dataBean.getMore_num()) {
-                return dataBean.getMore_num();
-            } else {
+//            if (dataBean.getCarlist().size() > dataBean.getMore_num()) {
+//                return dataBean.getMore_num();
+//            } else {
                 return dataBean.getCarlist().size();
-            }
+//            }
         }
 
         @Override

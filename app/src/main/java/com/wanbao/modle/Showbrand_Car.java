@@ -39,7 +39,7 @@ public class Showbrand_Car implements Serializable{
     private int coupon_show;
     private String coupon_title;
     private String coupon_des;
-    private Object coupon;
+    private List<String> coupon;
     private String url;
     private String store_title;
     private int cid;
@@ -113,11 +113,11 @@ public class Showbrand_Car implements Serializable{
         this.coupon_des = coupon_des;
     }
 
-    public Object getCoupon() {
+    public List<String> getCoupon() {
         return coupon;
     }
 
-    public void setCoupon(Object coupon) {
+    public void setCoupon(List<String> coupon) {
         this.coupon = coupon;
     }
 
