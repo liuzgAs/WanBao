@@ -128,24 +128,27 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.MianFeiYCActivity"
-            android:launchMode="singleTask" >
-            <!--申明parentActivity，用户按返回键后返回主页面-->
-            <!--在Android 4.1版本之后，可以直接使用android:parentActivityName这个属性来进行指定-->
+            android:launchMode="singleTask">
+
+            <!-- 申明parentActivity，用户按返回键后返回主页面 -->
+            <!-- 在Android 4.1版本之后，可以直接使用android:parentActivityName这个属性来进行指定 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <!--下面所设置的值需要和html端对调-->
-                <!--在data里设置了 scheme和host，则该Activity可以接收和处理类似于 "share://article/XXX"的链接-->
+                <!-- 下面所设置的值需要和html端对调 -->
+                <!-- 在data里设置了 scheme和host，则该Activity可以接收和处理类似于 "share://article/XXX"的链接 -->
                 <data
                     android:host="article"
-                    android:scheme="qianche"
                     android:pathPrefix="/attr"
-                    android:port="8888"/>
+                    android:port="8888"
+                    android:scheme="qianche" />
             </intent-filter>
         </activity>
         <activity
@@ -184,8 +187,8 @@
         <activity android:name=".activity.HuanYinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -333,7 +336,8 @@
             android:name=".activity.CheLiangBJActivity"
             android:label="@string/title_activity_che_liang_bj"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.DrivingLicenseActivity"></activity>
+        <activity android:name=".activity.DrivingLicenseActivity" />
+        <activity android:name=".activity.TiXianZHActivity"></activity>
     </application>
 
 </manifest>

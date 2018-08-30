@@ -152,6 +152,9 @@ public class WoDeYHKActivity extends BaseActivity implements SwipeRefreshLayout.
                 startActivity(intent);
                 break;
             case R.id.textWenTi:
+                intent=new Intent();
+                intent.setClass(context,ChangjianWTActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

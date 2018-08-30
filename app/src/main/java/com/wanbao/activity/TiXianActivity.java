@@ -1,7 +1,9 @@
 package com.wanbao.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.GlideApp;
@@ -31,6 +34,7 @@ import com.wanbao.modle.Withdraw_AddBefore;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -68,6 +72,10 @@ public class TiXianActivity extends BaseActivity {
     TextView textDes;
     private Withdraw_AddBefore wAddBefore;
     private String bankId;
+    ArrayList<String> items = new ArrayList<>();
+    private String pay_id;
+    private String account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,9 +111,9 @@ public class TiXianActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s)){
+                if (!TextUtils.isEmpty(s)) {
                     sBtnTiXian.setEnabled(true);
-                }else {
+                } else {
                     sBtnTiXian.setEnabled(false);
                 }
             }
@@ -114,9 +122,10 @@ public class TiXianActivity extends BaseActivity {
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.ChangeBank.equals(event.getAction())){
-            Bank_CardList.DataBean dataBean=(Bank_CardList.DataBean) event.getData();
-            if (dataBean!=null){
+        if (BaseEvent.ChangeBank.equals(event.getAction())) {
+            Bank_CardList.DataBean dataBean = (Bank_CardList.DataBean) event.getData();
+            if (dataBean != null) {
+                pay_id="0";
                 viewSwitcher.setDisplayedChild(1);
                 GlideApp.with(context)
                         .asBitmap()
@@ -124,10 +133,37 @@ public class TiXianActivity extends BaseActivity {
                         .placeholder(R.mipmap.ic_empty)
                         .into(imageBank);
                 textBankName.setText(dataBean.getBank());
-                textBankId.setText("尾号"+dataBean.getBankCard());
-                bankId=String.valueOf(dataBean.getId());
+                textBankId.setText("尾号" + dataBean.getBankCard());
+                bankId = String.valueOf(dataBean.getId());
+            }
+        }
+        if (BaseEvent.AddAccount.equals(event.getAction())){
+            HashMap<String,String> message=(HashMap) event.getData();
+            if (message==null){
+                return;
+            }
+            if (TextUtils.equals("0",message.get("type"))){
+                viewSwitcher.setDisplayedChild(1);
+                pay_id="2";
+                textBankName.setText("微信提现");
+                textBankId.setText("账号：" + message.get("account"));
+                account=message.get("account");
+                GlideApp.with(context)
+                        .asBitmap()
+                        .load(R.mipmap.wbljzf_wx)
+                        .placeholder(R.mipmap.ic_empty)
+                        .into(imageBank);
             }else {
-                initData();
+                viewSwitcher.setDisplayedChild(1);
+                pay_id="1";
+                textBankName.setText("支付宝提现");
+                textBankId.setText("账号：" + message.get("account"));
+                account=message.get("account");
+                GlideApp.with(context)
+                        .asBitmap()
+                        .load(R.mipmap.wbljzf_zfb)
+                        .placeholder(R.mipmap.ic_empty)
+                        .into(imageBank);
             }
         }
     }
@@ -139,36 +175,31 @@ public class TiXianActivity extends BaseActivity {
 
     @OnClick({R.id.imageback, R.id.viewAddCard, R.id.viewChangeCard, R.id.textAll, R.id.sBtnTiXian})
     public void onViewClicked(View view) {
-        Intent intent;
         switch (view.getId()) {
             case R.id.imageback:
                 finish();
                 break;
             case R.id.viewAddCard:
-                intent=new Intent();
-                intent.setClass(context,WoDeYHKActivity.class);
-                startActivity(intent);
+                chooseTX();
                 break;
             case R.id.viewChangeCard:
-                intent=new Intent();
-                intent.setClass(context,WoDeYHKActivity.class);
-                startActivity(intent);
+                chooseTX();
                 break;
             case R.id.textAll:
-                if (wAddBefore!=null){
-                    textJinEr.setText(wAddBefore.getMoney()+"");
+                if (wAddBefore != null) {
+                    textJinEr.setText(wAddBefore.getMoney() + "");
                 }
                 break;
             case R.id.sBtnTiXian:
-                if (bankId==null){
-                    ToastUtils.showShort("请选择银行卡");
+                if (pay_id == null) {
+                    ToastUtils.showShort("请选择提现方式");
                     return;
                 }
-                if (TextUtils.isEmpty(textJinEr.getText().toString())){
+                if (TextUtils.isEmpty(textJinEr.getText().toString())) {
                     ToastUtils.showShort("提现金额不能为空");
                     return;
                 }
-                if (Double.valueOf(textJinEr.getText().toString())>wAddBefore.getMoney()){
+                if (Double.valueOf(textJinEr.getText().toString()) > wAddBefore.getMoney()) {
                     ToastUtils.showShort("余额不足");
                     return;
                 }
@@ -178,7 +209,106 @@ public class TiXianActivity extends BaseActivity {
                 break;
         }
     }
+    private void chooseTX(){
+        items.clear();
+        items.add("微信");
+        items.add("支付宝");
+        items.add("银行卡");
+        new MaterialDialog.Builder(context)
+                .title("选择提现方式")
+                .items(items)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                        dialog.dismiss();
+                        if (position == 0) {
+                            if (TextUtils.isEmpty(wAddBefore.getWechatAccount())){
+                                Intent intent=new Intent();
+                                intent.setClass(context,TiXianZHActivity.class);
+                                intent.putExtra("type","0");
+                                startActivity(intent);
+                            }else {
+                                new AlertDialog.Builder(context)
+                                        .setTitle("提示")
+                                        .setMessage("确认提现到微信："+wAddBefore.getWechatAccount()+"？")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                pay_id="2";
+                                                textBankName.setText("微信提现");
+                                                textBankId.setText("账号：" + wAddBefore.getWechatAccount());
+                                                account=wAddBefore.getWechatAccount();
+                                                GlideApp.with(context)
+                                                        .asBitmap()
+                                                        .load(R.mipmap.wbljzf_wx)
+                                                        .placeholder(R.mipmap.ic_empty)
+                                                        .into(imageBank);
+                                                viewSwitcher.setDisplayedChild(1);
 
+                                            }
+                                        })
+                                        .setNegativeButton("重置", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent intent=new Intent();
+                                                intent.setClass(context,TiXianZHActivity.class);
+                                                intent.putExtra("type","0");
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .show();
+                            }
+
+                        } else if (position == 1) {
+                            if (TextUtils.isEmpty(wAddBefore.getAlipayAccount())){
+                                Intent intent=new Intent();
+                                intent.setClass(context,TiXianZHActivity.class);
+                                intent.putExtra("type","1");
+                                startActivity(intent);
+                            }else {
+                                new AlertDialog.Builder(context)
+                                        .setTitle("提示")
+                                        .setMessage("确认提现到支付宝："+wAddBefore.getWechatAccount()+"？")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                pay_id="1";
+                                                textBankName.setText("支付宝提现");
+                                                textBankId.setText("账号：" + wAddBefore.getAlipayAccount());
+                                                account=wAddBefore.getAlipayAccount();
+                                                GlideApp.with(context)
+                                                        .asBitmap()
+                                                        .load(R.mipmap.wbljzf_zfb)
+                                                        .placeholder(R.mipmap.ic_empty)
+                                                        .into(imageBank);
+                                                viewSwitcher.setDisplayedChild(1);
+
+                                            }
+                                        })
+                                        .setNegativeButton("重置", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent intent=new Intent();
+                                                intent.setClass(context,TiXianZHActivity.class);
+                                                intent.putExtra("type","1");
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .show();
+                            }
+                        } else if (position == 2) {
+                            Intent intent=new Intent();
+                            intent.setClass(context,WoDeYHKActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .show();
+    }
     private void AddBefore() {
         HttpApi.post(context, getOkObjectAddBefore(), new HttpApi.CallBack() {
             @Override
@@ -196,23 +326,23 @@ public class TiXianActivity extends BaseActivity {
                 dismissDialog();
                 Log.e("Withdraw_AddBefore", s);
                 try {
-                     wAddBefore = GsonUtils.parseJSON(s, Withdraw_AddBefore.class);
+                    wAddBefore = GsonUtils.parseJSON(s, Withdraw_AddBefore.class);
                     if (wAddBefore.getStatus() == 1) {
                         textKtx.setText(wAddBefore.getMoneyDes());
                         textDes.setText(wAddBefore.getDes());
-                        if (wAddBefore.getBankShow()==1){
-                            viewSwitcher.setDisplayedChild(1);
-                            GlideApp.with(context)
-                                    .asBitmap()
-                                    .load(wAddBefore.getBank().getImg())
-                                    .placeholder(R.mipmap.ic_empty)
-                                    .into(imageBank);
-                            textBankName.setText(wAddBefore.getBank().getBank());
-                            textBankId.setText("尾号"+wAddBefore.getBank().getBankCard());
-                            bankId=String.valueOf(wAddBefore.getBank().getId());
-                        }else {
-                            viewSwitcher.setDisplayedChild(0);
-                        }
+//                        if (wAddBefore.getBankShow()==1){
+//                            viewSwitcher.setDisplayedChild(1);
+//                            GlideApp.with(context)
+//                                    .asBitmap()
+//                                    .load(wAddBefore.getBank().getImg())
+//                                    .placeholder(R.mipmap.ic_empty)
+//                                    .into(imageBank);
+//                            textBankName.setText(wAddBefore.getBank().getBank());
+//                            textBankId.setText("尾号"+wAddBefore.getBank().getBankCard());
+//                            bankId=String.valueOf(wAddBefore.getBank().getId());
+//                        }else {
+//                            viewSwitcher.setDisplayedChild(0);
+//                        }
                     } else {
                         MyDialog.dialogFinish(TiXianActivity.this, wAddBefore.getInfo());
                     }
@@ -261,20 +391,20 @@ public class TiXianActivity extends BaseActivity {
                     Comment comment = GsonUtils.parseJSON(s, Comment.class);
                     if (comment.getStatus() == 1) {
                         ToastUtils.showShort("提现申请成功！");
-                        EventBus.getDefault().post(new BaseEvent(BaseEvent.TiXian,null));
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.TiXian, null));
                         finish();
                     } else {
                         MyDialog.dialogFinish(TiXianActivity.this, comment.getInfo());
                     }
                 } catch (Exception e) {
-                   ToastUtils.showShort("数据出错");
+                    ToastUtils.showShort("数据出错");
                 }
             }
 
             @Override
             public void onError() {
                 dismissDialog();
-                ToastUtils.showShort( "网络异常");
+                ToastUtils.showShort("网络异常");
             }
 
             @Override
@@ -288,9 +418,10 @@ public class TiXianActivity extends BaseActivity {
         String url = Constant.HOST + Constant.Url.Withdraw_AddDone;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("money",textJinEr.getText().toString());
-        params.put("bank",bankId);
-        params.put("pay_id","0");
+        params.put("money", textJinEr.getText().toString());
+        params.put("bank", bankId);
+        params.put("pay_id", pay_id);
+        params.put("account", account);
         return new OkObject(params, url);
     }
 }

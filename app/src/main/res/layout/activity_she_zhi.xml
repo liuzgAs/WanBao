@@ -216,6 +216,7 @@
             android:layout_marginLeft="@dimen/dp_10"></View>
         <LinearLayout
             android:id="@+id/viewBfsz"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:orientation="horizontal"

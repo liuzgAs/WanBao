@@ -287,7 +287,14 @@ public class Buyer {
         private String price;
         private String title;
         private String one_payments;
+        private String purchasePrice;
+        public String getPurchasePrice() {
+            return purchasePrice;
+        }
 
+        public void setPurchasePrice(String purchasePrice) {
+            this.purchasePrice = purchasePrice;
+        }
         public String getOne_payments() {
             return one_payments;
         }

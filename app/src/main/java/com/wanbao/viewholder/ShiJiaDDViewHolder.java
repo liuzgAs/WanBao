@@ -1,7 +1,9 @@
 package com.wanbao.viewholder;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.LayoutRes;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -72,6 +74,24 @@ public class ShiJiaDDViewHolder extends BaseViewHolder<Testdrive_TestOrder.DataB
                     setState(BaseEvent.Del_Order,String.valueOf(data.getId()));
                 } else if (data.getIsCancel() == 1) {
                     setState(BaseEvent.Cancle_order,String.valueOf(data.getId()));
+                }else if (data.getIsRefund() == 1) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("提示")
+                            .setMessage("您确认要取消订单并申请退款吗！")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    setState(BaseEvent.IsRefund,String.valueOf(data.getId()));
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
                 }
             }
         });
@@ -137,6 +157,9 @@ public class ShiJiaDDViewHolder extends BaseViewHolder<Testdrive_TestOrder.DataB
         } else if (data.getIsCancel() == 1) {
             btn0.setText("取消订单");
             btn0.setVisibility(View.VISIBLE);
+        }else if (data.getIsRefund() == 1) {
+            btn0.setText("申请退款");
+            btn0.setVisibility(View.VISIBLE);
         }
     }
 
@@ -192,6 +215,8 @@ public class ShiJiaDDViewHolder extends BaseViewHolder<Testdrive_TestOrder.DataB
             url = Constant.HOST + Constant.Url.User_DelOrder;
         } else if (even.equals(BaseEvent.Is_Confirm)) {
             url = Constant.HOST + Constant.Url.User_ConfirmOrder;
+        }else if (even.equals(BaseEvent.IsRefund)) {
+            url = Constant.HOST + Constant.Url.User_Refund_order;
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");

@@ -62,7 +62,7 @@ public class TouTiaoLBActivity extends BaseActivity implements SwipeRefreshLayou
 
     @Override
     protected void initViews() {
-        titleText.setText("头条列表");
+        titleText.setText("牵车头条");
         initRecycler();
     }
 

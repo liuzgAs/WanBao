@@ -15,6 +15,7 @@ public class BaseEvent {
 	public final static String Pay_Sucess = "Pay_Sucess";
 	public final static String Del_Order = "Del_Order";
 	public final static String Cancle_order = "Cancle_order";
+	public final static String IsRefund = "IsRefund";
 	public final static String Go_Pay = "Go_Pay";
 	public final static String Is_Confirm = "Is_Confirm";
 	public final static String Is_Evaluate = "Is_Evaluate";
@@ -31,6 +32,7 @@ public class BaseEvent {
 	public final static String JiaShiZ = "JiaShiZ";
 	public final static String ChangePw = "ChangePw";
 	public final static String AddBank = "AddBank";
+	public final static String AddAccount = "AddAccount";
 	public final static String ChangeBank = "ChangeBank";
 	public final static String TiXian = "TiXian";
 	public final static String LatLng = "LatLng";

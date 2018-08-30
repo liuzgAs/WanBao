@@ -181,6 +181,7 @@ public class Testdrive_TestOrder {
         private int isAgain;
         private int isDel;
         private int isCancel;
+        private int isRefund;
 
         public int getId() {
             return id;
@@ -301,5 +302,13 @@ public class Testdrive_TestOrder {
         public void setIsCancel(int isCancel) {
             this.isCancel = isCancel;
         }
+        public int getIsRefund() {
+            return isRefund;
+        }
+
+        public void setIsRefund(int isRefund) {
+            this.isRefund = isRefund;
+        }
+
     }
 }

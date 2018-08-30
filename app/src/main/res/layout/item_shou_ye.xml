@@ -10,7 +10,7 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/pzxx_che"
         android:layout_width="120dp"
-        android:layout_height="80dp"
+        android:layout_height="96dp"
         android:id="@+id/imageImg"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"

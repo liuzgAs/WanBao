@@ -103,7 +103,7 @@ public class SheZhiActivity extends BaseActivity {
                     @Override
                     public void doConfirm() {
                         twoBtnDialog.dismiss();
-                        SPUtils.getInstance().clear();
+                        SPUtils.getInstance().put(Constant.SF.Uid,0);
                         EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
                         finish();
                     }

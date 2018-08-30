@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:text="添加银行卡"
+                android:text="选择提现方式"
                 android:textColor="@color/new_secondary_text"
                 android:textSize="@dimen/sp_15"
                 android:textStyle="bold" />

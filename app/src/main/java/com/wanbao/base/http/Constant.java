@@ -155,6 +155,10 @@ public class Constant {
          */
         public static final String User_ConfirmOrder = "User/confirmOrder";
         /**
+         * 申请退款
+         */
+        public static final String User_Refund_order = "User/refund_order";
+        /**
          * 用户删除订单
          */
         public static final String User_DelOrder = "User/delOrder";
@@ -317,7 +321,7 @@ public class Constant {
         /**
          * 提现记录（余额）
          */
-        public static final String Withdraw_Balance = "Withdraw/Balance";
+        public static final String Withdraw_Balance = "Withdraw/tBalance";
         /**
          * 提现提交（余额）
          */

@@ -90,7 +90,7 @@ public class YongJinActivity extends BaseActivity implements SwipeRefreshLayout.
 
     @Override
     protected void initViews() {
-        titleText.setText("佣金");
+        titleText.setText("余额");
         initRecycler();
 
     }
@@ -214,6 +214,9 @@ public class YongJinActivity extends BaseActivity implements SwipeRefreshLayout.
                 startActivity(intent);
                 break;
             case R.id.imageQuestion:
+                intent=new Intent();
+                intent.setClass(context,ChangjianWTActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewDateBegin:
                 Calendar c0 = Calendar.getInstance();

@@ -9,6 +9,7 @@
         app:cardBackgroundColor="@color/white"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_5"
         app:contentPadding="@dimen/dp_10"
         app:cardCornerRadius="@dimen/dp_10">
         <LinearLayout

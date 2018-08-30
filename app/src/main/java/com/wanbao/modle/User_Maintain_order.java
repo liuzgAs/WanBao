@@ -178,6 +178,7 @@ public class User_Maintain_order {
         private int isAgain;
         private int isDel;
         private int isCancel;
+        private int isRefund;
         private int isCreate;
         public int getIsCreate() {
             return isCreate;
@@ -296,6 +297,13 @@ public class User_Maintain_order {
 
         public void setIsCancel(int isCancel) {
             this.isCancel = isCancel;
+        }
+        public int getIsRefund() {
+            return isRefund;
+        }
+
+        public void setIsRefund(int isRefund) {
+            this.isRefund = isRefund;
         }
     }
 }

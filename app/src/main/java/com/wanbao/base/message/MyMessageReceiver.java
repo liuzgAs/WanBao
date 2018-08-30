@@ -1,12 +1,17 @@
 package com.wanbao.base.message;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 
 import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.wanbao.R;
 import com.wanbao.activity.MainActivity;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.util.GsonUtils;
@@ -23,6 +28,7 @@ import java.util.Map;
 public class MyMessageReceiver extends MessageReceiver {
     // 消息接收部分的LOG_TAG
     public static final String REC_TAG = "receiver";
+    public static final String CHANNEL_ID = "androidO";
 
     @Override
     public void onNotification(Context context, String title, String summary, Map<String, String> extraMap) {
@@ -66,5 +72,25 @@ public class MyMessageReceiver extends MessageReceiver {
         }else {
             AppContext.getIntance().myMessage=myMessage;
         }
+    }
+    private void androidO(Context context, String title, String summary, Map<String, String> extraMap){
+        MyMessage message=new MyMessage();
+        message.setCode(extraMap.get("code"));
+        Intent intent = new Intent();
+
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.logo)
+                .setContentTitle(title)
+                .setContentText(summary)
+                .setTicker("牵车通知")
+                .setPriority(1000)
+                .setAutoCancel(true)
+                .setSmallIcon(R.mipmap.logo)
+                .setOnlyAlertOnce(true)
+                .setContentIntent(contentIntent)
+                .setOngoing(true);
+        Notification notification = mBuilder.build();
+        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(66666, notification);
     }
 }

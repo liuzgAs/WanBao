@@ -9,12 +9,14 @@ package com.wanbao.modle;
 public class Withdraw_AddBefore {
 
     /**
-     * money : 0
-     * moneyDes : 当前帐户余额￥0
+     * money : 123
+     * moneyDes : 当前帐户余额￥123
      * min : 10
      * des : 系统提现到账时间为1-48小时，会员提现自动优先过审到账
-     * bank : {"id":1,"name":"五二哥","img":"","bank":"中国建设银行","bankCard":"4478"}
+     * bank : {"id":2,"name":"郑郑","img":"","bank":"平安银行","bankCard":"3380"}
      * bankShow : 1
+     * alipayAccount :
+     * wechatAccount :
      * status : 1
      * info : 返回成功！
      */
@@ -25,6 +27,8 @@ public class Withdraw_AddBefore {
     private String des;
     private BankBean bank;
     private int bankShow;
+    private String alipayAccount;
+    private String wechatAccount;
     private int status;
     private String info;
 
@@ -76,6 +80,22 @@ public class Withdraw_AddBefore {
         this.bankShow = bankShow;
     }
 
+    public String getAlipayAccount() {
+        return alipayAccount;
+    }
+
+    public void setAlipayAccount(String alipayAccount) {
+        this.alipayAccount = alipayAccount;
+    }
+
+    public String getWechatAccount() {
+        return wechatAccount;
+    }
+
+    public void setWechatAccount(String wechatAccount) {
+        this.wechatAccount = wechatAccount;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -94,11 +114,11 @@ public class Withdraw_AddBefore {
 
     public static class BankBean {
         /**
-         * id : 1
-         * name : 五二哥
+         * id : 2
+         * name : 郑郑
          * img :
-         * bank : 中国建设银行
-         * bankCard : 4478
+         * bank : 平安银行
+         * bankCard : 3380
          */
 
         private int id;
