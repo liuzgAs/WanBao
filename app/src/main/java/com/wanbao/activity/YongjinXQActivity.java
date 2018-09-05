@@ -66,7 +66,7 @@ public class YongjinXQActivity extends BaseActivity implements SwipeRefreshLayou
 
     @Override
     protected void initViews() {
-        titleText.setText("佣金详情");
+        titleText.setText("余额详情");
         initRecycler();
     }
 
