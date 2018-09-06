@@ -147,25 +147,34 @@ public class User_Maintain_order {
     }
 
     public static class DataBean {
+
         /**
-         * id : 4
-         * oid : 4
-         * order_amount : 193.00
-         * store_name : 测试
-         * car_no : 闽B88888
-         * car_name : 车型:奥迪A6舒适版
-         * book_time : 预约时间1970.01.01 08:33
-         * stateDes : 待付款
-         * goPay : 1
-         * isConfirm : 0
+         * id : 17
+         * oid : 17
+         * state : 20
+         * order_amount : ￥0.03
+         * store_name : 东南三菱万宝万腾店
+         * car_no : 京FFGGG
+         * car_name : 车型：奥迪Q5L 2018款 45 TFSI Sport plus
+         * book_time : 预约时间：2018.08.23 11:00
+         * stateDes : 服务中待接车
+         * goPay : 0
+         * goPayTxt : 去支付
+         * isConfirm : 1
+         * isConfirmCar : 0
          * isEvaluate : 0
          * isAgain : 0
          * isDel : 0
-         * isCancel : 1
+         * isAuth : 0
+         * isAccepting : 0
+         * isCancel : 0
+         * isRefund : 1
+         * isCreate : 0
          */
 
         private int id;
         private int oid;
+        private int state;
         private String order_amount;
         private String store_name;
         private String car_no;
@@ -173,20 +182,18 @@ public class User_Maintain_order {
         private String book_time;
         private String stateDes;
         private int goPay;
+        private String goPayTxt;
         private int isConfirm;
+        private int isConfirmCar;
         private int isEvaluate;
         private int isAgain;
         private int isDel;
+        private int isAuth;
+        private int isAccepting;
         private int isCancel;
         private int isRefund;
         private int isCreate;
-        public int getIsCreate() {
-            return isCreate;
-        }
 
-        public void setIsCreate(int isCreate) {
-            this.isCreate = isCreate;
-        }
         public int getId() {
             return id;
         }
@@ -201,6 +208,14 @@ public class User_Maintain_order {
 
         public void setOid(int oid) {
             this.oid = oid;
+        }
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
         }
 
         public String getOrder_amount() {
@@ -259,12 +274,28 @@ public class User_Maintain_order {
             this.goPay = goPay;
         }
 
+        public String getGoPayTxt() {
+            return goPayTxt;
+        }
+
+        public void setGoPayTxt(String goPayTxt) {
+            this.goPayTxt = goPayTxt;
+        }
+
         public int getIsConfirm() {
             return isConfirm;
         }
 
         public void setIsConfirm(int isConfirm) {
             this.isConfirm = isConfirm;
+        }
+
+        public int getIsConfirmCar() {
+            return isConfirmCar;
+        }
+
+        public void setIsConfirmCar(int isConfirmCar) {
+            this.isConfirmCar = isConfirmCar;
         }
 
         public int getIsEvaluate() {
@@ -291,6 +322,22 @@ public class User_Maintain_order {
             this.isDel = isDel;
         }
 
+        public int getIsAuth() {
+            return isAuth;
+        }
+
+        public void setIsAuth(int isAuth) {
+            this.isAuth = isAuth;
+        }
+
+        public int getIsAccepting() {
+            return isAccepting;
+        }
+
+        public void setIsAccepting(int isAccepting) {
+            this.isAccepting = isAccepting;
+        }
+
         public int getIsCancel() {
             return isCancel;
         }
@@ -298,12 +345,21 @@ public class User_Maintain_order {
         public void setIsCancel(int isCancel) {
             this.isCancel = isCancel;
         }
+
         public int getIsRefund() {
             return isRefund;
         }
 
         public void setIsRefund(int isRefund) {
             this.isRefund = isRefund;
+        }
+
+        public int getIsCreate() {
+            return isCreate;
+        }
+
+        public void setIsCreate(int isCreate) {
+            this.isCreate = isCreate;
         }
     }
 }

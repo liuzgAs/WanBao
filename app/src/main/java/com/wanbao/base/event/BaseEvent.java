@@ -16,6 +16,9 @@ public class BaseEvent {
 	public final static String Del_Order = "Del_Order";
 	public final static String Cancle_order = "Cancle_order";
 	public final static String IsRefund = "IsRefund";
+	public final static String IsAuth = "IsAuth";
+	public final static String IsAccepting = "IsAccepting";
+
 	public final static String Go_Pay = "Go_Pay";
 	public final static String Is_Confirm = "Is_Confirm";
 	public final static String Is_Evaluate = "Is_Evaluate";

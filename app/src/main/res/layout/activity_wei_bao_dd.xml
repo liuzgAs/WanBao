@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/background"
     tools:context="com.wanbao.activity.WeiBaoDDActivity">
-    <include layout="@layout/view_tab_bar"></include>
+    <include layout="@layout/view_tab_bar_sc"></include>
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

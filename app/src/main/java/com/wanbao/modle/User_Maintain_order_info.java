@@ -11,14 +11,44 @@ import java.util.List;
 public class User_Maintain_order_info {
 
     /**
-     * data : {"stateType":1,"store":{"store_name":"测试","des1":"服务地址:福建省厦门市思明区商务营运中心|8号楼","des2":"服务时间:1970.01.01 08:33","des3":"服务人员:销售1"},"bag_name":"保养套餐:A套餐","bag_des":[{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"},{"n":"优惠","v":"-￥-30.00"}],"sum_des":[{"n":"订单总价","v":"￥193.00"}],"des":[{"n":"订单编号","v":"WB12018053121310"},{"n":"订单状态","v":"待付款"},{"n":"车型","v":"奥迪A6舒适版"},{"n":"车牌号","v":"闽B88888"}]}
+     * isAuth : 0
+     * isAccepting : 0
+     * isConfirmCar : 1
+     * data : {"stateType":3,"store":{"store_name":"东南三菱万宝万腾店","des1":"服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号","des2":"服务时间：2018.08.23 11:00","des3":"服务人员：林海"},"bag_name":"保养套餐：洗车","bag_des":[{"n":"泡沫洗车","v":"￥1.00"}],"sum_des":[{"n":"订单总价","v":"￥0.03"}],"des":[{"n":"订单编号","v":"WB12018082310315"},{"n":"订单状态","v":"服务中待接车"},{"n":"线上支付","v":"是"},{"n":"车型","v":"测试"},{"n":"车牌号","v":"京FFGGG"}]}
      * status : 1
      * info : 返回成功！
      */
 
+    private int isAuth;
+    private int isAccepting;
+    private int isConfirmCar;
     private DataBean data;
     private int status;
     private String info;
+
+    public int getIsAuth() {
+        return isAuth;
+    }
+
+    public void setIsAuth(int isAuth) {
+        this.isAuth = isAuth;
+    }
+
+    public int getIsAccepting() {
+        return isAccepting;
+    }
+
+    public void setIsAccepting(int isAccepting) {
+        this.isAccepting = isAccepting;
+    }
+
+    public int getIsConfirmCar() {
+        return isConfirmCar;
+    }
+
+    public void setIsConfirmCar(int isConfirmCar) {
+        this.isConfirmCar = isConfirmCar;
+    }
 
     public DataBean getData() {
         return data;
@@ -46,12 +76,12 @@ public class User_Maintain_order_info {
 
     public static class DataBean {
         /**
-         * stateType : 1
-         * store : {"store_name":"测试","des1":"服务地址:福建省厦门市思明区商务营运中心|8号楼","des2":"服务时间:1970.01.01 08:33","des3":"服务人员:销售1"}
-         * bag_name : 保养套餐:A套餐
-         * bag_des : [{"n":"品牌机滤","v":"￥188.00"},{"n":"上门服务费","v":"￥20.00"},{"n":"机油","v":"￥15.00"},{"n":"优惠","v":"-￥-30.00"}]
-         * sum_des : [{"n":"订单总价","v":"￥193.00"}]
-         * des : [{"n":"订单编号","v":"WB12018053121310"},{"n":"订单状态","v":"待付款"},{"n":"车型","v":"奥迪A6舒适版"},{"n":"车牌号","v":"闽B88888"}]
+         * stateType : 3
+         * store : {"store_name":"东南三菱万宝万腾店","des1":"服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号","des2":"服务时间：2018.08.23 11:00","des3":"服务人员：林海"}
+         * bag_name : 保养套餐：洗车
+         * bag_des : [{"n":"泡沫洗车","v":"￥1.00"}]
+         * sum_des : [{"n":"订单总价","v":"￥0.03"}]
+         * des : [{"n":"订单编号","v":"WB12018082310315"},{"n":"订单状态","v":"服务中待接车"},{"n":"线上支付","v":"是"},{"n":"车型","v":"测试"},{"n":"车牌号","v":"京FFGGG"}]
          */
 
         private int stateType;
@@ -111,10 +141,10 @@ public class User_Maintain_order_info {
 
         public static class StoreBean {
             /**
-             * store_name : 测试
-             * des1 : 服务地址:福建省厦门市思明区商务营运中心|8号楼
-             * des2 : 服务时间:1970.01.01 08:33
-             * des3 : 服务人员:销售1
+             * store_name : 东南三菱万宝万腾店
+             * des1 : 服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号
+             * des2 : 服务时间：2018.08.23 11:00
+             * des3 : 服务人员：林海
              */
 
             private String store_name;
@@ -157,8 +187,8 @@ public class User_Maintain_order_info {
 
         public static class BagDesBean {
             /**
-             * n : 品牌机滤
-             * v : ￥188.00
+             * n : 泡沫洗车
+             * v : ￥1.00
              */
 
             private String n;
@@ -184,7 +214,7 @@ public class User_Maintain_order_info {
         public static class SumDesBean {
             /**
              * n : 订单总价
-             * v : ￥193.00
+             * v : ￥0.03
              */
 
             private String n;
@@ -210,7 +240,7 @@ public class User_Maintain_order_info {
         public static class DesBean {
             /**
              * n : 订单编号
-             * v : WB12018053121310
+             * v : WB12018082310315
              */
 
             private String n;

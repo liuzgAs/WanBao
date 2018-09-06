@@ -279,7 +279,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem", 1);
+                intent.putExtra("currentItem", 2);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
@@ -290,7 +290,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem", 2);
+                intent.putExtra("currentItem", 3);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;
@@ -301,7 +301,7 @@ public class MyCarFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("currentItem", 3);
+                intent.putExtra("currentItem", 4);
                 intent.setClass(getActivity(), WeiBaoDDActivity.class);
                 startActivity(intent);
                 break;

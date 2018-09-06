@@ -16,6 +16,7 @@ import com.wanbao.R;
 import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
 import com.wanbao.activity.PinTaunCGActivity;
+import com.wanbao.activity.QueRenWeiBaoXMActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
@@ -103,7 +104,11 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     intent.setClass(getContext(), LiJiZhiFuActivity.class);
                     getContext().startActivity(intent);
                 } else if (data.getIsConfirm() == 1) {
-                    setState(BaseEvent.Is_Confirm,String.valueOf(data.getId()));
+//                    setState(BaseEvent.Is_Confirm,String.valueOf(data.getId()));
+                    Intent intent = new Intent();
+                    intent.putExtra("id", String.valueOf(data.getId()));
+                    intent.setClass(getContext(), QueRenWeiBaoXMActivity.class);
+                    getContext().startActivity(intent);
                 } else if (data.getIsEvaluate() == 1) {
                     Intent intent = new Intent();
                     intent.putExtra("id", String.valueOf(data.getId()));
@@ -113,6 +118,12 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     Intent intent = new Intent();
                     intent.setClass(getContext(), WeiXiuBYActivity.class);
                     getContext().startActivity(intent);
+                }else if (data.getIsConfirmCar() == 1) {
+                    setState(BaseEvent.Is_Confirm,String.valueOf(data.getId()));
+                }else if (data.getIsAuth() == 1) {
+                    setState(BaseEvent.IsAuth,String.valueOf(data.getId()));
+                }else if (data.getIsAccepting() == 1) {
+                    setState(BaseEvent.IsAccepting,String.valueOf(data.getId()));
                 }
             }
         });
@@ -142,7 +153,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
             btn2.setVisibility(View.VISIBLE);
         }
         if (data.getGoPay() == 1) {
-            btn1.setText("立即付款");
+            btn1.setText(data.getGoPayTxt());
             btn1.setVisibility(View.VISIBLE);
         } else if (data.getIsConfirm() == 1) {
             btn1.setText("确认订单");
@@ -152,6 +163,15 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
             btn1.setVisibility(View.VISIBLE);
         } else if (data.getIsAgain() == 1) {
             btn1.setText("再来一单");
+            btn1.setVisibility(View.VISIBLE);
+        }else if (data.getIsConfirmCar() == 1) {
+            btn1.setText("确认牵车");
+            btn1.setVisibility(View.VISIBLE);
+        }else if (data.getIsAuth() == 1) {
+            btn1.setText("确认授权");
+            btn1.setVisibility(View.VISIBLE);
+        }else if (data.getIsAccepting() == 1) {
+            btn1.setText("验收并支付");
             btn1.setVisibility(View.VISIBLE);
         }
 
@@ -167,7 +187,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         }
     }
 
-    private void setState(String even, String id) {
+    private void setState(final String even, String id) {
         HttpApi.post(fragment.context, getOkObjectState(even, id), new HttpApi.CallBack() {
             @Override
             public void onStart() {
@@ -187,6 +207,12 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     int status = comment.getStatus();
                     if (status == 1) {
                         EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeWbOrder, null));
+                        if (even.equals(BaseEvent.IsAccepting)){
+                            Intent intent = new Intent();
+                            intent.putExtra("Oid", String.valueOf(data.getId()));
+                            intent.setClass(getContext(), LiJiZhiFuActivity.class);
+                            getContext().startActivity(intent);
+                        }
                     } else {
                         ToastUtils.showShort(comment.getInfo());
                     }
@@ -221,6 +247,10 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
             url = Constant.HOST + Constant.Url.User_ConfirmOrder;
         }else if (even.equals(BaseEvent.IsRefund)) {
             url = Constant.HOST + Constant.Url.User_Refund_order;
+        }else if (even.equals(BaseEvent.IsAuth)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmAuth;
+        }else if (even.equals(BaseEvent.IsAccepting)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmAccepting;
         }
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
@@ -283,6 +313,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         return new OkObject(params, url);
     }
 
+
     public void addDisposable(Disposable disposable) {
         if (compositeDisposable == null) {
             compositeDisposable = new CompositeDisposable();
@@ -293,6 +324,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
     public void dispose() {
         if (compositeDisposable != null) {
             compositeDisposable.dispose();
+            compositeDisposable=null;
         }
     }
 

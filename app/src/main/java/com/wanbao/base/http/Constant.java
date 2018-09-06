@@ -159,6 +159,14 @@ public class Constant {
          */
         public static final String User_Refund_order = "User/refund_order";
         /**
+         * 确认授权
+         */
+        public static final String User_ConfirmAuth = "User/confirmAuth";
+        /**
+         * 确认验收
+         */
+        public static final String User_ConfirmAccepting = "User/confirmAccepting";
+        /**
          * 用户删除订单
          */
         public static final String User_DelOrder = "User/delOrder";

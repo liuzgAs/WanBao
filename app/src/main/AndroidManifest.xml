@@ -308,27 +308,44 @@
         <activity
             android:name=".activity.GengDuoFWActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.FaQiPTActivity" />
-        <activity android:name=".activity.PinTaunCGActivity" />
-        <activity android:name=".activity.CanTuanJLActivity" />
-        <activity android:name=".activity.PinTuanXQActivity" />
-        <activity android:name=".activity.YouZhiESCActivity" />
-        <activity android:name=".activity.CheLiangXQActivity" />
-        <activity android:name=".activity.JiSuanQActivity" />
-        <activity android:name=".activity.BiYaoHFActivity" />
-        <activity android:name=".activity.ShangYeBXActivity" />
-        <activity android:name=".activity.BiYaoHFDKActivity" />
-        <activity android:name=".activity.ShangYeBXDKActivity" />
-        <activity android:name=".activity.JiSuanQEActivity" />
-        <activity android:name=".activity.ShangYeBXDKEActivity" />
+        <activity android:name=".activity.FaQiPTActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.PinTaunCGActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.CanTuanJLActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.PinTuanXQActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.YouZhiESCActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.CheLiangXQActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.JiSuanQActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.BiYaoHFActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.ShangYeBXActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.BiYaoHFDKActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.ShangYeBXDKActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.JiSuanQEActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.ShangYeBXDKEActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activity.XiaoXiActivity"
             android:label="@string/title_activity_xiao_xi"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.WoDeCheDuiActivity" />
-        <activity android:name=".activity.YangCheLBActivity" />
-        <activity android:name=".activity.CheShenTpActivity" />
-        <activity android:name=".activity.TouTiaoLBActivity" />
+        <activity android:name=".activity.WoDeCheDuiActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.YangCheLBActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.CheShenTpActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.TouTiaoLBActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activity.CameraActivity"
             android:screenOrientation="portrait" />
@@ -336,8 +353,10 @@
             android:name=".activity.CheLiangBJActivity"
             android:label="@string/title_activity_che_liang_bj"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.DrivingLicenseActivity" />
-        <activity android:name=".activity.TiXianZHActivity"></activity>
+        <activity android:name=".activity.DrivingLicenseActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.TiXianZHActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,9 +19,13 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
+import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_Maintain_order_info;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -61,12 +64,8 @@ public class WBDingDanXQActivity extends BaseActivity {
     ListViewForScrollView listSumDes;
     @BindView(R.id.listDes)
     ListViewForScrollView listDes;
-    @BindView(R.id.btn0)
-    Button btn0;
     @BindView(R.id.btn1)
-    Button btn1;
-    @BindView(R.id.viewState0)
-    LinearLayout viewState0;
+    StateButton btn1;
     @BindView(R.id.imageState)
     ImageView imageState;
     private String id;
@@ -110,7 +109,7 @@ public class WBDingDanXQActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.imageback, R.id.viewState, R.id.btn0, R.id.btn1})
+    @OnClick({R.id.imageback, R.id.viewState, R.id.btn1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.imageback:
@@ -133,9 +132,14 @@ public class WBDingDanXQActivity extends BaseActivity {
                     startActivity(intent);
                 }
                 break;
-            case R.id.btn0:
-                break;
             case R.id.btn1:
+                if (datas.getIsConfirmCar() == 1) {
+                    setState(BaseEvent.Is_Confirm, id);
+                } else if (datas.getIsAuth() == 1) {
+                    setState(BaseEvent.IsAuth, id);
+                } else if (datas.getIsAccepting() == 1) {
+                    setState(BaseEvent.IsAccepting, id);
+                }
                 break;
             default:
                 break;
@@ -206,12 +210,12 @@ public class WBDingDanXQActivity extends BaseActivity {
         textBookTime.setText(data.getData().getStore().getDes2());
         textPerson.setText(data.getData().getStore().getDes3());
         textBagName.setText(data.getData().getBag_name());
-        imageState.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.wbddxq_qpj));
+        imageState.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.wbddxq_qpj));
         if (data.getData().getStateType() == 1) {
             textState.setText("订单待支付");
             textStateTo.setText("确认支付");
             imageView8.setVisibility(View.VISIBLE);
-            imageState.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_ddqzf));
+            imageState.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.icon_ddqzf));
         } else if (data.getData().getStateType() == 2) {
             textState.setText("订单待接车");
             textStateTo.setText("待接车");
@@ -231,6 +235,18 @@ public class WBDingDanXQActivity extends BaseActivity {
             textStateTo.setText("再次预约");
             imageView8.setVisibility(View.VISIBLE);
 
+        }
+        if (data.getIsAuth() == 1) {
+            btn1.setText("确认授权");
+            btn1.setVisibility(View.VISIBLE);
+        } else if (data.getIsAccepting() == 1) {
+            btn1.setText("验收并支付");
+            btn1.setVisibility(View.VISIBLE);
+        } else if (data.getIsConfirmCar() == 1) {
+            btn1.setText("确认牵车");
+            btn1.setVisibility(View.VISIBLE);
+        }else {
+            btn1.setVisibility(View.GONE);
         }
     }
 
@@ -337,4 +353,74 @@ public class WBDingDanXQActivity extends BaseActivity {
         }
     }
 
+    private void setState(final String even, final String id) {
+        HttpApi.post(context, getOkObjectState(even, id), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                try {
+                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
+                    int status = comment.getStatus();
+                    if (status == 1) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeWbOrder, null));
+                        if (even.equals(BaseEvent.IsAccepting)) {
+                            Intent intent = new Intent();
+                            intent.putExtra("Oid", id);
+                            intent.setClass(context, LiJiZhiFuActivity.class);
+                            startActivity(intent);
+                        }
+                    } else {
+                        ToastUtils.showShort(comment.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+                dispose();
+            }
+
+
+        });
+    }
+
+    private OkObject getOkObjectState(String even, String id) {
+        String url = "";
+        if (even.equals(BaseEvent.Cancle_order)) {
+            url = Constant.HOST + Constant.Url.User_CancelOrder;
+        } else if (even.equals(BaseEvent.Del_Order)) {
+            url = Constant.HOST + Constant.Url.User_DelOrder;
+        } else if (even.equals(BaseEvent.Is_Confirm)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmOrder;
+        } else if (even.equals(BaseEvent.IsRefund)) {
+            url = Constant.HOST + Constant.Url.User_Refund_order;
+        } else if (even.equals(BaseEvent.IsAuth)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmAuth;
+        } else if (even.equals(BaseEvent.IsAccepting)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmAccepting;
+        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("id", id);
+        return new OkObject(params, url);
+    }
 }
