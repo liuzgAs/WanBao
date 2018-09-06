@@ -379,6 +379,7 @@ public class WBDingDanXQActivity extends BaseActivity {
                             intent.setClass(context, LiJiZhiFuActivity.class);
                             startActivity(intent);
                         }
+                        finish();
                     } else {
                         ToastUtils.showShort(comment.getInfo());
                     }
