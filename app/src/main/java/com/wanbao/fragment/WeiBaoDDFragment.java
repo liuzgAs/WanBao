@@ -83,6 +83,12 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
         if (BaseEvent.ChangeWbOrder.equals(event.getAction())) {
             getOrder();
         }
+        if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
+            getOrder();
+        }
+        if (BaseEvent.PaySureOrder.equals(event.getAction())) {
+            getOrder();
+        }
     }
 
     /**

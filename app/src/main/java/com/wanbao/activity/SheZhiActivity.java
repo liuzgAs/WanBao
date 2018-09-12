@@ -16,6 +16,7 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.DataCleanManager;
+import com.wanbao.base.util.UpgradeUtils;
 import com.wanbao.base.view.TwoBtnDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,10 +47,12 @@ public class SheZhiActivity extends BaseActivity {
     LinearLayout textGywm;
     @BindView(R.id.viewCjwt)
     LinearLayout viewCjwt;
-    @BindView(R.id.viewBfsz)
-    LinearLayout viewBfsz;
+    @BindView(R.id.viewVision)
+    LinearLayout viewVision;
     @BindView(R.id.sbtn_exit)
     StateButton sbtnExit;
+    @BindView(R.id.textVisionG)
+    TextView textVisionG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +75,15 @@ public class SheZhiActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("设置");
-        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
             sbtnExit.setVisibility(View.GONE);
-        }else {
+        } else {
             sbtnExit.setVisibility(View.VISIBLE);
         }
         textHc.setText(getSize());
-        textVision.setText("V"+ AppUtils.getAppVersionName());
+        textVision.setText("V" + AppUtils.getAppVersionName());
+        textVisionG.setText("V" + AppUtils.getAppVersionName());
+
     }
 
     @Override
@@ -93,7 +98,7 @@ public class SheZhiActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.sbtn_exit,R.id.imageback, R.id.viewChangePw, R.id.viewClear, R.id.viewYjfk, R.id.textGywm, R.id.viewCjwt, R.id.viewBfsz})
+    @OnClick({R.id.viewVision,R.id.sbtn_exit, R.id.imageback, R.id.viewChangePw, R.id.viewClear, R.id.viewYjfk, R.id.textGywm, R.id.viewCjwt})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -103,8 +108,8 @@ public class SheZhiActivity extends BaseActivity {
                     @Override
                     public void doConfirm() {
                         twoBtnDialog.dismiss();
-                        SPUtils.getInstance().put(Constant.SF.Uid,0);
-                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data,null));
+                        SPUtils.getInstance().put(Constant.SF.Uid, 0);
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.Change_Data, null));
                         finish();
                     }
 
@@ -120,7 +125,7 @@ public class SheZhiActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.viewChangePw:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -136,7 +141,7 @@ public class SheZhiActivity extends BaseActivity {
                 Toast.makeText(this, "缓存清除完毕", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.viewYjfk:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0){
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent = new Intent();
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -148,8 +153,8 @@ public class SheZhiActivity extends BaseActivity {
                 break;
             case R.id.textGywm:
                 intent = new Intent();
-                intent.putExtra("title","关于我们");
-                intent.putExtra("mUrl",Constant.Url.About);
+                intent.putExtra("title", "关于我们");
+                intent.putExtra("mUrl", Constant.Url.About);
                 intent.setClass(context, WebViewActivity.class);
                 startActivity(intent);
                 break;
@@ -158,7 +163,8 @@ public class SheZhiActivity extends BaseActivity {
                 intent.setClass(context, ChangjianWTActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.viewBfsz:
+            case R.id.viewVision:
+                UpgradeUtils.checkUpgrade(context, Constant.HOST+Constant.Url.Index_Version);
                 break;
             default:
                 break;
@@ -177,5 +183,4 @@ public class SheZhiActivity extends BaseActivity {
         }
         return totalCacheSize;
     }
-
 }

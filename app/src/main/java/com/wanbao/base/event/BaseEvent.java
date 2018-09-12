@@ -27,6 +27,8 @@ public class BaseEvent {
 	public final static String XingShiZFY = "XingShiZFY";
 	public final static String Change_SjOrder = "ChangeSjOrder";
 	public final static String ChangeWbOrder = "ChangeWbOrder";
+	public final static String PaySureOrder = "PaySureOrder";
+
 	public final static String ChangePTOrder = "ChangePTOrder";
 	public final static String ChangeCTOrder = "ChangeCTOrder";
 	public final static String Change_Ac = "Change_Ac";

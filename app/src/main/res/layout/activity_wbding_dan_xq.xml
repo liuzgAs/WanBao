@@ -78,7 +78,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_40"
                     android:gravity="center_vertical"
-                    android:text="厦门市东之星"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />

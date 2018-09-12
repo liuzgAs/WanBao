@@ -430,6 +430,7 @@ public class UpgradeUtils extends Activity{
     public static void dispose() {
         if (compositeDisposable != null) {
             compositeDisposable.dispose();
+            compositeDisposable=null;
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.O)

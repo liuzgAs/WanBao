@@ -210,6 +210,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                         if (even.equals(BaseEvent.IsAccepting)){
                             Intent intent = new Intent();
                             intent.putExtra("Oid", String.valueOf(data.getId()));
+                            intent.putExtra("isOnline", 1);
                             intent.setClass(getContext(), LiJiZhiFuActivity.class);
                             getContext().startActivity(intent);
                         }

@@ -26,6 +26,7 @@ public class Pay_Index {
     private String order_amount;
     private String order_sn;
     private int status;
+    private int offline_pay;
     private String info;
 
     public String getTitle() {
@@ -82,6 +83,13 @@ public class Pay_Index {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+    public int getOffline_pay() {
+        return offline_pay;
+    }
+
+    public void setOffline_pay(int offline_pay) {
+        this.offline_pay = offline_pay;
     }
 
     public String getInfo() {

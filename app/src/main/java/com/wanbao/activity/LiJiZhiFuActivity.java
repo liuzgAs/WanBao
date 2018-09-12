@@ -1,9 +1,11 @@
 package com.wanbao.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +29,13 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.PayResult;
 import com.wanbao.modle.Pay_Index;
 import com.wanbao.modle.Pay_New_pay;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -81,6 +86,8 @@ public class LiJiZhiFuActivity extends BaseActivity {
     private IWXAPI iwxapi;
     private int paytype;
     private Pay_New_pay pay_new_pay;
+    private int isOnline = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,14 +100,16 @@ public class LiJiZhiFuActivity extends BaseActivity {
     protected void initSP() {
 
     }
-    private void regTowx(){
-        iwxapi= WXAPIFactory.createWXAPI(context,null);
+
+    private void regTowx() {
+        iwxapi = WXAPIFactory.createWXAPI(context, null);
     }
 
     @Override
     protected void initIntent() {
-        paytype=getIntent().getIntExtra("paytype",0);
+        paytype = getIntent().getIntExtra("paytype", 0);
         Oid = getIntent().getStringExtra("Oid");
+        isOnline = getIntent().getIntExtra("isOnline", 0);
     }
 
     @Override
@@ -111,26 +120,114 @@ public class LiJiZhiFuActivity extends BaseActivity {
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.Wx_Pay.equals(event.getAction())){
-            int errCode=(int)event.getData();
+        if (BaseEvent.Wx_Pay.equals(event.getAction())) {
+            int errCode = (int) event.getData();
             if (errCode == 0) {
-                paySuccess();
+                if (isOnline == 0) {
+                    paySuccess();
+                } else {
+                    new AlertDialog.Builder(context)
+                            .setTitle("支付成功")
+                            .setMessage("是否确认牵车")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    setState(BaseEvent.Is_Confirm, Oid);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    paySuccess();
+                                }
+                            })
+                            .show();
+                }
             } else {
                 ToastUtils.showShort("支付失败！");
             }
         }
     }
-    private void paySuccess(){
-        if (pay_new_pay.getData().getTeam_state()==0){
-            Intent intent=new Intent();
-            intent.putExtra("paytype",paytype);
-            intent.setClass(context,PaySucessActivity.class);
+
+    private void setState(final String even, String id) {
+        HttpApi.post(context, getOkObjectState(even, id), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                try {
+                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
+                    int status = comment.getStatus();
+                    if (status == 1) {
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.PaySureOrder, null));
+                        finish();
+                    } else {
+                        ToastUtils.showShort(comment.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+                dispose();
+            }
+
+
+        });
+    }
+
+    private OkObject getOkObjectState(String even, String id) {
+        String url = "";
+        if (even.equals(BaseEvent.Cancle_order)) {
+            url = Constant.HOST + Constant.Url.User_CancelOrder;
+        } else if (even.equals(BaseEvent.Del_Order)) {
+            url = Constant.HOST + Constant.Url.User_DelOrder;
+        } else if (even.equals(BaseEvent.Is_Confirm)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmOrder;
+        } else if (even.equals(BaseEvent.IsRefund)) {
+            url = Constant.HOST + Constant.Url.User_Refund_order;
+        } else if (even.equals(BaseEvent.IsAuth)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmAuth;
+        } else if (even.equals(BaseEvent.IsAccepting)) {
+            url = Constant.HOST + Constant.Url.User_ConfirmAccepting;
+        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("id", id);
+        return new OkObject(params, url);
+    }
+
+    private void paySuccess() {
+        if (pay_new_pay.getData().getTeam_state() == 0) {
+            Intent intent = new Intent();
+            intent.putExtra("paytype", paytype);
+            intent.setClass(context, PaySucessActivity.class);
             startActivity(intent);
             finish();
-        }else {
-            Intent intent=new Intent();
-            intent.putExtra("pay_new_pay",pay_new_pay.getOkData());
-            intent.setClass(context,PinTaunCGActivity.class);
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("pay_new_pay", pay_new_pay.getOkData());
+            intent.setClass(context, PinTaunCGActivity.class);
             startActivity(intent);
             finish();
         }
@@ -183,11 +280,16 @@ public class LiJiZhiFuActivity extends BaseActivity {
                     LogUtils.e("保养套餐", s);
                     Pay_Index pay_index = GsonUtils.parseJSON(s, Pay_Index.class);
                     if (pay_index.getStatus() == 1) {
+                        if (pay_index.getOffline_pay() == 1) {
+                            viewYl.setVisibility(View.VISIBLE);
+                        } else {
+                            viewYl.setVisibility(View.GONE);
+                        }
                         textTitle.setText(pay_index.getTitle());
                         textDes.setText(pay_index.getDes());
                         textDes2.setText(pay_index.getDes2());
                         textOrderAmount.setText("¥" + pay_index.getOrder_amount());
-                        textOrderSn.setText("订单编号："+pay_index.getOrder_sn());
+                        textOrderSn.setText("订单编号：" + pay_index.getOrder_sn());
                         textOrderAmount0.setText("¥" + pay_index.getOrder_amount());
                         GlideApp.with(context)
                                 .asBitmap()
@@ -242,18 +344,33 @@ public class LiJiZhiFuActivity extends BaseActivity {
                 dismissDialog();
                 try {
                     LogUtils.e("Pay_New_pay", s);
-                     pay_new_pay = GsonUtils.parseJSON(s, Pay_New_pay.class);
+                    pay_new_pay = GsonUtils.parseJSON(s, Pay_New_pay.class);
                     if (pay_new_pay.getStatus() == 1) {
                         if (type == 0) {
                             zfbZf(pay_new_pay.getPayAli());
-                        }else if (type==1){
+                        } else if (type == 1) {
                             wechatPay(pay_new_pay);
+                        } else if (type == 2) {
+                            new AlertDialog.Builder(context)
+                                    .setTitle("支付选择成功")
+                                    .setCancelable(false)
+                                    .setMessage(pay_new_pay.getInfo())
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            Intent intent = new Intent();
+                                            intent.putExtra("currentItem", 0);
+                                            intent.setClass(context, WeiBaoDDActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }).show();
                         }
                     } else {
                         ToastUtils.showShort(pay_new_pay.getInfo());
                     }
                 } catch (Exception e) {
-                    Toast.makeText(context,"数据异常",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "数据异常", Toast.LENGTH_SHORT).show();
                     dismissDialog();
                 }
             }
@@ -277,6 +394,11 @@ public class LiJiZhiFuActivity extends BaseActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("oid", Oid);
+        if (type == 2) {
+            params.put("offline_pay", "1");
+        } else {
+            params.put("offline_pay", "0");
+        }
         return new OkObject(params, url);
     }
 
@@ -322,7 +444,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
         payThread.start();
     }
 
-     class MyHandler extends Handler {
+    class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -337,8 +459,30 @@ public class LiJiZhiFuActivity extends BaseActivity {
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        ToastUtils.showShort("支付成功");
-                        paySuccess();
+                        if (isOnline == 0) {
+                            ToastUtils.showShort("支付成功");
+                            paySuccess();
+                        } else {
+                            new AlertDialog.Builder(context)
+                                    .setTitle("支付成功")
+                                    .setMessage("是否确认牵车")
+                                    .setCancelable(false)
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            setState(BaseEvent.Is_Confirm, Oid);
+                                        }
+                                    })
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            paySuccess();
+                                        }
+                                    })
+                                    .show();
+                        }
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         ToastUtils.showShort("支付失败");
@@ -376,6 +520,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
 
         }
     }
+
     /**
      * 检查微信版本是否支付支付或是否安装可支付的微信版本
      */

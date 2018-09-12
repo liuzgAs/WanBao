@@ -53,7 +53,7 @@ public class PaySucessActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initViews() {
-        titleText.setText("预约成功");
+        titleText.setText("支付成功");
     }
 
     @Override
@@ -111,7 +111,7 @@ public class PaySucessActivity extends BaseNoLeftActivity {
                     intent.putExtra("currentItem", 2);
                     intent.setClass(context, ShiJiaDDActivity.class);
                 } else {
-                    intent.putExtra("currentItem", 2);
+                    intent.putExtra("currentItem", 3);
                     intent.setClass(context, WeiBaoDDActivity.class);
                 }
                 startActivity(intent);

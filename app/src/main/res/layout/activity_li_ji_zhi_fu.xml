@@ -179,14 +179,14 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/dp_10"
-            android:visibility="gone"
             android:background="@drawable/layout_selector_white_system_gray"
             android:paddingRight="@dimen/dp_10"
+            android:visibility="gone"
             android:layout_height="@dimen/dp_45">
             <ImageView
                 android:layout_width="@dimen/dp_22"
                 android:layout_height="@dimen/dp_22"
-                app:srcCompat="@mipmap/wbljzf_yl" />
+                app:srcCompat="@mipmap/logo" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_weight="1"
@@ -194,7 +194,7 @@
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:text="银联支付"/>
+                android:text="线下支付"/>
             <ImageView
                 android:id="@+id/imageYl"
                 android:layout_width="@dimen/dp_20"

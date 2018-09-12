@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
@@ -76,6 +77,12 @@ public class WeiBaoDDActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+    }
+    @Override
+    public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.PaySureOrder.equals(event.getAction())) {
+            viewPager.setCurrentItem(4,false);
+        }
     }
 
     @OnClick(R.id.imageback)

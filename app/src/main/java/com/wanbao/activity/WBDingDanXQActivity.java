@@ -376,6 +376,7 @@ public class WBDingDanXQActivity extends BaseActivity {
                         if (even.equals(BaseEvent.IsAccepting)) {
                             Intent intent = new Intent();
                             intent.putExtra("Oid", id);
+                            intent.putExtra("isOnline", 1);
                             intent.setClass(context, LiJiZhiFuActivity.class);
                             startActivity(intent);
                         }
