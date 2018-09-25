@@ -303,7 +303,8 @@ public class Camera2BasicFragment extends Fragment
                     // We have nothing to do when the camera preview is working normally.
                     break;
                 }
-                case STATE_WAITING_LOCK: {
+                case STATE_WAITING_LOCK:{
+
                     Integer afState = result.get(CaptureResult.CONTROL_AF_STATE);
                     if (afState == null) {
                         captureStillPicture();
@@ -319,8 +320,8 @@ public class Camera2BasicFragment extends Fragment
                             runPrecaptureSequence();
                         }
                     }
-                    break;
                 }
+                break;
                 case STATE_WAITING_PRECAPTURE: {
                     // CONTROL_AE_STATE can be null on some devices
                     Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
@@ -471,6 +472,7 @@ public class Camera2BasicFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+        mTextureView.setVisibility(View.VISIBLE);
         startBackgroundThread();
 
         // When the screen is turned off and turned back on, the SurfaceTexture is already
@@ -486,9 +488,15 @@ public class Camera2BasicFragment extends Fragment
 
     @Override
     public void onPause() {
+        super.onPause();
+        mTextureView.setVisibility(View.GONE);
         closeCamera();
         stopBackgroundThread();
-        super.onPause();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void requestCameraPermission() {
@@ -519,6 +527,7 @@ public class Camera2BasicFragment extends Fragment
      * @param height The height of available size for camera preview
      */
     @SuppressWarnings("SuspiciousNameCombination")
+    private boolean mAutoFocusSupported;
     private void setUpCameraOutputs(int width, int height) {
         Activity activity = getActivity();
         CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
@@ -615,6 +624,14 @@ public class Camera2BasicFragment extends Fragment
                 mFlashSupported = available == null ? false : available;
 
                 mCameraId = cameraId;
+                int[] afAvailableModes = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES);
+
+                if (afAvailableModes.length == 0 || (afAvailableModes.length == 1
+                        && afAvailableModes[0] == CameraMetadata.CONTROL_AF_MODE_OFF)) {
+                    mAutoFocusSupported = true;
+                } else {
+                    mAutoFocusSupported = false;
+                }
                 return;
             }
         } catch (CameraAccessException e) {
@@ -797,7 +814,12 @@ public class Camera2BasicFragment extends Fragment
      * Initiate a still image capture.
      */
     private void takePicture() {
-        lockFocus();
+//        lockFocus();
+         if (mAutoFocusSupported) {
+            lockFocus();
+        } else {
+            captureStillPicture();
+        }
     }
 
     /**
@@ -808,6 +830,9 @@ public class Camera2BasicFragment extends Fragment
             // This is how to tell the camera to lock focus.
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_START);
+//            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_AUTO);
+//            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START);
+//            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CameraMetadata.CONTROL_AE_PRECAPTURE_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the lock.
             mState = STATE_WAITING_LOCK;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
@@ -859,19 +884,6 @@ public class Camera2BasicFragment extends Fragment
             int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation));
 
-            CameraCaptureSession.CaptureCallback CaptureCallback
-                    = new CameraCaptureSession.CaptureCallback() {
-
-                @Override
-                public void onCaptureCompleted(@NonNull CameraCaptureSession session,
-                                               @NonNull CaptureRequest request,
-                                               @NonNull TotalCaptureResult result) {
-//                    showToast("Saved: " + mFile);
-                    Log.d(TAG, mFile.toString());
-                    EventBus.getDefault().post(new BaseEvent(BaseEvent.ImageFile,mFile));
-                    unlockFocus();
-                }
-            };
 
             mCaptureSession.stopRepeating();
             mCaptureSession.abortCaptures();
@@ -880,7 +892,19 @@ public class Camera2BasicFragment extends Fragment
             e.printStackTrace();
         }
     }
+    CameraCaptureSession.CaptureCallback CaptureCallback
+            = new CameraCaptureSession.CaptureCallback() {
 
+        @Override
+        public void onCaptureCompleted(@NonNull CameraCaptureSession session,
+                                       @NonNull CaptureRequest request,
+                                       @NonNull TotalCaptureResult result) {
+//                    showToast("Saved: " + mFile);
+            Log.d(TAG, mFile.toString());
+            EventBus.getDefault().post(new BaseEvent(BaseEvent.ImageFile,mFile));
+            unlockFocus();
+        }
+    };
     /**
      * Retrieves the JPEG orientation from the specified screen rotation.
      *
@@ -902,8 +926,12 @@ public class Camera2BasicFragment extends Fragment
     private void unlockFocus() {
         try {
             // Reset the auto-focus trigger
-            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
-                    CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
+//            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
+//                    CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
+            if (mAutoFocusSupported){
+                mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
+                        CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
+            }
             setAutoFlash(mPreviewRequestBuilder);
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);

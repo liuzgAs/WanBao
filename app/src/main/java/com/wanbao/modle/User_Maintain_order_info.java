@@ -13,8 +13,10 @@ public class User_Maintain_order_info {
     /**
      * isAuth : 0
      * isAccepting : 0
-     * isConfirmCar : 1
-     * data : {"stateType":3,"store":{"store_name":"东南三菱万宝万腾店","des1":"服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号","des2":"服务时间：2018.08.23 11:00","des3":"服务人员：林海"},"bag_name":"保养套餐：洗车","bag_des":[{"n":"泡沫洗车","v":"￥1.00"}],"sum_des":[{"n":"订单总价","v":"￥0.03"}],"des":[{"n":"订单编号","v":"WB12018082310315"},{"n":"订单状态","v":"服务中待接车"},{"n":"线上支付","v":"是"},{"n":"车型","v":"测试"},{"n":"车牌号","v":"京FFGGG"}]}
+     * isConfirmCar : 0
+     * isShow : 1
+     * imgShow : [{"name":"维修项目","imgs":[{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150},{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150}]},{"name":"增值服务","imgs":[{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150},{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150}]},{"name":"备件更换前后对比","imgs":[{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150},{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150}]}]
+     * data : {"stateType":4,"store":{"store_name":"东南三菱万宝万腾店","des1":"服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号","des2":"服务时间：2018.09.06 14:48","des3":"服务人员：互动创想测试账号"},"bag_name":"保养套餐：清洗养护套餐-A","bag_des":[{"n":"节气门清洗","v":"￥1.00"},{"n":"进气系统清洗","v":"￥1.00"}],"sum_des":[{"n":"订单总价","v":"￥0.05"}],"des":[{"n":"订单编号","v":"WB12018090614480"},{"n":"订单状态","v":"待评价"},{"n":"线上支付","v":"是"},{"n":"车型","v":"测试"},{"n":"车牌号","v":"京FFGGG"}]}
      * status : 1
      * info : 返回成功！
      */
@@ -22,9 +24,11 @@ public class User_Maintain_order_info {
     private int isAuth;
     private int isAccepting;
     private int isConfirmCar;
+    private int isShow;
     private DataBean data;
     private int status;
     private String info;
+    private List<ImgShowBean> imgShow;
 
     public int getIsAuth() {
         return isAuth;
@@ -48,6 +52,14 @@ public class User_Maintain_order_info {
 
     public void setIsConfirmCar(int isConfirmCar) {
         this.isConfirmCar = isConfirmCar;
+    }
+
+    public int getIsShow() {
+        return isShow;
+    }
+
+    public void setIsShow(int isShow) {
+        this.isShow = isShow;
     }
 
     public DataBean getData() {
@@ -74,14 +86,22 @@ public class User_Maintain_order_info {
         this.info = info;
     }
 
+    public List<ImgShowBean> getImgShow() {
+        return imgShow;
+    }
+
+    public void setImgShow(List<ImgShowBean> imgShow) {
+        this.imgShow = imgShow;
+    }
+
     public static class DataBean {
         /**
-         * stateType : 3
-         * store : {"store_name":"东南三菱万宝万腾店","des1":"服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号","des2":"服务时间：2018.08.23 11:00","des3":"服务人员：林海"}
-         * bag_name : 保养套餐：洗车
-         * bag_des : [{"n":"泡沫洗车","v":"￥1.00"}]
-         * sum_des : [{"n":"订单总价","v":"￥0.03"}]
-         * des : [{"n":"订单编号","v":"WB12018082310315"},{"n":"订单状态","v":"服务中待接车"},{"n":"线上支付","v":"是"},{"n":"车型","v":"测试"},{"n":"车牌号","v":"京FFGGG"}]
+         * stateType : 4
+         * store : {"store_name":"东南三菱万宝万腾店","des1":"服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号","des2":"服务时间：2018.09.06 14:48","des3":"服务人员：互动创想测试账号"}
+         * bag_name : 保养套餐：清洗养护套餐-A
+         * bag_des : [{"n":"节气门清洗","v":"￥1.00"},{"n":"进气系统清洗","v":"￥1.00"}]
+         * sum_des : [{"n":"订单总价","v":"￥0.05"}]
+         * des : [{"n":"订单编号","v":"WB12018090614480"},{"n":"订单状态","v":"待评价"},{"n":"线上支付","v":"是"},{"n":"车型","v":"测试"},{"n":"车牌号","v":"京FFGGG"}]
          */
 
         private int stateType;
@@ -143,8 +163,8 @@ public class User_Maintain_order_info {
             /**
              * store_name : 东南三菱万宝万腾店
              * des1 : 服务地址：福建省莆田市荔城区西天尾镇城涵西大道889号
-             * des2 : 服务时间：2018.08.23 11:00
-             * des3 : 服务人员：林海
+             * des2 : 服务时间：2018.09.06 14:48
+             * des3 : 服务人员：互动创想测试账号
              */
 
             private String store_name;
@@ -187,7 +207,7 @@ public class User_Maintain_order_info {
 
         public static class BagDesBean {
             /**
-             * n : 泡沫洗车
+             * n : 节气门清洗
              * v : ￥1.00
              */
 
@@ -214,7 +234,7 @@ public class User_Maintain_order_info {
         public static class SumDesBean {
             /**
              * n : 订单总价
-             * v : ￥0.03
+             * v : ￥0.05
              */
 
             private String n;
@@ -240,7 +260,7 @@ public class User_Maintain_order_info {
         public static class DesBean {
             /**
              * n : 订单编号
-             * v : WB12018082310315
+             * v : WB12018090614480
              */
 
             private String n;
@@ -260,6 +280,68 @@ public class User_Maintain_order_info {
 
             public void setV(String v) {
                 this.v = v;
+            }
+        }
+    }
+
+    public static class ImgShowBean {
+        /**
+         * name : 维修项目
+         * imgs : [{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150},{"img":"http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png","w":1080,"h":150}]
+         */
+
+        private String name;
+        private List<ImgsBean> imgs;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public List<ImgsBean> getImgs() {
+            return imgs;
+        }
+
+        public void setImgs(List<ImgsBean> imgs) {
+            this.imgs = imgs;
+        }
+
+        public static class ImgsBean {
+            /**
+             * img : http://img.wanbaoauto.com/image/jlbmv088_5tzl0l0ypf355b835aa1bb74d.png
+             * w : 1080
+             * h : 150
+             */
+
+            private String img;
+            private int w;
+            private int h;
+
+            public String getImg() {
+                return img;
+            }
+
+            public void setImg(String img) {
+                this.img = img;
+            }
+
+            public int getW() {
+                return w;
+            }
+
+            public void setW(int w) {
+                this.w = w;
+            }
+
+            public int getH() {
+                return h;
+            }
+
+            public void setH(int h) {
+                this.h = h;
             }
         }
     }

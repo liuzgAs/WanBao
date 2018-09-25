@@ -81,8 +81,7 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
                 break;
         }
         list.add("保养手册");
-        list.add("常规保养记录");
-        list.add("维修记录");
+        list.add("保养记录");
         viewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
         tablayout.setupWithViewPager(viewPager);
         tablayout.removeAllTabs();

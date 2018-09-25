@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单总价"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_15" />
+        <com.wanbao.base.ui.ListViewForScrollView
+            android:id="@+id/listChildImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:divider="@color/white"
+            android:dividerHeight="@dimen/dp_3"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5">
+        </com.wanbao.base.ui.ListViewForScrollView>
+    </LinearLayout>
+</LinearLayout>

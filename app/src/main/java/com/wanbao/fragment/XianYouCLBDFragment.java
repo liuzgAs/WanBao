@@ -348,10 +348,10 @@ public class XianYouCLBDFragment extends PSFragment {
                             textSjhm.setText(usercar_query.getData().getPhone_show());
                         } else {
                             imageCxxx.setVisibility(View.VISIBLE);
-                            imageGcsj.setVisibility(View.GONE);
-                            imagexslc.setVisibility(View.GONE);
-                            viewSzy.setVisibility(View.GONE);
-                            viewSfy.setVisibility(View.GONE);
+                            imageGcsj.setVisibility(View.VISIBLE);
+                            imagexslc.setVisibility(View.VISIBLE);
+                            viewSzy.setVisibility(View.VISIBLE);
+                            viewSfy.setVisibility(View.VISIBLE);
                             textState.setText("查询到以下车辆信息");
                             textClxx.setText(usercar_query.getData().getCid_name());
                             textCx.setText(usercar_query.getData().getCar_name());
@@ -462,12 +462,12 @@ public class XianYouCLBDFragment extends PSFragment {
         String url = Constant.HOST + Constant.Url.Usercar_Add_car;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("car_name", usercar_query.getData().getCar_name());
+        params.put("car_name", textCx.getText().toString());
         params.put("cid", dataBean.getId() + "");
-        params.put("bc_time", usercar_query.getData().getBc_time());
-        params.put("engine", usercar_query.getData().getEngine());
-        params.put("car_no", usercar_query.getData().getCar_no());
-        params.put("vin", usercar_query.getData().getVin());
+        params.put("bc_time", textGcsj.getText().toString());
+        params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
+        params.put("car_no", textCph.getText().toString().toUpperCase());
+        params.put("vin",  textCjh.getText().toString().toUpperCase());
         params.put("km", xslc);
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
@@ -641,9 +641,6 @@ public class XianYouCLBDFragment extends PSFragment {
                         }).show();
                 break;
             case R.id.viewDabh:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 final EditDialogText editDialogDanb = new EditDialogText(context, "输入档案编号", textDabh.getText().toString(), "确认", "取消");
                 editDialogDanb.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -660,9 +657,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogDanb.show();
                 break;
             case R.id.viewHdzrs:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 final EditDialog editDialogHdzrs = new EditDialog(context, "输入核定载人数（人）", textHdzrs.getText().toString(), "确认", "取消");
                 editDialogHdzrs.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
@@ -679,9 +673,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogHdzrs.show();
                 break;
             case R.id.viewZzl:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 final EditDialog editDialogZzl = new EditDialog(context, "输入总质量（kg）", textZzl.getText().toString(), "确认", "取消");
                 editDialogZzl.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
@@ -698,9 +689,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogZzl.show();
                 break;
             case R.id.viewWkcc:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 final EditDialogText editDialogWkcc = new EditDialogText(context, "输入外廓尺寸（mm）", textWkcc.getText().toString(), "确认", "取消");
                 editDialogWkcc.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override
@@ -717,9 +705,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogWkcc.show();
                 break;
             case R.id.viewZbzl:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 final EditDialog editDialogZbzl = new EditDialog(context, "输入整备质量（kg）", textZbzl.getText().toString(), "确认", "取消");
                 editDialogZbzl.setClicklistener(new EditDialog.ClickListenerInterface() {
                     @Override
@@ -736,9 +721,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogZbzl.show();
                 break;
             case R.id.viewZcrq:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar czc = Calendar.getInstance();
                 DatePickerDialog datePickerDialogzc = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -750,9 +732,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 datePickerDialogzc.show();
                 break;
             case R.id.viewFzrq:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar cfz = Calendar.getInstance();
                 DatePickerDialog datePickerDialogfz = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -764,9 +743,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 datePickerDialogfz.show();
                 break;
             case R.id.viewSyx:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar csy = Calendar.getInstance();
                 DatePickerDialog datePickerDialogsy = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -777,9 +753,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 datePickerDialogsy.show();
                 break;
             case R.id.viewXm:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 String stringXm = "";
                 if (xinShiZZM != null) {
                     stringXm = xinShiZZM.getData().getName();
@@ -800,9 +773,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogXm.show();
                 break;
             case R.id.viewCx:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 String stringCx = "";
                 if (xinShiZZM != null) {
                     stringCx = xinShiZZM.getData().getCar_name();
@@ -823,9 +793,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogCx.show();
                 break;
             case R.id.viewDz:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 String stringDz = "";
                 if (xinShiZZM != null) {
                     stringDz = xinShiZZM.getData().getAddress();
@@ -869,9 +836,6 @@ public class XianYouCLBDFragment extends PSFragment {
 //                editDialogCph.show();
                 break;
             case R.id.viewFdjh:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 String stringFdjh = "";
                 if (xinShiZZM != null) {
                     stringFdjh = xinShiZZM.getData().getAddress();
@@ -892,9 +856,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogFdjh.show();
                 break;
             case R.id.viewCjh:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 String stringCjh = "";
                 if (xinShiZZM != null) {
                     stringCjh = xinShiZZM.getData().getAddress();
@@ -915,9 +876,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogCjh.show();
                 break;
             case R.id.viewNcdq:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar c0 = Calendar.getInstance();
                 DatePickerDialog datePickerDialog0 = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -929,9 +887,6 @@ public class XianYouCLBDFragment extends PSFragment {
                 datePickerDialog0.show();
                 break;
             case R.id.viewBxdq:
-                if (usercar_query.getR() != 0) {
-                    return;
-                }
                 Calendar c = Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override

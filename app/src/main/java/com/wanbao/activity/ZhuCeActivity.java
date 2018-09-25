@@ -1,5 +1,6 @@
 package com.wanbao.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -90,7 +91,7 @@ public class ZhuCeActivity extends BaseActivity {
         Before();
     }
 
-    @OnClick({R.id.btn_right, R.id.imageBack, R.id.btnYzm, R.id.viewXieYi, R.id.viewZuCe})
+    @OnClick({R.id.textXieYi,R.id.btn_right, R.id.imageBack, R.id.btnYzm, R.id.viewXieYi, R.id.viewZuCe})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_right:
@@ -105,6 +106,13 @@ public class ZhuCeActivity extends BaseActivity {
                     return;
                 }
                 yanZM();
+                break;
+            case R.id.textXieYi:
+                Intent intent = new Intent();
+                intent.putExtra("title","用户协议");
+                intent.putExtra("mUrl",Constant.Url.Reg);
+                intent.setClass(context, WebViewActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewXieYi:
                 isTongYi = !isTongYi;
@@ -273,19 +281,19 @@ public class ZhuCeActivity extends BaseActivity {
                 try {
                     Login_RegBefore login_regBefore = GsonUtils.parseJSON(s, Login_RegBefore.class);
                     if (login_regBefore.getStatus() == 1) {
-                        if (login_regBefore.getIscode()==1){
+                        if (login_regBefore.getIscode() == 1) {
                             viewInCode.setVisibility(View.VISIBLE);
                             lineInCode.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             viewInCode.setVisibility(View.GONE);
                             lineInCode.setVisibility(View.GONE);
                         }
                     } else {
-                        MyDialog.dialogFinish(ZhuCeActivity.this,login_regBefore.getInfo());
+                        MyDialog.dialogFinish(ZhuCeActivity.this, login_regBefore.getInfo());
                     }
 
                 } catch (Exception e) {
-                    MyDialog.dialogFinish(ZhuCeActivity.this,"数据出错");
+                    MyDialog.dialogFinish(ZhuCeActivity.this, "数据出错");
 
                 }
             }
@@ -293,7 +301,7 @@ public class ZhuCeActivity extends BaseActivity {
             @Override
             public void onError() {
                 dismissDialog();
-                MyDialog.dialogFinish(ZhuCeActivity.this,"网络异常！");
+                MyDialog.dialogFinish(ZhuCeActivity.this, "网络异常！");
             }
 
             @Override
@@ -335,4 +343,5 @@ public class ZhuCeActivity extends BaseActivity {
             timer.cancel();
         }
     }
+
 }

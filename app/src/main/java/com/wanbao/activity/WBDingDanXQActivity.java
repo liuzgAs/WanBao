@@ -1,7 +1,11 @@
 package com.wanbao.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
@@ -21,13 +30,16 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_Maintain_order_info;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,11 +80,17 @@ public class WBDingDanXQActivity extends BaseActivity {
     StateButton btn1;
     @BindView(R.id.imageState)
     ImageView imageState;
+    @BindView(R.id.listImg)
+    ListViewForScrollView listImg;
     private String id;
     private MyAdapter myBagAdapter;
     private MyAdapter myAdapter;
     private MySumAdapter mySumAdapter;
+    private ImageAdapter imageAdapter;
     private User_Maintain_order_info datas;
+    private int screenWidth;
+    private List<LocalMedia> imageList = new ArrayList<>();
+    private int themeId= R.style.picture_default_style;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +113,8 @@ public class WBDingDanXQActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("订单详情");
+        screenWidth = ScreenUtils.getScreenWidth(WBDingDanXQActivity.this);
+
     }
 
     @Override
@@ -169,7 +189,6 @@ public class WBDingDanXQActivity extends BaseActivity {
                     } else {
                         ToastUtils.showShort(userMaintainOrderInfo.getInfo());
                     }
-
                 } catch (Exception e) {
                     ToastUtils.showShort("数据出错");
 
@@ -202,9 +221,11 @@ public class WBDingDanXQActivity extends BaseActivity {
         myBagAdapter = new MyAdapter(data.getData(), 0);
         myAdapter = new MyAdapter(data.getData(), 1);
         mySumAdapter = new MySumAdapter(data.getData());
+        imageAdapter=new ImageAdapter();
         listBagDes.setAdapter(myBagAdapter);
         listDes.setAdapter(myAdapter);
         listSumDes.setAdapter(mySumAdapter);
+        listImg.setAdapter(imageAdapter);
         textStoreName.setText(data.getData().getStore().getStore_name());
         textAddress.setText(data.getData().getStore().getDes1());
         textBookTime.setText(data.getData().getStore().getDes2());
@@ -245,7 +266,7 @@ public class WBDingDanXQActivity extends BaseActivity {
         } else if (data.getIsConfirmCar() == 1) {
             btn1.setText("确认牵车");
             btn1.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btn1.setVisibility(View.GONE);
         }
     }
@@ -349,6 +370,116 @@ public class WBDingDanXQActivity extends BaseActivity {
             }
             holder.textName.setText(dataBean.getSum_des().get(position).getN());
             holder.textJinel.setText(dataBean.getSum_des().get(position).getV());
+            return convertView;
+        }
+    }
+
+    class ImageAdapter extends BaseAdapter {
+        private ImageChildAdapter childAdapter;
+        class ViewHolder {
+            public TextView textName;
+            public ListViewForScrollView listChildImg;
+        }
+
+        @Override
+        public int getCount() {
+            return datas.getImgShow().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = getLayoutInflater().inflate(R.layout.item_dingdan_img, null);
+                holder.textName = (TextView) convertView.findViewById(R.id.textName);
+                holder.listChildImg = (ListViewForScrollView) convertView.findViewById(R.id.listChildImg);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.textName.setText(datas.getImgShow().get(position).getName());
+            childAdapter=new ImageChildAdapter(datas.getImgShow().get(position));
+            holder.listChildImg.setAdapter(childAdapter);
+            notifyDataSetChanged();
+            return convertView;
+        }
+    }
+
+    class ImageChildAdapter extends BaseAdapter {
+        private User_Maintain_order_info.ImgShowBean imgShowBean;
+        class ViewHolder {
+            public ImageView imageImg;
+        }
+        public ImageChildAdapter(User_Maintain_order_info.ImgShowBean imgShowBean) {
+            this.imgShowBean = imgShowBean;
+        }
+
+        @Override
+        public int getCount() {
+            return imgShowBean.getImgs().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = getLayoutInflater().inflate(R.layout.item_image, null);
+                holder.imageImg = (ImageView) convertView.findViewById(R.id.imageImg);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            GlideApp.with(context)
+                    .asBitmap()
+                    .load(imgShowBean.getImgs().get(position).getImg())
+                    .thumbnail( 0.6f )
+                    .into(new SimpleTarget<Bitmap>(imgShowBean.getImgs().get(position).getW(),imgShowBean.getImgs().get(position).getH()) {
+                        @Override
+                        public void onResourceReady(final Bitmap resource, Transition<? super Bitmap> transition) {
+                            holder.imageImg.setImageBitmap(resource);
+                        }
+
+                        @Override
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                            super.onLoadFailed(errorDrawable);
+                            holder.imageImg.setImageResource(R.mipmap.ic_empty);
+                        }
+                    });
+            notifyDataSetChanged();
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imageList.clear();
+                    for (int i=0;i<imgShowBean.getImgs().size();i++){
+                        LocalMedia localMedia=new LocalMedia();
+                        localMedia.setPath(imgShowBean.getImgs().get(i).getImg());
+                        imageList.add(localMedia);
+                    }
+                    PictureSelector.create((Activity)context).themeStyle(themeId).openExternalPreview(position, imageList);
+                }
+            });
             return convertView;
         }
     }
