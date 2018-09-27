@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,16 +24,20 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.YangCheImageLoader;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.base.view.NoScrollWebView;
 import com.wanbao.base.view.ObservableScrollView;
 import com.wanbao.modle.OkObject;
@@ -82,12 +85,17 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
     @BindView(R.id.btn1)
     StateButton btn1;
     String id = "0";
+    @BindView(R.id.textTitleL)
+    TextView textTitleL;
+    @BindView(R.id.textFenX)
+    TextView textFenX;
     private MySumAdapter mySumAdapter;
     private int mHeight;
     private WebSettings mSettings;
     private Orderteam_Free oFree;
     HashMap<String, String> states = new HashMap<>();
     private String ctid;
+    private IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +160,11 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
     @Override
     protected void initViews() {
+        api = WXAPIFactory.createWXAPI(this, Constant.WXAPPID, true);
+        textTitleL.setText("免费养车");
+        ViewGroup.LayoutParams layoutParams = viewTitle.getLayoutParams();
+        layoutParams.height = ScreenUtils.getStatusBarHeight(context) + (int) getResources().getDimension(R.dimen.dp_45);
+        viewTitle.setLayoutParams(layoutParams);
         ViewTreeObserver viewTreeObserver = banner.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -177,7 +190,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
     protected void initData() {
         if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) != 0) {
             getInfo();
-        }else {
+        } else {
             Intent intent = new Intent();
             intent.setClass(context, LoginActivity.class);
             startActivity(intent);
@@ -256,14 +269,15 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             btn0.setVisibility(View.VISIBLE);
             btn1.setVisibility(View.GONE);
         }
+        if (oFree.getListDes().getShareShow()==1){
+            textFenX.setVisibility(View.VISIBLE);
+        }else {
+            textFenX.setVisibility(View.GONE);
+        }
         id = String.valueOf(oFree.getId());
         textPrice.setText(oFree.getPrice());
         textPriceDes.setText(oFree.getPriceDes());
-        if (TextUtils.isEmpty(oFree.getTitle())) {
-            textTitle.setText("免费养车");
-        } else {
-            textTitle.setText(oFree.getTitle());
-        }
+        textTitle.setText(oFree.getTitle());
         textListDesR.setText(oFree.getListDes().getR() + "");
         textListDesV.setText(oFree.getListDes().getV());
         mySumAdapter = new MySumAdapter(oFree);
@@ -281,7 +295,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
         });
     }
 
-    @OnClick({R.id.imageback, R.id.viewKeFu, R.id.btn0, R.id.btn1})
+    @OnClick({R.id.textFenX,R.id.imageback, R.id.viewKeFu, R.id.btn0, R.id.btn1})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -299,6 +313,9 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
                 }
                 break;
             case R.id.viewKeFu:
+                break;
+            case R.id.textFenX:
+                MyDialog.share02(context,api,oFree.getListDes().getShare().getShareUrl(),oFree.getListDes().getShare().getShareTitle(),oFree.getListDes().getShare().getShareDes(),oFree.getListDes().getShare().getShareImg());
                 break;
             case R.id.btn0:
                 states.put("id", id);
@@ -333,14 +350,15 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             float scale = (float) t / mHeight;//算出滑动距离比例
             float alpha = (255 * scale);//得到透明度
             viewTitle.setBackgroundColor(Color.argb((int) alpha, 255, 91, 82));
-            textTitle.setTextColor(Color.argb((int) alpha, 255, 255, 255));
+            textTitleL.setTextColor(Color.argb((int) alpha, 255, 255, 255));
         } else {
             //过顶部图区域，标题栏定色
             viewTitle.setBackgroundColor(Color.argb(255, 255, 91, 82));
-            textTitle.setTextColor(Color.argb(255, 255, 255, 255));
+            textTitleL.setTextColor(Color.argb(255, 255, 255, 255));
 
         }
     }
+
 
     class MySumAdapter extends BaseAdapter {
 
@@ -378,9 +396,9 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            MySumAdapter.ViewHolder holder;
+            ViewHolder holder;
             if (convertView == null) {
-                holder = new MySumAdapter.ViewHolder();
+                holder = new ViewHolder();
                 convertView = getLayoutInflater().inflate(R.layout.item_mfyc, null);
                 holder.imageHeader = (ImageView) convertView.findViewById(R.id.imageHeader);
                 holder.textName = (TextView) convertView.findViewById(R.id.textName);
@@ -393,14 +411,14 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
 
                 convertView.setTag(holder);
             } else {
-                holder = (MySumAdapter.ViewHolder) convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
             holder.textName.setText(dataBean.getList().get(position).getNickname());
             holder.textDesN.setText(dataBean.getList().get(position).getDes().getN());
             holder.textDesR.setText(dataBean.getList().get(position).getDes().getR());
             holder.textDesV.setText(dataBean.getList().get(position).getDes().getV());
-            holder.textTimeDesN.setText(dataBean.getList().get(position).getTimeDes().getN()+"：");
-            holder.countdownView.start(dataBean.getList().get(position).getTimeDes().getV()*1000);
+            holder.textTimeDesN.setText(dataBean.getList().get(position).getTimeDes().getN() + "：");
+            holder.countdownView.start(dataBean.getList().get(position).getTimeDes().getV() * 1000);
             holder.sBtnPinDan.setText(dataBean.getList().get(position).getBtnTxt());
             GlideApp.with(context)
                     .asBitmap()

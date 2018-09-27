@@ -89,7 +89,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:scrollbarStyle="insideOverlay"
-                        app:scrollbars="none"></com.wanbao.ui.MyEasyRecyclerView>
+                        app:scrollbars="none">
+                    </com.wanbao.ui.MyEasyRecyclerView>
                 </com.wanbao.ui.HorizontalView>
 
                 <View

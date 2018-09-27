@@ -126,13 +126,18 @@ public class Orderteam_Free {
     }
 
     public static class ListDesBean {
+
         /**
          * r : 1
          * v : 人在拼单，可直接参与
+         * shareShow : 1
+         * share : {"shareImg":"http://p7b347z0p.bkt.clouddn.com/FlquPeYRQyECUqHhqWFwU99aGXh9","shareTitle":"老爷车向您推荐了牵车app","shareUrl":"http://www.wanbaoauto.com/m/d/reg/v/MTI=/ti/13/.html","shareDes":"老爷车向您推荐了牵车app"}
          */
 
         private String r;
         private String v;
+        private int shareShow;
+        private ShareBean share;
 
         public String getR() {
             return r;
@@ -148,6 +153,68 @@ public class Orderteam_Free {
 
         public void setV(String v) {
             this.v = v;
+        }
+
+        public int getShareShow() {
+            return shareShow;
+        }
+
+        public void setShareShow(int shareShow) {
+            this.shareShow = shareShow;
+        }
+
+        public ShareBean getShare() {
+            return share;
+        }
+
+        public void setShare(ShareBean share) {
+            this.share = share;
+        }
+
+        public static class ShareBean {
+            /**
+             * shareImg : http://p7b347z0p.bkt.clouddn.com/FlquPeYRQyECUqHhqWFwU99aGXh9
+             * shareTitle : 老爷车向您推荐了牵车app
+             * shareUrl : http://www.wanbaoauto.com/m/d/reg/v/MTI=/ti/13/.html
+             * shareDes : 老爷车向您推荐了牵车app
+             */
+
+            private String shareImg;
+            private String shareTitle;
+            private String shareUrl;
+            private String shareDes;
+
+            public String getShareImg() {
+                return shareImg;
+            }
+
+            public void setShareImg(String shareImg) {
+                this.shareImg = shareImg;
+            }
+
+            public String getShareTitle() {
+                return shareTitle;
+            }
+
+            public void setShareTitle(String shareTitle) {
+                this.shareTitle = shareTitle;
+            }
+
+            public String getShareUrl() {
+                return shareUrl;
+            }
+
+            public void setShareUrl(String shareUrl) {
+                this.shareUrl = shareUrl;
+            }
+
+            public String getShareDes() {
+                return shareDes;
+            }
+
+            public void setShareDes(String shareDes) {
+                this.shareDes = shareDes;
+            }
         }
     }
 

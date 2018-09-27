@@ -83,8 +83,22 @@
                     android:id="@+id/textListDesV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textColor="@color/new_secondary_text"
                     android:textSize="@dimen/sp_14" />
+                <TextView
+                    android:id="@+id/textFenX"
+                    android:layout_width="wrap_content"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="@dimen/sp_11"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:background="@drawable/yuanjiao_red"
+                    android:text="分享"
+                    android:layout_height="@dimen/dp_30" />
             </LinearLayout>
 
             <View
@@ -151,13 +165,12 @@
     <LinearLayout
         android:id="@+id/viewTitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_70"
+        android:layout_height="wrap_content"
         android:gravity="bottom">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
-            android:layout_marginTop="@dimen/dp_25"
             android:fitsSystemWindows="false"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_12">
@@ -175,6 +188,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="免费养车"
+                android:id="@+id/textTitleL"
                 android:textColor="@color/transparent"
                 android:textSize="@dimen/sp_17" />
         </RelativeLayout>
