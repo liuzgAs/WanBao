@@ -20,6 +20,7 @@ import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.TuiJianJLActivity;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
+import com.wanbao.base.util.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,9 @@ public class MakeMoneyFragment extends PSFragment {
             view = inflater.inflate(R.layout.fragment_make_money, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
+        ViewGroup.LayoutParams layoutParams = viewBar.getLayoutParams();
+        layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_45) +getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(getActivity()));
+        viewBar.setLayoutParams(layoutParams);
         return view;
     }
 

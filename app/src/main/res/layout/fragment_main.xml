@@ -14,5 +14,6 @@
         android:layout_width="match_parent"
         app:layout_progress="@layout/mydialog"
         app:scrollbarStyle="insideOverlay"
-        android:layout_height="match_parent"></com.jude.easyrecyclerview.EasyRecyclerView>
+        android:layout_height="match_parent">
+    </com.jude.easyrecyclerview.EasyRecyclerView>
 </LinearLayout>

@@ -108,6 +108,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
             view = inflater.inflate(R.layout.fragment_main, container, false);
         }
         unbinder = ButterKnife.bind(this, view);
+        ViewGroup.LayoutParams layoutParams = viewBar.getLayoutParams();
+        layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(getActivity()));
+        viewBar.setLayoutParams(layoutParams);
         return view;
     }
 

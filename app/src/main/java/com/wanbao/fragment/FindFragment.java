@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -29,6 +30,7 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.BannerSettingUtil;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Store_Index;
 
@@ -49,6 +51,8 @@ public class FindFragment extends PSFragment {
     Unbinder unbinder;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.viewBar)
+    LinearLayout viewBar;
     private View view;
     private AMap aMap = null;
     private Bundle savedInstanceState;
@@ -71,7 +75,7 @@ public class FindFragment extends PSFragment {
             unbinder = ButterKnife.bind(this, view);
             aMap = mMapView.getMap();
             aMap.getUiSettings().setMyLocationButtonEnabled(true); //显示默认的定位按钮
-            MyLocationStyle myLocationStyle=new MyLocationStyle();
+            MyLocationStyle myLocationStyle = new MyLocationStyle();
             myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
             aMap.setMyLocationEnabled(true);// 可触发定位并显示当前位置
             aMap.setMyLocationStyle(myLocationStyle);
@@ -80,6 +84,12 @@ public class FindFragment extends PSFragment {
             aMap.getUiSettings().setZoomControlsEnabled(false);
             mMapView.onCreate(savedInstanceState);
         }
+        if (unbinder==null){
+            unbinder = ButterKnife.bind(this, view);
+        }
+        ViewGroup.LayoutParams layoutParams = viewBar.getLayoutParams();
+        layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(getActivity()));
+        viewBar.setLayoutParams(layoutParams);
         return view;
     }
 
@@ -90,9 +100,9 @@ public class FindFragment extends PSFragment {
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.LatLng.equals(event.getAction())){
-            LatLng latLng=(LatLng) event.getData();
-            if (latLng!=null){
+        if (BaseEvent.LatLng.equals(event.getAction())) {
+            LatLng latLng = (LatLng) event.getData();
+            if (latLng != null) {
                 aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
 //                aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
             }
@@ -149,7 +159,7 @@ public class FindFragment extends PSFragment {
                             Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(store_index.getData().get(i).getTitle()));
                             marker.showInfoWindow();
                         }
-                        myPageAdapter=new MyPageAdapter(getChildFragmentManager(),store_index.getData());
+                        myPageAdapter = new MyPageAdapter(getChildFragmentManager(), store_index.getData());
                         viewPager.setAdapter(myPageAdapter);
                     } else {
                         ToastUtils.showShort(store_index.getInfo());
@@ -178,7 +188,7 @@ public class FindFragment extends PSFragment {
     private OkObject getOkObjectStore() {
         String url = Constant.HOST + Constant.Url.Store_Index;
         HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid,0) + "");
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid, 0) + "");
         params.put("lng", SPUtils.getInstance().getString(Constant.SF.Longitude) + "");
         params.put("lat", SPUtils.getInstance().getString(Constant.SF.Latitude) + "");
         return new OkObject(params, url);
@@ -211,16 +221,18 @@ public class FindFragment extends PSFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
-        if (mMapView!=null){
+        if (mMapView != null) {
             mMapView.onSaveInstanceState(outState);
         }
     }
 
+
     public class MyPageAdapter extends FragmentPagerAdapter {
         private List<Store_Index.DataBean> dataBeanList;
+
         public MyPageAdapter(FragmentManager fm, List<Store_Index.DataBean> dataBeanList) {
             super(fm);
-            this.dataBeanList =dataBeanList;
+            this.dataBeanList = dataBeanList;
         }
 
         @Override

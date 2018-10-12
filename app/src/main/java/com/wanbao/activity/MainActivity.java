@@ -22,7 +22,7 @@ import com.wanbao.entity.TabEntity;
 import com.wanbao.fragment.FindFragment;
 import com.wanbao.fragment.MainFragment;
 import com.wanbao.fragment.MakeMoneyFragment;
-import com.wanbao.fragment.MyCarFragment;
+import com.wanbao.fragment.MyCarXFragment;
 import com.wanbao.fragment.SosFragment;
 import com.wanbao.modle.MyMessage;
 import com.wanbao.ui.NoScrollViewPager;
@@ -73,7 +73,7 @@ public class MainActivity extends BaseNoLeftActivity {
         mFragments.add(FindFragment.newInstance());
         mFragments.add(SosFragment.newInstance());
         mFragments.add(MakeMoneyFragment.newInstance());
-        mFragments.add(MyCarFragment.newInstance());
+        mFragments.add(MyCarXFragment.newInstance(""));
         myPagerAdapter=new MyPagerAdapter(getSupportFragmentManager());
         vpager.setNoScroll(true);
         vpager.setAdapter(myPagerAdapter);

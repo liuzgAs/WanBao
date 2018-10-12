@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/tranblack"
-    android:fitsSystemWindows="true"
     android:gravity="bottom"
-    android:paddingTop="@dimen/dp_25"
     android:minHeight="?attr/actionBarSize"
     android:orientation="vertical">
 
