@@ -299,7 +299,6 @@ public class XianYouCLBDFragment extends PSFragment {
             textZzl.setText(xingShiZFY.getData().getGross_mass());
             textWkcc.setText(xingShiZFY.getData().getOverall_dimension());
             textZbzl.setText(xingShiZFY.getData().getUnladen_mass());
-
             back_img = xingShiZFY.getImg_id();
         }
         if (BaseEvent.CarImage.equals(event.getAction())) {
