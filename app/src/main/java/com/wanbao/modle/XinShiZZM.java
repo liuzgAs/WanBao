@@ -67,13 +67,28 @@ public class XinShiZZM implements Serializable{
 
         private String car_no;
         private String engine;
+        private String cid;
+        private String cid_name;
         private String car_name;
         private String vin;
         private String name;
         private String address;
         private String register_date;
         private String issue_date;
+        public String getCid_name() {
+            return cid_name;
+        }
 
+        public void setCid_name(String cid_name) {
+            this.cid_name = cid_name;
+        }
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
         public String getCar_no() {
             return car_no;
         }

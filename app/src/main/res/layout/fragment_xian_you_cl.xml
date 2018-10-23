@@ -95,7 +95,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sp_13"
+                            android:textColor="@color/new_secondary_text"
+                            android:text="扫描行驶证正面"/>
+                        <ImageView
+                            android:id="@+id/imageZM"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_80"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:src="@mipmap/addimg_1x"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sp_13"
+                            android:textColor="@color/new_secondary_text"
+                            android:text="扫描行驶证背面"/>
+                        <ImageView
+                            android:id="@+id/imageBM"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_80"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:src="@mipmap/addimg_1x"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13"
+                    android:text="上传行驶证车辆外观图片"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:overScrollMode="never" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
@@ -235,13 +296,75 @@
                         android:layout_height="@dimen/dp_24"
                         android:src="@mipmap/next_btn"
                         android:visibility="gone" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/background"></View>
+
+                <LinearLayout
+                    android:id="@+id/viewNcdq"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="年审到期"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textNsdq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="请填写正确的年审到期"
+                        android:gravity="right"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/background">
-                </View>
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background"></View>
+
+                <LinearLayout
+                    android:id="@+id/viewBxdq"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="交强险"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textBxdq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_36"
+                        android:background="@color/white"
+                        android:hint="交强险到期时间"
+                        android:gravity="right"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -601,7 +724,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_5"
                         android:layout_weight="1"
-                        android:text="车险信息"
+                        android:text="行驶证副页"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
 
@@ -640,75 +763,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/background"></View>
-
-                <LinearLayout
-                    android:id="@+id/viewNcdq"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="年审到期"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-
-                    <TextView
-                        android:id="@+id/textNsdq"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_36"
-                        android:background="@color/white"
-                        android:hint="请填写正确的年审到期"
-                        android:gravity="right"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background"></View>
-
-                <LinearLayout
-                    android:id="@+id/viewBxdq"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="交强险"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_14" />
-
-                    <TextView
-                        android:id="@+id/textBxdq"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_36"
-                        android:background="@color/white"
-                        android:hint="交强险到期时间"
-                        android:gravity="right"
-                        android:textColor="@color/new_important_text"
-                        android:textSize="@dimen/sp_13" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_1"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
 
                 <LinearLayout
@@ -919,6 +973,7 @@
                     android:id="@+id/viewWgtp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">

@@ -149,6 +149,7 @@ public class CameraActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             final Uri resultUri = UCrop.getOutput(data);
            getAppImgAdd(ImgToBase64.toBase64(ImgToBase64.getRealFilePath(CameraActivity.this,resultUri)));
+            EventBus.getDefault().post(new BaseEvent(BaseEvent.ImageZJ, ImgToBase64.getRealFilePath(CameraActivity.this,resultUri)));
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
             LogUtils.e("cropError",cropError.getMessage());

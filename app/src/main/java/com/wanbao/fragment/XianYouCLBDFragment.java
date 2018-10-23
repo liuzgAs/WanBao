@@ -1,6 +1,7 @@
 package com.wanbao.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,18 +33,24 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.activity.CameraActivity;
 import com.wanbao.activity.CheShenTpActivity;
 import com.wanbao.activity.DrivingLicenseActivity;
 import com.wanbao.activity.XuanZheCheXActivity;
+import com.wanbao.adapter.GridImage1Adapter;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.tools.ImgToBase64;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.A2bigA;
+import com.wanbao.base.util.FullyGridLayoutManager;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.view.EditDialog;
 import com.wanbao.base.view.EditDialogText;
@@ -187,6 +196,12 @@ public class XianYouCLBDFragment extends PSFragment {
     ImageView imageZy;
     @BindView(R.id.imageFy)
     ImageView imageFy;
+    @BindView(R.id.imageZM)
+    ImageView imageZM;
+    @BindView(R.id.imageBM)
+    ImageView imageBM;
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
     private View view;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
@@ -210,7 +225,7 @@ public class XianYouCLBDFragment extends PSFragment {
     private int themeId = R.style.picture_default_style;
     private List<LocalMedia> imageList = new ArrayList<>();
     private String img_id;
-
+    private String cid;
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
         return sf;
@@ -229,12 +244,13 @@ public class XianYouCLBDFragment extends PSFragment {
         textCph.setTransformationMethod(new A2bigA());
         textFdjh.setTransformationMethod(new A2bigA());
         textCjh.setTransformationMethod(new A2bigA());
-
         return view;
     }
-
+    private GridImage1Adapter adapter;
     @Override
     public void fetchData() {
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
+        recycler.setLayoutManager(manager);
         scrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
         scrollView.setFocusable(true);
         scrollView.setFocusableInTouchMode(true);
@@ -246,8 +262,21 @@ public class XianYouCLBDFragment extends PSFragment {
             }
         });
         viewSwitcher.setDisplayedChild(0);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.item_sheng, COUNTRIES);
-        betterSpinner.setAdapter(adapter);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(context, R.layout.item_sheng, COUNTRIES);
+        betterSpinner.setAdapter(adapter1);
+
+        adapter = new GridImage1Adapter(getActivity(), onAddPicClickListener);
+        adapter.setList(selectList);
+        recycler.setAdapter(adapter);
+        adapter.setOnItemClickListener(new GridImage1Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                LocalMedia media = selectList.get(position);
+                String pictureType = media.getPictureType();
+                int mediaType = PictureMimeType.pictureToVideo(pictureType);
+                PictureSelector.create(XianYouCLBDFragment.this).themeStyle(themeId).openExternalPreview(position, selectList);
+            }
+        });
     }
 
     @Override
@@ -260,13 +289,19 @@ public class XianYouCLBDFragment extends PSFragment {
         }
     }
 
+    private ArrayList<String> Chushi = new ArrayList<>();
 
     @Override
     public void onEventMainThread(BaseEvent event) {
+        if (BaseEvent.INDEX.equals(event.getAction())){
+            int index=(int)event.getData();
+            Chushi.remove(index);
+        }
         if (BaseEvent.Choose_CarX.equals(event.getAction())) {
             dataBean = (Car_Index.DataBean) event.getData();
             if (dataBean != null) {
                 textClxx.setText(dataBean.getTitle());
+                cid=dataBean.getId()+"";
             }
         }
         if (BaseEvent.Choose_CS.equals(event.getAction())) {
@@ -274,10 +309,28 @@ public class XianYouCLBDFragment extends PSFragment {
             if (listBean != null) {
             }
         }
+        if (BaseEvent.ImageZJ.equals(event.getAction())) {
+            String imageString=(String) event.getData();
+            if (imageType==0){
+                GlideApp.with(getContext())
+                        .asBitmap()
+                        .load(imageString)
+                        .placeholder(R.mipmap.ic_empty)
+                        .into(imageZM);
+            }else {
+                GlideApp.with(getContext())
+                        .asBitmap()
+                        .load(imageString)
+                        .placeholder(R.mipmap.ic_empty)
+                        .into(imageBM);
+            }
+        }
         if (BaseEvent.XinShiZZM.equals(event.getAction())) {
             xinShiZZM = (XinShiZZM) event.getData();
             img_id = xinShiZZM.getImg_id();
             imageZy.setVisibility(View.VISIBLE);
+            cid=xinShiZZM.getData().getCid();
+            textClxx.setText(xinShiZZM.getData().getCid_name());
             textCph.setText(xinShiZZM.getData().getCar_no());
             textFdjh.setText(xinShiZZM.getData().getEngine());
             textCjh.setText(xinShiZZM.getData().getVin());
@@ -343,7 +396,7 @@ public class XianYouCLBDFragment extends PSFragment {
                             imagexslc.setVisibility(View.VISIBLE);
                             viewSzy.setVisibility(View.VISIBLE);
                             viewSfy.setVisibility(View.VISIBLE);
-                            textCph.setText(betterSpinner.getText().toString()+editChePai.getText().toString());
+                            textCph.setText(betterSpinner.getText().toString() + editChePai.getText().toString());
                             textSjhm.setText(usercar_query.getData().getPhone_show());
                         } else {
                             imageCxxx.setVisibility(View.VISIBLE);
@@ -466,7 +519,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("bc_time", textGcsj.getText().toString());
         params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
         params.put("car_no", textCph.getText().toString().toUpperCase());
-        params.put("vin",  textCjh.getText().toString().toUpperCase());
+        params.put("vin", textCjh.getText().toString().toUpperCase());
         params.put("km", xslc);
         params.put("phone", usercar_query.getData().getPhone());
         params.put("year_end", textNsdq.getText().toString());
@@ -484,7 +537,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("gross_mass", textZzl.getText().toString());
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
-        params.put("imgs", images.toString().replace("[", "").replace("]", ""));
+        params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
 
         return new OkObject(params, url);
     }
@@ -517,7 +570,7 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("gross_mass", textZzl.getText().toString());
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
-        params.put("imgs", images.toString().replace("[", "").replace("]", ""));
+        params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
 
         return new OkObject(params, url);
     }
@@ -590,22 +643,61 @@ public class XianYouCLBDFragment extends PSFragment {
             textFs.setText("重新发送");
         }
     };
-
-    @OnClick({R.id.imageZy, R.id.imageFy,R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
+    int imageType=0;
+    @OnClick({R.id.imageBM,R.id.imageZM,R.id.imageZy, R.id.imageFy, R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
             R.id.viewSyx, R.id.viewFzrq, R.id.viewZcrq, R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.imageBM:
+                imageType=1;
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(context,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                            0);
+
+                } else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "back");
+                    intent.putExtra("img_id", img_id);
+                    intent.setClass(getActivity(), CameraActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.imageZM:
+                imageType=0;
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(context,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                            0);
+
+                } else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "face");
+                    intent.setClass(getActivity(), CameraActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.imageZy:
-                intent=new Intent(context, DrivingLicenseActivity.class);
-                intent.putExtra("type",0);
-                intent.putExtra("zy",xinShiZZM);
+                intent = new Intent(context, DrivingLicenseActivity.class);
+                intent.putExtra("type", 0);
+                intent.putExtra("zy", xinShiZZM);
                 startActivity(intent);
                 break;
             case R.id.imageFy:
-                intent=new Intent(context, DrivingLicenseActivity.class);
-                intent.putExtra("type",1);
-                intent.putExtra("fy",xingShiZFY);
+                intent = new Intent(context, DrivingLicenseActivity.class);
+                intent.putExtra("type", 1);
+                intent.putExtra("fy", xingShiZFY);
                 startActivity(intent);
                 break;
             case R.id.viewWgtp:
@@ -939,6 +1031,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialog1.show();
                 break;
             case R.id.viewSzy:
+                imageType=0;
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -958,6 +1051,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 }
                 break;
             case R.id.viewSfy:
+                imageType=1;
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -977,7 +1071,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 }
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (dataBean == null) {
+                if (TextUtils.isEmpty(cid)) {
                     ToastUtils.showShort("请选择车型信息！");
                     return;
                 }
@@ -1091,5 +1185,104 @@ public class XianYouCLBDFragment extends PSFragment {
                 break;
 
         }
+    }
+    private List<LocalMedia> selectList = new ArrayList<>();
+    private GridImage1Adapter.onAddPicClickListener onAddPicClickListener = new GridImage1Adapter.onAddPicClickListener() {
+        @Override
+        public void onAddPicClick() {
+            boolean mode = true;
+            if (mode) {
+                // 进入相册 以下是例子：不需要的api可以不写
+                PictureSelector.create(XianYouCLBDFragment.this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .maxSelectNum(9)
+                        .minSelectNum(1)
+                        .selectionMode(PictureConfig.MULTIPLE)
+                        .previewImage(true)
+                        .isCamera(true)
+                        .imageFormat(PictureMimeType.PNG)
+                        .enableCrop(false)
+                        .compress(false)
+                        .glideOverride(100, 100)
+                        .previewEggs(true)
+                        .openClickSound(true)
+                        .selectionMedia(selectList)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+        }
+    };
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择
+                    selectList = PictureSelector.obtainMultipleResult(data);
+                    adapter.setList(selectList);
+                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < selectList.size(); i++) {
+                        getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void getAppImgAdd(String img) {
+        if (TextUtils.isEmpty(img)){
+            return;
+        }
+        HttpApi.post(context, getOkObjectAppImgAdd(img), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("上传中...");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                LogUtils.e("getAppImgAdd", s);
+                try {
+                    Respond_AppImgAdd respondAppImgAdd = GsonUtils.parseJSON(s, Respond_AppImgAdd.class);
+                    int status = respondAppImgAdd.getStatus();
+                    if (status == 1) {
+                        Chushi.add(respondAppImgAdd.getImgId());
+                    } else {
+                        ToastUtils.showShort(respondAppImgAdd.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectAppImgAdd(String img) {
+        String url = Constant.HOST + Constant.Url.Respond_AppImgAdd;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("code", "");
+        params.put("img", img);
+        params.put("type", "png");
+        return new OkObject(params, url);
     }
 }

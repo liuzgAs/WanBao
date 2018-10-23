@@ -25,6 +25,7 @@ public class BaseEvent {
 	public final static String Is_Again = "Is_Again";
 	public final static String XinShiZZM = "XinShiZZM";
 	public final static String XingShiZFY = "XingShiZFY";
+	public final static String ImageZJ = "ImageZJ";
 	public final static String Change_SjOrder = "ChangeSjOrder";
 	public final static String ChangeWbOrder = "ChangeWbOrder";
 	public final static String PaySureOrder = "PaySureOrder";
@@ -51,6 +52,7 @@ public class BaseEvent {
 	public final static String DeleteImg = "DeleteImg";
 	public final static String CarImage = "CarImage";
 
+	public final static String INDEX = "index";
 
 	private String action;
 	private Object data;
