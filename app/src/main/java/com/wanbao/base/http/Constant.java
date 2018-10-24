@@ -199,6 +199,10 @@ public class Constant {
          */
         public static final String Respond_AppImgAdd = "Respond/appImgAdd";
         /**
+         * vin识别
+         */
+        public static final String Usercar_Vin_zb = "Usercar/vin_zb";
+        /**
          * 图片识别文字
          */
         public static final String UserCar_Text_zb = "UserCar/text_zb";

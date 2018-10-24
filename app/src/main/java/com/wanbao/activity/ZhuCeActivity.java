@@ -294,7 +294,6 @@ public class ZhuCeActivity extends BaseActivity {
 
                 } catch (Exception e) {
                     MyDialog.dialogFinish(ZhuCeActivity.this, "数据出错");
-
                 }
             }
 

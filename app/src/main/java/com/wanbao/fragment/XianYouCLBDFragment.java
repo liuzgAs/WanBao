@@ -61,6 +61,7 @@ import com.wanbao.modle.Login_RegSms;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Respond_AppImgAdd;
 import com.wanbao.modle.Usercar_Query;
+import com.wanbao.modle.Usercar_Vin_zb;
 import com.wanbao.modle.XinShiZZM;
 import com.wanbao.modle.XingShiZFY;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
@@ -515,7 +516,7 @@ public class XianYouCLBDFragment extends PSFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("car_name", textCx.getText().toString());
-        params.put("cid", dataBean.getId() + "");
+        params.put("cid", cid+ "");
         params.put("bc_time", textGcsj.getText().toString());
         params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
         params.put("car_no", textCph.getText().toString().toUpperCase());
@@ -547,7 +548,7 @@ public class XianYouCLBDFragment extends PSFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("car_name", textCx.getText().toString());
-        params.put("cid", dataBean.getId() + "");
+        params.put("cid",cid + "");
         params.put("bc_time", textGcsj.getText().toString());
         params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
         params.put("car_no", textCph.getText().toString().toUpperCase());
@@ -956,7 +957,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     @Override
                     public void doConfirm(String intro) {
                         editDialogCjh.dismiss();
-                        textCjh.setText(intro);
+                        getVin(intro);
                     }
 
                     @Override
@@ -1071,7 +1072,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 }
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (TextUtils.isEmpty(cid)) {
+                if (TextUtils.isEmpty(cid)||"0".equals(cid)) {
                     ToastUtils.showShort("请选择车型信息！");
                     return;
                 }
@@ -1114,10 +1115,6 @@ public class XianYouCLBDFragment extends PSFragment {
                     }
                     if (TextUtils.isEmpty(textFzrq.getText().toString())) {
                         ToastUtils.showShort("请设置发证日期");
-                        return;
-                    }
-                    if (TextUtils.isEmpty(textNsdq.getText().toString())) {
-                        ToastUtils.showShort("请设置年审到期时间");
                         return;
                     }
                     if (TextUtils.isEmpty(textBxdq.getText().toString())) {
@@ -1283,6 +1280,58 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("code", "");
         params.put("img", img);
         params.put("type", "png");
+        return new OkObject(params, url);
+    }
+
+    private void getVin(final String img) {
+        HttpApi.post(context, getOkObjectVin(img), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("上传中...");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                LogUtils.e("getAppImgAdd", s);
+                try {
+                    Usercar_Vin_zb usercarVinZb = GsonUtils.parseJSON(s, Usercar_Vin_zb.class);
+                    int status = usercarVinZb.getStatus();
+                    if (status == 1) {
+                        textCjh.setText(img);
+                        cid=usercarVinZb.getCid();
+                        textClxx.setText(usercarVinZb.getCid_name());
+                    } else {
+                        ToastUtils.showShort(usercarVinZb.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectVin(String img) {
+        String url = Constant.HOST + Constant.Url.Usercar_Vin_zb;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("vin", img);
         return new OkObject(params, url);
     }
 }

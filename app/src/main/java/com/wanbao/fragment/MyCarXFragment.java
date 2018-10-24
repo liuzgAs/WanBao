@@ -566,7 +566,7 @@ public class MyCarXFragment extends PSFragment implements SwipeRefreshLayout.OnR
                             adapter.add(new WoDe("新车展厅", R.mipmap.icon_new_xczt, 0));
                             adapter.add(new WoDe("优质二手车", R.mipmap.icon_new_yzesc, 1));
                             adapter.add(new WoDe("维修保养", R.mipmap.icon_new_wxby, 4));
-                            adapter.add(new WoDe("我的金库", R.mipmap.icon_new_gdfw, 5));
+                            adapter.add(new WoDe("我的金库", R.mipmap.icon_new_wdjk, 5));
                             adapter.add(new WoDe("更多服务", R.mipmap.icon_new_gdfw, 2));
                             adapter.notifyDataSetChanged();
                         }

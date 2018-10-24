@@ -11,6 +11,9 @@ import com.wanbao.R;
 import com.wanbao.modle.Index_Home;
 
 
+/**
+ * @author Administrator
+ */
 public class IndexViewHolder extends BaseViewHolder<Index_Home.TeamDataBean>{
     private final TextView textName;
     private final ImageView imageGoods;
