@@ -77,7 +77,8 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     private Sos_Index sos_index;
     private String longitude;
     private String latitude;
-
+    private String ucid;
+    private String type;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -104,6 +105,10 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     @Override
     protected void initIntent() {
         sos_index = (Sos_Index) getIntent().getSerializableExtra("sos_index");
+        type=getIntent().getStringExtra("type");
+        if (sos_index!=null){
+            ucid=sos_index.getData().getUcid();
+        }
     }
 
     @Override
@@ -139,6 +144,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
             if (usercar_Index != null) {
                 textCarName.setText(usercar_Index.getTitle());
                 textCarNo.setText(usercar_Index.getCar_no());
+                ucid=usercar_Index.getId()+"";
             }
         }
     }
@@ -322,6 +328,8 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("mobile", textPhone.getText().toString());
+        params.put("ucid", ucid);
+        params.put("type", type);
         params.put("name", textName.getText().toString());
         params.put("car_name", textCarName.getText().toString());
         params.put("car_no", textCarNo.getText().toString());

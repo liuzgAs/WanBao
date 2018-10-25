@@ -11,8 +11,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
+import com.wanbao.modle.ShareBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +32,13 @@ public class WebViewActivity extends BaseActivity {
     ProgressBar progressBar;
     @BindView(R.id.webView)
     WebView webView;
+    @BindView(R.id.imageRight)
+    ImageView imageRight;
     private String title;
     private String mUrl;
     private WebSettings mSettings;
+    private ShareBean shareBean;
+    private IWXAPI iwxapi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +60,17 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        title=getIntent().getStringExtra("title");
-        mUrl=getIntent().getStringExtra("mUrl");
-        if (title!=null){
+        iwxapi = WXAPIFactory.createWXAPI(context, null);
+        title = getIntent().getStringExtra("title");
+        mUrl = getIntent().getStringExtra("mUrl");
+        if (title != null) {
             titleText.setText(title);
         }
-
+        shareBean = (ShareBean) getIntent().getSerializableExtra("share");
+        if (shareBean != null) {
+            imageRight.setVisibility(View.VISIBLE);
+            imageRight.setImageResource(R.mipmap.share);
+        }
         webView.loadUrl(mUrl);
         webView.setWebViewClient(new WebViewClient());//覆盖第三方浏览器
         mSettings = webView.getSettings();
@@ -87,8 +100,19 @@ public class WebViewActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.imageback)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.imageback, R.id.imageRight})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.imageback:
+                finish();
+                break;
+            case R.id.imageRight:
+                if (shareBean!=null){
+                    MyDialog.share02(context,iwxapi,shareBean.getShareUrl(),shareBean.getShareTitle(),shareBean.getShareDes(),shareBean.getShareImg());
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -64,6 +64,7 @@ public class SosFragment extends PSFragment {
     public void onViewClicked() {
         Intent intent = new Intent();
         intent.setClass(context, CheLiangGZActivity.class);
+        intent.putExtra("type","1");
         startActivity(intent);
     }
 
@@ -82,6 +83,7 @@ public class SosFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("type","2");
                 intent.setClass(context, CheLiangGZActivity.class);
                 startActivity(intent);
                 break;
@@ -91,6 +93,7 @@ public class SosFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("type","3");
                 intent.setClass(context, CheLiangGZActivity.class);
                 startActivity(intent);
                 break;
@@ -100,6 +103,7 @@ public class SosFragment extends PSFragment {
                     startActivity(intent);
                     return;
                 }
+                intent.putExtra("type","4");
                 intent.setClass(context, CheLiangGZActivity.class);
                 startActivity(intent);
                 break;

@@ -61,7 +61,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/dp_12"
+            android:padding="@dimen/dp_9"
             android:visibility="invisible"
             android:background="?android:attr/selectableItemBackground"
             app:srcCompat="@mipmap/acda_zhengjian" />

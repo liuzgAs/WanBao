@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Sos_Index implements Serializable{
 
     /**
-     * data : {"mobile":"15860026753","car_name":"奥迪A6舒适版","car_no":"闽B88888","rescuemobile":"119"}
+     * data : {"mobile":"15860026753","name":"孙念豪","car_name":"奥迪牌WAUAFB8T","ucid":265,"car_no":"沪C1JZ82","rescuemobile":"05925218501"}
      * status : 1
      * info : 返回成功！
      */
@@ -47,13 +47,17 @@ public class Sos_Index implements Serializable{
     public static class DataBean implements Serializable{
         /**
          * mobile : 15860026753
-         * car_name : 奥迪A6舒适版
-         * car_no : 闽B88888
-         * rescuemobile : 119
+         * name : 孙念豪
+         * car_name : 奥迪牌WAUAFB8T
+         * ucid : 265
+         * car_no : 沪C1JZ82
+         * rescuemobile : 05925218501
          */
 
         private String mobile;
+        private String name;
         private String car_name;
+        private String ucid;
         private String car_no;
         private String rescuemobile;
 
@@ -65,12 +69,28 @@ public class Sos_Index implements Serializable{
             this.mobile = mobile;
         }
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public String getCar_name() {
             return car_name;
         }
 
         public void setCar_name(String car_name) {
             this.car_name = car_name;
+        }
+
+        public String getUcid() {
+            return ucid;
+        }
+
+        public void setUcid(String ucid) {
+            this.ucid = ucid;
         }
 
         public String getCar_no() {

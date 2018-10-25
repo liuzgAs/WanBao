@@ -42,7 +42,7 @@
                 android:textSize="@dimen/sp_12"
                 android:layout_marginTop="@dimen/dp_2"
                 android:textColor="#505050"
-                android:text="逛商场" />
+                android:text="逛车展" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/viewWxby"

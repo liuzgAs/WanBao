@@ -80,7 +80,7 @@ public class TouTiaoLBActivity extends BaseActivity implements SwipeRefreshLayou
      */
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_1), 0, 0);
+        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_3), 0, 0);
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
@@ -164,6 +164,7 @@ public class TouTiaoLBActivity extends BaseActivity implements SwipeRefreshLayou
                 Intent intent=new Intent();
                 intent.putExtra("title",adapter.getItem(position).getTitle());
                 intent.putExtra("mUrl",adapter.getItem(position).getUrl());
+                intent.putExtra("share",adapter.getItem(position).getShare());
                 intent.setClass(context, WebViewActivity.class);
                 startActivity(intent);
             }

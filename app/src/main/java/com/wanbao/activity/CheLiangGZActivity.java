@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.PhoneUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -46,8 +48,11 @@ public class CheLiangGZActivity extends BaseActivity {
     LinearLayout llDianhua;
     @BindView(R.id.ll_weizhi)
     LinearLayout llWeizhi;
+    @BindView(R.id.textTitle)
+    TextView textTitle;
     private String phone;
     private Sos_Index sos_index;
+    private String type = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class CheLiangGZActivity extends BaseActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+        init();
     }
 
     @Override
@@ -72,13 +78,31 @@ public class CheLiangGZActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-
+        type = getIntent().getStringExtra("type");
     }
 
     @Override
     protected void initViews() {
-
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case "1":
+                    textTitle.setText("车辆启动故障");
+                    break;
+                case "2":
+                    textTitle.setText("车辆爆胎啦");
+                    break;
+                case "3":
+                    textTitle.setText("车辆没油啦");
+                    break;
+                case "4":
+                    textTitle.setText("交通事故");
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+
     @Override
     public void onEventMainThread(BaseEvent event) {
         if (event.getAction().equals(BaseEvent.Change_Data)) {
@@ -101,13 +125,17 @@ public class CheLiangGZActivity extends BaseActivity {
                 PhoneUtils.dial(phone);
                 break;
             case R.id.ll_weizhi:
+                if (sos_index==null){
+                    return;
+                }
                 Intent intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
                     return;
                 }
-                intent.putExtra("sos_index",sos_index);
+                intent.putExtra("type", type);
+                intent.putExtra("sos_index", sos_index);
                 intent.setClass(context, FaSongWZActivity.class);
                 startActivity(intent);
                 break;
