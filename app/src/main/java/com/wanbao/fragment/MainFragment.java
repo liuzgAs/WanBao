@@ -45,7 +45,7 @@ import com.wanbao.activity.YouZhiESCActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.event.BaseEvent;
-import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.fragment.BaseFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
@@ -71,7 +71,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRefreshListener, AMapLocationListener {
+public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AMapLocationListener {
 
 
     @BindView(R.id.lv_main)
@@ -106,8 +106,9 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         // Inflate the layout for this fragment
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_main, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            init();
         }
-        unbinder = ButterKnife.bind(this, view);
         ViewGroup.LayoutParams layoutParams = viewBar.getLayoutParams();
         layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(getActivity()));
         viewBar.setLayoutParams(layoutParams);
@@ -124,6 +125,50 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
         if (event.getAction().equals(BaseEvent.Change_Data)) {
             getMyCar();
         }
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void findID() {
+
+    }
+
+    @Override
+    protected void initViews() {
+        LogUtils.getConfig().setLogSwitch(true);
+        initRecycler();
+
+        //初始化定位
+        mLocationClient = new AMapLocationClient(AppContext.getIntance());
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位回调监听
+        mLocationClient.setLocationListener(MainFragment.this);
+    }
+
+    @Override
+    protected void setListeners() {
+
+    }
+
+    @Override
+    protected void initData() {
+        mList = new ArrayList<>();
+        if (mList.size() == 0) {
+            mList.add("已到底线了");
+        }
+        showDialog("定位中..");
+        getAddressPermissions();
+        onRefresh();
     }
 
     private void initRecycler() {
@@ -371,25 +416,6 @@ public class MainFragment extends PSFragment implements SwipeRefreshLayout.OnRef
 
     private List<String> mList;
 
-    @Override
-    public void fetchData() {
-        LogUtils.getConfig().setLogSwitch(true);
-        initRecycler();
-
-        //初始化定位
-        mLocationClient = new AMapLocationClient(AppContext.getIntance());
-        //初始化AMapLocationClientOption对象
-        mLocationOption = new AMapLocationClientOption();
-        //设置定位回调监听
-        mLocationClient.setLocationListener(MainFragment.this);
-        mList = new ArrayList<>();
-        if (mList.size() == 0) {
-            mList.add("已到底线了");
-        }
-        showDialog("定位中..");
-        getAddressPermissions();
-        onRefresh();
-    }
 
     private void getMain() {
         page=1;

@@ -1,114 +1,115 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/dp_5"
-    app:cardElevation="@dimen/dp_5"
-    tools:context="com.wanbao.fragment.DianPuFragment">
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/view1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dp_80"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/imageDp"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_60"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_80"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
-
-            <ImageView
-                android:id="@+id/imageDp"
-                android:layout_width="@dimen/dp_90"
-                android:layout_height="@dimen/dp_60"
-                android:scaleType="centerCrop"
-                 />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_15"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/new_secondary_text"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:id="@+id/textDes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:maxLines="1"
-                    android:textColor="@color/new_secondary_text"
-                    android:textSize="@dimen/sp_12" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/background"></View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="#fff8f0"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textAddress"
+                android:id="@+id/textName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:textColor="@color/new_important_text"
-                android:textSize="@dimen/sp_13" />
-            <LinearLayout
-                android:id="@+id/viewMove"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:textSize="@dimen/sp_15"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textKm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:maxLines="1"
-                    android:textColor="@color/new_green"
-                    android:textSize="@dimen/sp_13" />
-                <ImageView
-                    android:layout_width="@dimen/dp_15"
-                    android:layout_height="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    android:src="@mipmap/icon_find_dw"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/new_secondary_text"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/textDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:maxLines="1"
+                android:textColor="@color/new_secondary_text"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/white"></View>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/background"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="#fff8f0"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:textColor="@color/new_important_text"
+            android:textSize="@dimen/sp_13" />
+
+        <LinearLayout
+            android:id="@+id/viewMove"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textKm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:maxLines="1"
+                android:textColor="@color/new_green"
+                android:textSize="@dimen/sp_13" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/icon_find_dw" />
         </LinearLayout>
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"></View>
+</LinearLayout>
+

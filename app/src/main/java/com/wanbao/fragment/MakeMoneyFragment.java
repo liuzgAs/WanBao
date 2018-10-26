@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.activity.LoginActivity;
 import com.wanbao.activity.TuiJianJLActivity;
-import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.fragment.BaseFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.util.ScreenUtils;
 
@@ -33,7 +33,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MakeMoneyFragment extends PSFragment {
+public class MakeMoneyFragment extends BaseFragment {
 
 
     Unbinder unbinder;
@@ -65,16 +65,39 @@ public class MakeMoneyFragment extends PSFragment {
         // Inflate the layout for this fragment
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_make_money, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            init();
         }
-        unbinder = ButterKnife.bind(this, view);
         ViewGroup.LayoutParams layoutParams = viewBar.getLayoutParams();
         layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_45) +getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(getActivity()));
         viewBar.setLayoutParams(layoutParams);
         return view;
     }
 
+
     @Override
-    public void fetchData() {
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void findID() {
+
+    }
+
+    @Override
+    protected void initViews() {
         list.clear();
         list.add("推荐好友购车");
         list.add("分享注册");
@@ -94,11 +117,14 @@ public class MakeMoneyFragment extends PSFragment {
         }
     }
 
+    @Override
+    protected void setListeners() {
+
+    }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
+    protected void initData() {
+
     }
 
     @OnClick(R.id.textRight)

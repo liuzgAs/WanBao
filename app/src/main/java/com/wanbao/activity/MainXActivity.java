@@ -2,15 +2,13 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TabWidget;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.wanbao.R;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseNoLeftActivity;
@@ -18,40 +16,46 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.tools.DeviceUtils;
 import com.wanbao.base.util.UpgradeUtils;
-import com.wanbao.entity.TabEntity;
+import com.wanbao.base.view.TabFragmentHost;
 import com.wanbao.fragment.FindXFragment;
 import com.wanbao.fragment.MainFragment;
 import com.wanbao.fragment.MakeMoneyFragment;
 import com.wanbao.fragment.MyCarXFragment;
 import com.wanbao.fragment.SosFragment;
 import com.wanbao.modle.MyMessage;
-import com.wanbao.ui.NoScrollViewPager;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseNoLeftActivity {
+public class MainXActivity extends BaseNoLeftActivity {
 
-    @BindView(R.id.vpager)
-    NoScrollViewPager vpager;
-    @BindView(R.id.ctlayout)
-    CommonTabLayout ctlayout;
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"首页", "发现","SOS", "赚钱", "我的爱车"};
-    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-    private int[] mIconUnselectIds = {
-            R.mipmap.icon_shouye_grey, R.mipmap.icon_faxian_grey,
-            R.mipmap.icon_sos_grey, R.mipmap.icon_zhuanqian_grey,R.mipmap.icon_wode_grey};
-    private int[] mIconSelectIds = {
-            R.mipmap.icon_shouye_red, R.mipmap.icon_faxian_red,
-            R.mipmap.icon_sos_red, R.mipmap.icon_zhuanqian_red,R.mipmap.icon_wode_red};
-    MyPagerAdapter myPagerAdapter;
+    @BindView(android.R.id.tabcontent)
+    FrameLayout tabcontent;
+    @BindView(R.id.realtab)
+    FrameLayout realtab;
+    @BindView(android.R.id.tabs)
+    TabWidget tabs;
+    @BindView(R.id.tabHost)
+    TabFragmentHost tabHost;
+    private String[] tabsItem = new String[5];
+    private Class[] fragment = new Class[]{
+            MainFragment.class,
+            FindXFragment.class,
+            SosFragment.class,
+            MakeMoneyFragment.class,
+            MyCarXFragment.class,
+    };
+    private int[] imgRes = new int[]{
+            R.drawable.selector_main,
+            R.drawable.selector_find,
+            R.drawable.selector_sos,
+            R.drawable.selector_make_money,
+            R.drawable.selector_wode,
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_x);
         ButterKnife.bind(this);
         DeviceUtils.setFullScreenTran(this);
         init();
@@ -69,20 +73,21 @@ public class MainActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initViews() {
-        mFragments.add(MainFragment.newInstance());
-        mFragments.add(FindXFragment.newInstance());
-        mFragments.add(SosFragment.newInstance());
-        mFragments.add(MakeMoneyFragment.newInstance());
-        mFragments.add(MyCarXFragment.newInstance(""));
-        myPagerAdapter=new MyPagerAdapter(getSupportFragmentManager());
-        vpager.setNoScroll(true);
-        vpager.setAdapter(myPagerAdapter);
-        for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+        tabsItem[0] = "首页";
+        tabsItem[1] = "发现";
+        tabsItem[2] = "SOS";
+        tabsItem[3] = "赚钱";
+        tabsItem[4] = "我的爱车";
+        tabHost.setup(this, getSupportFragmentManager(), R.id.realtab);
+        for (int i = 0; i < tabsItem.length; i++) {
+            View inflate = getLayoutInflater().inflate(R.layout.tabs_item, null);
+            TextView tabs_text = (TextView) inflate.findViewById(R.id.tabs_text);
+            ImageView tabs_img = (ImageView) inflate.findViewById(R.id.tabs_img);
+            tabs_text.setText(tabsItem[i]);
+            tabs_img.setImageResource(imgRes[i]);
+            tabHost.addTab(tabHost.newTabSpec(tabsItem[i]).setIndicator(inflate), fragment[i], null);
         }
-        tl_2();
     }
-
 
     @Override
     protected void initData() {
@@ -113,56 +118,6 @@ public class MainActivity extends BaseNoLeftActivity {
         }
     }
 
-    private void tl_2() {
-        ctlayout.setTabData(mTabEntities);
-        ctlayout.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                vpager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabReselect(int position) {
-            }
-        });
-
-        vpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                ctlayout.setCurrentTab(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        vpager.setCurrentItem(0);
-    }
-    private class MyPagerAdapter extends FragmentPagerAdapter {
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
-        }
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitles[position];
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragments.get(position);
-        }
-    }
     private void goMessage(MyMessage myMessage){
         Intent intent;
         AppContext.getIntance().myMessage=null;
@@ -176,27 +131,27 @@ public class MainActivity extends BaseNoLeftActivity {
                 break;
             case "app_i":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_my":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_find":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_money":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_sos":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_mo":

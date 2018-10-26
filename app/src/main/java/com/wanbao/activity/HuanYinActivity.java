@@ -164,7 +164,7 @@ public class HuanYinActivity extends BaseNoLeftActivity {
                                                         if (!TextUtils.isEmpty(indexStartad.getAdvs().get(0).getCode())) {
                                                             isBreak = false;
                                                             Intent intent = new Intent();
-                                                            intent.setClass(HuanYinActivity.this, MainActivity.class);
+                                                            intent.setClass(HuanYinActivity.this, MainXActivity.class);
 //                                                            intent.putExtra(Constant.IntentKey.BEAN,indexStartad.getAdvs().get(0));
                                                             startActivity(intent);
                                                             finish();
@@ -261,7 +261,7 @@ public class HuanYinActivity extends BaseNoLeftActivity {
     private void toMainActivity() {
         Intent intent = new Intent();
 //        if (isLogin) {
-        intent.setClass(HuanYinActivity.this, MainActivity.class);
+        intent.setClass(HuanYinActivity.this, MainXActivity.class);
         startActivity(intent);
         finish();
 //        } else {

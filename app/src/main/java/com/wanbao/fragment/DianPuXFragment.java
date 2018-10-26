@@ -20,7 +20,7 @@ import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.util.AmapUtil;
 import com.wanbao.modle.MapApps;
-import com.wanbao.modle.Store_Index;
+import com.wanbao.modle.Store_Map;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,12 +33,10 @@ import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DianPuFragment#newInstance} factory method to
+ * Use the {@link DianPuXFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DianPuFragment extends PSFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class DianPuXFragment extends PSFragment {
     private static final String ARG_PARAM1 = "param1";
     @BindView(R.id.imageDp)
     ImageView imageDp;
@@ -57,10 +55,10 @@ public class DianPuFragment extends PSFragment {
     LinearLayout viewMove;
     private View view;
     // TODO: Rename and change types of parameters
-    private Store_Index.DataBean dataBean;
+    private Store_Map.DataBean dataBean;
     private ArrayList<MapApps> mapApps;
-    public static DianPuFragment newInstance(Store_Index.DataBean param1) {
-        DianPuFragment fragment = new DianPuFragment();
+    public static DianPuXFragment newInstance(Store_Map.DataBean param1) {
+        DianPuXFragment fragment = new DianPuXFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -71,7 +69,7 @@ public class DianPuFragment extends PSFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            dataBean = (Store_Index.DataBean) getArguments().getSerializable(ARG_PARAM1);
+            dataBean = (Store_Map.DataBean) getArguments().getSerializable(ARG_PARAM1);
         }
     }
 

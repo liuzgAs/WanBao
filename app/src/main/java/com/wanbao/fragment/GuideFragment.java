@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
-import com.wanbao.activity.MainActivity;
+import com.wanbao.activity.MainXActivity;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
 
@@ -86,7 +86,7 @@ public class GuideFragment extends PSFragment {
     @OnClick(R.id.button_guide)
     public void onViewClicked() {
         SPUtils.getInstance().put(Constant.SF.isFirst,0);
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainXActivity.class);
         startActivity(intent);
         context.finish();
     }

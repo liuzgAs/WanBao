@@ -13,7 +13,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.activity.CheLiangGZActivity;
 import com.wanbao.activity.LoginActivity;
-import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.fragment.BaseFragment;
 import com.wanbao.base.http.Constant;
 
 import butterknife.BindView;
@@ -24,7 +24,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SosFragment extends PSFragment {
+public class SosFragment extends BaseFragment {
 
 
     @BindView(R.id.qdsg)
@@ -49,8 +49,9 @@ public class SosFragment extends PSFragment {
         // Inflate the layout for this fragment
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_sos, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            init();
         }
-        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -66,11 +67,6 @@ public class SosFragment extends PSFragment {
         intent.setClass(context, CheLiangGZActivity.class);
         intent.putExtra("type","1");
         startActivity(intent);
-    }
-
-    @Override
-    public void fetchData() {
-
     }
 
     @OnClick({R.id.clbt, R.id.myl, R.id.jtsg})
@@ -110,5 +106,35 @@ public class SosFragment extends PSFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void findID() {
+
+    }
+
+    @Override
+    protected void initViews() {
+
+    }
+
+    @Override
+    protected void setListeners() {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

@@ -143,7 +143,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
                     .addNextIntentWithParentStack(upIntent)
                     .startActivities();
         } else {
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(context, MainXActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
@@ -306,7 +306,7 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
                             .addNextIntentWithParentStack(upIntent)
                             .startActivities();
                 } else {
-                    intent = new Intent(context, MainActivity.class);
+                    intent = new Intent(context, MainXActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();

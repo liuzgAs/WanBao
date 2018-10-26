@@ -7,6 +7,8 @@ package com.wanbao.base.http;
  */
 
 public class Constant {
+    public static int changeControl = 2017;//判断数据是否有改变
+
     /**
      * 密码正则
      */
@@ -290,6 +292,10 @@ public class Constant {
          * 发现
          */
         public static final String Store_Index = "Store/index";
+        /**
+         * 发现（新）
+         */
+        public static final String Store_Map = "Store/map";
         /**
          * 我的金库
          */

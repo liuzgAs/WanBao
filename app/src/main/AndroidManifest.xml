@@ -30,8 +30,10 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:name=".base.AppContext"
         android:allowBackup="true"
@@ -136,7 +138,7 @@
             <!-- 在Android 4.1版本之后，可以直接使用android:parentActivityName这个属性来进行指定 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.MainXActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -310,44 +312,61 @@
         <activity
             android:name=".activity.GengDuoFWActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.FaQiPTActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.PinTaunCGActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.CanTuanJLActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.PinTuanXQActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.YouZhiESCActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.CheLiangXQActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.JiSuanQActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.BiYaoHFActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.ShangYeBXActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.BiYaoHFDKActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.ShangYeBXDKActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.JiSuanQEActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.ShangYeBXDKEActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.FaQiPTActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.PinTaunCGActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.CanTuanJLActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.PinTuanXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.YouZhiESCActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.CheLiangXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.JiSuanQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.BiYaoHFActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ShangYeBXActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.BiYaoHFDKActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ShangYeBXDKActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.JiSuanQEActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ShangYeBXDKEActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.XiaoXiActivity"
             android:label="@string/title_activity_xiao_xi"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.WoDeCheDuiActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.YangCheLBActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.CheShenTpActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.TouTiaoLBActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.WoDeCheDuiActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.YangCheLBActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.CheShenTpActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.TouTiaoLBActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.CameraActivity"
             android:screenOrientation="portrait" />
@@ -355,10 +374,17 @@
             android:name=".activity.CheLiangBJActivity"
             android:label="@string/title_activity_che_liang_bj"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.DrivingLicenseActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.TiXianZHActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.DrivingLicenseActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.TiXianZHActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.MainXActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeNoTranslucent"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
     </application>
 
 </manifest>

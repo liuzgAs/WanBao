@@ -42,7 +42,7 @@ import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XinCheZTActivity;
 import com.wanbao.activity.YouZhiESCActivity;
 import com.wanbao.base.event.BaseEvent;
-import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.fragment.BaseFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
@@ -73,7 +73,7 @@ import io.reactivex.disposables.Disposable;
  *
  * @author Administrator
  */
-public class MyCarXFragment extends PSFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MyCarXFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String ARG_PARAM1 = "param1";
     @BindView(R.id.imageViewTouX)
     CircleImageView imageViewTouX;
@@ -118,25 +118,52 @@ public class MyCarXFragment extends PSFragment implements SwipeRefreshLayout.OnR
                              Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_my_car_x, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            init();
         }
-        unbinder = ButterKnife.bind(this, view);
         ViewGroup.LayoutParams layoutParams = viewTitle.getLayoutParams();
         layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_53) + ScreenUtils.getStatusBarHeight(getActivity()));
         viewTitle.setLayoutParams(layoutParams);
         return view;
     }
 
-    @Override
-    public void fetchData() {
-        initRecycler();
-        onRefresh();
-    }
 
     @Override
     public void onEventMainThread(BaseEvent event) {
         if (event.getAction().equals(BaseEvent.Change_Data)) {
             onRefresh();
         }
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void findID() {
+
+    }
+
+    @Override
+    protected void initViews() {
+        initRecycler();
+
+    }
+
+    @Override
+    protected void setListeners() {
+
+    }
+
+    @Override
+    protected void initData() {
+        onRefresh();
     }
 
     /**
@@ -497,8 +524,8 @@ public class MyCarXFragment extends PSFragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         unbinder.unbind();
     }
 

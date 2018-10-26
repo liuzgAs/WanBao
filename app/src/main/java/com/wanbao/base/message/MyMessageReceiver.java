@@ -12,7 +12,7 @@ import com.alibaba.sdk.android.push.notification.CPushMessage;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.wanbao.R;
-import com.wanbao.activity.MainActivity;
+import com.wanbao.activity.MainXActivity;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.MyMessage;
@@ -64,8 +64,8 @@ public class MyMessageReceiver extends MessageReceiver {
         LogUtils.e("MyMessageReceiver", "onNotificationRemoved");
     }
     private void goMessage(MyMessage myMessage, Context context) {
-        if (ActivityUtils.isActivityExistsInStack(MainActivity.class)) {
-            Intent intent = new Intent(context, MainActivity.class);
+        if (ActivityUtils.isActivityExistsInStack(MainXActivity.class)) {
+            Intent intent = new Intent(context, MainXActivity.class);
             intent.putExtra("myMessage", myMessage);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);

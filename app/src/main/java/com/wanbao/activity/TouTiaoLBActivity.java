@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -240,6 +241,7 @@ public class TouTiaoLBActivity extends BaseActivity implements SwipeRefreshLayou
     private OkObject getOkObjectCar() {
         String url = Constant.HOST + Constant.Url.News_Headline;
         HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid, 0) + "");
         params.put("p", String.valueOf(page));
         return new OkObject(params, url);
     }

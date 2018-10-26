@@ -265,27 +265,27 @@ public class XiaoXiActivity extends BaseActivity implements SwipeRefreshLayout.O
                 break;
             case "app_i":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_my":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_find":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_money":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_sos":
                 intent=new Intent();
-                intent.setClass(context, MainActivity.class);
+                intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_mo":
