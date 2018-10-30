@@ -20,16 +20,15 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.R;
-import com.wanbao.activity.WBDingDanXQActivity;
+import com.wanbao.activity.CheLiangXQActivity;
 import com.wanbao.base.event.BaseEvent;
-import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.fragment.BaseFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
-import com.wanbao.modle.User_Maintain_order;
-import com.wanbao.viewholder.WeiBaoDDViewHolder;
+import com.wanbao.modle.Seller_CarManage;
+import com.wanbao.viewholder.ErShouCheGLViewHolder;
 
 import java.util.HashMap;
 
@@ -40,56 +39,86 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Use the {@link ErShouCheGLFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.OnRefreshListener {
-
+public class ErShouCheGLFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+    private static final String STATE = "state";
     @BindView(R.id.recyclerView)
     EasyRecyclerView recyclerView;
     Unbinder unbinder;
-    private View view;
-    private RecyclerArrayAdapter<User_Maintain_order.DataBean> adapter;
+
     private String state;
+    private View view;
+    private RecyclerArrayAdapter<Seller_CarManage.DataBean> adapter;
     int page = 1;
 
-    public static final WeiBaoDDFragment newInstance(String states) {
-        WeiBaoDDFragment fragment = new WeiBaoDDFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("state", states);
-        fragment.setArguments(bundle);
+    public ErShouCheGLFragment() {
+    }
+
+    public static ErShouCheGLFragment newInstance(String state) {
+        ErShouCheGLFragment fragment = new ErShouCheGLFragment();
+        Bundle args = new Bundle();
+        args.putString(STATE, state);
+        fragment.setArguments(args);
         return fragment;
     }
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            state = getArguments().getString(STATE);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_wei_bao_dd, container, false);
+            view = inflater.inflate(R.layout.fragment_er_shou_che_gl, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            init();
         }
-        unbinder = ButterKnife.bind(this, view);
-        state = getArguments().getString("state");
-        initRecycler();
         return view;
     }
 
     @Override
-    public void fetchData() {
-        onRefresh();
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void findID() {
+
     }
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.ChangeWbOrder.equals(event.getAction())) {
-            getOrder();
+        if (BaseEvent.ErShouChe.equals(event.getAction())){
+            onRefresh();
         }
-        if (BaseEvent.Pay_Sucess.equals(event.getAction())) {
-            getOrder();
-        }
-        if (BaseEvent.PaySureOrder.equals(event.getAction())) {
-            getOrder();
-        }
+    }
+
+    @Override
+    protected void initViews() {
+        initRecycler();
+    }
+
+    @Override
+    protected void setListeners() {
+
+    }
+
+    @Override
+    protected void initData() {
+        onRefresh();
     }
 
     /**
@@ -97,15 +126,15 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
      */
     private void initRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_10), 0, 0);
+        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_1), 0, 0);
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
-        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<User_Maintain_order.DataBean>(context) {
+        recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Seller_CarManage.DataBean>(context) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_dd;
-                return new WeiBaoDDViewHolder(parent, layout,WeiBaoDDFragment.this);
+                int layout = R.layout.item_escgl;
+                return new ErShouCheGLViewHolder(parent, layout, ErShouCheGLFragment.this);
             }
         });
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
@@ -125,7 +154,7 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
                     public void onSuccess(String s) {
                         try {
                             page++;
-                            User_Maintain_order usercar_index = GsonUtils.parseJSON(s, User_Maintain_order.class);
+                            Seller_CarManage usercar_index = GsonUtils.parseJSON(s, Seller_CarManage.class);
                             int status = usercar_index.getStatus();
                             if (status == 1) {
                                 adapter.addAll(usercar_index.getData());
@@ -179,10 +208,12 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent();
-                intent.putExtra("id",String.valueOf(adapter.getItem(position).getId()));
-                intent.setClass(context, WBDingDanXQActivity.class);
+                intent.putExtra(Constant.IntentKey.ID, adapter.getItem(position).getId());
+                intent.putExtra("type",1);
+                intent.setClass(context, CheLiangXQActivity.class);
                 startActivity(intent);
             }
+
         });
         recyclerView.setRefreshListener(this);
     }
@@ -216,7 +247,7 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
                 try {
                     LogUtils.e("爱车", s);
                     page++;
-                    User_Maintain_order usercar_index = GsonUtils.parseJSON(s, User_Maintain_order.class);
+                    Seller_CarManage usercar_index = GsonUtils.parseJSON(s, Seller_CarManage.class);
                     int status = usercar_index.getStatus();
                     if (status == 1) {
                         adapter.clear();
@@ -262,68 +293,11 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
     }
 
     private OkObject getOkObjectOrder() {
-        String url = Constant.HOST + Constant.Url.User_Maintain_order;
+        String url = Constant.HOST + Constant.Url.Seller_CarManage;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("p", String.valueOf(page));
         params.put("state", state);
-        return new OkObject(params, url);
-    }
-
-    private void setState(String even, String id) {
-        HttpApi.post(context, getOkObjectState(even, id), new HttpApi.CallBack() {
-            @Override
-            public void onStart() {
-                showDialog("");
-            }
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                addDisposable(d);
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                dismissDialog();
-                try {
-                    Comment comment = GsonUtils.parseJSON(s, Comment.class);
-                    int status = comment.getStatus();
-                    if (status == 1) {
-                    } else {
-                        ToastUtils.showShort(comment.getInfo());
-                    }
-                } catch (Exception e) {
-                    ToastUtils.showShort("数据异常！");
-                }
-            }
-
-            @Override
-            public void onError() {
-                dismissDialog();
-                ToastUtils.showShort("网络异常");
-            }
-
-            @Override
-            public void onComplete() {
-                dismissDialog();
-            }
-
-
-        });
-    }
-
-    private OkObject getOkObjectState(String even, String id) {
-        String url = "";
-        if (even.equals(BaseEvent.Cancle_order)) {
-            url = Constant.HOST + Constant.Url.User_CancelOrder;
-        } else if (even.equals(BaseEvent.Del_Order)) {
-            url = Constant.HOST + Constant.Url.User_DelOrder;
-        } else if (even.equals(BaseEvent.Is_Confirm)) {
-            url = Constant.HOST + Constant.Url.User_ConfirmOrder;
-        }
-        HashMap<String, String> params = new HashMap<>();
-        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("id", id);
         return new OkObject(params, url);
     }
 }

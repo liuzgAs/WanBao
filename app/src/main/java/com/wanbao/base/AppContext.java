@@ -56,7 +56,8 @@ public class AppContext extends MultApplication {
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "5b1f895da40fa33bcf00005d");
         UMConfigure.setLogEnabled(true);
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        initOkGo();
+//        initOkGo();
+        OkGo.getInstance().init(this);
         initCloudChannel(this);
         initOcr();
     }

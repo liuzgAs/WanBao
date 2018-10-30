@@ -8,6 +8,7 @@ package com.wanbao.base.http;
 
 public class Constant {
     public static int changeControl = 2017;//判断数据是否有改变
+    public static int CID = 0;//qq
 
     /**
      * 密码正则
@@ -24,6 +25,10 @@ public class Constant {
      */
     public static String WXAPPID = "wx3f8d58bf32cf9bb4";
     public static class Url {
+        /**
+         * 多图上传app
+         */
+        public static final String Uploads_Appimgs = "Uploads/appimgs";
         /**
          * 关于我们
          */
@@ -149,9 +154,25 @@ public class Constant {
          */
         public static final String User_Maintain_order = "User/maintain_order";
         /**
+         * 二手车管理
+         */
+        public static final String Seller_CarManage = "Seller/carManage";
+        /**
          * 取消订单
          */
         public static final String User_CancelOrder = "User/cancelOrder";
+        /**
+         * 二手车下架
+         */
+        public static final String Seller_CarDown = "Seller/carDown";
+        /**
+         * 二手车上架
+         */
+        public static final String Seller_CarSale = "Seller/carSale";
+        /**
+         * 二手车已售
+         */
+        public static final String Seller_CarSaleIs = "Seller/carSaleIs";
         /**
          * 确认订单
          */
@@ -196,6 +217,22 @@ public class Constant {
          * 试驾订单
          */
         public static final String User_Test_drive_order = "User/test_drive_order";
+        /**
+         * 二手车预约
+         */
+        public static final String Seller_Online = "Seller/online";
+        /**
+         * 二手车编辑提交
+         */
+        public static final String Seller_CarEditSubmit = "Seller/carEditSubmit";
+        /**
+         * 二手车预约请求
+         */
+        public static final String Seller_Online_before = "Seller/online_before";
+        /**
+         * 二手车编辑请求
+         */
+        public static final String Seller_CarEditBefore = "Seller/carEditBefore";
         /**
          * 单图上传app
          */
@@ -511,6 +548,47 @@ public class Constant {
         public static final String BIG_IMG = "bigImg";
         public static final String BIG_IMG_POSITION = "bigImgPosition";
         public static final String DUI_BI = "duiBi";
+    }
+    public static class REQUEST_RESULT_CODE {
+        public static final int IMG01 = 2018;
+        public static final int IMG02 = 2019;
+        public static final int IMG03 = 2020;
+        public static final int IMG04 = 2021;
+        public static final int IMG05 = 2022;
+        public static final int XIN_YONG_KA = 2023;
+        public static final int IMAGE_HEAD = 2024;
+        public static final int IMAGE_WX = 2025;
+        public static final int BaoCun = 2026;
+        public static final int address = 2027;
+        public static final int IMAGE_DIANZHAO = 2028;
+        public static final int IMAGE_PICKER = 2029;
+        public static final int TuiJian = 2030;
+        public static final int HONG_BAO = 2031;
+        public static final int EWM = 2032;
+    }
+    public static class INTENT_KEY {
+        public static final String TITLE = "title";
+        public static final String PHONE = "phone";
+        public static final String amount = "amount";
+        public static final String type = "type";
+        public static final String id = "id";
+        public static final String tongDaoId = "tongDaoId";
+        public static final String img = "img";
+        public static final String STYLE = "Style";
+        public static final String value = "value";
+        public static final String URL = "URL";
+        public static final String EXTRAMAP = "ExtraMap";
+        public static final String CITY = "city";
+        public static final String CID = "cid";
+        public static final String position = "position";
+        public static final String BIG_IMG_POSITION = "bigImgPosition";
+        public static final String BIG_IMG = "bigImg";
+        public static final String shezhi = "shezhi";
+        public static final String isFrist = "isFrist";
+        public static final String Main = "Main";
+        public static final String guanBi = "guanBi";
+        public static final String isJiFen = "isJiFen";
+        public static final String Store = "store";
     }
 
 }

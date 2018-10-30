@@ -1,21 +1,35 @@
 package com.wanbao.base.http;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.BitmapCallback;
+import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.HttpHeaders;
+import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.wanbao.base.util.MD5Util;
 import com.wanbao.modle.OkObject;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -153,4 +167,131 @@ public class HttpApi {
 
         void onError();
     }
+    /**
+     * des： 上传文件
+     * date： 2017/11/8 0008 上午 11:40
+     */
+    public static void upFiles(Context context, OkObject okObject, List<File> files, final UpLoadCallBack callBack) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.put("smsKey", MD5Util.getMD5Time());
+        HashMap<String, String> params = okObject.getParams();
+        /*买家1卖家2拍摄3小程序4*/
+        params.put("loginType", "" + 1);
+        params.put("platform", "android");
+        okObject.setParams(params);
+        LogUtils.e("ApiClient--发送", "" + okObject.getJson());
+        OkGo.<String>post(okObject.getUrl())
+                .tag(context)
+                .headers(httpHeaders)
+                .addFileParams("upload[]", files)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        callBack.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        callBack.onError();
+                    }
+
+                    @Override
+                    public void uploadProgress(Progress progress) {
+                        super.uploadProgress(progress);
+                        callBack.uploadProgress(progress.fraction * 100);
+                    }
+                });
+    }
+    public interface UpLoadCallBack {
+        void onSuccess(String s);
+
+        void onError();
+
+        void uploadProgress(float progress);
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param context
+     * @param url
+     */
+    public static void downLoadFile(final Context context, String url, String dir, String fileName, final CallBackImg callBack) throws Exception {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            final String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/" + dir;
+            OkGo.<File>get(url)
+                    .tag(context)
+                    .execute(new FileCallback(filePath, fileName) {
+                        @Override
+                        public void onSuccess(Response<File> response) {
+//                            callBack.onSuccess(response.body().toString());
+                        }
+                        @Override
+                        public void onError(Response<File> response) {
+                            super.onError(response);
+                            LogUtils.e("ApiClient--onErrorbody", "" + response.body());
+                            LogUtils.e("ApiClient--onErrorcode", "" + response.code());
+                            LogUtils.e("ApiClient--onErrormessage", "" + response.message());
+                            LogUtils.e("ApiClient--onErrorgetException", "" + response.getException().toString());
+//                            callBack.onError(response);
+                        }
+                    });
+        } else {
+            Toast.makeText(context, "SD卡不存在或者不可读写", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    /**
+     * 下载文件
+     *
+     * @param context
+     * @param url
+     */
+    public static void downLoadBitmap(final Context context, String url, String dir, String fileName, final CallBackImg callBack) throws Exception {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            final String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/" + dir;
+            OkGo.<Bitmap>get(url)
+                    .tag(context)
+                    .execute(new BitmapCallback() {
+                        @Override
+                        public void onSuccess(Response<Bitmap> response) {
+                            callBack.onSuccess(response.body());
+                        }
+                    });
+        } else {
+            Toast.makeText(context, "SD卡不存在或者不可读写", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    /**
+     * 保存文件
+     * @param bm
+     * @param fileName
+     * @throws IOException
+     */
+    public static void saveFile(Context context,Bitmap bm, String fileName) throws IOException {
+        File dirFile = new File(Environment.getExternalStorageDirectory().getPath());
+        if(!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        fileName = UUID.randomUUID().toString()+".jpg";
+        File myCaptureFile = new File(Environment.getExternalStorageDirectory().getPath() +"/DCIM/Camera/"+ fileName);
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+        bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+        bos.flush();
+        bos.close();
+
+        //把图片保存后声明这个广播事件通知系统相册有新图片到来
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(myCaptureFile);
+        intent.setData(uri);
+        context.sendBroadcast(intent);
+    }
+    public interface CallBackImg {
+        void onSuccess(Bitmap s);
+
+        void onError(Response response);
+    }
+
 }

@@ -536,9 +536,8 @@ public class YouZhiESCActivity extends BaseActivity implements SwipeRefreshLayou
             case R.id.viewShaiXuan:
                 break;
             case R.id.imageZuJi:
-                city_id =  Integer.valueOf(SPUtils.getInstance().getString(Constant.SF.CityId));
-                textLocation.setText(SPUtils.getInstance().getString(Constant.SF.City));
-                onRefresh();
+                intent.setClass(context,ErShouCheGLActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewLocation:
                 intent.setClass(context,XuanZheCSActivity.class);

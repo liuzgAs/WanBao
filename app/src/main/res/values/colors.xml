@@ -8,6 +8,7 @@
     <color name="light_gray">#cfcfcf</color>
     <color name="basic_color">#ff5b52</color>
     <color name="title_banckground">#fafafa</color>
+    <color name="text_gray">#c7c7c7</color>
 
     <color name="viewfinder_frame">#ff000000</color>
     <color name="viewfinder_laser">#ffff0000</color>

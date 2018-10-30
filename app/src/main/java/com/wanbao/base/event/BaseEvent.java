@@ -39,6 +39,7 @@ public class BaseEvent {
 	public final static String ChangePw = "ChangePw";
 	public final static String AddBank = "AddBank";
 	public final static String AddAccount = "AddAccount";
+	public final static String ErShouChe = "ErShouChe";
 	public final static String ChangeBank = "ChangeBank";
 	public final static String TiXian = "TiXian";
 	public final static String LatLng = "LatLng";

@@ -71,7 +71,7 @@ public class GengDuoFWActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.viewJinKu,R.id.imageback, R.id.viewSCSJ, R.id.viewPTFQ, R.id.viewCTJL})
+    @OnClick({R.id.viewJinKu, R.id.imageback, R.id.viewSCSJ, R.id.viewPTFQ, R.id.viewCTJL})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -124,4 +124,15 @@ public class GengDuoFWActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.viewWoESC)
+    public void onViewClicked() {
+        Intent intent = new Intent();
+        if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+            intent.setClass(context, LoginActivity.class);
+            startActivity(intent);
+            return;
+        }
+        intent.setClass(context, ErShouCheGLActivity.class);
+        startActivity(intent);
+    }
 }

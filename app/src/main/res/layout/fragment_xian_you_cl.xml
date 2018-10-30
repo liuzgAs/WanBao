@@ -131,7 +131,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sp_13"
                             android:textColor="@color/new_secondary_text"
-                            android:text="扫描行驶证背面"/>
+                            android:text="扫描行驶证副页"/>
                         <ImageView
                             android:id="@+id/imageBM"
                             android:layout_width="match_parent"

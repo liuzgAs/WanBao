@@ -948,10 +948,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialogFdjh.show();
                 break;
             case R.id.viewCjh:
-                String stringCjh = "";
-                if (xinShiZZM != null) {
-                    stringCjh = xinShiZZM.getData().getAddress();
-                }
+                String stringCjh = textCjh.getText().toString();
                 final EditDialogText editDialogCjh = new EditDialogText(context, "输入车架号", stringCjh, "确认", "取消");
                 editDialogCjh.setClicklistener(new EditDialogText.ClickListenerInterface() {
                     @Override

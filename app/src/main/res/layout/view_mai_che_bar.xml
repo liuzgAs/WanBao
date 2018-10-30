@@ -19,14 +19,14 @@
             <ImageView
                 android:id="@+id/imageZuJi"
                 android:visibility="gone"
-                android:layout_width="50dp"
+                android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:paddingRight="10dp"
-                android:paddingLeft="15dp"
+                android:paddingLeft="10dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/zuji" />
+                android:src="@mipmap/guanli_bianji" />
 
             <RelativeLayout
                 android:id="@+id/viewSearch"

@@ -67,6 +67,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
     private CarDetails.StoreBean storeBean;
     private CarDetails.videoBean video;
     private CarDetails carDetails;
+    private int type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +89,17 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
         textViewTitle = (TextView) findViewById(R.id.textViewTitle);
         imageShare = (ImageView) findViewById(R.id.imageShare);
         viewBottom = findViewById(R.id.viewBottom);
+        type=getIntent().getIntExtra("type",0);
     }
 
 
     @Override
     protected void initViews() {
-        viewBottom.setVisibility(View.GONE);
+        if (type==0){
+            viewBottom.setVisibility(View.VISIBLE);
+        }else {
+            viewBottom.setVisibility(View.GONE);
+        }
         textViewTitle.setText("车辆详情");
         viewBarHeight = (int) (getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(this));
         viewBar.getBackground().mutate().setAlpha(0);
@@ -469,7 +475,6 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
                     if (carDetails.getStatus() == 1) {
                         viewBar.getBackground().mutate().setAlpha(0);
                         imageShare.setVisibility(View.VISIBLE);
-                        viewBottom.setVisibility(View.VISIBLE);
                         archives = carDetails.getArchives();
                         bannerBeanList = carDetails.getBanner();
                         carBean = carDetails.getCar();

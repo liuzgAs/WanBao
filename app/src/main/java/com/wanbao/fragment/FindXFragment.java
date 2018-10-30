@@ -8,7 +8,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,10 +19,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -34,8 +38,13 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.activity.SearchDPActivity;
 import com.wanbao.activity.WebViewActivity;
 import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
@@ -44,12 +53,12 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.AmapUtil;
-import com.wanbao.base.util.BannerSettingUtil;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.MapApps;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Store_Map;
+import com.wanbao.viewholder.PcateViewHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +66,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 
@@ -67,13 +77,20 @@ public class FindXFragment extends BaseFragment {
     @BindView(R.id.mapView)
     MapView mMapView;
     Unbinder unbinder;
-    @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    @BindView(R.id.textBar)
+    TextView textBar;
+    @BindView(R.id.imageImg)
+    ImageView imageImg;
+    @BindView(R.id.viewSearch)
+    RelativeLayout viewSearch;
     @BindView(R.id.viewBar)
     LinearLayout viewBar;
+    @BindView(R.id.textAddress)
+    TextView textAddress;
     private View view;
     private AMap aMap = null;
     private Bundle savedInstanceState;
+    private int cid = 0;
 
 
     public static FindXFragment newInstance() {
@@ -91,7 +108,7 @@ public class FindXFragment extends BaseFragment {
             view = inflater.inflate(R.layout.fragment_find, container, false);
             unbinder = ButterKnife.bind(this, view);
             aMap = mMapView.getMap();
-            aMap.getUiSettings().setMyLocationButtonEnabled(true); //显示默认的定位按钮
+            aMap.getUiSettings().setMyLocationButtonEnabled(false); //显示默认的定位按钮
             MyLocationStyle myLocationStyle = new MyLocationStyle();
             myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
             aMap.setMyLocationEnabled(true);// 可触发定位并显示当前位置
@@ -105,9 +122,6 @@ public class FindXFragment extends BaseFragment {
         if (unbinder == null) {
             unbinder = ButterKnife.bind(this, view);
         }
-        ViewGroup.LayoutParams layoutParams = viewBar.getLayoutParams();
-        layoutParams.height = (int) (getResources().getDimension(R.dimen.dp_45) + ScreenUtils.getStatusBarHeight(getActivity()));
-        viewBar.setLayoutParams(layoutParams);
         return view;
     }
 
@@ -144,28 +158,15 @@ public class FindXFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
-        new BannerSettingUtil(viewPager, (int) DpUtils.convertDpToPixel(10, context), false).set();
+        ViewGroup.LayoutParams layoutParams = textBar.getLayoutParams();
+        layoutParams.height = ScreenUtils.getStatusBarHeight(context);
+        textBar.setLayoutParams(layoutParams);
         getAmp();
+        setPopwindow();
     }
 
     @Override
     protected void setListeners() {
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -178,12 +179,12 @@ public class FindXFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        getStore();
+        getStore(null);
     }
 
 
-    private void getStore() {
-        HttpApi.post(context, getOkObjectStore(), new HttpApi.CallBack() {
+    private void getStore(LatLng latLng) {
+        HttpApi.post(context, getOkObjectStore(latLng), new HttpApi.CallBack() {
             @Override
             public void onStart() {
                 showDialog("");
@@ -198,22 +199,24 @@ public class FindXFragment extends BaseFragment {
             public void onSuccess(String s) {
                 dismissDialog();
                 LogUtils.e("Store_Index", s);
-//                try {
-                Store_Map store_index = GsonUtils.parseJSON(s, Store_Map.class);
-                int status = store_index.getStatus();
-                if (status == 1) {
-                    if (aMap == null) {
-                        aMap = mMapView.getMap();
+                try {
+                    Store_Map store_index = GsonUtils.parseJSON(s, Store_Map.class);
+                    int status = store_index.getStatus();
+                    if (status == 1) {
+                        if (aMap == null) {
+                            aMap = mMapView.getMap();
+                        }
+                        dataBeanList = store_index.getData();
+                        popAdapter.clear();
+                        popAdapter.addAll(store_index.getCate());
+                        shouMarker();
+                    } else {
+                        ToastUtils.showShort(store_index.getInfo());
+                        MyDialog.dialogFinish(getActivity(), store_index.getInfo());
                     }
-                    dataBeanList = store_index.getData();
-                    shouMarker();
-                } else {
-                    ToastUtils.showShort(store_index.getInfo());
-                    MyDialog.dialogFinish(getActivity(), store_index.getInfo());
+                } catch (Exception e) {
+                    MyDialog.dialogFinish(getActivity(), "数据异常");
                 }
-//                } catch (Exception e) {
-//                    MyDialog.dialogFinish(getActivity(), "数据异常");
-//                }
             }
 
             @Override
@@ -237,6 +240,9 @@ public class FindXFragment extends BaseFragment {
     private void shouMarker() {
         if (dataBeanList == null) {
             return;
+        }
+        for (int i = 0; i < markerList.size(); i++) {
+            markerList.get(i).remove();
         }
         markerList.clear();
         for (int i = 0; i < dataBeanList.size(); i++) {
@@ -264,13 +270,47 @@ public class FindXFragment extends BaseFragment {
 
     }
 
-    private OkObject getOkObjectStore() {
+    private OkObject getOkObjectStore(LatLng latLng) {
         String url = Constant.HOST + Constant.Url.Store_Map;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid, 0) + "");
-        params.put("lng", SPUtils.getInstance().getString(Constant.SF.Longitude) + "");
-        params.put("lat", SPUtils.getInstance().getString(Constant.SF.Latitude) + "");
+        if (latLng != null) {
+            params.put("lat", String.valueOf(latLng.latitude));
+            params.put("lng", String.valueOf(latLng.longitude));
+        } else {
+            params.put("lng", SPUtils.getInstance().getString(Constant.SF.Longitude) + "");
+            params.put("lat", SPUtils.getInstance().getString(Constant.SF.Latitude) + "");
+        }
+        params.put("cid", cid + "");
         return new OkObject(params, url);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.REQUEST_RESULT_CODE.address && resultCode == Constant.REQUEST_RESULT_CODE.address) {
+//            Store_Map.DataBean tip = (Store_Map.DataBean) data.getSerializableExtra(Constant.INTENT_KEY.value);
+            Store_Map.DataBean mapMarkerBean = (Store_Map.DataBean) data.getSerializableExtra(Constant.INTENT_KEY.value);
+//            if (tip != null) {
+//                textAddress.setText(tip.getTitle());
+//                LatLng latLng = new LatLng(Double.valueOf(tip.getLat()), Double.valueOf(tip.getLng()));
+//                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+//                aMap.moveCamera(cameraUpdate);
+//                aMap.animateCamera(cameraUpdate, 500, null);
+////                getStore(latLng);
+//            }
+
+            if (mapMarkerBean != null) {
+                textAddress.setText(mapMarkerBean.getTitle());
+                LatLng latLng = new LatLng(Double.parseDouble(mapMarkerBean.getLat()), Double.parseDouble(mapMarkerBean.getLng()));
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+                aMap.moveCamera(cameraUpdate);
+                aMap.animateCamera(cameraUpdate, 500, null);
+                dataBeanList = new ArrayList<>();
+                dataBeanList.add(mapMarkerBean);
+                shouMarker();
+            }
+        }
     }
 
     @Override
@@ -314,9 +354,9 @@ public class FindXFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent intent=new Intent();
-                intent.putExtra("title",dataBean.getTitle());
-                intent.putExtra("mUrl",dataBean.getUrl());
+                Intent intent = new Intent();
+                intent.putExtra("title", dataBean.getTitle());
+                intent.putExtra("mUrl", dataBean.getUrl());
                 intent.setClass(context, WebViewActivity.class);
                 startActivity(intent);
             }
@@ -351,7 +391,7 @@ public class FindXFragment extends BaseFragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (mapApps.get(i).getId() == 1) {
-                                    AmapUtil.getInstance().openBaiduNavi(context, String.valueOf(AmapUtil.getInstance().gcj02tobd09(Double.valueOf(dataBean.getLng()),Double.valueOf(dataBean.getLat()))[1]), String.valueOf(AmapUtil.getInstance().gcj02tobd09(Double.valueOf(dataBean.getLng()),Double.valueOf(dataBean.getLat()))[0]));
+                                    AmapUtil.getInstance().openBaiduNavi(context, String.valueOf(AmapUtil.getInstance().gcj02tobd09(Double.valueOf(dataBean.getLng()), Double.valueOf(dataBean.getLat()))[1]), String.valueOf(AmapUtil.getInstance().gcj02tobd09(Double.valueOf(dataBean.getLng()), Double.valueOf(dataBean.getLat()))[0]));
                                 } else if (mapApps.get(i).getId() == 2) {
                                     AmapUtil.getInstance().goToGaodeNaviActivity2(context, "牵车", "我的位置", dataBean.getLat(),
                                             dataBean.getLng(), dataBean.getAddress(), "0", "", "0", "高德导航");
@@ -385,7 +425,9 @@ public class FindXFragment extends BaseFragment {
         dialogWindow.setAttributes(lp);
         dialog.show();
     }
+
     private ArrayList<MapApps> mapApps;
+
     private void getAmp() {
         mapApps = new ArrayList<>();
         if (AmapUtil.isInstallByRead("com.baidu.BaiduMap")) {
@@ -394,5 +436,88 @@ public class FindXFragment extends BaseFragment {
         if (AmapUtil.isInstallByRead("com.autonavi.minimap")) {
             mapApps.add(new MapApps(2, "高德地图", "com.autonavi.minimap"));
         }
+    }
+
+
+    @OnClick({R.id.imageImg, R.id.viewSearch, R.id.textAddress})
+    public void onViewClicked(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.imageImg:
+                if (mPopupWindow.isShowing()) {
+                    mPopupWindow.dismiss();
+                } else {
+                    // 设置PopupWindow 显示的形式 底部或者下拉等
+                    // 在某个位置显示
+                    viewBar.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+                    mPopupWindow.showAsDropDown(imageImg);
+                    // 作为下拉视图显示
+                    // mPopupWindow.showAsDropDown(mPopView, Gravity.CENTER, 200, 300);
+                }
+                break;
+            case R.id.viewSearch:
+                break;
+            case R.id.textAddress:
+                intent.setClass(context, SearchDPActivity.class);
+                startActivityForResult(intent, Constant.REQUEST_RESULT_CODE.address);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private View mPopView;
+    private PopupWindow mPopupWindow;
+    private RecyclerArrayAdapter<Store_Map.CateBean> popAdapter;
+
+    private void setPopwindow() {
+        mPopView = getLayoutInflater().inflate(R.layout.popwindow_pcate, null);
+        // 将转换的View放置到 新建一个popuwindow对象中
+        mPopupWindow = new PopupWindow(mPopView,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        // 点击popuwindow外让其消失
+        EasyRecyclerView recyclePacate = mPopView.findViewById(R.id.recyclePacate);
+        initPopRecycler(recyclePacate);
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                viewBar.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
+            }
+        });
+    }
+
+    private void initPopRecycler(EasyRecyclerView recyclePacate) {
+        GridLayoutManager manager = new GridLayoutManager(context, 3);
+        recyclePacate.setLayoutManager(manager);
+        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(10f, context));
+//        recyclerView.addItemDecoration(itemDecoration1);
+//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclePacate.addItemDecoration(spaceDecoration);
+        recyclePacate.setAdapter(popAdapter = new RecyclerArrayAdapter<Store_Map.CateBean>(context) {
+            @Override
+            public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+                int layout = R.layout.item_pcate;
+                return new PcateViewHolder(parent, layout);
+            }
+        });
+        manager.setSpanSizeLookup(popAdapter.obtainGridSpanSizeLookUp(1));
+        popAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                mPopupWindow.dismiss();
+                viewBar.setBackgroundColor(ContextCompat.getColor(context, R.color.transparent));
+                cid = popAdapter.getItem(position).getId();
+                Constant.CID = popAdapter.getItem(position).getId();
+                getStore(null);
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }
