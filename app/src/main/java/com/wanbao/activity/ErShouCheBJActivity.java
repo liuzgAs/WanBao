@@ -2,6 +2,7 @@ package com.wanbao.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,6 +23,11 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UpProgressHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.storage.UploadOptions;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.GridImage1Adapter;
@@ -40,12 +45,14 @@ import com.wanbao.modle.Car_Index;
 import com.wanbao.modle.City_List;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Respond_AppImgAdd;
+import com.wanbao.modle.Respond_Qntoken;
 import com.wanbao.modle.Seller_CarEditBefore;
 import com.wanbao.modle.Seller_Online;
-import com.wanbao.modle.Uploads_Appimgs;
 import com.wanbao.modle.Usercar_Vin_zb;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -118,6 +125,8 @@ public class ErShouCheBJActivity extends BaseActivity {
     private String store_logo;
     private String video_img;
     private int video_second=10;
+    private UploadManager uploadManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +147,7 @@ public class ErShouCheBJActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        uploadManager = new UploadManager();
         titleText.setText("二手车编辑");
         editVin.setTransformationMethod(new A2bigA());
         FullyGridLayoutManager manager = new FullyGridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false);
@@ -475,6 +485,7 @@ public class ErShouCheBJActivity extends BaseActivity {
         params.put("effluentStandard", editPaiFangBZ.getText().toString());
         params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
         params.put("video", video);
+        params.put("video_key", video);
         params.put("video_img", video_img);
         params.put("store_logo", store_logo);
         return new OkObject(params, url);
@@ -516,7 +527,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                             .into(imageKanCheSP);
                     files.clear();
                     files.add(new File(selectVideo.get(0).getPath()));
-                    getVedioId();
+                    upFile();
                     break;
                 case PictureConfig.MAX_COMPRESS_SIZE:
                     List<LocalMedia> imageVedio = PictureSelector.obtainMultipleResult(data);
@@ -595,40 +606,88 @@ public class ErShouCheBJActivity extends BaseActivity {
     }
 
     List<File> files = new ArrayList<>();
+    private static ProgressDialog progressDialog;
+    private void upFile() {
+        HttpApi.post(context, getOkObjectUp(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                progressDialog = new ProgressDialog(context);
+                progressDialog.setMessage("正在上传视频……");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setProgress(0);
+                progressDialog.setMax(100);
+                progressDialog.setIndeterminate(false);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+            }
 
-    private void getVedioId() {
-        showDialog("视频上传中..");
-        HttpApi.upFiles(context, getOkObjectUserUpload(), files, new HttpApi.UpLoadCallBack() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
             @Override
             public void onSuccess(String s) {
-                Log.e("getVedioId", s);
-                dismissDialog();
+                LogUtils.e("Respond_Qntoken", s);
                 try {
-                    Uploads_Appimgs userUpload = GsonUtils.parseJSON(s, Uploads_Appimgs.class);
-                    if (userUpload.getStatus() == 1) {
-                        video = userUpload.getImg().get(0).getId();
+                    Respond_Qntoken respond_qntoken = GsonUtils.parseJSON(s, Respond_Qntoken.class);
+                    int status = respond_qntoken.getStatus();
+                    if (status == 1) {
+                        uploadManager.put(files.get(0), files.get(0).getName(), respond_qntoken.getToken(),
+                                new UpCompletionHandler() {
+                                    @Override
+                                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                                        progressDialog.dismiss();
+                                        if (info.isOK()) {
+                                            try {
+                                                video = res.getString("key");
+                                                ToastUtils.showShort("上传成功！");
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            ToastUtils.showShort("上传失败！" + info.error);
+                                        }
+                                    }
+                                }, new UploadOptions(null, null, false,
+                                        new UpProgressHandler() {
+                                            @Override
+                                            public void progress(String key, final double percent) {
+                                                LogUtils.e("percent", percent + "");
+                                                textVin.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        progressDialog.setProgress((int) (percent * 100));
+                                                    }
+                                                });
+                                            }
+                                        }, null));
                     } else {
-                        ToastUtils.showShort(userUpload.getInfo());
+                        ToastUtils.showShort(respond_qntoken.getInfo());
                     }
-
                 } catch (Exception e) {
-                    dismissDialog();
-                    ToastUtils.showShort("数据出错");
-
+                    ToastUtils.showShort("数据异常！");
                 }
             }
 
             @Override
             public void onError() {
+                dismissDialog();
                 ToastUtils.showShort("网络异常");
             }
 
             @Override
-            public void uploadProgress(float progress) {
+            public void onComplete() {
+                dismissDialog();
             }
         });
     }
-
+    private OkObject getOkObjectUp() {
+        String url = Constant.HOST + Constant.Url.Respond_Qntoken;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        return new OkObject(params, url);
+    }
     private OkObject getOkObjectUserUpload() {
         String url = Constant.HOST + Constant.Url.Uploads_Appimgs;
         HashMap<String, String> params = new HashMap<>();

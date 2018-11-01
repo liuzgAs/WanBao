@@ -115,9 +115,20 @@ public class CheLiangGZActivity extends BaseActivity {
         getData();
     }
 
-    @OnClick({R.id.imageback, R.id.ll_dianhua, R.id.ll_weizhi})
+    @OnClick({R.id.textRight,R.id.imageback, R.id.ll_dianhua, R.id.ll_weizhi})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.textRight:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent.putExtra("currentItem", Integer.valueOf(type));
+                intent.setClass(context, SosJLActivity.class);
+                startActivity(intent);
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -125,10 +136,9 @@ public class CheLiangGZActivity extends BaseActivity {
                 PhoneUtils.dial(phone);
                 break;
             case R.id.ll_weizhi:
-                if (sos_index==null){
+                if (sos_index == null) {
                     return;
                 }
-                Intent intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     startActivity(intent);
@@ -191,4 +201,5 @@ public class CheLiangGZActivity extends BaseActivity {
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
     }
+
 }

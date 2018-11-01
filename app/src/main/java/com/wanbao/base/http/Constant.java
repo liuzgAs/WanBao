@@ -154,6 +154,10 @@ public class Constant {
          */
         public static final String User_Maintain_order = "User/maintain_order";
         /**
+         * sos记录
+         */
+        public static final String Sos_SosLog = "Sos/sosLog";
+        /**
          * 二手车管理
          */
         public static final String Seller_CarManage = "Seller/carManage";
@@ -242,6 +246,10 @@ public class Constant {
          */
         public static final String Usercar_Vin_zb = "Usercar/vin_zb";
         /**
+         * 2qntk
+         */
+        public static final String Respond_Qntoken = "Respond/qntoken";
+        /**
          * 图片识别文字
          */
         public static final String UserCar_Text_zb = "UserCar/text_zb";
@@ -253,6 +261,10 @@ public class Constant {
          * SOS请求
          */
         public static final String Sos_Sos_add = "Sos/sos_add";
+        /**
+         * sos记录详情
+         */
+        public static final String Sos_Sos_log_info = "Sos/sos_log_info";
         /**
          * 爱车修改请求
          */

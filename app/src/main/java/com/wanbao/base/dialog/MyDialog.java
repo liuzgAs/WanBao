@@ -22,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +78,7 @@ public class MyDialog {
 
     }
 
-    public static void twoButton(Context context,String title, String hint,final ClickListenerInterface clickListenerInterface) {
+    public static void twoButton(Context context, String title, String hint, final ClickListenerInterface clickListenerInterface) {
         final MaterialDialog mDialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_edit_text, false)
                 .show();
@@ -103,6 +104,15 @@ public class MyDialog {
 
             }
         });
+    }
+
+    public static void progressDialog(Context context, int progress) {
+        final MaterialDialog mDialog = new MaterialDialog.Builder(context)
+                .customView(R.layout.dialog_progress, true)
+                .show();
+        View customeView = mDialog.getCustomView();
+        ProgressBar progressBar = (ProgressBar) customeView.findViewById(R.id.progressBar);
+        progressBar.setProgress(progress);
     }
 
     public interface ClickListenerInterface {
@@ -143,7 +153,7 @@ public class MyDialog {
         editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
-                         /*判断是否是“GO”键*/
+                /*判断是否是“GO”键*/
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     /*隐藏软键盘*/
                     InputMethodManager imm = (InputMethodManager) v
@@ -189,9 +199,11 @@ public class MyDialog {
                     }
                 });
     }
+
     public interface OnSearchDoneListener {
         void searchDone(String keywords);
     }
+
     public static OnSearchDoneListener onSearchDoneListener;
 
     public static void setOnSearchDoneListener(OnSearchDoneListener onOnSearchDoneListener) {
@@ -270,7 +282,8 @@ public class MyDialog {
             return null;
         }
     }
-    public static void wxShareTP(final Context context, final IWXAPI api, final int flag,final String imageUrl) {
+
+    public static void wxShareTP(final Context context, final IWXAPI api, final int flag, final String imageUrl) {
 
 
         ThreadPoolManager.getInstance().execute(new Runnable() {
@@ -280,13 +293,13 @@ public class MyDialog {
                     api.registerApp(Constant.WXAPPID);
 //                        Bitmap bmp = getPic(imageUrl);
                     Bitmap bmp = BitmapFactory.decodeStream(new URL(imageUrl).openStream());
-                    if (bmp==null){
+                    if (bmp == null) {
                         Toast.makeText(context, "未获得图片资源", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     WXImageObject webpage = new WXImageObject(bmp);
                     final WXMediaMessage msg = new WXMediaMessage();
-                    msg.mediaObject=webpage;
+                    msg.mediaObject = webpage;
                     Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
                     bmp.recycle();
                     msg.thumbData = bmpToByteArray(thumbBmp, true);
@@ -307,7 +320,7 @@ public class MyDialog {
                             break;
                     }
                     api.sendReq(req);
-                }catch (IOException e){
+                } catch (IOException e) {
 
                 }
             }
@@ -373,7 +386,7 @@ public class MyDialog {
                     Toast.makeText(context, "您暂未安装微信,请下载安装最新版本的微信", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                wxShare(context, api, 0, url, title, des,imageUrl);
+                wxShare(context, api, 0, url, title, des, imageUrl);
                 alertDialog1.dismiss();
             }
         });
@@ -384,14 +397,14 @@ public class MyDialog {
                     Toast.makeText(context, "您暂未安装微信,请下载安装最新版本的微信", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                wxShare(context, api, 1, url, title, des,imageUrl);
+                wxShare(context, api, 1, url, title, des, imageUrl);
                 alertDialog1.dismiss();
             }
         });
         dialog_shengji.findViewById(R.id.relaShouCang).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wxShare(context, api, 2, url, title, des,imageUrl);
+                wxShare(context, api, 2, url, title, des, imageUrl);
                 alertDialog1.dismiss();
                 alertDialog1.dismiss();
             }
@@ -404,6 +417,7 @@ public class MyDialog {
         lp.width = (int) (d.widthPixels * 1); // 高度设置为屏幕的0.6
         dialogWindow.setAttributes(lp);
     }
+
     /**
      * 检查微信版本是否支付支付或是否安装可支付的微信版本
      */
@@ -412,7 +426,7 @@ public class MyDialog {
         return isPaySupported;
     }
 
-    private static void wxShare(final Context context, final IWXAPI api, final int flag, final String url, final String title, final String des,final String imageUrl) {
+    private static void wxShare(final Context context, final IWXAPI api, final int flag, final String url, final String title, final String des, final String imageUrl) {
 
         ThreadPoolManager.getInstance().execute(new Runnable() {
             @Override
@@ -424,12 +438,12 @@ public class MyDialog {
                     final WXMediaMessage msg = new WXMediaMessage(webpage);
                     msg.title = title;
                     msg.description = des;
-                    if (!TextUtils.isEmpty(imageUrl)){
+                    if (!TextUtils.isEmpty(imageUrl)) {
                         Bitmap bmp = BitmapFactory.decodeStream(new URL(imageUrl).openStream());
                         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 120, 120, true);
                         bmp.recycle();
                         msg.thumbData = bmpToByteArray(thumbBmp, true);
-                    }else {
+                    } else {
                         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.logo);
                         msg.setThumbImage(bitmap);
                     }

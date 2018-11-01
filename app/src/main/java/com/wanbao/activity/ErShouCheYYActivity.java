@@ -2,6 +2,7 @@ package com.wanbao.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,6 +25,11 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UpProgressHandler;
+import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.storage.UploadOptions;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.GridImage1Adapter;
@@ -41,12 +47,15 @@ import com.wanbao.modle.Car_Index;
 import com.wanbao.modle.City_List;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Respond_AppImgAdd;
+import com.wanbao.modle.Respond_Qntoken;
 import com.wanbao.modle.Seller_Online;
 import com.wanbao.modle.Seller_Online_before;
 import com.wanbao.modle.Uploads_Appimgs;
 import com.wanbao.modle.Usercar_Vin_zb;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -105,10 +114,12 @@ public class ErShouCheYYActivity extends BaseActivity {
     TextView textVin;
     @BindView(R.id.imageZhanShi)
     ImageView imageZhanShi;
+    @BindView(R.id.textTips)
+    TextView textTips;
     private GridImage1Adapter adapter;
     private List<LocalMedia> selectList = new ArrayList<>();
     private List<LocalMedia> selectList1 = new ArrayList<>();
-    private List<LocalMedia> selectList2= new ArrayList<>();
+    private List<LocalMedia> selectList2 = new ArrayList<>();
 
     private int themeId = R.style.picture_default_style;
     private ArrayList<String> Chushi = new ArrayList<>();
@@ -118,7 +129,9 @@ public class ErShouCheYYActivity extends BaseActivity {
     private String store_logo;
     private String video_img;
     public static final String IMAGES = "storage/emulated/qianche/s.jpg";
-    private int video_second=10;
+    private int video_second = 10;
+    private UploadManager uploadManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,6 +152,7 @@ public class ErShouCheYYActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        uploadManager = new UploadManager();
         titleText.setText("预约上架");
         editVin.setTransformationMethod(new A2bigA());
         FullyGridLayoutManager manager = new FullyGridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false);
@@ -170,7 +184,10 @@ public class ErShouCheYYActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 textVin.setText("VIN码（" + s.length() + "/17）");
                 if (s.length() == 17) {
+                    textTips.setVisibility(View.GONE);
                     getVin(s.toString());
+                } else {
+                    textTips.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -201,7 +218,7 @@ public class ErShouCheYYActivity extends BaseActivity {
         sellerOnlineBefore();
     }
 
-    @OnClick({R.id.imageZhanShi,R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
+    @OnClick({R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -277,7 +294,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                         .forResult(PictureConfig.MAX_COMPRESS_SIZE);
                 break;
             case R.id.btnSubmit:
-                if (Chushi.size()==0){
+                if (Chushi.size() == 0) {
                     ToastUtils.showShort("请上传车辆照片！");
                     return;
                 }
@@ -285,39 +302,39 @@ public class ErShouCheYYActivity extends BaseActivity {
                     ToastUtils.showShort("请输入正确车架号");
                     return;
                 }
-                if (TextUtils.isEmpty(cid)){
+                if (TextUtils.isEmpty(cid)) {
                     ToastUtils.showShort("请设置品牌车系！");
                     return;
                 }
-                if (TextUtils.isEmpty(cityId)){
+                if (TextUtils.isEmpty(cityId)) {
                     ToastUtils.showShort("请设置看车城市！");
                     return;
                 }
-                if (TextUtils.isEmpty(textShangPaiSJ.getText().toString())){
+                if (TextUtils.isEmpty(textShangPaiSJ.getText().toString())) {
                     ToastUtils.showShort("请设置上牌时间");
                     return;
                 }
-                if (TextUtils.isEmpty(editCheZhuBJ.getText().toString())){
+                if (TextUtils.isEmpty(editCheZhuBJ.getText().toString())) {
                     ToastUtils.showShort("请输入车主报价");
                     return;
                 }
-                if (TextUtils.isEmpty(editXinCheJG.getText().toString())){
+                if (TextUtils.isEmpty(editXinCheJG.getText().toString())) {
                     ToastUtils.showShort("请输入新车购置价");
                     return;
                 }
-                if (TextUtils.isEmpty(editBiaoXianLC.getText().toString())){
+                if (TextUtils.isEmpty(editBiaoXianLC.getText().toString())) {
                     ToastUtils.showShort("请输入表显里程");
                     return;
                 }
-                if (TextUtils.isEmpty(editCheLing.getText().toString())){
+                if (TextUtils.isEmpty(editCheLing.getText().toString())) {
                     ToastUtils.showShort("请输入车龄");
                     return;
                 }
-                if (TextUtils.isEmpty(editPaiLiang.getText().toString())){
+                if (TextUtils.isEmpty(editPaiLiang.getText().toString())) {
                     ToastUtils.showShort("请输入排量");
                     return;
                 }
-                if (TextUtils.isEmpty(editPaiFangBZ.getText().toString())){
+                if (TextUtils.isEmpty(editPaiFangBZ.getText().toString())) {
                     ToastUtils.showShort("请输入排放标准");
                     return;
                 }
@@ -327,6 +344,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                 break;
         }
     }
+
     private void sellerOnlineBefore() {
         HttpApi.post(context, getOkObjectBefore(), new HttpApi.CallBack() {
             @Override
@@ -350,7 +368,8 @@ public class ErShouCheYYActivity extends BaseActivity {
                         editDianPuXX.setText(seller_online_before.getStore_name());
                         editDianPuDH.setText(seller_online_before.getStore_tel());
                         editDianPuJS.setText(seller_online_before.getStore_intro());
-                        video_second=seller_online_before.getVideo_second();
+                        video_second = seller_online_before.getVideo_second();
+                        textTips.setText(seller_online_before.getTips());
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_online_before.getStore_logo())
@@ -383,6 +402,7 @@ public class ErShouCheYYActivity extends BaseActivity {
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
     }
+
     private void sellerOnline() {
         HttpApi.post(context, getOkObject(), new HttpApi.CallBack() {
             @Override
@@ -403,8 +423,8 @@ public class ErShouCheYYActivity extends BaseActivity {
                     Seller_Online seller_online = GsonUtils.parseJSON(s, Seller_Online.class);
                     int status = seller_online.getStatus();
                     if (status == 1) {
-                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ErShouChe,null));
-                        MyDialog.dialogFinish(ErShouCheYYActivity.this,seller_online.getInfo());
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ErShouChe, null));
+                        MyDialog.dialogFinish(ErShouCheYYActivity.this, seller_online.getInfo());
                     } else {
                         ToastUtils.showShort(seller_online.getInfo());
                     }
@@ -447,6 +467,7 @@ public class ErShouCheYYActivity extends BaseActivity {
         params.put("effluentStandard", editPaiFangBZ.getText().toString());
         params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
         params.put("video", video);
+        params.put("video_key", video);
         params.put("video_img", video_img);
         params.put("store_logo", store_logo);
         return new OkObject(params, url);
@@ -463,7 +484,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
                     for (int i = 0; i < selectList.size(); i++) {
-                        getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()),0);
+                        getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()), 0);
                     }
                     break;
                 case PictureConfig.SINGLE:
@@ -473,7 +494,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                             .load(selectSingle.get(0).getCutPath())
                             .placeholder(R.mipmap.ic_empty)
                             .into(imageDianPuLogo);
-                    getAppImgAdd(ImgToBase64.toBase64(selectSingle.get(0).getPath()),1);
+                    getAppImgAdd(ImgToBase64.toBase64(selectSingle.get(0).getPath()), 1);
                     break;
                 case PictureConfig.TYPE_VIDEO:
                     List<LocalMedia> selectVideo = PictureSelector.obtainMultipleResult(data);
@@ -486,7 +507,8 @@ public class ErShouCheYYActivity extends BaseActivity {
                             .into(imageKanCheSP);
                     files.clear();
                     files.add(new File(selectVideo.get(0).getPath()));
-                    getVedioId();
+//                    getVedioId();
+                    upFile();
                     break;
                 case PictureConfig.MAX_COMPRESS_SIZE:
                     List<LocalMedia> imageVedio = PictureSelector.obtainMultipleResult(data);
@@ -495,7 +517,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                             .load(imageVedio.get(0).getCutPath())
                             .placeholder(R.mipmap.ic_empty)
                             .into(imageZhanShi);
-                    getAppImgAdd(ImgToBase64.toBase64(imageVedio.get(0).getPath()),2);
+                    getAppImgAdd(ImgToBase64.toBase64(imageVedio.get(0).getPath()), 2);
                     break;
                 default:
                     break;
@@ -526,12 +548,12 @@ public class ErShouCheYYActivity extends BaseActivity {
                     Respond_AppImgAdd respondAppImgAdd = GsonUtils.parseJSON(s, Respond_AppImgAdd.class);
                     int status = respondAppImgAdd.getStatus();
                     if (status == 1) {
-                        if (type==0){
+                        if (type == 0) {
                             Chushi.add(respondAppImgAdd.getImgId());
-                        }else if (type==1){
-                            store_logo=respondAppImgAdd.getImg();
-                        }else if (type==2){
-                            video_img=respondAppImgAdd.getImg();
+                        } else if (type == 1) {
+                            store_logo = respondAppImgAdd.getImg();
+                        } else if (type == 2) {
+                            video_img = respondAppImgAdd.getImg();
                         }
                     } else {
                         ToastUtils.showShort(respondAppImgAdd.getInfo());
@@ -565,14 +587,23 @@ public class ErShouCheYYActivity extends BaseActivity {
     }
 
     List<File> files = new ArrayList<>();
+    private static ProgressDialog progressDialog;
 
     private void getVedioId() {
-        showDialog("视频上传中..");
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("正在上传视频……");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setProgress(0);
+        progressDialog.setMax(100);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         HttpApi.upFiles(context, getOkObjectUserUpload(), files, new HttpApi.UpLoadCallBack() {
             @Override
             public void onSuccess(String s) {
                 Log.e("getVedioId", s);
-                dismissDialog();
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 try {
                     Uploads_Appimgs userUpload = GsonUtils.parseJSON(s, Uploads_Appimgs.class);
                     if (userUpload.getStatus() == 1) {
@@ -590,13 +621,103 @@ public class ErShouCheYYActivity extends BaseActivity {
 
             @Override
             public void onError() {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 ToastUtils.showShort("网络异常");
             }
 
             @Override
             public void uploadProgress(float progress) {
+                if (progressDialog != null) {
+                    progressDialog.setProgress((int) progress);
+                }
             }
         });
+    }
+
+
+    private void upFile() {
+        HttpApi.post(context, getOkObjectUp(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                progressDialog = new ProgressDialog(context);
+                progressDialog.setMessage("正在上传视频……");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setProgress(0);
+                progressDialog.setMax(100);
+                progressDialog.setIndeterminate(false);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.e("Respond_Qntoken", s);
+                try {
+                    Respond_Qntoken respond_qntoken = GsonUtils.parseJSON(s, Respond_Qntoken.class);
+                    int status = respond_qntoken.getStatus();
+                    if (status == 1) {
+                        uploadManager.put(files.get(0), files.get(0).getName(), respond_qntoken.getToken(),
+                                new UpCompletionHandler() {
+                                    @Override
+                                    public void complete(String key, ResponseInfo info, JSONObject res) {
+                                        progressDialog.dismiss();
+                                        if (info.isOK()) {
+                                            try {
+                                                video = res.getString("key");
+                                                ToastUtils.showShort("上传成功！");
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            ToastUtils.showShort("上传失败！" + info.error);
+                                        }
+                                    }
+                                }, new UploadOptions(null, null, false,
+                                        new UpProgressHandler() {
+                                            @Override
+                                            public void progress(String key, final double percent) {
+                                                LogUtils.e("percent", percent + "");
+                                                textVin.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        progressDialog.setProgress((int) (percent * 100));
+                                                    }
+                                                });
+                                            }
+                                        }, null));
+                    } else {
+                        ToastUtils.showShort(respond_qntoken.getInfo());
+                    }
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据异常！");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectUp() {
+        String url = Constant.HOST + Constant.Url.Respond_Qntoken;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        return new OkObject(params, url);
     }
 
     private OkObject getOkObjectUserUpload() {

@@ -18,6 +18,7 @@ public class Seller_Online_before {
      */
 
     private String store_name;
+    private String tips;
     private String store_tel;
     private String store_logo;
     private String store_intro;
@@ -31,6 +32,13 @@ public class Seller_Online_before {
 
     public void setStore_name(String store_name) {
         this.store_name = store_name;
+    }
+    public String getTips() {
+        return tips;
+    }
+
+    public void setTips(String tips) {
+        this.tips = tips;
     }
 
     public String getStore_tel() {

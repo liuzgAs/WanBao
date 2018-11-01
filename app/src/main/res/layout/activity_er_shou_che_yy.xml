@@ -29,15 +29,46 @@
             android:orientation="vertical"
             app:showDividers="middle">
             <TextView
+                android:id="@+id/textTips"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@mipmap/fabufw_bg"
                 android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#f6641b"
+                android:textSize="@dimen/sp_13" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10"
-                android:textColor="@color/new_secondary_text"
-                android:textSize="@dimen/sp_13"
-                android:text="上传车辆照片"
-                />
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13"
+                    android:text="上传车辆照片"
+                    />
+            </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:background="@color/white"
@@ -66,6 +97,13 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
                     android:id="@+id/textVin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,7 +120,8 @@
                     android:textSize="@dimen/sp_13"
                     android:maxLength="17"
                     android:textColor="@color/new_important_text"
-                    android:hint="请输入17位VIN码"/>
+                    android:hint="请输入17位VIN码">
+                </EditText>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/viewPinPaiCX"
@@ -94,6 +133,13 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,6 +176,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
                     android:text="看车城市"/>
                 <TextView
@@ -162,6 +215,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
                     android:text="上牌时间"/>
                 <TextView
@@ -188,6 +248,13 @@
                 android:paddingRight="@dimen/dp_10"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -226,6 +293,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
                     android:text="新车购置价"/>
                 <EditText
@@ -256,6 +330,13 @@
                 android:paddingRight="@dimen/dp_10"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -294,6 +375,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
                     android:text="车龄"/>
                 <EditText
@@ -328,6 +416,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
                     android:text="排量"/>
                 <EditText
@@ -358,6 +453,13 @@
                 android:paddingRight="@dimen/dp_10"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:textColor="@color/deep_red"
+                    android:text="* "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
