@@ -1,14 +1,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/red_jianbian">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/red_jianbian"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context="com.wanbao.fragment.TuiJianHYGCFragment">
 
@@ -18,80 +17,87 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_40"
             android:src="@mipmap/icon_tjhy" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:background="@drawable/bg_text"
-                android:layout_marginTop="@dimen/dp_30"
-                android:layout_height="@dimen/dp_45">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|right"
-                    android:hint="手机号"
-                    android:inputType="number"
-                    android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_13" />
-                <EditText
-                    android:id="@+id/editPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="请输入正确的手机号"
-                    android:inputType="number"
-                    android:textCursorDrawable="@null"
-                    android:textColor="@color/new_important_text"
-                    android:textSize="@dimen/sp_13" />
-            </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        android:background="@drawable/bg_text"
-        android:layout_marginTop="@dimen/dp_6"
-        android:layout_height="@dimen/dp_45">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|right"
-            android:hint="姓名"
-            android:textColor="@color/new_important_text"
-            android:textSize="@dimen/sp_13" />
-        <EditText
-            android:id="@+id/editName"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="center_vertical|right"
-            android:hint="请输入姓名"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_text"
+            android:gravity="center_vertical"
             android:paddingLeft="@dimen/dp_10"
-            android:textCursorDrawable="@null"
-            android:textColor="@color/new_important_text"
-            android:textSize="@dimen/sp_13" />
-    </LinearLayout>
+            android:paddingRight="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:hint="手机号"
+                android:inputType="number"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+
+            <EditText
+                android:id="@+id/editPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical|right"
+                android:hint="请填写好友的手机号"
+                android:inputType="number"
+                android:textColor="@color/new_important_text"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_text"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:hint="姓名"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:gravity="center_vertical|right"
+                android:hint="请填写好友的姓名"
+                android:paddingLeft="@dimen/dp_10"
+                android:textColor="@color/new_important_text"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/viewAddCard"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_10"
             android:background="@drawable/bg_text"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingRight="@dimen/dp_5">
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_45"
-                android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:hint="意向车型"
@@ -99,13 +105,15 @@
                 android:paddingRight="@dimen/dp_10"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
+
             <TextView
                 android:id="@+id/textCarName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:hint="选择意向车型"
+                android:gravity="center_vertical|right"
+                android:hint="请选择好友要购买的意向车型"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
 
@@ -120,14 +128,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_10"
             android:background="@drawable/bg_text"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            >
+            android:paddingRight="@dimen/dp_10">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,6 +143,7 @@
                 android:hint="购车预算(元)"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
+
             <EditText
                 android:id="@+id/textMoney"
                 android:layout_width="match_parent"
@@ -142,82 +151,87 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:gravity="center_vertical|right"
-                android:hint="请输入购车预算"
-                android:textCursorDrawable="@null"
+                android:hint="请填写好友的购车预算"
                 android:inputType="numberDecimal"
                 android:textColor="@color/new_important_text"
+                android:textCursorDrawable="@null"
                 android:textSize="@dimen/sp_13" />
 
         </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_6"
-        android:background="@drawable/bg_text"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|right"
-            android:hint="居住城市（可选）"
-            android:textColor="@color/new_important_text"
-            android:textSize="@dimen/sp_13" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@color/white"
-            android:gravity="center_vertical|right"
-            android:hint="请输入居住城市"
-            android:id="@+id/textCity"
-            android:textCursorDrawable="@null"
-            android:textColor="@color/new_important_text"
-            android:textSize="@dimen/sp_13" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_6"
-        android:background="@drawable/bg_text"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical|right"
-            android:hint="职业（可选）"
-            android:textColor="@color/new_important_text"
-            android:textSize="@dimen/sp_13" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@color/white"
-            android:gravity="center_vertical|right"
-            android:hint="请输入你的职业"
-            android:id="@+id/textZhiYe"
-            android:textCursorDrawable="@null"
-            android:textColor="@color/new_important_text"
-            android:textSize="@dimen/sp_13" />
-    </LinearLayout>
-        <com.wanbao.base.ui.StateButton
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_6"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="提交信息"
+            android:background="@drawable/bg_text"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:hint="居住城市（可选）"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+
+            <EditText
+                android:id="@+id/textCity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical|right"
+                android:hint="请填写好友的所在城市"
+                android:textColor="@color/new_important_text"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/bg_text"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:hint="职业（可选）"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+
+            <EditText
+                android:id="@+id/textZhiYe"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:background="@color/white"
+                android:gravity="center_vertical|right"
+                android:hint="请填写好友的职业"
+                android:textColor="@color/new_important_text"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <com.wanbao.base.ui.StateButton
             android:id="@+id/sbtn_tijiao"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_30"
+            android:text="提交信息"
             android:textSize="@dimen/sp_13"
             app:normalBackgroundColor="@color/new_important_text"
             app:normalTextColor="@color/white"

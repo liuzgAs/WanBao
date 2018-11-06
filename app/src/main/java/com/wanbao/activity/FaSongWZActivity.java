@@ -74,6 +74,8 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     LinearLayout viewName;
     @BindView(R.id.viewSwitcher)
     ViewSwitcher viewSwitcher;
+    @BindView(R.id.textFuWu)
+    TextView textFuWu;
     private Sos_Index sos_index;
     private String longitude;
     private String latitude;
@@ -105,14 +107,23 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     @Override
     protected void initIntent() {
         sos_index = (Sos_Index) getIntent().getSerializableExtra("sos_index");
-        type=getIntent().getStringExtra("type");
-        if (sos_index!=null){
-            ucid=sos_index.getData().getUcid();
+        type = getIntent().getStringExtra("type");
+        if (sos_index != null) {
+            ucid = sos_index.getData().getUcid();
         }
     }
 
     @Override
     protected void initViews() {
+        if ("1".equals(type)) {
+            textFuWu.setText(sos_index.getType_1_des());
+        }else if ("2".equals(type)) {
+            textFuWu.setText(sos_index.getType_2_des());
+        }else if ("3".equals(type)) {
+            textFuWu.setText(sos_index.getType_3_des());
+        }else if ("4".equals(type)) {
+            textFuWu.setText(sos_index.getType_4_des());
+        }
         titleText.setText("发送位置");
         runOnUiThread(new Runnable() {
             @Override
@@ -144,7 +155,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
             if (usercar_Index != null) {
                 textCarName.setText(usercar_Index.getTitle());
                 textCarNo.setText(usercar_Index.getCar_no());
-                ucid=usercar_Index.getId()+"";
+                ucid = usercar_Index.getId() + "";
             }
         }
     }
@@ -217,7 +228,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
         aMap.setMyLocationEnabled(true);
     }
 
-    @OnClick({R.id.viewChooseCar,R.id.viewName, R.id.imageback, R.id.fasong, R.id.address})
+    @OnClick({R.id.viewChooseCar, R.id.viewName, R.id.imageback, R.id.fasong, R.id.address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.viewChooseCar:

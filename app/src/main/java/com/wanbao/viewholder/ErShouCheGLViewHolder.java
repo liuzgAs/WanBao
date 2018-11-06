@@ -35,7 +35,6 @@ import com.wanbao.modle.Seller_CarManage;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -57,7 +56,6 @@ public class ErShouCheGLViewHolder extends BaseViewHolder<Seller_CarManage.DataB
     private CompositeDisposable compositeDisposable;
     private ErShouCheGLFragment fragment;
     private AlertDialog guanLiDialog;
-    ArrayList<String> tp=new ArrayList<>();
 
     public ErShouCheGLViewHolder(ViewGroup parent, @LayoutRes int res, ErShouCheGLFragment fragment) {
         super(parent, res);
@@ -163,7 +161,7 @@ public class ErShouCheGLViewHolder extends BaseViewHolder<Seller_CarManage.DataB
                                 LogUtil.e("TuWenTGViewHolder--onSuccess", ""+s);
                                 count[0]++;
                                 try {
-                                    HttpApi.saveFile(getContext(),s,"牵车");
+                                    HttpApi.saveFile(getContext(),s,"牵车" + System.currentTimeMillis()+".jpg");
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

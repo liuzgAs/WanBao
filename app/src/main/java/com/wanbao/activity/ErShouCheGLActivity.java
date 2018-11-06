@@ -97,7 +97,7 @@ public class ErShouCheGLActivity extends BaseActivity {
         HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
             @Override
             public void onStart() {
-                showDialog("");
+//                showDialog("");
             }
 
             @Override

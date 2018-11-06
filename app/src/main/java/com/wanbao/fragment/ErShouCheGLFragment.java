@@ -152,6 +152,7 @@ public class ErShouCheGLFragment extends BaseFragment implements SwipeRefreshLay
 
                     @Override
                     public void onSuccess(String s) {
+                        LogUtils.e("爱车", s);
                         try {
                             page++;
                             Seller_CarManage usercar_index = GsonUtils.parseJSON(s, Seller_CarManage.class);
@@ -244,15 +245,14 @@ public class ErShouCheGLFragment extends BaseFragment implements SwipeRefreshLay
 
             @Override
             public void onSuccess(String s) {
+                page++;
                 try {
                     LogUtils.e("爱车", s);
-                    page++;
                     Seller_CarManage usercar_index = GsonUtils.parseJSON(s, Seller_CarManage.class);
                     int status = usercar_index.getStatus();
                     if (status == 1) {
                         adapter.clear();
                         adapter.addAll(usercar_index.getData());
-                        adapter.notifyDataSetChanged();
                     } else {
                         ToastUtils.showShort(usercar_index.getInfo());
                     }

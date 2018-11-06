@@ -449,7 +449,8 @@ public class UpgradeUtils extends Activity{
         if (context == null){
             return;
         }
-        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+        Uri packageURI = Uri.parse("package:"+mContext.getPackageName());
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,packageURI);
         ((Activity)context).startActivityForResult(intent,111);
     }
 

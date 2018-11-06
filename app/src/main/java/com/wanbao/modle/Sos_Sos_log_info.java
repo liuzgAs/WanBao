@@ -10,14 +10,18 @@ import java.util.List;
 public class Sos_Sos_log_info {
 
     /**
-     * data : {"store":{"store_name":"沪C1JZ82-启动故障","des1":"求助地址:福建省厦门市思明区莲前街道塔埔路95号","des2":"求助时间:2018.10.25 17:07","des3":"求助人员:测试15860026753"},"id":27,"stateDes":"已取消","des":[{"n":"救助类型","v":"启动故障"},{"n":"处理状态","v":"已取消"},{"n":"处理记录","v":""}]}
+     * data : {"store":{"store_name":"-","des1":"求助地址:","des2":"求助时间:1970.01.01 08:00","des3":"求助人员:"},"id":null,"stateDes":"已取消","des":[{"n":"救助类型","v":""},{"n":"处理状态","v":"已取消"},{"n":"处理记录","v":""}]}
      * is_sub : 0
+     * wait_done : 0
+     * mobile :
      * status : 1
      * info : 返回成功！
      */
 
     private DataBean data;
     private int is_sub;
+    private int wait_done;
+    private String mobile;
     private int status;
     private String info;
 
@@ -35,6 +39,22 @@ public class Sos_Sos_log_info {
 
     public void setIs_sub(int is_sub) {
         this.is_sub = is_sub;
+    }
+
+    public int getWait_done() {
+        return wait_done;
+    }
+
+    public void setWait_done(int wait_done) {
+        this.wait_done = wait_done;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public int getStatus() {
@@ -55,10 +75,10 @@ public class Sos_Sos_log_info {
 
     public static class DataBean {
         /**
-         * store : {"store_name":"沪C1JZ82-启动故障","des1":"求助地址:福建省厦门市思明区莲前街道塔埔路95号","des2":"求助时间:2018.10.25 17:07","des3":"求助人员:测试15860026753"}
-         * id : 27
+         * store : {"store_name":"-","des1":"求助地址:","des2":"求助时间:1970.01.01 08:00","des3":"求助人员:"}
+         * id : null
          * stateDes : 已取消
-         * des : [{"n":"救助类型","v":"启动故障"},{"n":"处理状态","v":"已取消"},{"n":"处理记录","v":""}]
+         * des : [{"n":"救助类型","v":""},{"n":"处理状态","v":"已取消"},{"n":"处理记录","v":""}]
          */
 
         private StoreBean store;
@@ -100,10 +120,10 @@ public class Sos_Sos_log_info {
 
         public static class StoreBean {
             /**
-             * store_name : 沪C1JZ82-启动故障
-             * des1 : 求助地址:福建省厦门市思明区莲前街道塔埔路95号
-             * des2 : 求助时间:2018.10.25 17:07
-             * des3 : 求助人员:测试15860026753
+             * store_name : -
+             * des1 : 求助地址:
+             * des2 : 求助时间:1970.01.01 08:00
+             * des3 : 求助人员:
              */
 
             private String store_name;
@@ -147,7 +167,7 @@ public class Sos_Sos_log_info {
         public static class DesBean {
             /**
              * n : 救助类型
-             * v : 启动故障
+             * v :
              */
 
             private String n;

@@ -32,16 +32,13 @@
 
             <ImageView
                 android:id="@+id/imageBack"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:padding="@dimen/dp_12"
                 android:background="@drawable/white_selector"
-                android:paddingBottom="15dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="20dp"
-                android:paddingTop="15dp"
                 android:src="@mipmap/left" />
 
             <TextView
@@ -57,13 +54,13 @@
 
             <ImageView
                 android:id="@+id/imageShare"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:paddingLeft="15dp"
-                android:paddingRight="10dp"
+                android:padding="@dimen/dp_11"
+                android:src="@mipmap/share"
                 />
 
         </RelativeLayout>

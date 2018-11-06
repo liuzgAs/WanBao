@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.PhoneUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.R;
@@ -16,6 +17,7 @@ import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.ui.ListViewForScrollView;
+import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Sos_Sos_log_info;
@@ -49,8 +51,11 @@ public class SosXQActivity extends BaseActivity {
     TextView textPerson;
     @BindView(R.id.listDes)
     ListViewForScrollView listDes;
+    @BindView(R.id.btnTel)
+    StateButton btnTel;
     private String id;
     private MyAdapter myAdapter;
+    private Sos_Sos_log_info afters_order_info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +86,7 @@ public class SosXQActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.imageback)
-    public void onViewClicked() {
-        finish();
-    }
+
     private void getOrderInfo() {
         HttpApi.post(context, getOkObjectOrderInfo(), new HttpApi.CallBack() {
             @Override
@@ -102,7 +104,7 @@ public class SosXQActivity extends BaseActivity {
                 dismissDialog();
                 Log.e("OrderInfo", s);
                 try {
-                    Sos_Sos_log_info afters_order_info = GsonUtils.parseJSON(s, Sos_Sos_log_info.class);
+                     afters_order_info = GsonUtils.parseJSON(s, Sos_Sos_log_info.class);
                     if (afters_order_info.getStatus() == 1) {
                         setOrderInfo(afters_order_info);
                     } else {
@@ -137,6 +139,11 @@ public class SosXQActivity extends BaseActivity {
     }
 
     private void setOrderInfo(Sos_Sos_log_info data) {
+        if (data.getWait_done()==1){
+            btnTel.setVisibility(View.VISIBLE);
+        }else {
+            btnTel.setVisibility(View.GONE);
+        }
         myAdapter = new MyAdapter(data.getData());
         listDes.setAdapter(myAdapter);
         textStoreName.setText(data.getData().getStore().getStore_name());
@@ -145,6 +152,24 @@ public class SosXQActivity extends BaseActivity {
         textPerson.setText(data.getData().getStore().getDes3());
         textState.setText(data.getData().getStateDes());
     }
+
+    @OnClick({R.id.imageback, R.id.btnTel})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.imageback:
+                finish();
+                break;
+            case R.id.btnTel:
+                if (afters_order_info==null){
+                    return;
+                }
+                PhoneUtils.dial(afters_order_info.getMobile());
+                break;
+            default:
+                break;
+        }
+    }
+
 
     class MyAdapter extends BaseAdapter {
 

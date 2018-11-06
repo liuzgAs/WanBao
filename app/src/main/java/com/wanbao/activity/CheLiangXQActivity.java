@@ -24,9 +24,12 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.luck.picture.lib.tools.ScreenUtils;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
+import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
@@ -34,6 +37,7 @@ import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.RecycleViewDistancaUtil;
 import com.wanbao.modle.CarDetails;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.ShareBean;
 import com.wanbao.viewholder.CheLiangBannerImgHolderView;
 import com.wanbao.viewholder.CheLiangXQViewHolder;
 
@@ -66,8 +70,11 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
     private CarDetails.CarBean carBean;
     private CarDetails.StoreBean storeBean;
     private CarDetails.videoBean video;
+    private ShareBean shareBean;
     private CarDetails carDetails;
     private int type;
+    private IWXAPI iwxapi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +102,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
 
     @Override
     protected void initViews() {
+        iwxapi = WXAPIFactory.createWXAPI(context, null);
         if (type==0){
             viewBottom.setVisibility(View.VISIBLE);
         }else {
@@ -480,6 +488,7 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
                         carBean = carDetails.getCar();
                         storeBean = carDetails.getStore();
                         video = carDetails.getVideo();
+                        shareBean=carDetails.getShare();
                         List<CarDetails.ImgListBean> imgListBeanList = carDetails.getImgList();
                         adapter.clear();
                         adapter.addAll(imgListBeanList);
@@ -535,6 +544,11 @@ public class CheLiangXQActivity extends BaseActivity implements SwipeRefreshLayo
                 break;
             case R.id.imageBack:
                 finish();
+                break;
+            case R.id.imageShare:
+                if (shareBean!=null){
+                    MyDialog.share02(context,iwxapi,shareBean.getShareUrl(),shareBean.getShareTitle(),shareBean.getShareDes(),shareBean.getShareImg());
+                }
                 break;
             default:
                 break;

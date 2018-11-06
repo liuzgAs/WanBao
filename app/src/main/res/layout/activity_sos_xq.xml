@@ -160,4 +160,15 @@
             </com.wanbao.base.ui.ListViewForScrollView>
         </LinearLayout>
     </ScrollView>
+    <com.wanbao.base.ui.StateButton
+        android:id="@+id/btnTel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:textSize="@dimen/sp_13"
+        android:visibility="gone"
+        app:pressedTextColor="@color/white"
+        app:pressedBackgroundColor="@color/new_secondary_text"
+        app:normalTextColor="@color/white"
+        app:normalBackgroundColor="@color/light_red"
+        android:text="拨打救援电话"/>
 </LinearLayout>

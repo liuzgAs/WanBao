@@ -214,51 +214,6 @@ public class CarDetails {
         }
     }
 
-    public static class ShareBean {
-        /**
-         * shareDes : 认证车行认证车行认证车行认证车行
-         * shareImg : https://www.haoche666.com/Uploads/attachment/20171205/65a2332c27ea0f9362d7f9b103308789.png
-         * shareTitle : 东方车666
-         * shareUrl :
-         */
-
-        private String shareDes;
-        private String shareImg;
-        private String shareTitle;
-        private String shareUrl;
-
-        public String getShareDes() {
-            return shareDes;
-        }
-
-        public void setShareDes(String shareDes) {
-            this.shareDes = shareDes;
-        }
-
-        public String getShareImg() {
-            return shareImg;
-        }
-
-        public void setShareImg(String shareImg) {
-            this.shareImg = shareImg;
-        }
-
-        public String getShareTitle() {
-            return shareTitle;
-        }
-
-        public void setShareTitle(String shareTitle) {
-            this.shareTitle = shareTitle;
-        }
-
-        public String getShareUrl() {
-            return shareUrl;
-        }
-
-        public void setShareUrl(String shareUrl) {
-            this.shareUrl = shareUrl;
-        }
-    }
 
     public static class StoreBean {
         /**

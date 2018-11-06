@@ -595,8 +595,8 @@ public class MyCarXFragment extends BaseFragment implements SwipeRefreshLayout.O
                             adapter.add(new WoDe("维修保养", R.mipmap.icon_new_wxby, 4));
                             adapter.add(new WoDe("我的金库", R.mipmap.icon_new_wdjk, 5));
                             adapter.add(new WoDe("更多服务", R.mipmap.icon_new_gdfw, 2));
-                            adapter.notifyDataSetChanged();
                         }
+                        adapter.notifyDataSetChanged();
                         if (!TextUtils.isEmpty(user_my.getNickname())) {
                             textName.setText(user_my.getNickname());
                         } else {
@@ -614,6 +614,7 @@ public class MyCarXFragment extends BaseFragment implements SwipeRefreshLayout.O
                         adapter.add(new WoDe("新车展厅", R.mipmap.icon_new_xczt, 0));
                         adapter.add(new WoDe("优质二手车", R.mipmap.icon_new_yzesc, 1));
                         adapter.add(new WoDe("更多服务", R.mipmap.icon_new_gdfw, 2));
+                        adapter.notifyDataSetChanged();
                     }
                 } catch (Exception e) {
                     user_my = null;
@@ -621,6 +622,7 @@ public class MyCarXFragment extends BaseFragment implements SwipeRefreshLayout.O
                     adapter.add(new WoDe("新车展厅", R.mipmap.icon_new_xczt, 0));
                     adapter.add(new WoDe("优质二手车", R.mipmap.icon_new_yzesc, 1));
                     adapter.add(new WoDe("更多服务", R.mipmap.icon_new_gdfw, 2));
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -631,6 +633,7 @@ public class MyCarXFragment extends BaseFragment implements SwipeRefreshLayout.O
                 adapter.add(new WoDe("新车展厅", R.mipmap.icon_new_xczt, 0));
                 adapter.add(new WoDe("优质二手车", R.mipmap.icon_new_yzesc, 1));
                 adapter.add(new WoDe("更多服务", R.mipmap.icon_new_gdfw, 2));
+                adapter.notifyDataSetChanged();
             }
 
             @Override

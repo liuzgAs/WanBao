@@ -29,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -275,7 +274,7 @@ public class HttpApi {
         if(!dirFile.exists()){
             dirFile.mkdir();
         }
-        fileName = UUID.randomUUID().toString()+".jpg";
+//        fileName = UUID.randomUUID().toString()+".jpg";
         File myCaptureFile = new File(Environment.getExternalStorageDirectory().getPath() +"/DCIM/Camera/"+ fileName);
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
         bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
