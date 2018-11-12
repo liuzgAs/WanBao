@@ -176,22 +176,21 @@
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
 
-                <TextView
+                <EditText
                     android:id="@+id/textPhone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_2"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="right|center_vertical"
                     android:hint="联系电话"
+                    android:paddingRight="@dimen/dp_23"
+                    android:inputType="numberSigned"
+                    android:maxLength="11"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
 
-                <ImageView
-                    android:layout_width="@dimen/dp_23"
-                    android:layout_height="@dimen/dp_23"
-                    app:srcCompat="@mipmap/next_btn" />
             </LinearLayout>
 
             <View

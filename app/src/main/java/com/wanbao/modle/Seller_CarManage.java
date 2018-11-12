@@ -166,6 +166,7 @@ public class Seller_CarManage {
         private String des;
         private ShareBean share;
         private int is_edit;
+        private int online_state;
         private List<ImgsBean> imgs;
 
         public String getTitle() {
@@ -230,6 +231,13 @@ public class Seller_CarManage {
 
         public void setIs_edit(int is_edit) {
             this.is_edit = is_edit;
+        }
+        public int getOnline_state() {
+            return online_state;
+        }
+
+        public void setOnline_state(int online_state) {
+            this.online_state = online_state;
         }
 
         public List<ImgsBean> getImgs() {

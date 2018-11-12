@@ -69,7 +69,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
     @BindView(R.id.textName)
     EditText textName;
     @BindView(R.id.textPhone)
-    TextView textPhone;
+    EditText textPhone;
     @BindView(R.id.viewName)
     LinearLayout viewName;
     @BindView(R.id.viewSwitcher)
@@ -140,6 +140,7 @@ public class FaSongWZActivity extends BaseActivity implements AMap.OnMyLocationC
             textCarName.setText(sos_index.getData().getCar_name());
             textCarNo.setText(sos_index.getData().getCar_no());
             textPhone.setText(sos_index.getData().getMobile());
+            textName.setText(sos_index.getData().getName());
         }
     }
 

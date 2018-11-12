@@ -102,14 +102,27 @@ public class ErShouCheGLViewHolder extends BaseViewHolder<Seller_CarManage.DataB
         View dialog_chan_pin = inflater.inflate(R.layout.dialog_che_liang_gl, null);
         TextView textShangXiaJ = dialog_chan_pin.findViewById(R.id.textShangXiaJ);
         ImageView image05 = dialog_chan_pin.findViewById(R.id.image05);
-
-        if (data.getState() == 21) {
-            textShangXiaJ.setText("下架");
-            image05.setImageResource(R.mipmap.circle_xia_jia);
-        } else if (data.getState() == 20) {
+        if (data.getOnline_state() == 0) {
+            dialog_chan_pin.findViewById(R.id.viewShangXiaJ).setVisibility(View.INVISIBLE);
+        } else if (data.getOnline_state() == 1) {
+            dialog_chan_pin.findViewById(R.id.viewShangXiaJ).setVisibility(View.VISIBLE);
             textShangXiaJ.setText("上架");
             image05.setImageResource(R.mipmap.circle_sahng_jia);
+        }else if (data.getOnline_state() == 2) {
+            dialog_chan_pin.findViewById(R.id.viewShangXiaJ).setVisibility(View.VISIBLE);
+            textShangXiaJ.setText("下架");
+            image05.setImageResource(R.mipmap.circle_xia_jia);
+        }else {
+            dialog_chan_pin.findViewById(R.id.viewShangXiaJ).setVisibility(View.INVISIBLE);
         }
+//        if (data.getState() == 21) {
+//            textShangXiaJ.setText("下架");
+//            image05.setImageResource(R.mipmap.circle_xia_jia);
+//        } else if (data.getState() == 20) {
+//            textShangXiaJ.setText("上架");
+//            image05.setImageResource(R.mipmap.circle_sahng_jia);
+//        }
+
         guanLiDialog = new AlertDialog.Builder(getContext(), R.style.dialog)
                 .setView(dialog_chan_pin)
                 .create();
@@ -130,8 +143,8 @@ public class ErShouCheGLViewHolder extends BaseViewHolder<Seller_CarManage.DataB
             @Override
             public void onClick(View view) {
                 guanLiDialog.dismiss();
-                Intent intent=new Intent(getContext(),ErShouCheBJActivity.class);
-                intent.putExtra("id",data.getId()+"");
+                Intent intent = new Intent(getContext(), ErShouCheBJActivity.class);
+                intent.putExtra("id", data.getId() + "");
                 getContext().startActivity(intent);
             }
         });
@@ -153,19 +166,19 @@ public class ErShouCheGLViewHolder extends BaseViewHolder<Seller_CarManage.DataB
                 fragment.showDialog("下载中..");
                 final int[] count = {0};
                 for (int i = 0; i < data.getImgs().size(); i++) {
-                    LogUtil.e("TuWenTGViewHolder", ""+data.getImgs().get(i).getImg());
+                    LogUtil.e("TuWenTGViewHolder", "" + data.getImgs().get(i).getImg());
                     try {
-                        HttpApi.downLoadBitmap(getContext(), data.getImgs().get(i).getImg(), "牵车","二手车" + System.currentTimeMillis()+".jpg", new HttpApi.CallBackImg() {
+                        HttpApi.downLoadBitmap(getContext(), data.getImgs().get(i).getImg(), "牵车", "二手车" + System.currentTimeMillis() + ".jpg", new HttpApi.CallBackImg() {
                             @Override
-                            public void onSuccess(Bitmap s){
-                                LogUtil.e("TuWenTGViewHolder--onSuccess", ""+s);
+                            public void onSuccess(Bitmap s) {
+                                LogUtil.e("TuWenTGViewHolder--onSuccess", "" + s);
                                 count[0]++;
                                 try {
-                                    HttpApi.saveFile(getContext(),s,"牵车" + System.currentTimeMillis()+".jpg");
+                                    HttpApi.saveFile(getContext(), s, "牵车" + System.currentTimeMillis() + ".jpg");
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                if (count[0]==data.getImgs().size()){
+                                if (count[0] == data.getImgs().size()) {
                                     Toast.makeText(getContext(), "图片保存在/牵车", Toast.LENGTH_SHORT).show();
                                     fragment.dismissDialog();
                                 }
