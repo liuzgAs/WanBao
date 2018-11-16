@@ -9,8 +9,11 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +82,12 @@ public class LiJiZhiFuActivity extends BaseActivity {
     TextView textOrderAmount0;
     @BindView(R.id.btnZfa)
     Button btnZfa;
+    @BindView(R.id.textZheKou)
+    TextView textZheKou;
+    @BindView(R.id.checkZheKou)
+    CheckBox checkZheKou;
+    @BindView(R.id.viewZheKou)
+    RelativeLayout viewZheKou;
     private String Oid;
     private int type = 0;
     private static final int SDK_PAY_FLAG = 1;
@@ -87,6 +96,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
     private int paytype;
     private Pay_New_pay pay_new_pay;
     private int isOnline = 0;
+    private int is_credit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +126,21 @@ public class LiJiZhiFuActivity extends BaseActivity {
     protected void initViews() {
         regTowx();
         titleText.setText("立即支付");
+        checkZheKou.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    textOrderAmount.setText(String.valueOf(pay_index.getCredit_after()));
+                    textOrderAmount0.setText(String.valueOf(pay_index.getCredit_after()));
+
+                    is_credit=1;
+                } else {
+                    textOrderAmount.setText(String.valueOf(pay_index.getOrder_amount()));
+                    textOrderAmount0.setText(String.valueOf(pay_index.getOrder_amount()));
+                    is_credit=0;
+                }
+            }
+        });
     }
 
     @Override
@@ -260,7 +285,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
                 break;
         }
     }
-
+    private Pay_Index pay_index;
     private void getOrder() {
         HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
             @Override
@@ -278,7 +303,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
                 dismissDialog();
                 try {
                     LogUtils.e("保养套餐", s);
-                    Pay_Index pay_index = GsonUtils.parseJSON(s, Pay_Index.class);
+                     pay_index = GsonUtils.parseJSON(s, Pay_Index.class);
                     if (pay_index.getStatus() == 1) {
                         if (pay_index.getOffline_pay() == 1) {
                             viewYl.setVisibility(View.VISIBLE);
@@ -296,6 +321,12 @@ public class LiJiZhiFuActivity extends BaseActivity {
                                 .load(pay_index.getImg())
                                 .placeholder(R.mipmap.ic_empty)
                                 .into(imageCar);
+                        if (pay_index.getIs_credit() == 1) {
+                            viewZheKou.setVisibility(View.VISIBLE);
+                            textZheKou.setText(pay_index.getCredit_pay());
+                        } else {
+                            textZheKou.setVisibility(View.GONE);
+                        }
                     } else {
                         ToastUtils.showShort(pay_index.getInfo());
                     }
@@ -399,6 +430,7 @@ public class LiJiZhiFuActivity extends BaseActivity {
         } else {
             params.put("offline_pay", "0");
         }
+        params.put("is_credit", is_credit + "");
         return new OkObject(params, url);
     }
 

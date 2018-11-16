@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:gravity="center"
+        android:id="@+id/textDes"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_22"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/main_shape_basic1dp_20dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="商品"
+        android:textColor="@color/light_red"
+        android:textSize="@dimen/sp_11" />
+</LinearLayout>

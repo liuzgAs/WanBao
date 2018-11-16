@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:gravity="center_horizontal"
     android:id="@+id/item"
     android:layout_margin="@dimen/dp_5"
@@ -26,6 +26,14 @@
         android:layout_marginTop="@dimen/dp_3"
         android:textColor="@color/new_secondary_text"
         android:text="美妞车仔美妞仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔"/>
+    <com.wanbao.base.view.FlowTagLayout
+        android:id="@+id/flowTagLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_3"
+        android:layout_marginEnd="@dimen/dp_3"
+        />
     <TextView
         android:id="@+id/textPrice"
         android:layout_width="wrap_content"

@@ -30,6 +30,18 @@ public class Constant {
          */
         public static final String Uploads_Appimgs = "Uploads/appimgs";
         /**
+         * 红包是否下雨
+         */
+        public static final String Bonus_BonusDown = "Bonus/bonusDown";
+        /**
+         * 红包点击后请求
+         */
+        public static final String Bonus_BonusBefore = "Bonus/bonusBefore";
+        /**
+         * 红包领取
+         */
+        public static final String Bonus_BonusGet = "Bonus/bonusGet";
+        /**
          * 关于我们
          */
         public static final String About = "https://www.wanbaoauto.com/api/Article/info/type/about";
@@ -361,6 +373,10 @@ public class Constant {
          * 积分
          */
         public static final String Account_Score = "Account/Score";
+        /**
+         * 红包明细
+         */
+        public static final String Bonus_Amount = "Bonus/amount";
         /**
          * 积分详情
          */

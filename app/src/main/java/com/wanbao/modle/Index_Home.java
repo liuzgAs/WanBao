@@ -169,13 +169,21 @@ public class Index_Home implements Serializable{
         private int id;
         private String title;
         private String img;
-
+        private List<String> tag;
         public String getDes() {
             return des;
         }
 
         public void setDes(String des) {
             this.des = des;
+        }
+
+        public List<String> getTag() {
+            return tag;
+        }
+
+        public void setTag(List<String> tag) {
+            this.tag = tag;
         }
 
         public int getId() {

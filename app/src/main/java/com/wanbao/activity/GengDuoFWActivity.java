@@ -71,10 +71,21 @@ public class GengDuoFWActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.viewJinKu, R.id.imageback, R.id.viewSCSJ, R.id.viewPTFQ, R.id.viewCTJL})
+    @OnClick({R.id.viewhongBaoMX,R.id.viewJinKu, R.id.imageback, R.id.viewSCSJ, R.id.viewPTFQ, R.id.viewCTJL})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewhongBaoMX:
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent = new Intent();
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent = new Intent();
+                intent.setClass(context, HongBaoMXActivity.class);
+                startActivity(intent);
+                break;
             case R.id.viewJinKu:
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent = new Intent();

@@ -402,6 +402,10 @@
             android:launchMode="singleTask"/>
         <activity android:name=".activity.SosXQActivity"
             android:launchMode="singleTask"></activity>
+        <activity android:name=".activity.WebHongBaoActivity"
+            android:launchMode="singleTask"></activity>
+        <activity android:name=".activity.HongBaoMXActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

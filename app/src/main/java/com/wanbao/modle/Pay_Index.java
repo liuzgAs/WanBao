@@ -9,12 +9,17 @@ package com.wanbao.modle;
 public class Pay_Index {
 
     /**
-     * title : 闽dh5585
-     * img : http://p7b347z0p.bkt.clouddn.com/image/jhueva7c_rp5xf8g1bqp5b0fd1b118bec.png
-     * des : 自动1.6 | 5座 | 指导价21.98万
-     * des2 : 预约时间2018.06.02 16:00
-     * order_amount : 193.00
-     * order_sn : WB12018060215312
+     * title : 闽B0917W
+     * img : http://img.wanbaoauto.com/FsQNL0PLxzyWMscODj87TQvrOPXn
+     * des : 轩逸 2018款 经典 1.6XE+ CVT豪华版
+     * des2 : 预约时间2018.11.16 19:00 项目:刹车保养
+     * order_amount : 0.01
+     * order_sn : WB12018111618163
+     * offline_pay : 1
+     * is_credit : 0
+     * credit_amount : 0.67
+     * credit_after : 0.00
+     * credit_pay : 使用红包抵扣(余额0.67)
      * status : 1
      * info : 返回成功！
      */
@@ -25,8 +30,12 @@ public class Pay_Index {
     private String des2;
     private String order_amount;
     private String order_sn;
-    private int status;
     private int offline_pay;
+    private int is_credit;
+    private String credit_amount;
+    private String credit_after;
+    private String credit_pay;
+    private int status;
     private String info;
 
     public String getTitle() {
@@ -77,19 +86,52 @@ public class Pay_Index {
         this.order_sn = order_sn;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
     public int getOffline_pay() {
         return offline_pay;
     }
 
     public void setOffline_pay(int offline_pay) {
         this.offline_pay = offline_pay;
+    }
+
+    public int getIs_credit() {
+        return is_credit;
+    }
+
+    public void setIs_credit(int is_credit) {
+        this.is_credit = is_credit;
+    }
+
+    public String getCredit_amount() {
+        return credit_amount;
+    }
+
+    public void setCredit_amount(String credit_amount) {
+        this.credit_amount = credit_amount;
+    }
+
+    public String getCredit_after() {
+        return credit_after;
+    }
+
+    public void setCredit_after(String credit_after) {
+        this.credit_after = credit_after;
+    }
+
+    public String getCredit_pay() {
+        return credit_pay;
+    }
+
+    public void setCredit_pay(String credit_pay) {
+        this.credit_pay = credit_pay;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getInfo() {
