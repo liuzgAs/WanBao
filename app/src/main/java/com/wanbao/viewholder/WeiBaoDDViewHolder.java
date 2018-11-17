@@ -6,6 +6,8 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,10 +19,12 @@ import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
 import com.wanbao.activity.PinTaunCGActivity;
 import com.wanbao.activity.QueRenWeiBaoXMActivity;
+import com.wanbao.activity.WBDingDanXQActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.ui.ListViewForScrollView;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.fragment.WeiBaoDDFragment;
 import com.wanbao.modle.Comment;
@@ -45,15 +49,15 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
     private TextView textStoreName;
     private TextView textState;
     private TextView textCarNo;
-    private TextView textCarName;
-    private TextView textBookTime;
     private TextView textOrder_amount;
+    private ListViewForScrollView listView;
     private Button btn0;
     private Button btn1;
     private Button btn2;
     private User_Maintain_order.DataBean data;
     private CompositeDisposable compositeDisposable;
     private WeiBaoDDFragment fragment;
+    private MyAdapter myAdapter;
 
     public WeiBaoDDViewHolder(ViewGroup parent, @LayoutRes int res, WeiBaoDDFragment fragment) {
         super(parent, res);
@@ -61,9 +65,8 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         textStoreName = $(R.id.textStoreName);
         textState = $(R.id.textState);
         textCarNo = $(R.id.textCarNo);
-        textCarName = $(R.id.textCarName);
-        textBookTime = $(R.id.textBookTime);
         textOrder_amount = $(R.id.textOrder_amount);
+        listView = $(R.id.listView);
         btn0 = $(R.id.btn0);
         btn1 = $(R.id.btn1);
         btn2 = $(R.id.btn2);
@@ -73,7 +76,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                 if (data.getIsDel() == 1) {
                     setState(BaseEvent.Del_Order, String.valueOf(data.getId()));
                 } else if (data.getIsCancel() == 1) {
-                    setState(BaseEvent.Cancle_order,String.valueOf(data.getId()));
+                    setState(BaseEvent.Cancle_order, String.valueOf(data.getId()));
                 } else if (data.getIsRefund() == 1) {
                     new AlertDialog.Builder(getContext())
                             .setTitle("提示")
@@ -82,7 +85,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                    setState(BaseEvent.IsRefund,String.valueOf(data.getId()));
+                                    setState(BaseEvent.IsRefund, String.valueOf(data.getId()));
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -118,12 +121,12 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     Intent intent = new Intent();
                     intent.setClass(getContext(), WeiXiuBYActivity.class);
                     getContext().startActivity(intent);
-                }else if (data.getIsConfirmCar() == 1) {
-                    setState(BaseEvent.Is_Confirm,String.valueOf(data.getId()));
-                }else if (data.getIsAuth() == 1) {
-                    setState(BaseEvent.IsAuth,String.valueOf(data.getId()));
-                }else if (data.getIsAccepting() == 1) {
-                    setState(BaseEvent.IsAccepting,String.valueOf(data.getId()));
+                } else if (data.getIsConfirmCar() == 1) {
+                    setState(BaseEvent.Is_Confirm, String.valueOf(data.getId()));
+                } else if (data.getIsAuth() == 1) {
+                    setState(BaseEvent.IsAuth, String.valueOf(data.getId()));
+                } else if (data.getIsAccepting() == 1) {
+                    setState(BaseEvent.IsAccepting, String.valueOf(data.getId()));
                 }
             }
         });
@@ -133,17 +136,26 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                 oCTeam(data);
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.putExtra("id",String.valueOf(data.getId()));
+                intent.setClass(getContext(), WBDingDanXQActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void setData(final User_Maintain_order.DataBean data) {
         super.setData(data);
         this.data = data;
+        myAdapter=new MyAdapter(data);
+        listView.setAdapter(myAdapter);
         textStoreName.setText(data.getStore_name());
         textState.setText(data.getStateDes());
         textCarNo.setText(data.getCar_no());
-        textCarName.setText(data.getCar_name());
-        textBookTime.setText(data.getBook_time());
         textOrder_amount.setText(data.getOrder_amount());
         btn1.setVisibility(View.GONE);
         btn0.setVisibility(View.GONE);
@@ -164,13 +176,13 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         } else if (data.getIsAgain() == 1) {
             btn1.setText("再来一单");
             btn1.setVisibility(View.VISIBLE);
-        }else if (data.getIsConfirmCar() == 1) {
+        } else if (data.getIsConfirmCar() == 1) {
             btn1.setText("确认牵车");
             btn1.setVisibility(View.VISIBLE);
-        }else if (data.getIsAuth() == 1) {
+        } else if (data.getIsAuth() == 1) {
             btn1.setText("确认授权");
             btn1.setVisibility(View.VISIBLE);
-        }else if (data.getIsAccepting() == 1) {
+        } else if (data.getIsAccepting() == 1) {
             btn1.setText("验收并支付");
             btn1.setVisibility(View.VISIBLE);
         }
@@ -181,7 +193,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         } else if (data.getIsCancel() == 1) {
             btn0.setText("取消订单");
             btn0.setVisibility(View.VISIBLE);
-        }else if (data.getIsRefund() == 1) {
+        } else if (data.getIsRefund() == 1) {
             btn0.setText("申请退款");
             btn0.setVisibility(View.VISIBLE);
         }
@@ -207,7 +219,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     int status = comment.getStatus();
                     if (status == 1) {
                         EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeWbOrder, null));
-                        if (even.equals(BaseEvent.IsAccepting)){
+                        if (even.equals(BaseEvent.IsAccepting)) {
                             Intent intent = new Intent();
                             intent.putExtra("Oid", String.valueOf(data.getId()));
                             intent.putExtra("isOnline", 1);
@@ -246,11 +258,11 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
             url = Constant.HOST + Constant.Url.User_DelOrder;
         } else if (even.equals(BaseEvent.Is_Confirm)) {
             url = Constant.HOST + Constant.Url.User_ConfirmOrder;
-        }else if (even.equals(BaseEvent.IsRefund)) {
+        } else if (even.equals(BaseEvent.IsRefund)) {
             url = Constant.HOST + Constant.Url.User_Refund_order;
-        }else if (even.equals(BaseEvent.IsAuth)) {
+        } else if (even.equals(BaseEvent.IsAuth)) {
             url = Constant.HOST + Constant.Url.User_ConfirmAuth;
-        }else if (even.equals(BaseEvent.IsAccepting)) {
+        } else if (even.equals(BaseEvent.IsAccepting)) {
             url = Constant.HOST + Constant.Url.User_ConfirmAccepting;
         }
         HashMap<String, String> params = new HashMap<>();
@@ -279,8 +291,8 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                     int status = oCreateTeam.getStatus();
                     if (status == 1) {
                         EventBus.getDefault().post(new BaseEvent(BaseEvent.ChangeWbOrder, null));
-                        Intent intent=new Intent(getContext(), PinTaunCGActivity.class);
-                        intent.putExtra("oCreateTeam",oCreateTeam);
+                        Intent intent = new Intent(getContext(), PinTaunCGActivity.class);
+                        intent.putExtra("oCreateTeam", oCreateTeam);
                         getContext().startActivity(intent);
                     } else {
                         ToastUtils.showShort(oCreateTeam.getInfo());
@@ -314,6 +326,48 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
         return new OkObject(params, url);
     }
 
+    class MyAdapter extends BaseAdapter {
+
+        private User_Maintain_order.DataBean dataBean;
+
+        class ViewHolder {
+            public TextView textDes;
+        }
+
+        public MyAdapter(User_Maintain_order.DataBean dataBean) {
+            this.dataBean = dataBean;
+        }
+
+        @Override
+        public int getCount() {
+            return dataBean.getDes().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = fragment.getLayoutInflater().inflate(R.layout.item_dd_des, null);
+                holder.textDes = (TextView) convertView.findViewById(R.id.textDes);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.textDes.setText(dataBean.getDes().get(position));
+            return convertView;
+        }
+    }
 
     public void addDisposable(Disposable disposable) {
         if (compositeDisposable == null) {
@@ -325,7 +379,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
     public void dispose() {
         if (compositeDisposable != null) {
             compositeDisposable.dispose();
-            compositeDisposable=null;
+            compositeDisposable = null;
         }
     }
 

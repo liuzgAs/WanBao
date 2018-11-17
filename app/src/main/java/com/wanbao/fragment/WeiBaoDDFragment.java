@@ -104,7 +104,7 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
         recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<User_Maintain_order.DataBean>(context) {
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_dd;
+                int layout = R.layout.item_ddx;
                 return new WeiBaoDDViewHolder(parent, layout,WeiBaoDDFragment.this);
             }
         });

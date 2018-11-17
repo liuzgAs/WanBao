@@ -193,7 +193,14 @@ public class User_Maintain_order {
         private int isCancel;
         private int isRefund;
         private int isCreate;
+        private List<String> des;
+        public List<String> getDes() {
+            return des;
+        }
 
+        public void setDes(List<String> des) {
+            this.des = des;
+        }
         public int getId() {
             return id;
         }

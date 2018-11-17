@@ -377,25 +377,29 @@ public class LiJiZhiFuActivity extends BaseActivity {
                     LogUtils.e("Pay_New_pay", s);
                     pay_new_pay = GsonUtils.parseJSON(s, Pay_New_pay.class);
                     if (pay_new_pay.getStatus() == 1) {
-                        if (type == 0) {
-                            zfbZf(pay_new_pay.getPayAli());
-                        } else if (type == 1) {
-                            wechatPay(pay_new_pay);
-                        } else if (type == 2) {
-                            new AlertDialog.Builder(context)
-                                    .setTitle("支付选择成功")
-                                    .setCancelable(false)
-                                    .setMessage(pay_new_pay.getInfo())
-                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            Intent intent = new Intent();
-                                            intent.putExtra("currentItem", 0);
-                                            intent.setClass(context, WeiBaoDDActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    }).show();
+                        if (pay_new_pay.getPayStatus()==2){
+                            paySuccess();
+                        }else {
+                            if (type == 0) {
+                                zfbZf(pay_new_pay.getPayAli());
+                            } else if (type == 1) {
+                                wechatPay(pay_new_pay);
+                            } else if (type == 2) {
+                                new AlertDialog.Builder(context)
+                                        .setTitle("支付选择成功")
+                                        .setCancelable(false)
+                                        .setMessage(pay_new_pay.getInfo())
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                Intent intent = new Intent();
+                                                intent.putExtra("currentItem", 0);
+                                                intent.setClass(context, WeiBaoDDActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        }).show();
+                            }
                         }
                     } else {
                         ToastUtils.showShort(pay_new_pay.getInfo());

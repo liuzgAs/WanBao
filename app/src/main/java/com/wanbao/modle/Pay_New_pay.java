@@ -30,6 +30,7 @@ public class Pay_New_pay implements Serializable{
     private PayBean pay;
     private String payAli;
     private int status;
+    private int payStatus;
     private String info;
 
     public OkDataBean getOkData() {
@@ -86,6 +87,14 @@ public class Pay_New_pay implements Serializable{
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(int payStatus) {
+        this.payStatus = payStatus;
     }
 
     public String getInfo() {

@@ -22,6 +22,7 @@ public class IndexViewHolder extends BaseViewHolder<Index_Home.TeamDataBean>{
     private final TextView textPrice;
     private final FlowTagLayout flowTagLayout;
     private MainTagAdapter mainTagAdapter;
+
     public IndexViewHolder(ViewGroup parent, @LayoutRes int res) {
         super(parent, res);
         textName = $(R.id.textName);
@@ -29,6 +30,7 @@ public class IndexViewHolder extends BaseViewHolder<Index_Home.TeamDataBean>{
         textPrice = $(R.id.textPrice);
         flowTagLayout = $(R.id.flowTagLayout);
         mainTagAdapter=new MainTagAdapter(getContext());
+        flowTagLayout.setAdapter(mainTagAdapter);
     }
 
     @Override
