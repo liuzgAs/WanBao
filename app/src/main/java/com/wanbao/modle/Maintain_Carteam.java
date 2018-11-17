@@ -112,7 +112,14 @@ public class Maintain_Carteam {
         private String img;
         private String title;
         private String des;
+        private List<String> tag;
+        public List<String> getTag() {
+            return tag;
+        }
 
+        public void setTag(List<String> tag) {
+            this.tag = tag;
+        }
         public int getId() {
             return id;
         }

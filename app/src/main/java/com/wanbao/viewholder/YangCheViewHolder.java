@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.adapter.MainTagAdapter;
+import com.wanbao.base.view.FlowTagLayout;
 import com.wanbao.modle.Maintain_Carteam;
 
 /**
@@ -20,12 +22,17 @@ public class YangCheViewHolder extends BaseViewHolder<Maintain_Carteam.DataBean>
     private final TextView textName;
     private final ImageView imageGoods;
     private final TextView textPrice;
+    private final FlowTagLayout flowTagLayout;
+    private MainTagAdapter mainTagAdapter;
 
     public YangCheViewHolder(ViewGroup parent, @LayoutRes int res) {
         super(parent,res);
         textName = $(R.id.textName);
         imageGoods = $(R.id.imageGoods);
         textPrice = $(R.id.textPrice);
+        flowTagLayout = $(R.id.flowTagLayout);
+        mainTagAdapter=new MainTagAdapter(getContext());
+        flowTagLayout.setAdapter(mainTagAdapter);
     }
 
     @Override
@@ -38,5 +45,6 @@ public class YangCheViewHolder extends BaseViewHolder<Maintain_Carteam.DataBean>
                 .load(data.getImg())
                 .placeholder(R.mipmap.ic_empty)
                 .into(imageGoods);
+        mainTagAdapter.clearAndAddAll(data.getTag());
     }
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.wanbao.R;
 import com.wanbao.base.AppContext;
@@ -87,6 +88,7 @@ public class MainXActivity extends BaseNoLeftActivity {
             tabs_img.setImageResource(imgRes[i]);
             tabHost.addTab(tabHost.newTabSpec(tabsItem[i]).setIndicator(inflate), fragment[i], null);
         }
+        LogUtils.getConfig().setLogSwitch(false);
     }
 
     @Override

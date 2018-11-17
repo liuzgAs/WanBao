@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -212,7 +211,6 @@ public class MianFeiYCActivity extends BaseActivity implements ObservableScrollV
             @Override
             public void onSuccess(String s) {
                 dismissDialog();
-                Log.e("Orderteam_Free", s);
                 try {
                     oFree = GsonUtils.parseJSON(s, Orderteam_Free.class);
                     if (oFree.getStatus() == 1) {

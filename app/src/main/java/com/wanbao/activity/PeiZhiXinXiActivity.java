@@ -2,7 +2,6 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -91,7 +90,6 @@ public class PeiZhiXinXiActivity extends BaseActivity {
             @Override
             public void onSuccess(String s) {
                 dismissDialog();
-                Log.e("Usercar_Censor", s);
                 try {
                      Usercar_Detail uDetail = GsonUtils.parseJSON(s, Usercar_Detail.class);
                     if (uDetail.getStatus() == 1) {

@@ -163,7 +163,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initViews() {
-        LogUtils.getConfig().setLogSwitch(true);
         initRecycler();
 
         //初始化定位
@@ -458,7 +457,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void onSuccess(String s) {
-                LogUtils.getConfig().setBorderSwitch(false);
                 LogUtils.e("主页", s);
                 try {
                     page++;
