@@ -143,7 +143,8 @@ public class YouZhiESCActivity extends BaseActivity implements SwipeRefreshLayou
 
     @Override
     protected void initSP() {
-
+        city_id = Integer.valueOf(SPUtils.getInstance().getString(Constant.SF.CityId));
+        textLocation.setText(SPUtils.getInstance().getString(Constant.SF.City));
     }
 
     @Override

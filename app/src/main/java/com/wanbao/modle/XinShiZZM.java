@@ -10,9 +10,10 @@ import java.io.Serializable;
 
 public class XinShiZZM implements Serializable{
 
+
     /**
-     * img_id : 120
-     * data : {"car_no":"粤A4DX40","engine":"T18SED254689NC","car_name":"别克BU1CKSGM7180LS","vin":"LSGJV52P84S244832","name":"黄沛文","address":"广东省从化市城郊街东风村十三社新和里2","register_date":"2010-00-61"}
+     * img_id : 8250
+     * data : {"car_no":"苏EA61N8","engine":"FF6K0292","car_name":"瑞牌SQR7161A2H","vin":"LVVDC11BX6D209011","cid":28465,"cid_name":"2005款 1.6L 舒适型","name":"周颐","address":"江苏省苏州市吴江区松棱镇虎南文化新村2","register_date":"2006-12-18","issue_date":"2014-04-23","age":13,"card_time":"2006-12"}
      * status : 1
      * info : 返回成功！
      */
@@ -56,39 +57,33 @@ public class XinShiZZM implements Serializable{
 
     public static class DataBean implements Serializable{
         /**
-         * car_no : 粤A4DX40
-         * engine : T18SED254689NC
-         * car_name : 别克BU1CKSGM7180LS
-         * vin : LSGJV52P84S244832
-         * name : 黄沛文
-         * address : 广东省从化市城郊街东风村十三社新和里2
-         * register_date : 2010-00-61
+         * car_no : 苏EA61N8
+         * engine : FF6K0292
+         * car_name : 瑞牌SQR7161A2H
+         * vin : LVVDC11BX6D209011
+         * cid : 28465
+         * cid_name : 2005款 1.6L 舒适型
+         * name : 周颐
+         * address : 江苏省苏州市吴江区松棱镇虎南文化新村2
+         * register_date : 2006-12-18
+         * issue_date : 2014-04-23
+         * age : 13
+         * card_time : 2006-12
          */
 
         private String car_no;
         private String engine;
-        private String cid;
-        private String cid_name;
         private String car_name;
         private String vin;
+        private String cid;
+        private String cid_name;
         private String name;
         private String address;
         private String register_date;
         private String issue_date;
-        public String getCid_name() {
-            return cid_name;
-        }
+        private String age;
+        private String card_time;
 
-        public void setCid_name(String cid_name) {
-            this.cid_name = cid_name;
-        }
-        public String getCid() {
-            return cid;
-        }
-
-        public void setCid(String cid) {
-            this.cid = cid;
-        }
         public String getCar_no() {
             return car_no;
         }
@@ -121,6 +116,22 @@ public class XinShiZZM implements Serializable{
             this.vin = vin;
         }
 
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+
+        public String getCid_name() {
+            return cid_name;
+        }
+
+        public void setCid_name(String cid_name) {
+            this.cid_name = cid_name;
+        }
+
         public String getName() {
             return name;
         }
@@ -144,12 +155,29 @@ public class XinShiZZM implements Serializable{
         public void setRegister_date(String register_date) {
             this.register_date = register_date;
         }
+
         public String getIssue_date() {
             return issue_date;
         }
 
         public void setIssue_date(String issue_date) {
             this.issue_date = issue_date;
+        }
+
+        public String getAge() {
+            return age;
+        }
+
+        public void setAge(String age) {
+            this.age = age;
+        }
+
+        public String getCard_time() {
+            return card_time;
+        }
+
+        public void setCard_time(String card_time) {
+            this.card_time = card_time;
         }
     }
 }

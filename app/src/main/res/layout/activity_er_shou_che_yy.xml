@@ -119,9 +119,19 @@
                     android:layout_marginLeft="@dimen/dp_20"
                     android:textSize="@dimen/sp_13"
                     android:maxLength="17"
+                    android:layout_weight="1"
                     android:textColor="@color/new_important_text"
                     android:hint="请输入17位VIN码">
                 </EditText>
+                <TextView
+                    android:id="@+id/textPaiZhao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/sp_13"
+                    android:gravity="center"
+                    android:background="?android:selectableItemBackground"
+                    android:textColor="@color/light_red"
+                    android:text="拍行驶证"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/viewPinPaiCX"
@@ -568,19 +578,19 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
-                    android:text="店铺名称"/>
+                    android:text="店名(联系人)"/>
                 <EditText
                     android:id="@+id/editDianPuXX"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_56"
+                    android:layout_marginLeft="@dimen/dp_35"
                     android:textSize="@dimen/sp_13"
                     android:maxLength="17"
                     android:layout_weight="1"
                     android:textColor="@color/new_important_text"
-                    android:hint="请输入店铺名称"/>
+                    android:hint="请输入店名(联系人)"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -595,7 +605,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
-                    android:text="店铺电话"/>
+                    android:text="联系电话"/>
                 <EditText
                     android:id="@+id/editDianPuDH"
                     android:layout_width="match_parent"
@@ -608,7 +618,7 @@
                     android:layout_weight="1"
                     android:inputType="numberSigned"
                     android:textColor="@color/new_important_text"
-                    android:hint="请输入店铺电话"/>
+                    android:hint="请输入联系电话"/>
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"

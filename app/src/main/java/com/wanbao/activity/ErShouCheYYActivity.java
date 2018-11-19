@@ -1,10 +1,14 @@
 package com.wanbao.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -52,6 +56,7 @@ import com.wanbao.modle.Seller_Online;
 import com.wanbao.modle.Seller_Online_before;
 import com.wanbao.modle.Uploads_Appimgs;
 import com.wanbao.modle.Usercar_Vin_zb;
+import com.wanbao.modle.XinShiZZM;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -131,6 +136,7 @@ public class ErShouCheYYActivity extends BaseActivity {
     public static final String IMAGES = "storage/emulated/qianche/s.jpg";
     private int video_second = 10;
     private UploadManager uploadManager;
+    private XinShiZZM xinShiZZM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +217,12 @@ public class ErShouCheYYActivity extends BaseActivity {
             textKanCheCS.setText(listBean.getName());
             cityId = listBean.getId() + "";
         }
+        if (BaseEvent.XinShiZZM.equals(event.getAction())) {
+            xinShiZZM = (XinShiZZM) event.getData();
+            textShangPaiSJ.setText(xinShiZZM.getData().getCard_time());
+            editCheLing.setText(xinShiZZM.getData().getAge());
+            editVin.setText(xinShiZZM.getData().getVin());
+        }
     }
 
     @Override
@@ -218,12 +230,30 @@ public class ErShouCheYYActivity extends BaseActivity {
         sellerOnlineBefore();
     }
 
-    @OnClick({R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
+    @OnClick({R.id.textPaiZhao,R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.imageback:
                 finish();
+                break;
+            case R.id.textPaiZhao:
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA},
+                            0);
+
+                } else {
+                    intent = new Intent();
+                    intent.putExtra("type", "53");
+                    intent.putExtra("side", "face");
+                    intent.setClass(context, CameraActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.viewPinPaiCX:
                 intent = new Intent();
