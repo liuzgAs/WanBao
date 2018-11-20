@@ -553,6 +553,7 @@ public class Constant {
         public static final String Did = "Did";
         public static final String City = "City";
         public static final String CityId = "CityId";
+        public static final String ShowTips = "ShowTips";
 
         public static final String UserName = "UserName";
         public static final String Nickname = "Nickname";

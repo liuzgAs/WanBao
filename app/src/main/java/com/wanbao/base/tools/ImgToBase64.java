@@ -29,7 +29,10 @@ import java.lang.reflect.Method;
 public class ImgToBase64 {
     public static String toBase64(String pathName){
         Bitmap bitmap = BitmapFactory.decodeFile(pathName, getBitmapOption(1)); //将图片的长和宽缩小味原来的1/2
-        String base64ImgStr = convertIconToString(bitmap).toString().trim();
+        String base64ImgStr="";
+        if (bitmap!=null){
+            base64ImgStr = convertIconToString(bitmap).trim();
+        }
         return base64ImgStr;
     }
 

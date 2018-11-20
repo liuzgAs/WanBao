@@ -2,9 +2,11 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
@@ -24,6 +26,9 @@ import com.wanbao.fragment.MakeMoneyFragment;
 import com.wanbao.fragment.MyCarXFragment;
 import com.wanbao.fragment.SosFragment;
 import com.wanbao.modle.MyMessage;
+import com.zhl.userguideview.UserGuideView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +43,13 @@ public class MainXActivity extends BaseNoLeftActivity {
     TabWidget tabs;
     @BindView(R.id.tabHost)
     TabFragmentHost tabHost;
+    @BindView(R.id.guideView)
+    UserGuideView guideView;
+    View tipTextView;
+    @BindView(R.id.viewSos)
+    RelativeLayout viewSos;
+    View tipView;
+    private int tips;
     private String[] tabsItem = new String[5];
     private Class[] fragment = new Class[]{
             MainFragment.class,
@@ -53,6 +65,7 @@ public class MainXActivity extends BaseNoLeftActivity {
             R.drawable.selector_make_money,
             R.drawable.selector_wode,
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +87,9 @@ public class MainXActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initViews() {
+        guideView.setTouchOutsideDismiss(true);
+        tipTextView = LayoutInflater.from(this).inflate(R.layout.custom_tipview, null);
+        guideView.setTipView(tipTextView, 400, 200);
         tabsItem[0] = "首页";
         tabsItem[1] = "发现";
         tabsItem[2] = "SOS";
@@ -82,82 +98,101 @@ public class MainXActivity extends BaseNoLeftActivity {
         tabHost.setup(this, getSupportFragmentManager(), R.id.realtab);
         for (int i = 0; i < tabsItem.length; i++) {
             View inflate = getLayoutInflater().inflate(R.layout.tabs_item, null);
+            if (i==2){
+                tipView=inflate;
+            }
             TextView tabs_text = (TextView) inflate.findViewById(R.id.tabs_text);
             ImageView tabs_img = (ImageView) inflate.findViewById(R.id.tabs_img);
             tabs_text.setText(tabsItem[i]);
             tabs_img.setImageResource(imgRes[i]);
             tabHost.addTab(tabHost.newTabSpec(tabsItem[i]).setIndicator(inflate), fragment[i], null);
         }
-        LogUtils.getConfig().setLogSwitch(false);
+        tips=SPUtils.getInstance().getInt(Constant.SF.ShowTips, 1);
+        if (tipView!=null&&tips<4){
+            guideView.setHighLightView(tipView);
+        }
+
+        LogUtils.getConfig().setLogSwitch(true);
+        guideView.setOnDismissListener(new UserGuideView.OnDismissListener() {
+            @Override
+            public void onDismiss(UserGuideView userGuideView) {
+                if (tips<4){
+                    SPUtils.getInstance().put(Constant.SF.ShowTips,tips+1);
+                }
+                EventBus.getDefault().post(new BaseEvent(BaseEvent.ShowTips,null));
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        UpgradeUtils.checkUpgrade(context, Constant.HOST+Constant.Url.Index_Version);
-        if (AppContext.getIntance().myMessage!=null){
-            MyMessage myMessage=AppContext.getIntance().myMessage;
+        UpgradeUtils.checkUpgrade(context, Constant.HOST + Constant.Url.Index_Version);
+        if (AppContext.getIntance().myMessage != null) {
+            MyMessage myMessage = AppContext.getIntance().myMessage;
             goMessage(myMessage);
         }
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
         setMessage();
     }
-    private void setMessage(){
-        MyMessage myMessage=(MyMessage)getIntent().getSerializableExtra("myMessage");
-        if (myMessage!=null){
+
+    private void setMessage() {
+        MyMessage myMessage = (MyMessage) getIntent().getSerializableExtra("myMessage");
+        if (myMessage != null) {
             goMessage(myMessage);
         }
     }
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.MyMessage.equals(event.getAction())){
-            MyMessage myMessage=(MyMessage) event.getData();
+        if (BaseEvent.MyMessage.equals(event.getAction())) {
+            MyMessage myMessage = (MyMessage) event.getData();
             goMessage(myMessage);
         }
     }
 
-    private void goMessage(MyMessage myMessage){
+    private void goMessage(MyMessage myMessage) {
         Intent intent;
-        AppContext.getIntance().myMessage=null;
+        AppContext.getIntance().myMessage = null;
         switch (myMessage.getCode()) {
             case "web":
-                intent=new Intent();
-                intent.putExtra("title","消息");
-                intent.putExtra("mUrl",myMessage.getUrl());
+                intent = new Intent();
+                intent.putExtra("title", "消息");
+                intent.putExtra("mUrl", myMessage.getUrl());
                 intent.setClass(context, WebViewActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_i":
-                intent=new Intent();
+                intent = new Intent();
                 intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_my":
-                intent=new Intent();
+                intent = new Intent();
                 intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_find":
-                intent=new Intent();
+                intent = new Intent();
                 intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_money":
-                intent=new Intent();
+                intent = new Intent();
                 intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_sos":
-                intent=new Intent();
+                intent = new Intent();
                 intent.setClass(context, MainXActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_mo":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
@@ -167,18 +202,18 @@ public class MainXActivity extends BaseNoLeftActivity {
                 context.startActivity(intent);
                 break;
             case "app_mo_info":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
                     return;
                 }
-                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.putExtra("id", String.valueOf(myMessage.getItem_id()));
                 intent.setClass(context, WBDingDanXQActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_to":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
@@ -188,20 +223,20 @@ public class MainXActivity extends BaseNoLeftActivity {
                 context.startActivity(intent);
                 break;
             case "app_to_info":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
                     return;
                 }
-                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.putExtra("id", String.valueOf(myMessage.getItem_id()));
                 intent.setClass(context, ShiJiaDDXQActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_user_msg":
                 break;
             case "app_user_account":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
@@ -211,18 +246,18 @@ public class MainXActivity extends BaseNoLeftActivity {
                 context.startActivity(intent);
                 break;
             case "app_team_order_info":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
                     return;
                 }
-                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.putExtra("id", String.valueOf(myMessage.getItem_id()));
                 intent.setClass(context, MianFeiYCActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_like_car":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
@@ -232,18 +267,18 @@ public class MainXActivity extends BaseNoLeftActivity {
                 context.startActivity(intent);
                 break;
             case "app_comment":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
                     return;
                 }
-                intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
+                intent.putExtra("id", String.valueOf(myMessage.getItem_id()));
                 intent.setClass(context, LiJiPPActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_money_recom_log":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
@@ -253,25 +288,25 @@ public class MainXActivity extends BaseNoLeftActivity {
                 context.startActivity(intent);
                 break;
             case "app_mo_pay":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
                     return;
                 }
-                intent.putExtra("Oid",String.valueOf(myMessage.getItem_id()));
+                intent.putExtra("Oid", String.valueOf(myMessage.getItem_id()));
                 intent.setClass(context, LiJiZhiFuActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_to_pay":
-                intent=new Intent();
+                intent = new Intent();
                 if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
                     intent.setClass(context, LoginActivity.class);
                     context.startActivity(intent);
                     return;
                 }
-                intent.putExtra("paytype",1);
-                intent.putExtra("Oid",String.valueOf(myMessage.getItem_id()));
+                intent.putExtra("paytype", 1);
+                intent.putExtra("Oid", String.valueOf(myMessage.getItem_id()));
                 intent.setClass(context, LiJiZhiFuActivity.class);
                 context.startActivity(intent);
                 break;

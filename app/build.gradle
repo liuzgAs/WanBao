@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18111901
-        versionName "0.9.7"
+        versionCode 18112001
+        versionName "0.9.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -118,4 +118,5 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.+'
     compile 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation project(':Application')
+    implementation 'com.github.yilylong:UserGuideView:1.0.5'
 }

@@ -468,6 +468,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
                     android:gravity="center"
+                    android:visibility="invisible"
                     android:textColor="@color/deep_red"
                     android:text="* "/>
                 <TextView
@@ -499,14 +500,43 @@
                 android:textSize="@dimen/sp_13"
                 android:text="看车视频"
                 />
-            <ImageView
-                android:id="@+id/imageKanCheSP"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_5"
+            <RelativeLayout
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:src="@mipmap/addimg_1x"/>
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_5">
+
+                <ImageView
+                    android:id="@+id/imageKanCheSP"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/addimg_1x" />
+
+                <ImageView
+                    android:id="@+id/imagePlay"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/jz_play_normal"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/iv_del"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/dp_10"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_delete_photo"
+                    android:visibility="invisible" />
+            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_40"
@@ -517,14 +547,32 @@
                 android:textSize="@dimen/sp_13"
                 android:text="看车视频展示图片"
                 />
-            <ImageView
-                android:id="@+id/imageZhanShi"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_5"
+            <RelativeLayout
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:src="@mipmap/addimg_1x"/>
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_5">
+
+                <ImageView
+                    android:id="@+id/imageZhanShi"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/addimg_1x" />
+                <ImageView
+                    android:id="@+id/iv_del_vimg"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/dp_10"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_delete_photo"
+                    android:visibility="invisible" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:paddingRight="@dimen/dp_10"
@@ -630,14 +678,32 @@
                 android:textSize="@dimen/sp_13"
                 android:text="店铺logo"
                 />
-            <ImageView
-                android:id="@+id/imageDianPuLogo"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_5"
+            <RelativeLayout
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:src="@mipmap/addimg_1x"/>
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_5">
+
+                <ImageView
+                    android:id="@+id/imageDianPuLogo"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/addimg_1x" />
+                <ImageView
+                    android:id="@+id/iv_del_simg"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/dp_10"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_delete_photo"
+                    android:visibility="invisible" />
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:paddingRight="@dimen/dp_10"

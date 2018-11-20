@@ -111,7 +111,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private int page = 1;
     private boolean isHongBaoShow = false;
     private Dialog mDialog;
-
+    private Bonus_BonusDown bonus_bonusDown;
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
         return mf;
@@ -143,6 +143,12 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onEventMainThread(BaseEvent event) {
         if (event.getAction().equals(BaseEvent.Change_Data)) {
             getMyCar();
+        }
+        if (event.getAction().equals(BaseEvent.ShowTips)) {
+            if (!isHongBaoShow) {
+                hongBaoQingQing();
+                isHongBaoShow = true;
+            }
         }
     }
 
@@ -191,7 +197,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onStart() {
         super.onStart();
-        if (!isHongBaoShow) {
+        if (!isHongBaoShow&&SPUtils.getInstance().getInt(Constant.SF.ShowTips, 1)>=4) {
             hongBaoQingQing();
             isHongBaoShow = true;
         }
@@ -528,7 +534,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             public void onSuccess(String s) {
                 LogUtils.e("主页", s);
                 try {
-                    Bonus_BonusDown bonus_bonusDown = GsonUtils.parseJSON(s, Bonus_BonusDown.class);
+                    bonus_bonusDown = GsonUtils.parseJSON(s, Bonus_BonusDown.class);
                     int status = bonus_bonusDown.getStatus();
                     if (status == 1) {
                         if (bonus_bonusDown.getDown() == 1) {

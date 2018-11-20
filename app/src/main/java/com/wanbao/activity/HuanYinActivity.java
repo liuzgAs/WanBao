@@ -125,6 +125,7 @@ public class HuanYinActivity extends BaseNoLeftActivity {
                 SPUtils.getInstance().put(Constant.SF.Did, indexStartad.getDid());
                 SPUtils.getInstance().put(Constant.SF.City, indexStartad.getCityName());
                 SPUtils.getInstance().put(Constant.SF.CityId, indexStartad.getCityId());
+
                 if (isFirst == 1) {
                     Intent intent = new Intent(HuanYinActivity.this, YinDaoActivity.class);
                     startActivity(intent);

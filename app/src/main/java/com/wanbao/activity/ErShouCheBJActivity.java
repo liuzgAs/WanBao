@@ -111,10 +111,19 @@ public class ErShouCheBJActivity extends BaseActivity {
     TextView textVin;
     @BindView(R.id.imageZhanShi)
     ImageView imageZhanShi;
+    @BindView(R.id.iv_del)
+    ImageView ivDel;
+    @BindView(R.id.imagePlay)
+    ImageView imagePlay;
+    @BindView(R.id.iv_del_vimg)
+    ImageView ivDelVimg;
+    @BindView(R.id.iv_del_simg)
+    ImageView ivDelSimg;
     private GridImage1Adapter adapter;
     private List<LocalMedia> selectList = new ArrayList<>();
     private List<LocalMedia> selectList1 = new ArrayList<>();
-    private List<LocalMedia> selectList2= new ArrayList<>();
+    private List<LocalMedia> selectList2 = new ArrayList<>();
+    private String videoPath;
 
     private int themeId = R.style.picture_default_style;
     private ArrayList<String> Chushi = new ArrayList<>();
@@ -122,9 +131,10 @@ public class ErShouCheBJActivity extends BaseActivity {
     private String id;
     private String cityId;
     private String video;
+    private String videoKey;
     private String store_logo;
     private String video_img;
-    private int video_second=10;
+    private int video_second = 10;
     private UploadManager uploadManager;
 
     @Override
@@ -142,7 +152,7 @@ public class ErShouCheBJActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
     }
 
     @Override
@@ -210,10 +220,33 @@ public class ErShouCheBJActivity extends BaseActivity {
         sellerOnlineBefore();
     }
 
-    @OnClick({R.id.imageZhanShi,R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
+    @OnClick({R.id.iv_del_vimg, R.id.iv_del_simg,R.id.imagePlay, R.id.iv_del, R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.imagePlay:
+                if (!TextUtils.isEmpty(video)) {
+                    PictureSelector.create(ErShouCheBJActivity.this).externalPictureVideo(videoPath);
+                }
+                break;
+            case R.id.iv_del_simg:
+                ivDelSimg.setVisibility(View.INVISIBLE);
+                store_logo = "";
+                imageDianPuLogo.setImageResource(R.mipmap.addimg_1x);
+                break;
+            case R.id.iv_del_vimg:
+                ivDelVimg.setVisibility(View.INVISIBLE);
+                video_img = "";
+                imageZhanShi.setImageResource(R.mipmap.addimg_1x);
+                break;
+            case R.id.iv_del:
+                ivDel.setVisibility(View.INVISIBLE);
+                imagePlay.setVisibility(View.INVISIBLE);
+                video = "";
+                videoPath="";
+                videoKey = "";
+                imageKanCheSP.setImageResource(R.mipmap.addimg_1x);
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -238,15 +271,22 @@ public class ErShouCheBJActivity extends BaseActivity {
                 datePickerDialog.show();
                 break;
             case R.id.imageKanCheSP:
-                PictureSelector.create(ErShouCheBJActivity.this)
-                        .openCamera(PictureMimeType.ofVideo())
-                        .videoMaxSecond(video_second)
-                        .recordVideoSecond(video_second)
-                        .compress(true)
-                        .forResult(PictureConfig.TYPE_VIDEO);
+                if (TextUtils.isEmpty(video)) {
+                    PictureSelector.create(ErShouCheBJActivity.this)
+                            .openCamera(PictureMimeType.ofVideo())
+                            .videoMaxSecond(video_second)
+                            .recordVideoSecond(video_second)
+                            .compress(true)
+                            .forResult(PictureConfig.TYPE_VIDEO);
+                } else {
+                    LogUtils.e("videoPath",videoPath);
+                    PictureSelector.create(ErShouCheBJActivity.this).externalPictureVideo(videoPath);
+                }
                 break;
             case R.id.imageDianPuLogo:
-                PictureSelector.create(ErShouCheBJActivity.this)
+                if (TextUtils.isEmpty(store_logo)){
+
+                    PictureSelector.create(ErShouCheBJActivity.this)
                         .openGallery(PictureMimeType.ofImage())
                         .selectionMode(PictureConfig.SINGLE)
                         .previewImage(true)
@@ -264,9 +304,18 @@ public class ErShouCheBJActivity extends BaseActivity {
                         .openClickSound(true)
                         .selectionMedia(selectList1)
                         .forResult(PictureConfig.SINGLE);
+                }else {
+                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
+                    LocalMedia localMedia=new LocalMedia();
+                    localMedia.setPath(store_logo);
+                    localMedias.add(localMedia);
+                    PictureSelector.create(ErShouCheBJActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
+                }
                 break;
             case R.id.imageZhanShi:
-                PictureSelector.create(ErShouCheBJActivity.this)
+                if (TextUtils.isEmpty(video_img)){
+
+                    PictureSelector.create(ErShouCheBJActivity.this)
                         .openGallery(PictureMimeType.ofImage())
                         .selectionMode(PictureConfig.SINGLE)
                         .previewImage(true)
@@ -284,45 +333,52 @@ public class ErShouCheBJActivity extends BaseActivity {
                         .openClickSound(true)
                         .selectionMedia(selectList2)
                         .forResult(PictureConfig.MAX_COMPRESS_SIZE);
+                }else {
+                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
+                    LocalMedia localMedia=new LocalMedia();
+                    localMedia.setPath(video_img);
+                    localMedias.add(localMedia);
+                    PictureSelector.create(ErShouCheBJActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
+                }
                 break;
             case R.id.btnSubmit:
-                if (Chushi.size()==0){
+                if (Chushi.size() == 0) {
                     ToastUtils.showShort("请上传车辆照片！");
                     return;
                 }
-                if (TextUtils.isEmpty(cid)){
+                if (TextUtils.isEmpty(cid)) {
                     ToastUtils.showShort("请设置品牌车系！");
                     return;
                 }
-                if (TextUtils.isEmpty(cityId)){
+                if (TextUtils.isEmpty(cityId)) {
                     ToastUtils.showShort("请设置看车城市！");
                     return;
                 }
-                if (TextUtils.isEmpty(textShangPaiSJ.getText().toString())){
+                if (TextUtils.isEmpty(textShangPaiSJ.getText().toString())) {
                     ToastUtils.showShort("请设置上牌时间");
                     return;
                 }
-                if (TextUtils.isEmpty(editCheZhuBJ.getText().toString())){
+                if (TextUtils.isEmpty(editCheZhuBJ.getText().toString())) {
                     ToastUtils.showShort("请输入车主报价");
                     return;
                 }
-                if (TextUtils.isEmpty(editXinCheJG.getText().toString())){
+                if (TextUtils.isEmpty(editXinCheJG.getText().toString())) {
                     ToastUtils.showShort("请输入新车购置价");
                     return;
                 }
-                if (TextUtils.isEmpty(editBiaoXianLC.getText().toString())){
+                if (TextUtils.isEmpty(editBiaoXianLC.getText().toString())) {
                     ToastUtils.showShort("请输入表显里程");
                     return;
                 }
-                if (TextUtils.isEmpty(editCheLing.getText().toString())){
+                if (TextUtils.isEmpty(editCheLing.getText().toString())) {
                     ToastUtils.showShort("请输入车龄");
                     return;
                 }
-                if (TextUtils.isEmpty(editPaiLiang.getText().toString())){
+                if (TextUtils.isEmpty(editPaiLiang.getText().toString())) {
                     ToastUtils.showShort("请输入排量");
                     return;
                 }
-                if (TextUtils.isEmpty(editPaiFangBZ.getText().toString())){
+                if (TextUtils.isEmpty(editPaiFangBZ.getText().toString())) {
                     ToastUtils.showShort("请输入排放标准");
                     return;
                 }
@@ -332,6 +388,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                 break;
         }
     }
+
     private void sellerOnlineBefore() {
         HttpApi.post(context, getOkObjectBefore(), new HttpApi.CallBack() {
             @Override
@@ -352,10 +409,10 @@ public class ErShouCheBJActivity extends BaseActivity {
                     Seller_CarEditBefore seller_carEditBefore = GsonUtils.parseJSON(s, Seller_CarEditBefore.class);
                     int status = seller_carEditBefore.getStatus();
                     if (status == 1) {
-                        cid=seller_carEditBefore.getData().getCid();
+                        cid = seller_carEditBefore.getData().getCid();
                         textPinPaiCX.setText(seller_carEditBefore.getData().getTitle());
                         textKanCheCS.setText(seller_carEditBefore.getData().getSee_city());
-                        cityId=seller_carEditBefore.getData().getSee_city_id();
+                        cityId = seller_carEditBefore.getData().getSee_city_id();
                         textShangPaiSJ.setText(seller_carEditBefore.getData().getCard_time());
                         editCheZhuBJ.setText(seller_carEditBefore.getData().getPrice());
                         editXinCheJG.setText(seller_carEditBefore.getData().getPurchasePrice());
@@ -367,17 +424,30 @@ public class ErShouCheBJActivity extends BaseActivity {
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_carEditBefore.getData().getVideo_img())
-                                .placeholder(R.mipmap.ic_empty)
+                                .placeholder(R.mipmap.addimg_1x)
                                 .into(imageKanCheSP);
-                        video_img=seller_carEditBefore.getData().getVideo_img();
-                        video=seller_carEditBefore.getData().getVideo();
+                        video_img = seller_carEditBefore.getData().getVideo_img();
+                        video = seller_carEditBefore.getData().getVideo();
+                        videoPath= seller_carEditBefore.getData().getVideo();
+                        if (!TextUtils.isEmpty(video)) {
+                            ivDel.setVisibility(View.VISIBLE);
+                            imagePlay.setVisibility(View.VISIBLE);
+                        } else {
+                            ivDel.setVisibility(View.INVISIBLE);
+                            imagePlay.setVisibility(View.INVISIBLE);
+                        }
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_carEditBefore.getData().getVideo_img())
-                                .placeholder(R.mipmap.ic_empty)
+                                .placeholder(R.mipmap.addimg_1x)
                                 .into(imageZhanShi);
-                        for (int i=0;i<seller_carEditBefore.getImgs().size();i++){
-                            LocalMedia localMedia=new LocalMedia();
+                        if (!TextUtils.isEmpty(seller_carEditBefore.getData().getVideo_img())) {
+                            ivDelVimg.setVisibility(View.VISIBLE);
+                        } else {
+                            ivDelVimg.setVisibility(View.INVISIBLE);
+                        }
+                        for (int i = 0; i < seller_carEditBefore.getImgs().size(); i++) {
+                            LocalMedia localMedia = new LocalMedia();
                             localMedia.setPath(seller_carEditBefore.getImgs().get(i).getImg());
                             selectList.add(localMedia);
                             Chushi.add(String.valueOf(seller_carEditBefore.getImgs().get(i).getImg_id()));
@@ -387,11 +457,17 @@ public class ErShouCheBJActivity extends BaseActivity {
                         editDianPuXX.setText(seller_carEditBefore.getData().getStore_name());
                         editDianPuDH.setText(seller_carEditBefore.getData().getStore_tel());
                         editDianPuJS.setText(seller_carEditBefore.getData().getStore_intro());
+                        store_logo=seller_carEditBefore.getData().getStore_logo();
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_carEditBefore.getData().getStore_logo())
-                                .placeholder(R.mipmap.ic_empty)
+                                .placeholder(R.mipmap.addimg_1x)
                                 .into(imageDianPuLogo);
+                        if (!TextUtils.isEmpty(seller_carEditBefore.getData().getStore_logo())) {
+                            ivDelSimg.setVisibility(View.VISIBLE);
+                        } else {
+                            ivDelSimg.setVisibility(View.INVISIBLE);
+                        }
                     } else {
                         ToastUtils.showShort(seller_carEditBefore.getInfo());
                     }
@@ -420,6 +496,7 @@ public class ErShouCheBJActivity extends BaseActivity {
         params.put("id", id);
         return new OkObject(params, url);
     }
+
     private void sellerOnline() {
         HttpApi.post(context, getOkObject(), new HttpApi.CallBack() {
             @Override
@@ -440,8 +517,8 @@ public class ErShouCheBJActivity extends BaseActivity {
                     Seller_Online seller_online = GsonUtils.parseJSON(s, Seller_Online.class);
                     int status = seller_online.getStatus();
                     if (status == 1) {
-                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ErShouChe,null));
-                        MyDialog.dialogFinish(ErShouCheBJActivity.this,seller_online.getInfo());
+                        EventBus.getDefault().post(new BaseEvent(BaseEvent.ErShouChe, null));
+                        MyDialog.dialogFinish(ErShouCheBJActivity.this, seller_online.getInfo());
                     } else {
                         ToastUtils.showShort(seller_online.getInfo());
                     }
@@ -485,7 +562,7 @@ public class ErShouCheBJActivity extends BaseActivity {
         params.put("effluentStandard", editPaiFangBZ.getText().toString());
         params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
         params.put("video", video);
-        params.put("video_key", video);
+        params.put("video_key", videoKey);
         params.put("video_img", video_img);
         params.put("store_logo", store_logo);
         return new OkObject(params, url);
@@ -501,9 +578,10 @@ public class ErShouCheBJActivity extends BaseActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
+                    LogUtils.e("selectList",selectList.size());
                     for (int i = 0; i < selectList.size(); i++) {
-                        if (!selectList.get(i).getPath().contains("http:")){
-                            getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()),0);
+                        if (!selectList.get(i).getPath().contains("http:")) {
+                                getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()), 0);
                         }
                     }
                     break;
@@ -514,12 +592,13 @@ public class ErShouCheBJActivity extends BaseActivity {
                             .load(selectSingle.get(0).getCutPath())
                             .placeholder(R.mipmap.ic_empty)
                             .into(imageDianPuLogo);
-                    getAppImgAdd(ImgToBase64.toBase64(selectSingle.get(0).getPath()),1);
+                    getAppImgAdd(ImgToBase64.toBase64(selectSingle.get(0).getPath()), 1);
                     break;
                 case PictureConfig.TYPE_VIDEO:
                     List<LocalMedia> selectVideo = PictureSelector.obtainMultipleResult(data);
                     LogUtils.e("selectVideo", selectVideo.get(0).getPath() + "1");
                     LogUtils.e("selectVideoCompress", selectVideo.get(0).getCompressPath() + "2");
+                    videoPath=selectVideo.get(0).getPath();
                     GlideApp.with(context)
                             .asBitmap()
                             .load(selectVideo.get(0).getPath())
@@ -536,7 +615,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                             .load(imageVedio.get(0).getCutPath())
                             .placeholder(R.mipmap.ic_empty)
                             .into(imageZhanShi);
-                    getAppImgAdd(ImgToBase64.toBase64(imageVedio.get(0).getPath()),2);
+                    getAppImgAdd(ImgToBase64.toBase64(imageVedio.get(0).getPath()), 2);
                     break;
                 default:
                     break;
@@ -567,12 +646,15 @@ public class ErShouCheBJActivity extends BaseActivity {
                     Respond_AppImgAdd respondAppImgAdd = GsonUtils.parseJSON(s, Respond_AppImgAdd.class);
                     int status = respondAppImgAdd.getStatus();
                     if (status == 1) {
-                        if (type==0){
+                        if (type == 0) {
                             Chushi.add(respondAppImgAdd.getImgId());
-                        }else if (type==1){
-                            store_logo=respondAppImgAdd.getImg();
-                        }else if (type==2){
-                            video_img=respondAppImgAdd.getImg();
+                            LogUtils.e(Chushi);
+                        } else if (type == 1) {
+                            store_logo = respondAppImgAdd.getImg();
+                            ivDelSimg.setVisibility(View.VISIBLE);
+                        } else if (type == 2) {
+                            video_img = respondAppImgAdd.getImg();
+                            ivDelVimg.setVisibility(View.VISIBLE);
                         }
                     } else {
                         ToastUtils.showShort(respondAppImgAdd.getInfo());
@@ -607,6 +689,7 @@ public class ErShouCheBJActivity extends BaseActivity {
 
     List<File> files = new ArrayList<>();
     private static ProgressDialog progressDialog;
+
     private void upFile() {
         HttpApi.post(context, getOkObjectUp(), new HttpApi.CallBack() {
             @Override
@@ -641,6 +724,9 @@ public class ErShouCheBJActivity extends BaseActivity {
                                         if (info.isOK()) {
                                             try {
                                                 video = res.getString("key");
+                                                videoKey = res.getString("key");
+                                                ivDel.setVisibility(View.VISIBLE);
+                                                imagePlay.setVisibility(View.VISIBLE);
                                                 ToastUtils.showShort("上传成功！");
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -682,12 +768,14 @@ public class ErShouCheBJActivity extends BaseActivity {
             }
         });
     }
+
     private OkObject getOkObjectUp() {
         String url = Constant.HOST + Constant.Url.Respond_Qntoken;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
     }
+
     private OkObject getOkObjectUserUpload() {
         String url = Constant.HOST + Constant.Url.Uploads_Appimgs;
         HashMap<String, String> params = new HashMap<>();

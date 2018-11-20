@@ -52,6 +52,7 @@ public class BaseEvent {
 	public final static String TuiJianJL = "TuiJianJL";
 	public final static String DeleteImg = "DeleteImg";
 	public final static String CarImage = "CarImage";
+	public final static String ShowTips = "ShowTips";
 
 	public final static String INDEX = "index";
 

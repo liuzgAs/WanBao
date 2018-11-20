@@ -1,45 +1,88 @@
-<com.wanbao.base.view.TabFragmentHost android:id="@+id/tabHost"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:clipChildren="false"
+    <com.wanbao.base.view.TabFragmentHost xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tabHost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:clipChildren="false">
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0">
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/realtab"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-        </FrameLayout>
+            android:clipChildren="false"
+            android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            app:cardElevation="@dimen/dp_6"
-            android:layout_height="@dimen/dp_50">
-            <TabWidget
-                android:clipChildren="false"
-                android:id="@android:id/tabs"
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/realtab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|bottom"
-                android:background="@color/title_banckground"
-                android:divider="@null">
-            </TabWidget>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-</com.wanbao.base.view.TabFragmentHost>
+                android:layout_above="@+id/footer"
+                android:layout_weight="1"></FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/viewSos"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_3"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tabs_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:gravity="center"
+                    android:textColor="@color/tab_text"
+                    android:textSize="@dimen/sp_12" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_alignParentBottom="true"
+                app:cardElevation="@dimen/dp_6">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:background="@color/title_banckground"
+                    android:clipChildren="false"
+                    android:divider="@null"></TabWidget>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+    </com.wanbao.base.view.TabFragmentHost>
+    <com.zhl.userguideview.UserGuideView
+        android:id="@+id/guideView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:HighlightViewStyle="circle"
+        app:MaskBlurStyle="solid"
+        app:maskColor="#b7000000"
+        app:tipView="@mipmap/logo" />
+</RelativeLayout>

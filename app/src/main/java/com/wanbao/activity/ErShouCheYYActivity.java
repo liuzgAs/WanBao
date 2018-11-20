@@ -121,6 +121,14 @@ public class ErShouCheYYActivity extends BaseActivity {
     ImageView imageZhanShi;
     @BindView(R.id.textTips)
     TextView textTips;
+    @BindView(R.id.iv_del)
+    ImageView ivDel;
+    @BindView(R.id.imagePlay)
+    ImageView imagePlay;
+    @BindView(R.id.iv_del_vimg)
+    ImageView ivDelVimg;
+    @BindView(R.id.iv_del_simg)
+    ImageView ivDelSimg;
     private GridImage1Adapter adapter;
     private List<LocalMedia> selectList = new ArrayList<>();
     private List<LocalMedia> selectList1 = new ArrayList<>();
@@ -131,12 +139,14 @@ public class ErShouCheYYActivity extends BaseActivity {
     private String cid;
     private String cityId;
     private String video;
+    private String videoPath;
     private String store_logo;
     private String video_img;
     public static final String IMAGES = "storage/emulated/qianche/s.jpg";
     private int video_second = 10;
     private UploadManager uploadManager;
     private XinShiZZM xinShiZZM;
+    private String videoKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,10 +240,33 @@ public class ErShouCheYYActivity extends BaseActivity {
         sellerOnlineBefore();
     }
 
-    @OnClick({R.id.textPaiZhao,R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
+    @OnClick({R.id.iv_del_vimg, R.id.iv_del_simg,R.id.imagePlay, R.id.iv_del,R.id.textPaiZhao,R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.imagePlay:
+                if (!TextUtils.isEmpty(video)) {
+                    PictureSelector.create(ErShouCheYYActivity.this).externalPictureVideo(videoPath);
+                }
+                break;
+            case R.id.iv_del_simg:
+                ivDelSimg.setVisibility(View.INVISIBLE);
+                store_logo = "";
+                imageDianPuLogo.setImageResource(R.mipmap.addimg_1x);
+                break;
+            case R.id.iv_del_vimg:
+                ivDelVimg.setVisibility(View.INVISIBLE);
+                video_img = "";
+                imageZhanShi.setImageResource(R.mipmap.addimg_1x);
+                break;
+            case R.id.iv_del:
+                ivDel.setVisibility(View.INVISIBLE);
+                imagePlay.setVisibility(View.INVISIBLE);
+                video = "";
+                videoPath="";
+                videoKey = "";
+                imageKanCheSP.setImageResource(R.mipmap.addimg_1x);
+                break;
             case R.id.imageback:
                 finish();
                 break;
@@ -276,34 +309,48 @@ public class ErShouCheYYActivity extends BaseActivity {
                 datePickerDialog.show();
                 break;
             case R.id.imageKanCheSP:
-                PictureSelector.create(ErShouCheYYActivity.this)
-                        .openCamera(PictureMimeType.ofVideo())
-                        .videoMaxSecond(video_second)
-                        .recordVideoSecond(video_second)
-                        .compress(true)
-                        .forResult(PictureConfig.TYPE_VIDEO);
+                if (TextUtils.isEmpty(video)) {
+                    PictureSelector.create(ErShouCheYYActivity.this)
+                            .openCamera(PictureMimeType.ofVideo())
+                            .videoMaxSecond(video_second)
+                            .recordVideoSecond(video_second)
+                            .compress(true)
+                            .forResult(PictureConfig.TYPE_VIDEO);
+                } else {
+                    LogUtils.e("videoPath",videoPath);
+                    PictureSelector.create(ErShouCheYYActivity.this).externalPictureVideo(videoPath);
+                }
                 break;
             case R.id.imageDianPuLogo:
-                PictureSelector.create(ErShouCheYYActivity.this)
-                        .openGallery(PictureMimeType.ofImage())
-                        .selectionMode(PictureConfig.SINGLE)
-                        .previewImage(true)
-                        .isCamera(true)
-                        .imageFormat(PictureMimeType.PNG)
-                        .enableCrop(true)
-                        .compress(true)
-                        .glideOverride(160, 160)
-                        .previewEggs(true)
-                        .withAspectRatio(1, 1)
-                        .freeStyleCropEnabled(true)
-                        .circleDimmedLayer(false)
-                        .showCropFrame(true)
-                        .showCropGrid(true)
-                        .openClickSound(true)
-                        .selectionMedia(selectList1)
-                        .forResult(PictureConfig.SINGLE);
+                if (TextUtils.isEmpty(store_logo)){
+                    PictureSelector.create(ErShouCheYYActivity.this)
+                            .openGallery(PictureMimeType.ofImage())
+                            .selectionMode(PictureConfig.SINGLE)
+                            .previewImage(true)
+                            .isCamera(true)
+                            .imageFormat(PictureMimeType.PNG)
+                            .enableCrop(true)
+                            .compress(true)
+                            .glideOverride(160, 160)
+                            .previewEggs(true)
+                            .withAspectRatio(1, 1)
+                            .freeStyleCropEnabled(true)
+                            .circleDimmedLayer(false)
+                            .showCropFrame(true)
+                            .showCropGrid(true)
+                            .openClickSound(true)
+                            .selectionMedia(selectList1)
+                            .forResult(PictureConfig.SINGLE);
+                }else {
+                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
+                    LocalMedia localMedia=new LocalMedia();
+                    localMedia.setPath(store_logo);
+                    localMedias.add(localMedia);
+                    PictureSelector.create(ErShouCheYYActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
+                }
                 break;
             case R.id.imageZhanShi:
+                if (TextUtils.isEmpty(video_img)){
                 PictureSelector.create(ErShouCheYYActivity.this)
                         .openGallery(PictureMimeType.ofImage())
                         .selectionMode(PictureConfig.SINGLE)
@@ -322,6 +369,13 @@ public class ErShouCheYYActivity extends BaseActivity {
                         .openClickSound(true)
                         .selectionMedia(selectList2)
                         .forResult(PictureConfig.MAX_COMPRESS_SIZE);
+                }else {
+                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
+                    LocalMedia localMedia=new LocalMedia();
+                    localMedia.setPath(video_img);
+                    localMedias.add(localMedia);
+                    PictureSelector.create(ErShouCheYYActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
+                }
                 break;
             case R.id.btnSubmit:
                 if (Chushi.size() == 0) {
@@ -400,11 +454,17 @@ public class ErShouCheYYActivity extends BaseActivity {
                         editDianPuJS.setText(seller_online_before.getStore_intro());
                         video_second = seller_online_before.getVideo_second();
                         textTips.setText(seller_online_before.getTips());
+                        store_logo=seller_online_before.getStore_logo();
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_online_before.getStore_logo())
-                                .placeholder(R.mipmap.ic_empty)
+                                .placeholder(R.mipmap.addimg_1x)
                                 .into(imageDianPuLogo);
+                        if (!TextUtils.isEmpty(seller_online_before.getStore_logo())) {
+                            ivDelSimg.setVisibility(View.VISIBLE);
+                        } else {
+                            ivDelSimg.setVisibility(View.INVISIBLE);
+                        }
                     } else {
                         ToastUtils.showShort(seller_online_before.getInfo());
                     }
@@ -495,9 +555,10 @@ public class ErShouCheYYActivity extends BaseActivity {
         params.put("intro", editCheLiangMS.getText().toString());
         params.put("displacement", editPaiLiang.getText().toString());
         params.put("effluentStandard", editPaiFangBZ.getText().toString());
+        LogUtils.e("imgs", Chushi.toString().replace("[", "").replace("]", ""));
         params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
         params.put("video", video);
-        params.put("video_key", video);
+        params.put("video_key", videoKey);
         params.put("video_img", video_img);
         params.put("store_logo", store_logo);
         return new OkObject(params, url);
@@ -513,6 +574,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
+                    LogUtils.e("selectList",selectList.size());
                     for (int i = 0; i < selectList.size(); i++) {
                         getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()), 0);
                     }
@@ -530,6 +592,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                     List<LocalMedia> selectVideo = PictureSelector.obtainMultipleResult(data);
                     LogUtils.e("selectVideo", selectVideo.get(0).getPath() + "1");
                     LogUtils.e("selectVideoCompress", selectVideo.get(0).getCompressPath() + "2");
+                    videoPath= selectVideo.get(0).getPath();
                     GlideApp.with(context)
                             .asBitmap()
                             .load(selectVideo.get(0).getPath())
@@ -573,17 +636,19 @@ public class ErShouCheYYActivity extends BaseActivity {
             @Override
             public void onSuccess(String s) {
                 dismissDialog();
-                LogUtils.e("getAppImgAdd", s);
                 try {
                     Respond_AppImgAdd respondAppImgAdd = GsonUtils.parseJSON(s, Respond_AppImgAdd.class);
                     int status = respondAppImgAdd.getStatus();
                     if (status == 1) {
                         if (type == 0) {
                             Chushi.add(respondAppImgAdd.getImgId());
+                            LogUtils.e(Chushi);
                         } else if (type == 1) {
                             store_logo = respondAppImgAdd.getImg();
+                            ivDelSimg.setVisibility(View.VISIBLE);
                         } else if (type == 2) {
                             video_img = respondAppImgAdd.getImg();
+                            ivDelVimg.setVisibility(View.VISIBLE);
                         }
                     } else {
                         ToastUtils.showShort(respondAppImgAdd.getInfo());
@@ -701,6 +766,8 @@ public class ErShouCheYYActivity extends BaseActivity {
                                         if (info.isOK()) {
                                             try {
                                                 video = res.getString("key");
+                                                ivDel.setVisibility(View.VISIBLE);
+                                                imagePlay.setVisibility(View.VISIBLE);
                                                 ToastUtils.showShort("上传成功！");
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
