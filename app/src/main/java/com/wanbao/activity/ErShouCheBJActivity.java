@@ -220,7 +220,7 @@ public class ErShouCheBJActivity extends BaseActivity {
         sellerOnlineBefore();
     }
 
-    @OnClick({R.id.iv_del_vimg, R.id.iv_del_simg,R.id.imagePlay, R.id.iv_del, R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
+    @OnClick({R.id.iv_del_vimg, R.id.iv_del_simg, R.id.imagePlay, R.id.iv_del, R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -243,7 +243,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                 ivDel.setVisibility(View.INVISIBLE);
                 imagePlay.setVisibility(View.INVISIBLE);
                 video = "";
-                videoPath="";
+                videoPath = "";
                 videoKey = "";
                 imageKanCheSP.setImageResource(R.mipmap.addimg_1x);
                 break;
@@ -279,63 +279,63 @@ public class ErShouCheBJActivity extends BaseActivity {
                             .compress(true)
                             .forResult(PictureConfig.TYPE_VIDEO);
                 } else {
-                    LogUtils.e("videoPath",videoPath);
+                    LogUtils.e("videoPath", videoPath);
                     PictureSelector.create(ErShouCheBJActivity.this).externalPictureVideo(videoPath);
                 }
                 break;
             case R.id.imageDianPuLogo:
-                if (TextUtils.isEmpty(store_logo)){
+                if (TextUtils.isEmpty(store_logo)) {
 
                     PictureSelector.create(ErShouCheBJActivity.this)
-                        .openGallery(PictureMimeType.ofImage())
-                        .selectionMode(PictureConfig.SINGLE)
-                        .previewImage(true)
-                        .isCamera(true)
-                        .imageFormat(PictureMimeType.PNG)
-                        .enableCrop(true)
-                        .compress(true)
-                        .glideOverride(160, 160)
-                        .previewEggs(true)
-                        .withAspectRatio(1, 1)
-                        .freeStyleCropEnabled(true)
-                        .circleDimmedLayer(false)
-                        .showCropFrame(true)
-                        .showCropGrid(true)
-                        .openClickSound(true)
-                        .selectionMedia(selectList1)
-                        .forResult(PictureConfig.SINGLE);
-                }else {
-                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
-                    LocalMedia localMedia=new LocalMedia();
+                            .openGallery(PictureMimeType.ofImage())
+                            .selectionMode(PictureConfig.SINGLE)
+                            .previewImage(true)
+                            .isCamera(true)
+                            .imageFormat(PictureMimeType.PNG)
+                            .enableCrop(true)
+                            .compress(true)
+                            .glideOverride(160, 160)
+                            .previewEggs(true)
+                            .withAspectRatio(1, 1)
+                            .freeStyleCropEnabled(true)
+                            .circleDimmedLayer(false)
+                            .showCropFrame(true)
+                            .showCropGrid(true)
+                            .openClickSound(true)
+                            .selectionMedia(selectList1)
+                            .forResult(PictureConfig.SINGLE);
+                } else {
+                    ArrayList<LocalMedia> localMedias = new ArrayList<>();
+                    LocalMedia localMedia = new LocalMedia();
                     localMedia.setPath(store_logo);
                     localMedias.add(localMedia);
                     PictureSelector.create(ErShouCheBJActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
                 }
                 break;
             case R.id.imageZhanShi:
-                if (TextUtils.isEmpty(video_img)){
+                if (TextUtils.isEmpty(video_img)) {
 
                     PictureSelector.create(ErShouCheBJActivity.this)
-                        .openGallery(PictureMimeType.ofImage())
-                        .selectionMode(PictureConfig.SINGLE)
-                        .previewImage(true)
-                        .isCamera(true)
-                        .imageFormat(PictureMimeType.PNG)
-                        .enableCrop(true)
-                        .compress(true)
-                        .glideOverride(160, 160)
-                        .previewEggs(true)
-                        .withAspectRatio(1, 1)
-                        .freeStyleCropEnabled(true)
-                        .circleDimmedLayer(false)
-                        .showCropFrame(true)
-                        .showCropGrid(true)
-                        .openClickSound(true)
-                        .selectionMedia(selectList2)
-                        .forResult(PictureConfig.MAX_COMPRESS_SIZE);
-                }else {
-                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
-                    LocalMedia localMedia=new LocalMedia();
+                            .openGallery(PictureMimeType.ofImage())
+                            .selectionMode(PictureConfig.SINGLE)
+                            .previewImage(true)
+                            .isCamera(true)
+                            .imageFormat(PictureMimeType.PNG)
+                            .enableCrop(true)
+                            .compress(true)
+                            .glideOverride(160, 160)
+                            .previewEggs(true)
+                            .withAspectRatio(1, 1)
+                            .freeStyleCropEnabled(true)
+                            .circleDimmedLayer(false)
+                            .showCropFrame(true)
+                            .showCropGrid(true)
+                            .openClickSound(true)
+                            .selectionMedia(selectList2)
+                            .forResult(PictureConfig.MAX_COMPRESS_SIZE);
+                } else {
+                    ArrayList<LocalMedia> localMedias = new ArrayList<>();
+                    LocalMedia localMedia = new LocalMedia();
                     localMedia.setPath(video_img);
                     localMedias.add(localMedia);
                     PictureSelector.create(ErShouCheBJActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
@@ -376,10 +376,6 @@ public class ErShouCheBJActivity extends BaseActivity {
                 }
                 if (TextUtils.isEmpty(editPaiLiang.getText().toString())) {
                     ToastUtils.showShort("请输入排量");
-                    return;
-                }
-                if (TextUtils.isEmpty(editPaiFangBZ.getText().toString())) {
-                    ToastUtils.showShort("请输入排放标准");
                     return;
                 }
                 sellerOnline();
@@ -428,7 +424,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                                 .into(imageKanCheSP);
                         video_img = seller_carEditBefore.getData().getVideo_img();
                         video = seller_carEditBefore.getData().getVideo();
-                        videoPath= seller_carEditBefore.getData().getVideo();
+                        videoPath = seller_carEditBefore.getData().getVideo();
                         if (!TextUtils.isEmpty(video)) {
                             ivDel.setVisibility(View.VISIBLE);
                             imagePlay.setVisibility(View.VISIBLE);
@@ -457,7 +453,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                         editDianPuXX.setText(seller_carEditBefore.getData().getStore_name());
                         editDianPuDH.setText(seller_carEditBefore.getData().getStore_tel());
                         editDianPuJS.setText(seller_carEditBefore.getData().getStore_intro());
-                        store_logo=seller_carEditBefore.getData().getStore_logo();
+                        store_logo = seller_carEditBefore.getData().getStore_logo();
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_carEditBefore.getData().getStore_logo())
@@ -578,10 +574,10 @@ public class ErShouCheBJActivity extends BaseActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
-                    LogUtils.e("selectList",selectList.size());
+                    LogUtils.e("selectList", selectList.size());
                     for (int i = 0; i < selectList.size(); i++) {
                         if (!selectList.get(i).getPath().contains("http:")) {
-                                getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()), 0);
+                            getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()), 0);
                         }
                     }
                     break;
@@ -598,7 +594,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                     List<LocalMedia> selectVideo = PictureSelector.obtainMultipleResult(data);
                     LogUtils.e("selectVideo", selectVideo.get(0).getPath() + "1");
                     LogUtils.e("selectVideoCompress", selectVideo.get(0).getCompressPath() + "2");
-                    videoPath=selectVideo.get(0).getPath();
+                    videoPath = selectVideo.get(0).getPath();
                     GlideApp.with(context)
                             .asBitmap()
                             .load(selectVideo.get(0).getPath())
@@ -606,6 +602,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                             .into(imageKanCheSP);
                     files.clear();
                     files.add(new File(selectVideo.get(0).getPath()));
+                    LogUtils.e(files);
                     upFile();
                     break;
                 case PictureConfig.MAX_COMPRESS_SIZE:

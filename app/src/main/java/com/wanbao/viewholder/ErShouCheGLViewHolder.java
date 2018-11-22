@@ -156,6 +156,8 @@ public class ErShouCheGLViewHolder extends BaseViewHolder<Seller_CarManage.DataB
                     setSele(0, String.valueOf(data.getId()));
                 } else if (data.getState() == 20) {
                     setSele(1, String.valueOf(data.getId()));
+                } else if (data.getState() == 40) {
+                    setSele(1, String.valueOf(data.getId()));
                 }
             }
         });

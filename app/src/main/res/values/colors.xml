@@ -19,6 +19,7 @@
     <color name="light_black">#444444</color>
     <color name="tranwhite">#66ffffff</color>
     <color name="tran">#00ffffff</color>
+    <color name="tips">#b7000000</color>
 
 
     <color name="transparent">#00000000</color>

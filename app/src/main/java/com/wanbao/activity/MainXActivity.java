@@ -2,11 +2,10 @@ package com.wanbao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
@@ -26,12 +25,12 @@ import com.wanbao.fragment.MakeMoneyFragment;
 import com.wanbao.fragment.MyCarXFragment;
 import com.wanbao.fragment.SosFragment;
 import com.wanbao.modle.MyMessage;
-import com.zhl.userguideview.UserGuideView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainXActivity extends BaseNoLeftActivity {
 
@@ -43,12 +42,12 @@ public class MainXActivity extends BaseNoLeftActivity {
     TabWidget tabs;
     @BindView(R.id.tabHost)
     TabFragmentHost tabHost;
-    @BindView(R.id.guideView)
-    UserGuideView guideView;
     View tipTextView;
-    @BindView(R.id.viewSos)
-    RelativeLayout viewSos;
     View tipView;
+    @BindView(R.id.footer)
+    CardView footer;
+    @BindView(R.id.imageBg)
+    ImageView imageBg;
     private int tips;
     private String[] tabsItem = new String[5];
     private Class[] fragment = new Class[]{
@@ -87,9 +86,6 @@ public class MainXActivity extends BaseNoLeftActivity {
 
     @Override
     protected void initViews() {
-        guideView.setTouchOutsideDismiss(true);
-        tipTextView = LayoutInflater.from(this).inflate(R.layout.custom_tipview, null);
-        guideView.setTipView(tipTextView, 400, 200);
         tabsItem[0] = "首页";
         tabsItem[1] = "发现";
         tabsItem[2] = "SOS";
@@ -98,8 +94,8 @@ public class MainXActivity extends BaseNoLeftActivity {
         tabHost.setup(this, getSupportFragmentManager(), R.id.realtab);
         for (int i = 0; i < tabsItem.length; i++) {
             View inflate = getLayoutInflater().inflate(R.layout.tabs_item, null);
-            if (i==2){
-                tipView=inflate;
+            if (i == 2) {
+                tipView = inflate;
             }
             TextView tabs_text = (TextView) inflate.findViewById(R.id.tabs_text);
             ImageView tabs_img = (ImageView) inflate.findViewById(R.id.tabs_img);
@@ -107,21 +103,22 @@ public class MainXActivity extends BaseNoLeftActivity {
             tabs_img.setImageResource(imgRes[i]);
             tabHost.addTab(tabHost.newTabSpec(tabsItem[i]).setIndicator(inflate), fragment[i], null);
         }
-        tips=SPUtils.getInstance().getInt(Constant.SF.ShowTips, 1);
-        if (tipView!=null&&tips<4){
-            guideView.setHighLightView(tipView);
+        tips = SPUtils.getInstance().getInt(Constant.SF.ShowTips, 1);
+        if (tips < 4) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(500);
+                        imageBg.setVisibility(View.VISIBLE);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         LogUtils.getConfig().setLogSwitch(true);
-        guideView.setOnDismissListener(new UserGuideView.OnDismissListener() {
-            @Override
-            public void onDismiss(UserGuideView userGuideView) {
-                if (tips<4){
-                    SPUtils.getInstance().put(Constant.SF.ShowTips,tips+1);
-                }
-                EventBus.getDefault().post(new BaseEvent(BaseEvent.ShowTips,null));
-            }
-        });
     }
 
     @Override
@@ -313,5 +310,14 @@ public class MainXActivity extends BaseNoLeftActivity {
             default:
                 break;
         }
+    }
+
+    @OnClick(R.id.imageBg)
+    public void onViewClicked() {
+        imageBg.setVisibility(View.GONE);
+        if (tips < 4) {
+            SPUtils.getInstance().put(Constant.SF.ShowTips, tips + 1);
+        }
+        EventBus.getDefault().post(new BaseEvent(BaseEvent.ShowTips, null));
     }
 }

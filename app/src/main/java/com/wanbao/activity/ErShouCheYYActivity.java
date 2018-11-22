@@ -29,7 +29,9 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -145,6 +147,7 @@ public class ErShouCheYYActivity extends BaseActivity {
     public static final String IMAGES = "storage/emulated/qianche/s.jpg";
     private int video_second = 10;
     private UploadManager uploadManager;
+    private UploadOptions uploadOptions;
     private XinShiZZM xinShiZZM;
     private String videoKey;
 
@@ -165,10 +168,17 @@ public class ErShouCheYYActivity extends BaseActivity {
     protected void initIntent() {
 
     }
-
+    Configuration config = new Configuration.Builder()
+            .chunkSize(512 * 1024)        // 分片上传时，每片的大小。 默认256K
+            .putThreshhold(1024 * 1024)   // 启用分片上传阀值。默认512K
+            .connectTimeout(10)           // 链接超时。默认10秒
+            .useHttps(true)               // 是否使用https上传域名
+            .responseTimeout(60)          // 服务器响应超时。默认60秒
+            .zone(FixedZone.zone2)        // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
+            .build();
     @Override
     protected void initViews() {
-        uploadManager = new UploadManager();
+        uploadManager = new UploadManager(config);
         titleText.setText("预约上架");
         editVin.setTransformationMethod(new A2bigA());
         FullyGridLayoutManager manager = new FullyGridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false);
@@ -416,10 +426,6 @@ public class ErShouCheYYActivity extends BaseActivity {
                 }
                 if (TextUtils.isEmpty(editPaiLiang.getText().toString())) {
                     ToastUtils.showShort("请输入排量");
-                    return;
-                }
-                if (TextUtils.isEmpty(editPaiFangBZ.getText().toString())) {
-                    ToastUtils.showShort("请输入排放标准");
                     return;
                 }
                 sellerOnline();
@@ -703,6 +709,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                     Uploads_Appimgs userUpload = GsonUtils.parseJSON(s, Uploads_Appimgs.class);
                     if (userUpload.getStatus() == 1) {
                         video = userUpload.getImg().get(0).getId();
+                        videoKey= userUpload.getImg().get(0).getId();
                     } else {
                         ToastUtils.showShort(userUpload.getInfo());
                     }
@@ -766,6 +773,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                                         if (info.isOK()) {
                                             try {
                                                 video = res.getString("key");
+                                                videoKey= res.getString("key");
                                                 ivDel.setVisibility(View.VISIBLE);
                                                 imagePlay.setVisibility(View.VISIBLE);
                                                 ToastUtils.showShort("上传成功！");

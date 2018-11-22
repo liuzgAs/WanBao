@@ -7,9 +7,12 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -620,6 +623,10 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         Intent intent;
         switch (view.getId()) {
             case R.id.address:
+                if (!checkGPSIsOpen()){
+                    openGPSSettings();
+                    return;
+                }
                 getAddressPermissions();
 //                intent.setClass(context, XuanZheCSActivity.class);
 //                startActivity(intent);
@@ -1024,5 +1031,49 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             IndexBonusget indexBonusget = (IndexBonusget) data.getSerializableExtra(Constant.INTENT_KEY.value);
             showHongBaoDialog(indexBonusget);
         }
+    }
+
+    /**
+     * 检测GPS是否打开
+     *
+     * @return
+     */
+    private boolean checkGPSIsOpen() {
+        boolean isOpen;
+        LocationManager locationManager = (LocationManager) getActivity()
+                .getSystemService(Context.LOCATION_SERVICE);
+        isOpen = locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
+        return isOpen;
+    }
+    private int GPS_REQUEST_CODE = 10;
+
+    /**
+     * 跳转GPS设置
+     */
+    private void openGPSSettings() {
+            //没有打开则弹出对话框
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.notifyTitle)
+                    .setMessage("请打开GPS")
+                    // 拒绝, 退出应用
+                    .setNegativeButton(R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            })
+
+                    .setPositiveButton(R.string.setting,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //跳转GPS设置界面
+                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivityForResult(intent, GPS_REQUEST_CODE);
+                                }
+                            })
+
+                    .setCancelable(false)
+                    .show();
     }
 }
