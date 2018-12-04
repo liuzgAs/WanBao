@@ -211,6 +211,40 @@ public class HttpApi {
     }
 
     /**
+     * des： 七牛云上传文件
+     * date： 2017/11/8 0008 上午 11:40
+     */
+    public static void upQiFiles(Context context, OkObject okObject, List<File> files,String upload_token, final UpLoadCallBack callBack) {
+        HashMap<String, String> params = okObject.getParams();
+        /*买家1卖家2拍摄3小程序4*/
+        params.put("action", "https://upload-z2.qiniup.com");
+        params.put("token", upload_token);
+        okObject.setParams(params);
+        LogUtils.e("ApiClient--发送", "" + okObject.getJson());
+        OkGo.<String>post(okObject.getUrl())
+                .tag(context)
+                .addFileParams("file", files)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        callBack.onSuccess(response.body());
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        callBack.onError();
+                    }
+
+                    @Override
+                    public void uploadProgress(Progress progress) {
+                        super.uploadProgress(progress);
+                        callBack.uploadProgress(progress.fraction * 100);
+                    }
+                });
+    }
+
+    /**
      * 下载文件
      *
      * @param context

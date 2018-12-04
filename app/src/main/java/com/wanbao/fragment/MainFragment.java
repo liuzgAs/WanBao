@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.sunfusheng.marqueeview.MarqueeView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.wanbao.R;
 import com.wanbao.activity.AiCheDangAnActivity;
 import com.wanbao.activity.BanDingCLActivity;
@@ -50,7 +52,6 @@ import com.wanbao.activity.TouTiaoLBActivity;
 import com.wanbao.activity.WebHongBaoActivity;
 import com.wanbao.activity.WebViewActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
-import com.wanbao.activity.XiaoXiActivity;
 import com.wanbao.activity.XinCheZTActivity;
 import com.wanbao.activity.XuanZheCheXSJActivity;
 import com.wanbao.activity.YouZhiESCActivity;
@@ -62,6 +63,7 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
+import com.wanbao.base.util.RecycleViewDistancaUtil;
 import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.Bonus_BonusDown;
 import com.wanbao.modle.IndexBonusbefore;
@@ -94,14 +96,10 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @BindView(R.id.lv_main)
     EasyRecyclerView recyclerView;
     Unbinder unbinder;
-    @BindView(R.id.address)
-    TextView address;
-    @BindView(R.id.imageSousuo)
-    ImageView imageSousuo;
-    @BindView(R.id.viewBar)
-    LinearLayout viewBar;
     @BindView(R.id.imageHongBaoDialog)
     ImageView imageHongBaoDialog;
+    @BindView(R.id.viewBar)
+    LinearLayout viewBar;
     private RecyclerArrayAdapter<Index_Home.TeamDataBean> adapter;
     private View view;
     //声明AMapLocationClient类对象
@@ -115,6 +113,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private boolean isHongBaoShow = false;
     private Dialog mDialog;
     private Bonus_BonusDown bonus_bonusDown;
+
     public static MainFragment newInstance() {
         MainFragment mf = new MainFragment();
         return mf;
@@ -172,6 +171,8 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initViews() {
+        LogUtils.e(viewBar);
+        viewBar.getBackground().mutate().setAlpha(0);
         initRecycler();
 
         //初始化定位
@@ -184,7 +185,20 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void setListeners() {
-
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int scrollY = RecycleViewDistancaUtil.getDistance(recyclerView, 0);
+                float guangGaoHeight = getResources().getDimension(R.dimen.dp_200);
+                if (scrollY <= guangGaoHeight - viewBar.getHeight() && scrollY >= 0) {
+                    int baiFenBi = (int) ((double) scrollY / (double) (guangGaoHeight - viewBar.getHeight()) * 255);
+                    viewBar.getBackground().mutate().setAlpha(baiFenBi);
+                } else {
+                    viewBar.getBackground().mutate().setAlpha(255);
+                }
+            }
+        });
     }
 
     @Override
@@ -200,7 +214,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onStart() {
         super.onStart();
-        if (!isHongBaoShow&&SPUtils.getInstance().getInt(Constant.SF.ShowTips, 1)>=4) {
+        if (!isHongBaoShow && SPUtils.getInstance().getInt(Constant.SF.ShowTips, 1) >= 4) {
             hongBaoQingQing();
             isHongBaoShow = true;
         }
@@ -209,7 +223,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private void initRecycler() {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(manager);
-        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(0, getActivity()));
+        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(5f, getActivity()));
         recyclerView.addItemDecoration(spaceDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
         recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Index_Home.TeamDataBean>(context) {
@@ -243,12 +257,12 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 viewPmzc = view.findViewById(R.id.viewPmzc);
                 viewScsj = view.findViewById(R.id.viewScsj);
                 viewHdxx = view.findViewById(R.id.viewHdxx);
-                int screenWidth = ScreenUtils.getScreenWidth(context);
-                ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
-                layoutParams.width = (int) (screenWidth - context.getResources().getDimension(R.dimen.dp_20));
-                banner.setLayoutParams(layoutParams);
-                LogUtils.e("ShouYeFragment--onCreateView", "" + (int) (480f * (float) screenWidth / 1080f));
-                layoutParams.height = (int) (480f * (float) screenWidth / 1080f);
+//                int screenWidth = ScreenUtils.getScreenWidth(context);
+//                ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+//                layoutParams.width = (int) (screenWidth - context.getResources().getDimension(R.dimen.dp_20));
+//                banner.setLayoutParams(layoutParams);
+//                LogUtils.e("ShouYeFragment--onCreateView", "" + (int) (480f * (float) screenWidth / 1080f));
+//                layoutParams.height = (int) (420f * (float) screenWidth / 750f);
                 marqueeView = view.findViewById(R.id.marqueeView);
                 return view;
             }
@@ -518,6 +532,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         params.put("p", page + "");
         return new OkObject(params, url);
     }
+
     /**
      * 红包请求
      */
@@ -562,6 +577,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         });
     }
+
     /**
      * des： 网络请求参数
      * author： ZhangJieBo
@@ -573,6 +589,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid, 0) + "");
         return new OkObject(params, url);
     }
+
     private void getAddressPermissions() {
         RxPermissions rxPermissions = new RxPermissions(getActivity());
         rxPermissions
@@ -590,7 +607,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                         } else {
                             dismissDialog();
                             Toast.makeText(context, "拒绝权限,点击重新申请！", Toast.LENGTH_SHORT).show();
-                            address.setText("定位失败，点击重试");
+//                            address.setText("定位失败，点击重试");
                         }
                     }
 
@@ -607,7 +624,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void setDingw() {
-        address.setText("定位中..");
+//        address.setText("定位中..");
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mLocationOption.setOnceLocation(true);
@@ -617,44 +634,65 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         //启动定位
         mLocationClient.startLocation();
     }
-
-    @OnClick({R.id.address, R.id.imageSousuo})
+    private static final int REQUEST_CODE=1425;
+    @OnClick({R.id.imageSaoMiao, R.id.imageGouWuChe, R.id.viewSouSuo})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.address:
-                if (!checkGPSIsOpen()){
-                    openGPSSettings();
-                    return;
-                }
-                getAddressPermissions();
-//                intent.setClass(context, XuanZheCSActivity.class);
-//                startActivity(intent);
+            case R.id.imageSaoMiao:
+                getCameraAddressPermissions();
                 break;
-            case R.id.imageSousuo:
-                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
-                    intent = new Intent();
-                    intent.setClass(context, LoginActivity.class);
-                    startActivity(intent);
-                    return;
-                }
-                intent = new Intent();
-                intent.setClass(getActivity(), XiaoXiActivity.class);
-                startActivity(intent);
+            case R.id.imageGouWuChe:
+                ToastUtils.showShort("暂无功能！");
+                break;
+            case R.id.viewSouSuo:
+                ToastUtils.showShort("暂无功能！");
                 break;
             default:
                 break;
         }
     }
 
+    private void getCameraAddressPermissions() {
+        RxPermissions rxPermissions = new RxPermissions(getActivity());
+        rxPermissions
+                .request(Manifest.permission.CAMERA)
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if (aBoolean) {
+                            Intent intent = new Intent(context, CaptureActivity.class);
+                            startActivityForResult(intent, REQUEST_CODE);
+                        } else {
+                            Toast.makeText(context, "需要开启相机权限！", Toast.LENGTH_SHORT).show();
+//                            address.setText("定位失败，点击重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
                 //可在其中解析amapLocation获取相应内容。
 //                address.setText(amapLocation.getAddress());
-                address.setText(amapLocation.getCity().toString() + amapLocation.getDistrict().toString() + amapLocation.getStreet().toString()
-                        + amapLocation.getStreetNum().toString());
+//                address.setText(amapLocation.getCity().toString() + amapLocation.getDistrict().toString() + amapLocation.getStreet().toString()
+//                        + amapLocation.getStreetNum().toString());
                 SPUtils.getInstance().put(Constant.SF.Latitude, String.valueOf(amapLocation.getLatitude()));
                 SPUtils.getInstance().put(Constant.SF.Longitude, String.valueOf(amapLocation.getLongitude()));
 
@@ -662,7 +700,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             } else {
                 dismissDialog();
-                address.setText("定位失败，点击重试");
+//                address.setText("定位失败，点击重试");
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
@@ -727,15 +765,12 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         return new OkObject(params, url);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 
     @OnClick(R.id.imageHongBaoDialog)
     public void onViewClicked() {
         hongBaoQingQing();
     }
+
     /**
      * 红包弹窗
      */
@@ -917,6 +952,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             mDialog.show();
         }
     }
+
     /**
      * 抢红包
      */
@@ -925,7 +961,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             mDialog.dismiss();
         }
         if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
-            Intent intent=new Intent();
+            Intent intent = new Intent();
             intent.setClass(context, LoginActivity.class);
             startActivity(intent);
             return;
@@ -955,7 +991,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                                     .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-                                            Intent intent=new Intent(context,ShiMinRzActivity.class);
+                                            Intent intent = new Intent(context, ShiMinRzActivity.class);
                                             startActivity(intent);
                                         }
                                     })
@@ -985,6 +1021,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         });
     }
+
     /**
      * des： 网络请求参数
      * author： ZhangJieBo
@@ -996,6 +1033,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid, 0) + "");
         return new OkObject(params, url);
     }
+
     /**
      * 抢到红包
      *
@@ -1024,6 +1062,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         });
         Toast.makeText(context, indexBonusget.getDes(), Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1042,38 +1081,39 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         boolean isOpen;
         LocationManager locationManager = (LocationManager) getActivity()
                 .getSystemService(Context.LOCATION_SERVICE);
-        isOpen = locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
+        isOpen = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         return isOpen;
     }
+
     private int GPS_REQUEST_CODE = 10;
 
     /**
      * 跳转GPS设置
      */
     private void openGPSSettings() {
-            //没有打开则弹出对话框
-            new AlertDialog.Builder(context)
-                    .setTitle(R.string.notifyTitle)
-                    .setMessage("请打开GPS")
-                    // 拒绝, 退出应用
-                    .setNegativeButton(R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            })
+        //没有打开则弹出对话框
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.notifyTitle)
+                .setMessage("请打开GPS")
+                // 拒绝, 退出应用
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
 
-                    .setPositiveButton(R.string.setting,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //跳转GPS设置界面
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivityForResult(intent, GPS_REQUEST_CODE);
-                                }
-                            })
+                .setPositiveButton(R.string.setting,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //跳转GPS设置界面
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivityForResult(intent, GPS_REQUEST_CODE);
+                            }
+                        })
 
-                    .setCancelable(false)
-                    .show();
+                .setCancelable(false)
+                .show();
     }
 }

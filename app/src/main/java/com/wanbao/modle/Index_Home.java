@@ -165,11 +165,19 @@ public class Index_Home implements Serializable{
          * img : http://p7b347z0p.bkt.clouddn.com/image/jjzdfko0_3f4vn7prd3rw5b56d35c6dee3.jpg
          */
 
+        private String priceDes;
         private String des;
         private int id;
         private String title;
         private String img;
         private List<String> tag;
+        public String getPriceDes() {
+            return priceDes;
+        }
+
+        public void setPriceDes(String priceDes) {
+            this.priceDes = priceDes;
+        }
         public String getDes() {
             return des;
         }

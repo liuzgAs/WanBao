@@ -14,8 +14,8 @@ android {
         applicationId "com.wanbao"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 18112201
-        versionName "1.0.0"
+        versionCode 18120401
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
         multiDexEnabled true
@@ -119,4 +119,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation project(':Application')
     implementation 'com.github.yilylong:UserGuideView:1.0.5'
+    compile 'cn.yipianfengye.android:zxing-library:2.2'
+//    compile 'com.mabeijianxi:small-video-record:1.2.2'
+//    compile 'com.mabeijianxi:small-video-record2:2.0.3@aar'
 }

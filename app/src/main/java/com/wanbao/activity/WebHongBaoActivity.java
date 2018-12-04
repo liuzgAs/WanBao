@@ -110,8 +110,8 @@ public class WebHongBaoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.imageBack:
-                back();
+            case R.id.imageback:
+                finish();
                 break;
             case R.id.btnHongBao:
                 HttpApi.post(context, getQiangHongBAoOkObject(), new HttpApi.CallBack() {

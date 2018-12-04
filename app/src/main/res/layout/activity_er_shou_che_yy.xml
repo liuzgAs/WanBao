@@ -453,7 +453,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_13"
                     android:textColor="@color/new_important_text"
-                    android:text="L"/>
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

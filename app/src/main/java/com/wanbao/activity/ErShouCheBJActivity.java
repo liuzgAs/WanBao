@@ -3,8 +3,10 @@ package com.wanbao.activity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -24,6 +26,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCancellationSignal;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -31,6 +34,7 @@ import com.qiniu.android.storage.UploadOptions;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.GridImage1Adapter;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
@@ -39,6 +43,7 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.ImgToBase64;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.A2bigA;
+import com.wanbao.base.util.FormatUtil;
 import com.wanbao.base.util.FullyGridLayoutManager;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Car_Index;
@@ -136,6 +141,7 @@ public class ErShouCheBJActivity extends BaseActivity {
     private String video_img;
     private int video_second = 10;
     private UploadManager uploadManager;
+    private static long myByte=26214400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +163,7 @@ public class ErShouCheBJActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        uploadManager = new UploadManager();
+        uploadManager = new UploadManager(AppContext.getIntance().config);
         titleText.setText("二手车编辑");
         editVin.setTransformationMethod(new A2bigA());
         FullyGridLayoutManager manager = new FullyGridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false);
@@ -272,11 +278,16 @@ public class ErShouCheBJActivity extends BaseActivity {
                 break;
             case R.id.imageKanCheSP:
                 if (TextUtils.isEmpty(video)) {
+//                    PictureSelector.create(ErShouCheBJActivity.this)
+//                            .openCamera(PictureMimeType.ofVideo())
+//                            .videoMaxSecond(video_second)
+//                            .recordVideoSecond(video_second)
+//                            .compress(true)
+//                            .forResult(PictureConfig.TYPE_VIDEO);
+                    isCancelled = false;
                     PictureSelector.create(ErShouCheBJActivity.this)
-                            .openCamera(PictureMimeType.ofVideo())
-                            .videoMaxSecond(video_second)
-                            .recordVideoSecond(video_second)
-                            .compress(true)
+                            .openGallery(PictureMimeType.ofVideo())
+                            .selectionMode(PictureConfig.SINGLE)
                             .forResult(PictureConfig.TYPE_VIDEO);
                 } else {
                     LogUtils.e("videoPath", videoPath);
@@ -595,15 +606,32 @@ public class ErShouCheBJActivity extends BaseActivity {
                     LogUtils.e("selectVideo", selectVideo.get(0).getPath() + "1");
                     LogUtils.e("selectVideoCompress", selectVideo.get(0).getCompressPath() + "2");
                     videoPath = selectVideo.get(0).getPath();
-                    GlideApp.with(context)
-                            .asBitmap()
-                            .load(selectVideo.get(0).getPath())
-                            .placeholder(R.mipmap.ic_empty)
-                            .into(imageKanCheSP);
-                    files.clear();
-                    files.add(new File(selectVideo.get(0).getPath()));
-                    LogUtils.e(files);
-                    upFile();
+                    final File file=new File(selectVideo.get(0).getPath());
+                    if (file.length()>myByte){
+                        new AlertDialog.Builder(ErShouCheBJActivity.this)
+                                .setTitle("提示")
+                                .setMessage("请注意拍摄视频的大小，该视频"+FormatUtil.sizeFormatNum2String(file.length())+"大于25M，上传速度会较慢！")
+                                .setPositiveButton("继续上传", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        files.clear();
+                                        files.add(file);
+                                        upFile();
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                    }else {
+                        files.clear();
+                        files.add(file);
+                        upFile();
+                    }
                     break;
                 case PictureConfig.MAX_COMPRESS_SIZE:
                     List<LocalMedia> imageVedio = PictureSelector.obtainMultipleResult(data);
@@ -686,7 +714,8 @@ public class ErShouCheBJActivity extends BaseActivity {
 
     List<File> files = new ArrayList<>();
     private static ProgressDialog progressDialog;
-
+    // 初始化、执行上传
+    private volatile boolean isCancelled = false;
     private void upFile() {
         HttpApi.post(context, getOkObjectUp(), new HttpApi.CallBack() {
             @Override
@@ -698,6 +727,13 @@ public class ErShouCheBJActivity extends BaseActivity {
                 progressDialog.setMax(100);
                 progressDialog.setIndeterminate(false);
                 progressDialog.setCancelable(false);
+                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "取消上传", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        isCancelled=true;
+                        dialog.dismiss();
+                    }
+                });
                 progressDialog.show();
             }
 
@@ -720,6 +756,11 @@ public class ErShouCheBJActivity extends BaseActivity {
                                         progressDialog.dismiss();
                                         if (info.isOK()) {
                                             try {
+                                                GlideApp.with(context)
+                                                        .asBitmap()
+                                                        .load(files.get(0).getPath())
+                                                        .placeholder(R.mipmap.ic_empty)
+                                                        .into(imageKanCheSP);
                                                 video = res.getString("key");
                                                 videoKey = res.getString("key");
                                                 ivDel.setVisibility(View.VISIBLE);
@@ -744,7 +785,12 @@ public class ErShouCheBJActivity extends BaseActivity {
                                                     }
                                                 });
                                             }
-                                        }, null));
+                                        }, new UpCancellationSignal() {
+                                    @Override
+                                    public boolean isCancelled() {
+                                        return isCancelled;
+                                    }
+                                }));
                     } else {
                         ToastUtils.showShort(respond_qntoken.getInfo());
                     }

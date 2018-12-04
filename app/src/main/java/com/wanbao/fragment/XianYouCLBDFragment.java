@@ -213,7 +213,7 @@ public class XianYouCLBDFragment extends PSFragment {
             "冀", "青", "鲁", "豫", "苏",
             "皖", "浙", "赣", "湘",
             "鄂", "琼", "甘", "陕",
-            "黔", "滇", "川"
+            "贵", "滇", "川"
     };
     private Usercar_Query usercar_query;
     private XinShiZZM xinShiZZM;

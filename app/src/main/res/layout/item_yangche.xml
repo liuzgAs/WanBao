@@ -1,46 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:gravity="center_horizontal"
-    android:id="@+id/item"
-    android:layout_margin="@dimen/dp_3"
-    android:background="@drawable/layout_selector_white_system_gray"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <ImageView
-        android:id="@+id/imageGoods"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_120"
-        app:srcCompat="@mipmap/shouye_item" />
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_52"
-        android:textSize="@dimen/sp_14"
-        android:layout_marginLeft="@dimen/dp_3"
-        android:layout_marginRight="@dimen/dp_3"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/dp_3"
-        android:textColor="@color/new_secondary_text"
-        android:text="美妞车仔美妞仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔"/>
-    <com.wanbao.base.view.FlowTagLayout
-        android:id="@+id/flowTagLayout"
+    android:background="@color/white"
+    app:cardPreventCornerOverlap="false"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/dp_5"
+    app:cardElevation="@dimen/dp_0.1">
+
+    <LinearLayout
+        android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginStart="@dimen/dp_3"
-        android:layout_marginEnd="@dimen/dp_3"
-        />
-    <TextView
-        android:id="@+id/textPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp_14"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_3"
-        android:textColor="@color/new_important_text"
-        android:text="¥0.00"/>
-</LinearLayout>
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageGoods"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/shouye_item" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_52"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginRight="@dimen/dp_3"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:gravity="center_vertical"
+            android:text="美妞车仔美妞仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔美妞车载可爱公仔"
+            android:textColor="@color/new_secondary_text"
+            android:textSize="@dimen/sp_14" />
+
+        <com.wanbao.base.view.FlowTagLayout
+            android:id="@+id/flowTagLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_3"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/dp_3"
+            android:layout_marginBottom="@dimen/dp_3"
+            android:visibility="visible"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_weight="1"
+                android:text="¥0.00"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_5"
+                android:textColor="@color/new_secondary_text"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

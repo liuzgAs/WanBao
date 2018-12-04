@@ -4,17 +4,18 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,9 +30,8 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.UpCancellationSignal;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadManager;
@@ -39,6 +39,7 @@ import com.qiniu.android.storage.UploadOptions;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
 import com.wanbao.adapter.GridImage1Adapter;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.event.BaseEvent;
@@ -47,6 +48,7 @@ import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.ImgToBase64;
 import com.wanbao.base.ui.StateButton;
 import com.wanbao.base.util.A2bigA;
+import com.wanbao.base.util.FormatUtil;
 import com.wanbao.base.util.FullyGridLayoutManager;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Car_Index;
@@ -56,7 +58,6 @@ import com.wanbao.modle.Respond_AppImgAdd;
 import com.wanbao.modle.Respond_Qntoken;
 import com.wanbao.modle.Seller_Online;
 import com.wanbao.modle.Seller_Online_before;
-import com.wanbao.modle.Uploads_Appimgs;
 import com.wanbao.modle.Usercar_Vin_zb;
 import com.wanbao.modle.XinShiZZM;
 
@@ -145,11 +146,14 @@ public class ErShouCheYYActivity extends BaseActivity {
     private String store_logo;
     private String video_img;
     public static final String IMAGES = "storage/emulated/qianche/s.jpg";
+    public static final String videoP = "storage/emulated/qianche/s.mp4";
+
     private int video_second = 10;
     private UploadManager uploadManager;
     private UploadOptions uploadOptions;
     private XinShiZZM xinShiZZM;
     private String videoKey;
+    private static long myByte = 26214400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,17 +172,18 @@ public class ErShouCheYYActivity extends BaseActivity {
     protected void initIntent() {
 
     }
-    Configuration config = new Configuration.Builder()
-            .chunkSize(512 * 1024)        // 分片上传时，每片的大小。 默认256K
-            .putThreshhold(1024 * 1024)   // 启用分片上传阀值。默认512K
-            .connectTimeout(10)           // 链接超时。默认10秒
-            .useHttps(true)               // 是否使用https上传域名
-            .responseTimeout(60)          // 服务器响应超时。默认60秒
-            .zone(FixedZone.zone2)        // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
-            .build();
+
+    //    Configuration config = new Configuration.Builder()
+//            .chunkSize(512 * 1024)        // 分片上传时，每片的大小。 默认256K
+//            .putThreshhold(1024 * 1024)   // 启用分片上传阀值。默认512K
+//            .connectTimeout(10)           // 链接超时。默认10秒
+//            .useHttps(true)               // 是否使用https上传域名
+//            .responseTimeout(60)          // 服务器响应超时。默认60秒
+//            .zone(FixedZone.zone0)        // 设置区域，指定不同区域的上传域名、备用域名、备用IP。
+//            .build();
     @Override
     protected void initViews() {
-        uploadManager = new UploadManager(config);
+        uploadManager = new UploadManager(AppContext.getIntance().config);
         titleText.setText("预约上架");
         editVin.setTransformationMethod(new A2bigA());
         FullyGridLayoutManager manager = new FullyGridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false);
@@ -249,8 +254,18 @@ public class ErShouCheYYActivity extends BaseActivity {
     protected void initData() {
         sellerOnlineBefore();
     }
+//    MediaRecorderConfig configs = new MediaRecorderConfig.Buidler()
+//            .fullScreen(false)
+//            .smallVideoWidth(360)
+//            .smallVideoHeight(480)
+//            .recordTimeMax(6000)
+//            .recordTimeMin(1500)
+//            .maxFrameRate(20)
+//            .videoBitrate(600000)
+//            .captureThumbnailsTime(1)
+//            .build();
 
-    @OnClick({R.id.iv_del_vimg, R.id.iv_del_simg,R.id.imagePlay, R.id.iv_del,R.id.textPaiZhao,R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
+    @OnClick({R.id.iv_del_vimg, R.id.iv_del_simg, R.id.imagePlay, R.id.iv_del, R.id.textPaiZhao, R.id.imageZhanShi, R.id.imageback, R.id.viewPinPaiCX, R.id.viewKanCheCS, R.id.viewShangPaiSJ, R.id.imageKanCheSP, R.id.imageDianPuLogo, R.id.btnSubmit})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -273,7 +288,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                 ivDel.setVisibility(View.INVISIBLE);
                 imagePlay.setVisibility(View.INVISIBLE);
                 video = "";
-                videoPath="";
+                videoPath = "";
                 videoKey = "";
                 imageKanCheSP.setImageResource(R.mipmap.addimg_1x);
                 break;
@@ -320,19 +335,19 @@ public class ErShouCheYYActivity extends BaseActivity {
                 break;
             case R.id.imageKanCheSP:
                 if (TextUtils.isEmpty(video)) {
+                    isCancelled = false;
+//                    MediaRecorderActivity.goSmallVideoRecorder(this, ErShouCheYYActivity.class.getName(), configs);
                     PictureSelector.create(ErShouCheYYActivity.this)
-                            .openCamera(PictureMimeType.ofVideo())
-                            .videoMaxSecond(video_second)
-                            .recordVideoSecond(video_second)
-                            .compress(true)
+                            .openGallery(PictureMimeType.ofVideo())
+                            .selectionMode(PictureConfig.SINGLE)
                             .forResult(PictureConfig.TYPE_VIDEO);
                 } else {
-                    LogUtils.e("videoPath",videoPath);
+                    LogUtils.e("videoPath", videoPath);
                     PictureSelector.create(ErShouCheYYActivity.this).externalPictureVideo(videoPath);
                 }
                 break;
             case R.id.imageDianPuLogo:
-                if (TextUtils.isEmpty(store_logo)){
+                if (TextUtils.isEmpty(store_logo)) {
                     PictureSelector.create(ErShouCheYYActivity.this)
                             .openGallery(PictureMimeType.ofImage())
                             .selectionMode(PictureConfig.SINGLE)
@@ -351,37 +366,37 @@ public class ErShouCheYYActivity extends BaseActivity {
                             .openClickSound(true)
                             .selectionMedia(selectList1)
                             .forResult(PictureConfig.SINGLE);
-                }else {
-                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
-                    LocalMedia localMedia=new LocalMedia();
+                } else {
+                    ArrayList<LocalMedia> localMedias = new ArrayList<>();
+                    LocalMedia localMedia = new LocalMedia();
                     localMedia.setPath(store_logo);
                     localMedias.add(localMedia);
                     PictureSelector.create(ErShouCheYYActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
                 }
                 break;
             case R.id.imageZhanShi:
-                if (TextUtils.isEmpty(video_img)){
-                PictureSelector.create(ErShouCheYYActivity.this)
-                        .openGallery(PictureMimeType.ofImage())
-                        .selectionMode(PictureConfig.SINGLE)
-                        .previewImage(true)
-                        .isCamera(true)
-                        .imageFormat(PictureMimeType.PNG)
-                        .enableCrop(true)
-                        .compress(true)
-                        .glideOverride(160, 160)
-                        .previewEggs(true)
-                        .withAspectRatio(1, 1)
-                        .freeStyleCropEnabled(true)
-                        .circleDimmedLayer(false)
-                        .showCropFrame(true)
-                        .showCropGrid(true)
-                        .openClickSound(true)
-                        .selectionMedia(selectList2)
-                        .forResult(PictureConfig.MAX_COMPRESS_SIZE);
-                }else {
-                    ArrayList<LocalMedia> localMedias=new ArrayList<>();
-                    LocalMedia localMedia=new LocalMedia();
+                if (TextUtils.isEmpty(video_img)) {
+                    PictureSelector.create(ErShouCheYYActivity.this)
+                            .openGallery(PictureMimeType.ofImage())
+                            .selectionMode(PictureConfig.SINGLE)
+                            .previewImage(true)
+                            .isCamera(true)
+                            .imageFormat(PictureMimeType.PNG)
+                            .enableCrop(true)
+                            .compress(true)
+                            .glideOverride(160, 160)
+                            .previewEggs(true)
+                            .withAspectRatio(1, 1)
+                            .freeStyleCropEnabled(true)
+                            .circleDimmedLayer(false)
+                            .showCropFrame(true)
+                            .showCropGrid(true)
+                            .openClickSound(true)
+                            .selectionMedia(selectList2)
+                            .forResult(PictureConfig.MAX_COMPRESS_SIZE);
+                } else {
+                    ArrayList<LocalMedia> localMedias = new ArrayList<>();
+                    LocalMedia localMedia = new LocalMedia();
                     localMedia.setPath(video_img);
                     localMedias.add(localMedia);
                     PictureSelector.create(ErShouCheYYActivity.this).themeStyle(themeId).openExternalPreview(0, localMedias);
@@ -460,7 +475,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                         editDianPuJS.setText(seller_online_before.getStore_intro());
                         video_second = seller_online_before.getVideo_second();
                         textTips.setText(seller_online_before.getTips());
-                        store_logo=seller_online_before.getStore_logo();
+                        store_logo = seller_online_before.getStore_logo();
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_online_before.getStore_logo())
@@ -580,7 +595,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
-                    LogUtils.e("selectList",selectList.size());
+                    LogUtils.e("selectList", selectList.size());
                     for (int i = 0; i < selectList.size(); i++) {
                         getAppImgAdd(ImgToBase64.toBase64(selectList.get(i).getPath()), 0);
                     }
@@ -598,16 +613,33 @@ public class ErShouCheYYActivity extends BaseActivity {
                     List<LocalMedia> selectVideo = PictureSelector.obtainMultipleResult(data);
                     LogUtils.e("selectVideo", selectVideo.get(0).getPath() + "1");
                     LogUtils.e("selectVideoCompress", selectVideo.get(0).getCompressPath() + "2");
-                    videoPath= selectVideo.get(0).getPath();
-                    GlideApp.with(context)
-                            .asBitmap()
-                            .load(selectVideo.get(0).getPath())
-                            .placeholder(R.mipmap.ic_empty)
-                            .into(imageKanCheSP);
-                    files.clear();
-                    files.add(new File(selectVideo.get(0).getPath()));
-//                    getVedioId();
-                    upFile();
+                    videoPath = selectVideo.get(0).getPath();
+                    final File file = new File(selectVideo.get(0).getPath());
+                    if (file.length() > myByte) {
+                        new AlertDialog.Builder(ErShouCheYYActivity.this)
+                                .setTitle("提示")
+                                .setMessage("请注意拍摄视频的大小，该视频" + FormatUtil.sizeFormatNum2String(file.length()) + "大于25M，上传速度会较慢！")
+                                .setPositiveButton("继续上传", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        files.clear();
+                                        files.add(file);
+                                        upFile();
+                                    }
+                                })
+                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                    } else {
+                        files.clear();
+                        files.add(file);
+                        upFile();
+                    }
                     break;
                 case PictureConfig.MAX_COMPRESS_SIZE:
                     List<LocalMedia> imageVedio = PictureSelector.obtainMultipleResult(data);
@@ -690,54 +722,8 @@ public class ErShouCheYYActivity extends BaseActivity {
     List<File> files = new ArrayList<>();
     private static ProgressDialog progressDialog;
 
-    private void getVedioId() {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("正在上传视频……");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setProgress(0);
-        progressDialog.setMax(100);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        HttpApi.upFiles(context, getOkObjectUserUpload(), files, new HttpApi.UpLoadCallBack() {
-            @Override
-            public void onSuccess(String s) {
-                Log.e("getVedioId", s);
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-                try {
-                    Uploads_Appimgs userUpload = GsonUtils.parseJSON(s, Uploads_Appimgs.class);
-                    if (userUpload.getStatus() == 1) {
-                        video = userUpload.getImg().get(0).getId();
-                        videoKey= userUpload.getImg().get(0).getId();
-                    } else {
-                        ToastUtils.showShort(userUpload.getInfo());
-                    }
-
-                } catch (Exception e) {
-                    dismissDialog();
-                    ToastUtils.showShort("数据出错");
-
-                }
-            }
-
-            @Override
-            public void onError() {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-                ToastUtils.showShort("网络异常");
-            }
-
-            @Override
-            public void uploadProgress(float progress) {
-                if (progressDialog != null) {
-                    progressDialog.setProgress((int) progress);
-                }
-            }
-        });
-    }
-
+    // 初始化、执行上传
+    private volatile boolean isCancelled = false;
 
     private void upFile() {
         HttpApi.post(context, getOkObjectUp(), new HttpApi.CallBack() {
@@ -750,6 +736,13 @@ public class ErShouCheYYActivity extends BaseActivity {
                 progressDialog.setMax(100);
                 progressDialog.setIndeterminate(false);
                 progressDialog.setCancelable(false);
+                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "取消上传", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        isCancelled=true;
+                        dialog.dismiss();
+                    }
+                });
                 progressDialog.show();
             }
 
@@ -772,8 +765,13 @@ public class ErShouCheYYActivity extends BaseActivity {
                                         progressDialog.dismiss();
                                         if (info.isOK()) {
                                             try {
+                                                GlideApp.with(context)
+                                                        .asBitmap()
+                                                        .load(files.get(0).getPath())
+                                                        .placeholder(R.mipmap.ic_empty)
+                                                        .into(imageKanCheSP);
                                                 video = res.getString("key");
-                                                videoKey= res.getString("key");
+                                                videoKey = res.getString("key");
                                                 ivDel.setVisibility(View.VISIBLE);
                                                 imagePlay.setVisibility(View.VISIBLE);
                                                 ToastUtils.showShort("上传成功！");
@@ -796,7 +794,12 @@ public class ErShouCheYYActivity extends BaseActivity {
                                                     }
                                                 });
                                             }
-                                        }, null));
+                                        }, new UpCancellationSignal() {
+                                    @Override
+                                    public boolean isCancelled() {
+                                        return isCancelled;
+                                    }
+                                }));
                     } else {
                         ToastUtils.showShort(respond_qntoken.getInfo());
                     }
@@ -824,7 +827,6 @@ public class ErShouCheYYActivity extends BaseActivity {
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         return new OkObject(params, url);
     }
-
     private OkObject getOkObjectUserUpload() {
         String url = Constant.HOST + Constant.Url.Uploads_Appimgs;
         HashMap<String, String> params = new HashMap<>();
