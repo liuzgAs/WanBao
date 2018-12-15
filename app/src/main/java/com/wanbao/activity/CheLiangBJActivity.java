@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -100,6 +101,10 @@ public class CheLiangBJActivity extends BaseActivity {
     LastInputEditText editDabh;
     @BindView(R.id.textShangChuanTP)
     TextView textShangChuanTP;
+    @BindView(R.id.textBaoXianGS)
+    TextView textBaoXianGS;
+    @BindView(R.id.textShangYeBXGS)
+    TextView textShangYeBXGS;
     private String id;
     private Usercar_Getinfo usercar_getinfo;
     private Car_Index.DataBean dataBean;
@@ -109,6 +114,10 @@ public class CheLiangBJActivity extends BaseActivity {
     private List<LocalMedia> imageList = new ArrayList<>();
     private RecyclerArrayAdapter<String> adapter;
 
+    private List<Usercar_Getinfo.BaseSafetyBean> base_safety = new ArrayList<>();
+    private List<Usercar_Getinfo.BusinessSafetyBean> business_safety = new ArrayList<>();
+    private String base_safety_id;
+    private String business_safety_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,13 +167,14 @@ public class CheLiangBJActivity extends BaseActivity {
                     images.add(userUpload.get(i).getImgId());
                     imageUrls.add(userUpload.get(i).getImg());
                 }
-                LogUtils.e("userupload",userUpload.toString());
+                LogUtils.e("userupload", userUpload.toString());
                 adapter.clear();
                 adapter.addAll(imageUrls);
                 adapter.notifyDataSetChanged();
             }
         }
     }
+
     /**
      * 初始化recyclerview
      */
@@ -204,7 +214,7 @@ public class CheLiangBJActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 imageList.clear();
-                for (int i=0;i<imageUrls.size();i++){
+                for (int i = 0; i < imageUrls.size(); i++) {
                     LocalMedia media = new LocalMedia();
                     media.setPath(imageUrls.get(i));
                     imageList.add(media);
@@ -234,6 +244,10 @@ public class CheLiangBJActivity extends BaseActivity {
                     usercar_getinfo = GsonUtils.parseJSON(s, Usercar_Getinfo.class);
                     int status = usercar_getinfo.getStatus();
                     if (status == 1) {
+                        base_safety.clear();
+                        business_safety.clear();
+                        base_safety.addAll(usercar_getinfo.getBase_safety());
+                        business_safety.addAll(usercar_getinfo.getBusiness_safety());
                         textClxx.setText(usercar_getinfo.getData().getCid_name());
                         textGcsj.setText(usercar_getinfo.getData().getBc_time());
                         editXslc.setText(usercar_getinfo.getData().getKm() + "");
@@ -256,9 +270,21 @@ public class CheLiangBJActivity extends BaseActivity {
                         textZbzl.setText(usercar_getinfo.getData().getUnladen_mass());
                         imageUrls.clear();
                         images.clear();
-                        for (int i=0;i<usercar_getinfo.getImgs().size();i++){
+                        for (int i = 0; i < usercar_getinfo.getImgs().size(); i++) {
                             imageUrls.add(usercar_getinfo.getImgs().get(i).getImg_url());
                             images.add(usercar_getinfo.getImgs().get(i).getImg_id());
+                        }
+                        for (int i = 0; i < base_safety.size(); i++) {
+                            if (base_safety.get(i).getAct()==1){
+                                textBaoXianGS.setText(base_safety.get(i).getName());
+                                base_safety_id=String.valueOf(base_safety.get(i).getId());
+                            }
+                        }
+                        for (int i = 0; i < business_safety.size(); i++) {
+                            if (business_safety.get(i).getAct()==1){
+                                textShangYeBXGS.setText(business_safety.get(i).getName());
+                                business_safety_id=String.valueOf(business_safety.get(i).getId());
+                            }
                         }
                         adapter.clear();
                         adapter.addAll(imageUrls);
@@ -272,7 +298,7 @@ public class CheLiangBJActivity extends BaseActivity {
                             editDabh.setEnabled(true);
                             editDz.setEnabled(true);
                             editXslc.setEnabled(true);
-                        }else {
+                        } else {
                             sbtnTijiaobdw.setText("提交审核");
                             editDabh.setEnabled(true);
                             editDz.setEnabled(true);
@@ -308,10 +334,46 @@ public class CheLiangBJActivity extends BaseActivity {
         return new OkObject(params, url);
     }
 
-    @OnClick({R.id.textShangChuanTP, R.id.imageback, R.id.textClxx, R.id.textGcsj, R.id.textNsdq, R.id.textJqx, R.id.textSyx, R.id.sbtn_tijiaobdw})
+    @OnClick({R.id.viewShangYeBXGS,R.id.viewBaoXianGS,R.id.textShangChuanTP, R.id.imageback, R.id.textClxx, R.id.textGcsj, R.id.textNsdq, R.id.textJqx, R.id.textSyx, R.id.sbtn_tijiaobdw})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewShangYeBXGS:
+                ArrayList<String> saveStringsS=new ArrayList<>();
+                for (int i = 0; i < business_safety.size(); i++) {
+                    saveStringsS.add(business_safety.get(i).getName());
+                }
+                new MaterialDialog.Builder(context)
+                        .title("选择商业保险公司")
+                        .items(saveStringsS)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textShangYeBXGS.setText(business_safety.get(position).getName());
+                                business_safety_id=String.valueOf(business_safety.get(position).getId());
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.viewBaoXianGS:
+                ArrayList<String> saveStrings=new ArrayList<>();
+                for (int i = 0; i < base_safety.size(); i++) {
+                    saveStrings.add(base_safety.get(i).getName());
+                }
+                new MaterialDialog.Builder(context)
+                        .title("选择保险公司")
+                        .items(saveStrings)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textBaoXianGS.setText(base_safety.get(position).getName());
+                                base_safety_id=String.valueOf(base_safety.get(position).getId());
+                            }
+                        })
+                        .show();
+                break;
             case R.id.textShangChuanTP:
                 if (usercar_getinfo.getState() == 1) {
                     ToastUtils.showShort("审核中，不可修改");
@@ -402,31 +464,31 @@ public class CheLiangBJActivity extends BaseActivity {
                     ToastUtils.showShort("审核中，不可修改");
                     return;
                 }
-                if (TextUtils.isEmpty(textClxx.getText().toString())){
+                if (TextUtils.isEmpty(textClxx.getText().toString())) {
                     ToastUtils.showShort("请设置正确的车辆信息！");
                     return;
                 }
-                if (TextUtils.isEmpty(textGcsj.getText().toString())){
+                if (TextUtils.isEmpty(textGcsj.getText().toString())) {
                     ToastUtils.showShort("请设置正确的购车时间！");
                     return;
                 }
-                if (TextUtils.isEmpty(editXslc.getText().toString())){
+                if (TextUtils.isEmpty(editXslc.getText().toString())) {
                     ToastUtils.showShort("请设置正确的行驶里程！");
                     return;
                 }
-                if (TextUtils.isEmpty(editDz.getText().toString())){
+                if (TextUtils.isEmpty(editDz.getText().toString())) {
                     ToastUtils.showShort("请设置正确的地址！");
                     return;
                 }
-                if (TextUtils.isEmpty(textNsdq.getText().toString())){
+                if (TextUtils.isEmpty(textNsdq.getText().toString())) {
                     ToastUtils.showShort("请设置正确的年审到期时间！");
                     return;
                 }
-                if (TextUtils.isEmpty(textJqx.getText().toString())){
+                if (TextUtils.isEmpty(textJqx.getText().toString())) {
                     ToastUtils.showShort("请设置正确的交强险到期时间！");
                     return;
                 }
-                if (TextUtils.isEmpty(textSyx.getText().toString())){
+                if (TextUtils.isEmpty(textSyx.getText().toString())) {
                     ToastUtils.showShort("请设置正确的商业险到期时间！");
                     return;
                 }
@@ -498,7 +560,7 @@ public class CheLiangBJActivity extends BaseActivity {
         params.put("year_end", usercar_getinfo.getData().getYear_end());
         params.put("insurance_end", usercar_getinfo.getData().getInsurance_end());
         params.put("Insurance_commerce", usercar_getinfo.getData().getInsurance_commerce());
-        params.put("address",editDz.getText().toString());
+        params.put("address", editDz.getText().toString());
         params.put("name", usercar_getinfo.getData().getName() + "");
         params.put("id", usercar_getinfo.getData().getId() + "");
         params.put("file_no", editDabh.getText().toString());
@@ -507,7 +569,8 @@ public class CheLiangBJActivity extends BaseActivity {
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
         params.put("imgs", images.toString().replace("[", "").replace("]", ""));
-
+        params.put("base_safety", base_safety_id);
+        params.put("business_safety", business_safety_id);
         return new OkObject(params, url);
     }
 

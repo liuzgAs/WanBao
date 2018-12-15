@@ -22,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
 import com.wanbao.R;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseNoLeftActivity;
 import com.wanbao.base.dialog.MyDialog;
 import com.wanbao.base.http.Constant;
@@ -139,7 +140,7 @@ public class HuanYinActivity extends BaseNoLeftActivity {
                                 options.centerCrop()
                                         .placeholder(R.mipmap.icon_start)
                                         .error(R.mipmap.icon_start);
-                                Glide.with(HuanYinActivity.this)
+                                Glide.with(AppContext.getIntance())
                                         .load(indexStartad.getAdvs().get(0).getImg())
                                         .apply(options)
                                         .listener(new RequestListener<Drawable>() {

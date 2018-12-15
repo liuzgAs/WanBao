@@ -17,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +62,6 @@ import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
-import com.wanbao.base.util.RecycleViewDistancaUtil;
 import com.wanbao.base.util.ScreenUtils;
 import com.wanbao.modle.Bonus_BonusDown;
 import com.wanbao.modle.IndexBonusbefore;
@@ -100,6 +98,8 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     ImageView imageHongBaoDialog;
     @BindView(R.id.viewBar)
     LinearLayout viewBar;
+    @BindView(R.id.textAddress)
+    TextView textAddress;
     private RecyclerArrayAdapter<Index_Home.TeamDataBean> adapter;
     private View view;
     //声明AMapLocationClient类对象
@@ -171,8 +171,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initViews() {
-        LogUtils.e(viewBar);
-        viewBar.getBackground().mutate().setAlpha(0);
+//        viewBar.getBackground().mutate().setAlpha(0);
         initRecycler();
 
         //初始化定位
@@ -185,20 +184,20 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void setListeners() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int scrollY = RecycleViewDistancaUtil.getDistance(recyclerView, 0);
-                float guangGaoHeight = getResources().getDimension(R.dimen.dp_200);
-                if (scrollY <= guangGaoHeight - viewBar.getHeight() && scrollY >= 0) {
-                    int baiFenBi = (int) ((double) scrollY / (double) (guangGaoHeight - viewBar.getHeight()) * 255);
-                    viewBar.getBackground().mutate().setAlpha(baiFenBi);
-                } else {
-                    viewBar.getBackground().mutate().setAlpha(255);
-                }
-            }
-        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                int scrollY = RecycleViewDistancaUtil.getDistance(recyclerView, 0);
+//                float guangGaoHeight = getResources().getDimension(R.dimen.dp_200);
+//                if (scrollY <= guangGaoHeight - viewBar.getHeight() && scrollY >= 0) {
+//                    int baiFenBi = (int) ((double) scrollY / (double) (guangGaoHeight - viewBar.getHeight()) * 255);
+//                    viewBar.getBackground().mutate().setAlpha(baiFenBi);
+//                } else {
+//                    viewBar.getBackground().mutate().setAlpha(255);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -624,7 +623,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void setDingw() {
-//        address.setText("定位中..");
+        textAddress.setText("定位中");
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         mLocationOption.setOnceLocation(true);
@@ -634,11 +633,16 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         //启动定位
         mLocationClient.startLocation();
     }
-    private static final int REQUEST_CODE=1425;
-    @OnClick({R.id.imageSaoMiao, R.id.imageGouWuChe, R.id.viewSouSuo})
+
+    private static final int REQUEST_CODE = 1425;
+
+    @OnClick({R.id.imageSaoMiao, R.id.imageGouWuChe, R.id.viewSouSuo, R.id.viewAddress})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewAddress:
+                getAddressPermissions();
+                break;
             case R.id.imageSaoMiao:
                 getCameraAddressPermissions();
                 break;
@@ -685,12 +689,13 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     }
                 });
     }
+
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
                 //可在其中解析amapLocation获取相应内容。
-//                address.setText(amapLocation.getAddress());
+                textAddress.setText(amapLocation.getCity());
 //                address.setText(amapLocation.getCity().toString() + amapLocation.getDistrict().toString() + amapLocation.getStreet().toString()
 //                        + amapLocation.getStreetNum().toString());
                 SPUtils.getInstance().put(Constant.SF.Latitude, String.valueOf(amapLocation.getLatitude()));
@@ -700,7 +705,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             } else {
                 dismissDialog();
-//                address.setText("定位失败，点击重试");
+                textAddress.setText("定位失败");
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
@@ -1116,4 +1121,5 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 .setCancelable(false)
                 .show();
     }
+
 }

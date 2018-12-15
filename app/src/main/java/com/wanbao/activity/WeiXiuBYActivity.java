@@ -377,6 +377,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                             textTeamDes.setText(teamDes.toString());
                         }
                         textXzcl.setText(maintain_index.getCar_name());
+                        textLc.setText(maintain_index.getKm());
                         textDp.setText(maintain_index.getStore_name());
                         textYyxm.setText(maintain_index.getMaintain_name());
                         textYysj.setText(maintain_index.getBook_time());

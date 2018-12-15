@@ -24,7 +24,8 @@ public class Usercar_Query {
     private String info;
     private String add_tips;
     private List<ImgsBean> imgs;
-
+    private List<BaseSafetyBean> base_safety;
+    private List<BusinessSafetyBean> business_safety;
     public DataBean getData() {
         return data;
     }
@@ -69,6 +70,22 @@ public class Usercar_Query {
 
     public void setImgs(List<ImgsBean> imgs) {
         this.imgs = imgs;
+    }
+
+    public List<BaseSafetyBean> getBase_safety() {
+        return base_safety;
+    }
+
+    public void setBase_safety(List<BaseSafetyBean> base_safety) {
+        this.base_safety = base_safety;
+    }
+
+    public List<BusinessSafetyBean> getBusiness_safety() {
+        return business_safety;
+    }
+
+    public void setBusiness_safety(List<BusinessSafetyBean> business_safety) {
+        this.business_safety = business_safety;
     }
     public static class DataBean {
         /**
@@ -368,6 +385,77 @@ public class Usercar_Query {
 
         public void setImg_url(String img_url) {
             this.img_url = img_url;
+        }
+    }
+    public static class BaseSafetyBean {
+        /**
+         * id : 1
+         * name : 平安保险
+         * act : 0
+         */
+
+        private int id;
+        private String name;
+        private int act;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAct() {
+            return act;
+        }
+
+        public void setAct(int act) {
+            this.act = act;
+        }
+    }
+
+    public static class BusinessSafetyBean {
+        /**
+         * id : 1
+         * name : 平安保险
+         * act : 0
+         */
+
+        private int id;
+        private String name;
+        private int act;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAct() {
+            return act;
+        }
+
+        public void setAct(int act) {
+            this.act = act;
         }
     }
 }

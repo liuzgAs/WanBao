@@ -406,7 +406,6 @@
             android:launchMode="singleTask"></activity>
         <activity android:name=".activity.HongBaoMXActivity"
             android:launchMode="singleTask"></activity>
-        <activity android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity"/>
     </application>
 
 </manifest>

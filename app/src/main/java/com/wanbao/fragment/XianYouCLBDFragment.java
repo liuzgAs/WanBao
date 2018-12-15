@@ -28,6 +28,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -203,6 +204,10 @@ public class XianYouCLBDFragment extends PSFragment {
     ImageView imageBM;
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.textBaoXianGS)
+    TextView textBaoXianGS;
+    @BindView(R.id.textShangYeBXGS)
+    TextView textShangYeBXGS;
     private View view;
     private Car_Index.DataBean dataBean;
     private City_List.CityBean.ListBean listBean;
@@ -227,10 +232,16 @@ public class XianYouCLBDFragment extends PSFragment {
     private List<LocalMedia> imageList = new ArrayList<>();
     private String img_id;
     private String cid;
+
     public static XianYouCLBDFragment newInstance() {
         XianYouCLBDFragment sf = new XianYouCLBDFragment();
         return sf;
     }
+
+    private List<Usercar_Query.BaseSafetyBean> base_safety = new ArrayList<>();
+    private List<Usercar_Query.BusinessSafetyBean> business_safety = new ArrayList<>();
+    private String base_safety_id;
+    private String business_safety_id;
 
 
     @Override
@@ -247,7 +258,9 @@ public class XianYouCLBDFragment extends PSFragment {
         textCjh.setTransformationMethod(new A2bigA());
         return view;
     }
+
     private GridImage1Adapter adapter;
+
     @Override
     public void fetchData() {
         FullyGridLayoutManager manager = new FullyGridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
@@ -294,15 +307,15 @@ public class XianYouCLBDFragment extends PSFragment {
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.INDEX.equals(event.getAction())){
-            int index=(int)event.getData();
+        if (BaseEvent.INDEX.equals(event.getAction())) {
+            int index = (int) event.getData();
             Chushi.remove(index);
         }
         if (BaseEvent.Choose_CarX.equals(event.getAction())) {
             dataBean = (Car_Index.DataBean) event.getData();
             if (dataBean != null) {
                 textClxx.setText(dataBean.getTitle());
-                cid=dataBean.getId()+"";
+                cid = dataBean.getId() + "";
             }
         }
         if (BaseEvent.Choose_CS.equals(event.getAction())) {
@@ -311,14 +324,14 @@ public class XianYouCLBDFragment extends PSFragment {
             }
         }
         if (BaseEvent.ImageZJ.equals(event.getAction())) {
-            String imageString=(String) event.getData();
-            if (imageType==0){
+            String imageString = (String) event.getData();
+            if (imageType == 0) {
                 GlideApp.with(getContext())
                         .asBitmap()
                         .load(imageString)
                         .placeholder(R.mipmap.ic_empty)
                         .into(imageZM);
-            }else {
+            } else {
                 GlideApp.with(getContext())
                         .asBitmap()
                         .load(imageString)
@@ -330,7 +343,7 @@ public class XianYouCLBDFragment extends PSFragment {
             xinShiZZM = (XinShiZZM) event.getData();
             img_id = xinShiZZM.getImg_id();
             imageZy.setVisibility(View.VISIBLE);
-            cid=xinShiZZM.getData().getCid();
+            cid = xinShiZZM.getData().getCid();
             textClxx.setText(xinShiZZM.getData().getCid_name());
             textCph.setText(xinShiZZM.getData().getCar_no());
             textFdjh.setText(xinShiZZM.getData().getEngine());
@@ -390,6 +403,10 @@ public class XianYouCLBDFragment extends PSFragment {
                     int status = usercar_query.getStatus();
                     if (status == 1) {
                         viewSwitcher.setDisplayedChild(1);
+                        base_safety.clear();
+                        business_safety.clear();
+                        base_safety.addAll(usercar_query.getBase_safety());
+                        business_safety.addAll(usercar_query.getBusiness_safety());
                         if (usercar_query.getR() == 0) {
                             textState.setText("系统未查到该车牌车辆，请自行录入");
                             imageCxxx.setVisibility(View.VISIBLE);
@@ -433,6 +450,18 @@ public class XianYouCLBDFragment extends PSFragment {
                             for (int i = 0; i < usercar_query.getImgs().size(); i++) {
                                 images.add(usercar_query.getImgs().get(i).getImg_id());
                                 imageUrls.add(usercar_query.getImgs().get(i).getImg_url());
+                            }
+                            for (int i = 0; i < base_safety.size(); i++) {
+                                if (base_safety.get(i).getAct()==1){
+                                    textBaoXianGS.setText(base_safety.get(i).getName());
+                                    base_safety_id=String.valueOf(base_safety.get(i).getId());
+                                }
+                            }
+                            for (int i = 0; i < business_safety.size(); i++) {
+                                if (business_safety.get(i).getAct()==1){
+                                    textShangYeBXGS.setText(business_safety.get(i).getName());
+                                    business_safety_id=String.valueOf(business_safety.get(i).getId());
+                                }
                             }
                         }
                         scrollView.scrollTo(0, 0);
@@ -516,7 +545,7 @@ public class XianYouCLBDFragment extends PSFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("car_name", textCx.getText().toString());
-        params.put("cid", cid+ "");
+        params.put("cid", cid + "");
         params.put("bc_time", textGcsj.getText().toString());
         params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
         params.put("car_no", textCph.getText().toString().toUpperCase());
@@ -539,7 +568,8 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
         params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
-
+        params.put("base_safety", base_safety_id);
+        params.put("business_safety", business_safety_id);
         return new OkObject(params, url);
     }
 
@@ -548,7 +578,7 @@ public class XianYouCLBDFragment extends PSFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
         params.put("car_name", textCx.getText().toString());
-        params.put("cid",cid + "");
+        params.put("cid", cid + "");
         params.put("bc_time", textGcsj.getText().toString());
         params.put("engine", textFdjh.getText().toString().trim().toUpperCase());
         params.put("car_no", textCph.getText().toString().toUpperCase());
@@ -572,7 +602,8 @@ public class XianYouCLBDFragment extends PSFragment {
         params.put("overall_dimension", textWkcc.getText().toString());
         params.put("unladen_mass", textZbzl.getText().toString());
         params.put("imgs", Chushi.toString().replace("[", "").replace("]", ""));
-
+        params.put("base_safety", base_safety_id);
+        params.put("business_safety", business_safety_id);
         return new OkObject(params, url);
     }
 
@@ -644,14 +675,51 @@ public class XianYouCLBDFragment extends PSFragment {
             textFs.setText("重新发送");
         }
     };
-    int imageType=0;
-    @OnClick({R.id.imageBM,R.id.imageZM,R.id.imageZy, R.id.imageFy, R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
+    int imageType = 0;
+
+    @OnClick({R.id.viewShangYeBXGS,R.id.viewBaoXianGS,R.id.imageBM, R.id.imageZM, R.id.imageZy, R.id.imageFy, R.id.viewWgtp, R.id.viewDabh, R.id.viewHdzrs, R.id.viewZzl, R.id.viewWkcc, R.id.viewZbzl, R.id.textFs, R.id.sbtn_chaxun, R.id.viewCxxx, R.id.viewGcsj, R.id.viewXslc, R.id.viewSzy, R.id.viewSfy, R.id.sbtn_tijiaobdw,
             R.id.viewSyx, R.id.viewFzrq, R.id.viewZcrq, R.id.viewXm, R.id.viewCx, R.id.viewDz, R.id.viewCph, R.id.viewFdjh, R.id.viewCjh, R.id.viewNcdq, R.id.viewBxdq})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.viewShangYeBXGS:
+                ArrayList<String> saveStringsS=new ArrayList<>();
+                for (int i = 0; i < business_safety.size(); i++) {
+                    saveStringsS.add(business_safety.get(i).getName());
+                }
+                new MaterialDialog.Builder(context)
+                        .title("选择商业保险公司")
+                        .items(saveStringsS)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textShangYeBXGS.setText(business_safety.get(position).getName());
+                                business_safety_id=String.valueOf(business_safety.get(position).getId());
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.viewBaoXianGS:
+                ArrayList<String> saveStrings=new ArrayList<>();
+                for (int i = 0; i < base_safety.size(); i++) {
+                    saveStrings.add(base_safety.get(i).getName());
+                }
+                new MaterialDialog.Builder(context)
+                        .title("选择保险公司")
+                        .items(saveStrings)
+                        .itemsCallback(new MaterialDialog.ListCallback() {
+                            @Override
+                            public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                                dialog.dismiss();
+                                textBaoXianGS.setText(base_safety.get(position).getName());
+                                base_safety_id=String.valueOf(base_safety.get(position).getId());
+                            }
+                        })
+                        .show();
+                break;
             case R.id.imageBM:
-                imageType=1;
+                imageType = 1;
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -671,7 +739,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 }
                 break;
             case R.id.imageZM:
-                imageType=0;
+                imageType = 0;
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -1029,7 +1097,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 editDialog1.show();
                 break;
             case R.id.viewSzy:
-                imageType=0;
+                imageType = 0;
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -1049,7 +1117,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 }
                 break;
             case R.id.viewSfy:
-                imageType=1;
+                imageType = 1;
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(context,
@@ -1069,7 +1137,7 @@ public class XianYouCLBDFragment extends PSFragment {
                 }
                 break;
             case R.id.sbtn_tijiaobdw:
-                if (TextUtils.isEmpty(cid)||"0".equals(cid)) {
+                if (TextUtils.isEmpty(cid) || "0".equals(cid)) {
                     ToastUtils.showShort("请选择车型信息！");
                     return;
                 }
@@ -1180,6 +1248,7 @@ public class XianYouCLBDFragment extends PSFragment {
 
         }
     }
+
     private List<LocalMedia> selectList = new ArrayList<>();
     private GridImage1Adapter.onAddPicClickListener onAddPicClickListener = new GridImage1Adapter.onAddPicClickListener() {
         @Override
@@ -1205,6 +1274,7 @@ public class XianYouCLBDFragment extends PSFragment {
             }
         }
     };
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1226,7 +1296,7 @@ public class XianYouCLBDFragment extends PSFragment {
     }
 
     private void getAppImgAdd(String img) {
-        if (TextUtils.isEmpty(img)){
+        if (TextUtils.isEmpty(img)) {
             return;
         }
         HttpApi.post(context, getOkObjectAppImgAdd(img), new HttpApi.CallBack() {
@@ -1301,7 +1371,7 @@ public class XianYouCLBDFragment extends PSFragment {
                     int status = usercarVinZb.getStatus();
                     if (status == 1) {
                         textCjh.setText(img);
-                        cid=usercarVinZb.getCid();
+                        cid = usercarVinZb.getCid();
                         textClxx.setText(usercarVinZb.getCid_name());
                     } else {
                         ToastUtils.showShort(usercarVinZb.getInfo());

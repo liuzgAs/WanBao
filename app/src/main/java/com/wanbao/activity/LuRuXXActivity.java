@@ -99,14 +99,14 @@ public class LuRuXXActivity extends BaseActivity {
                     ToastUtils.showShort("请正确身份证号");
                     return;
                 }
-                if (TextUtils.isEmpty(editNameJj.getText().toString())){
-                    ToastUtils.showShort("请输入紧急联系人姓名");
-                    return;
-                }
-                if (!RegexUtils.isMobileSimple(editPhoneJj.getText().toString())){
-                    ToastUtils.showShort("请正确的手机号");
-                    return;
-                }
+//                if (TextUtils.isEmpty(editNameJj.getText().toString())){
+//                    ToastUtils.showShort("请输入紧急联系人姓名");
+//                    return;
+//                }
+//                if (!RegexUtils.isMobileSimple(editPhoneJj.getText().toString())){
+//                    ToastUtils.showShort("请正确的手机号");
+//                    return;
+//                }
                 AddTuser();
                 break;
             default:

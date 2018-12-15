@@ -60,10 +60,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:background="@color/white"
-                    android:hint="输入车牌号"
-                    android:maxLength="8"
-                    android:inputType="text"
                     android:digits="@string/zimushuzi"
+                    android:hint="输入车牌号"
+                    android:inputType="text"
+                    android:maxLength="8"
                     android:textColor="@color/new_important_text"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -73,8 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_40"
+                android:layout_marginRight="@dimen/dp_10"
                 android:text="立即查询"
                 android:textSize="@dimen/sp_13"
                 app:normalBackgroundColor="@color/light_red"
@@ -95,68 +95,77 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="@dimen/dp_10"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sp_13"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:text="扫描行驶证正面"
                             android:textColor="@color/new_secondary_text"
-                            android:text="扫描行驶证正面"/>
+                            android:textSize="@dimen/sp_13" />
+
                         <ImageView
                             android:id="@+id/imageZM"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_80"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:src="@mipmap/addimg_1x"/>
+                            android:src="@mipmap/addimg_1x" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
                         android:layout_weight="1"
+                        android:gravity="center_horizontal"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="@dimen/dp_10"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sp_13"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:text="扫描行驶证副页"
                             android:textColor="@color/new_secondary_text"
-                            android:text="扫描行驶证副页"/>
+                            android:textSize="@dimen/sp_13" />
+
                         <ImageView
                             android:id="@+id/imageBM"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_80"
                             android:layout_marginTop="@dimen/dp_5"
-                            android:src="@mipmap/addimg_1x"/>
+                            android:src="@mipmap/addimg_1x" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10"
-                    android:textColor="@color/new_secondary_text"
-                    android:textSize="@dimen/sp_13"
                     android:text="上传行驶证车辆外观图片"
-                    />
+                    android:textColor="@color/new_secondary_text"
+                    android:textSize="@dimen/sp_13" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dp_10"
-                    android:overScrollMode="never" />
+                    android:background="@color/white"
+                    android:overScrollMode="never"
+                    android:padding="@dimen/dp_10" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
@@ -204,9 +213,9 @@
                         android:id="@+id/textClxx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="车型信息"
-                        android:gravity="right|center_vertical"
                         android:layout_weight="1"
+                        android:gravity="right|center_vertical"
+                        android:hint="车型信息"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
 
@@ -223,8 +232,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:id="@+id/viewGcsj"
@@ -263,8 +271,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:id="@+id/viewXslc"
@@ -286,8 +293,8 @@
                         android:id="@+id/textxslc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="请填写行驶里程，单位（km）"
                         android:gravity="right"
+                        android:hint="请填写行驶里程，单位（km）"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
 
@@ -299,10 +306,14 @@
                         android:visibility="gone" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
                     android:id="@+id/viewBxdq"
                     android:layout_width="match_parent"
@@ -325,17 +336,57 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="交强险到期时间"
                         android:gravity="right"
+                        android:hint="交强险到期时间"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
+                <LinearLayout
+                    android:id="@+id/viewBaoXianGS"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="保险公司"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textBaoXianGS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:hint="请选择保险公司"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:background="@color/background"></View>
+
                 <LinearLayout
                     android:id="@+id/viewSyx"
                     android:layout_width="match_parent"
@@ -358,17 +409,55 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="商业险到期时间"
                         android:gravity="right"
+                        android:hint="商业险到期时间"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_10"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background">
                 </View>
+
+                <LinearLayout
+                    android:id="@+id/viewShangYeBXGS"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="商业保险公司"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/textShangYeBXGS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:hint="请选择商业保险公司"
+                        android:textColor="@color/new_important_text"
+                        android:textSize="@dimen/sp_13" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:src="@mipmap/next_btn" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -414,19 +503,21 @@
                             android:textColor="@color/new_important_text"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
+
                     <ImageView
                         android:id="@+id/imageZy"
-                        android:layout_marginLeft="@dimen/dp_10"
                         android:layout_width="@dimen/dp_18"
-                        android:visibility="gone"
                         android:layout_height="match_parent"
-                        android:src="@mipmap/icon_xszbd" />
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:src="@mipmap/icon_xszbd"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:background="@color/background"></View>
+
                 <LinearLayout
                     android:id="@+id/viewXm"
                     android:layout_width="match_parent"
@@ -449,8 +540,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的姓名"
                         android:gravity="right"
+                        android:hint="请填写正确的姓名"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -461,6 +552,7 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
                     android:id="@+id/viewCx"
                     android:layout_width="match_parent"
@@ -483,8 +575,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的行驶证车型"
                         android:gravity="right"
+                        android:hint="请填写正确的行驶证车型"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -495,6 +587,7 @@
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@color/background"></View>
+
                 <LinearLayout
                     android:id="@+id/viewDz"
                     android:layout_width="match_parent"
@@ -506,7 +599,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="地址"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
@@ -517,8 +609,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
+                        android:gravity="right|center_vertical"
+                        android:layout_weight="1"
                         android:hint="请填写正确的地址"
-                        android:gravity="right"
                         android:maxLines="2"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
@@ -529,8 +622,8 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
+
                 <LinearLayout
                     android:id="@+id/viewCph"
                     android:layout_width="match_parent"
@@ -553,8 +646,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的车牌号"
                         android:gravity="right"
+                        android:hint="请填写正确的车牌号"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -564,8 +657,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:id="@+id/viewFdjh"
@@ -589,8 +681,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的发动机号"
                         android:gravity="right"
+                        android:hint="请填写正确的发动机号"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -600,8 +692,7 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:id="@+id/viewCjh"
@@ -625,18 +716,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的车架号"
                         android:gravity="right"
+                        android:hint="请填写正确的车架号"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:id="@+id/viewZcrq"
@@ -660,18 +751,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的注册日期"
                         android:gravity="right"
+                        android:hint="请填写正确的注册日期"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:id="@+id/viewFzrq"
@@ -695,11 +786,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的发证日期"
                         android:gravity="right"
+                        android:hint="请填写正确的发证日期"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
@@ -749,13 +841,14 @@
                             android:textColor="@color/new_important_text"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
+
                     <ImageView
                         android:id="@+id/imageFy"
                         android:layout_width="@dimen/dp_18"
                         android:layout_height="match_parent"
-                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:src="@mipmap/icon_cxbd" />
+                        android:src="@mipmap/icon_cxbd"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <View
@@ -785,11 +878,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的年审到期"
                         android:gravity="right"
+                        android:hint="请填写正确的年审到期"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -819,11 +913,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的档案编号"
                         android:gravity="right"
+                        android:hint="请填写正确的档案编号"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -853,11 +948,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的核定载人数"
                         android:gravity="right"
+                        android:hint="请填写正确的核定载人数"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -887,11 +983,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的总质量"
                         android:gravity="right"
+                        android:hint="请填写正确的总质量"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -921,11 +1018,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的外廓尺寸"
                         android:gravity="right"
+                        android:hint="请填写正确的外廓尺寸"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -955,11 +1053,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请填写正确的整备质量"
                         android:gravity="right"
+                        android:hint="请填写正确的整备质量"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -971,10 +1070,10 @@
                     android:id="@+id/viewWgtp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
-                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
+                    android:paddingRight="@dimen/dp_10"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -990,11 +1089,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
                         android:background="@color/white"
-                        android:hint="请上传"
                         android:gravity="right"
+                        android:hint="请上传"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_10"
@@ -1025,8 +1125,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
-                    android:background="@color/background">
-                </View>
+                    android:background="@color/background"></View>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1064,10 +1163,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_10"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10">
 
                     <EditText
@@ -1106,10 +1205,10 @@
                         android:id="@+id/sbtn_tijiaobdw"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_45"
-                        android:layout_marginBottom="@dimen/dp_10"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_40"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"
                         android:text="提交绑定"
                         android:textSize="@dimen/sp_13"
                         app:normalBackgroundColor="@color/light_red"

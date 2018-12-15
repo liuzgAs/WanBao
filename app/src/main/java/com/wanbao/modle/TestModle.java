@@ -3,46 +3,29 @@ package com.wanbao.modle;
 import java.util.List;
 
 /**
- * Created by liuzhigang on 2018/6/8/008.
+ * Created by liuzhigang on 2018/12/15/015.
  *
  * @author LiuZG
  */
-
-public class Usercar_Getinfo {
-
+public class TestModle {
 
     /**
-     * stateDes : 审核通过
-     * state : 3
-     * data : {"id":27,"car_name":"北京现代BH7200MX","name":"张磊","cid_name":"Valkyrie2020款 AMR Pro","cid":1265,"bc_time":"2015-04-27","engine":"88158976","engine_show":"881****8976","vin":"1234567890963hhbb","vin_show":"123****hhbb","address":"福建","phone":"13023973380","phone_show":"130****3380","car_no":"鲁R18D81","km":258,"face_img":995,"back_img":997,"year_end":"2017-04","issue_date":"","register_date":"2018-08-02","insurance_commerce":"2018-08-03","insurance_end":"2017-04-01","file_no":"530300182849","appproved_passenger_capacity":"6人","gross_mass":"1875kg","overall_dimension":"4747X1820X1420mm","unladen_mass":"11kg"}
-     * imgs : [{"img_id":"998","img_url":"http://p7b347z0p.bkt.clouddn.com/Fls0nDll8IDoMjg0nG8EqqULsa1s"}]
+     * base_safety : [{"id":1,"name":"平安保险","act":0},{"id":2,"name":"太平洋车险","act":0}]
+     * business_safety : [{"id":1,"name":"平安保险","act":0}]
+     * data : {"car_name":"","name":"","cid_name":"","cid":0,"bc_time":"","engine":"","engine_show":"","vin":"","vin_show":"","address":"","phone":"15860026753","phone_show":"158****6753","car_no":"闽D1267","km":"","face_img":0,"back_img":0,"year_end":"","issue_date":"","register_date":"","insurance_commerce":"","insurance_end":"","file_no":"","appproved_passenger_capacity":"","gross_mass":"","overall_dimension":"","unladen_mass":""}
+     * add_tips : 请确保填写的里程数、年审时间与保险时间的真实有效性，如有误点返回进行检查，正确点确定进行提交！
+     * r : 0
      * status : 1
      * info : 返回成功！
      */
 
-    private String stateDes;
-    private int state;
     private DataBean data;
+    private String add_tips;
+    private int r;
     private int status;
     private String info;
-    private List<ImgsBean> imgs;
     private List<BaseSafetyBean> base_safety;
     private List<BusinessSafetyBean> business_safety;
-    public String getStateDes() {
-        return stateDes;
-    }
-
-    public void setStateDes(String stateDes) {
-        this.stateDes = stateDes;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
 
     public DataBean getData() {
         return data;
@@ -50,6 +33,22 @@ public class Usercar_Getinfo {
 
     public void setData(DataBean data) {
         this.data = data;
+    }
+
+    public String getAdd_tips() {
+        return add_tips;
+    }
+
+    public void setAdd_tips(String add_tips) {
+        this.add_tips = add_tips;
+    }
+
+    public int getR() {
+        return r;
+    }
+
+    public void setR(int r) {
+        this.r = r;
     }
 
     public int getStatus() {
@@ -68,13 +67,6 @@ public class Usercar_Getinfo {
         this.info = info;
     }
 
-    public List<ImgsBean> getImgs() {
-        return imgs;
-    }
-
-    public void setImgs(List<ImgsBean> imgs) {
-        this.imgs = imgs;
-    }
     public List<BaseSafetyBean> getBase_safety() {
         return base_safety;
     }
@@ -90,38 +82,37 @@ public class Usercar_Getinfo {
     public void setBusiness_safety(List<BusinessSafetyBean> business_safety) {
         this.business_safety = business_safety;
     }
+
     public static class DataBean {
         /**
-         * id : 27
-         * car_name : 北京现代BH7200MX
-         * name : 张磊
-         * cid_name : Valkyrie2020款 AMR Pro
-         * cid : 1265
-         * bc_time : 2015-04-27
-         * engine : 88158976
-         * engine_show : 881****8976
-         * vin : 1234567890963hhbb
-         * vin_show : 123****hhbb
-         * address : 福建
-         * phone : 13023973380
-         * phone_show : 130****3380
-         * car_no : 鲁R18D81
-         * km : 258
-         * face_img : 995
-         * back_img : 997
-         * year_end : 2017-04
+         * car_name :
+         * name :
+         * cid_name :
+         * cid : 0
+         * bc_time :
+         * engine :
+         * engine_show :
+         * vin :
+         * vin_show :
+         * address :
+         * phone : 15860026753
+         * phone_show : 158****6753
+         * car_no : 闽D1267
+         * km :
+         * face_img : 0
+         * back_img : 0
+         * year_end :
          * issue_date :
-         * register_date : 2018-08-02
-         * insurance_commerce : 2018-08-03
-         * insurance_end : 2017-04-01
-         * file_no : 530300182849
-         * appproved_passenger_capacity : 6人
-         * gross_mass : 1875kg
-         * overall_dimension : 4747X1820X1420mm
-         * unladen_mass : 11kg
+         * register_date :
+         * insurance_commerce :
+         * insurance_end :
+         * file_no :
+         * appproved_passenger_capacity :
+         * gross_mass :
+         * overall_dimension :
+         * unladen_mass :
          */
 
-        private int id;
         private String car_name;
         private String name;
         private String cid_name;
@@ -148,14 +139,6 @@ public class Usercar_Getinfo {
         private String gross_mass;
         private String overall_dimension;
         private String unladen_mass;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
 
         public String getCar_name() {
             return car_name;
@@ -363,32 +346,6 @@ public class Usercar_Getinfo {
 
         public void setUnladen_mass(String unladen_mass) {
             this.unladen_mass = unladen_mass;
-        }
-    }
-
-    public static class ImgsBean {
-        /**
-         * img_id : 998
-         * img_url : http://p7b347z0p.bkt.clouddn.com/Fls0nDll8IDoMjg0nG8EqqULsa1s
-         */
-
-        private String img_id;
-        private String img_url;
-
-        public String getImg_id() {
-            return img_id;
-        }
-
-        public void setImg_id(String img_id) {
-            this.img_id = img_id;
-        }
-
-        public String getImg_url() {
-            return img_url;
-        }
-
-        public void setImg_url(String img_url) {
-            this.img_url = img_url;
         }
     }
 

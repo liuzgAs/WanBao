@@ -61,14 +61,16 @@ public class Testdrive_Details {
              */
 
             private int id;
-            private int driveprice;
-            private int deposit;
+            private String driveprice;
+            private String deposit;
             private int car_id;
             private String title;
             private String type;
             private String price;
             private int seat;
             private String thumb;
+            private String sid;
+            private String storeName;
 
             public int getId() {
                 return id;
@@ -78,19 +80,19 @@ public class Testdrive_Details {
                 this.id = id;
             }
 
-            public int getDriveprice() {
+            public String getDriveprice() {
                 return driveprice;
             }
 
-            public void setDriveprice(int driveprice) {
+            public void setDriveprice(String driveprice) {
                 this.driveprice = driveprice;
             }
 
-            public int getDeposit() {
+            public String getDeposit() {
                 return deposit;
             }
 
-            public void setDeposit(int deposit) {
+            public void setDeposit(String deposit) {
                 this.deposit = deposit;
             }
 
@@ -140,6 +142,22 @@ public class Testdrive_Details {
 
             public void setThumb(String thumb) {
                 this.thumb = thumb;
+            }
+
+            public String getSid() {
+                return sid;
+            }
+
+            public void setSid(String sid) {
+                this.sid = sid;
+            }
+
+            public String getStoreName() {
+                return storeName;
+            }
+
+            public void setStoreName(String storeName) {
+                this.storeName = storeName;
             }
         }
     }

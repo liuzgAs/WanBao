@@ -1,10 +1,9 @@
 package com.wanbao.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,12 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
-import com.jude.easyrecyclerview.decoration.DividerDecoration;
+import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
+import com.wanbao.base.tools.DpUtils;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.Maintain_Carteam;
 import com.wanbao.modle.OkObject;
@@ -78,10 +78,10 @@ public class YangCheLBActivity extends BaseActivity implements SwipeRefreshLayou
      * 初始化recyclerview
      */
     private void initRecycler() {
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, 0,0 , 0);
-        itemDecoration.setDrawLastItem(false);
-        recyclerView.addItemDecoration(itemDecoration);
+        GridLayoutManager manager = new GridLayoutManager(context, 2);
+        recyclerView.setLayoutManager(manager);
+        SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(5f, context));
+        recyclerView.addItemDecoration(spaceDecoration);
         recyclerView.setRefreshingColorResources(R.color.light_red, R.color.deep_red);
         recyclerView.setAdapterWithProgress(adapter = new RecyclerArrayAdapter<Maintain_Carteam.DataBean>(YangCheLBActivity.this) {
             @Override
@@ -90,6 +90,7 @@ public class YangCheLBActivity extends BaseActivity implements SwipeRefreshLayou
                 return new YangCheViewHolder(parent, layout);
             }
         });
+        manager.setSpanSizeLookup(adapter.obtainGridSpanSizeLookUp(2));
         adapter.setMore(R.layout.view_more, new RecyclerArrayAdapter.OnMoreListener() {
             @Override
             public void onMoreShow() {

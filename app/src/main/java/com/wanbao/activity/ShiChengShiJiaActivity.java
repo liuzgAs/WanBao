@@ -214,6 +214,9 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                                 .load(data.getData().getInfo().getThumb())
                                 .placeholder(R.mipmap.ic_empty)
                                 .into(imageCar);
+
+                        textDp.setText(data.getData().getInfo().getStoreName());
+                        store_id = String.valueOf(data.getData().getInfo().getSid());
                     } else {
                         ToastUtils.showShort("数据出错");
                     }

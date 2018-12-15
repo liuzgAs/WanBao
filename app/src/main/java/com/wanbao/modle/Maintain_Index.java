@@ -44,6 +44,7 @@ public class Maintain_Index {
      */
 
     private String RightBtnTxt;
+    private String km;
     private String car_name;
     private int ucid;
     private String store_name;
@@ -80,6 +81,13 @@ public class Maintain_Index {
 
     public void setRightBtnTxt(String RightBtnTxt) {
         this.RightBtnTxt = RightBtnTxt;
+    }
+    public String getKm() {
+        return km;
+    }
+
+    public void setKm(String km) {
+        this.km = km;
     }
 
     public String getCar_name() {
