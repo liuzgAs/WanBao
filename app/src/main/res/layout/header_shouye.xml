@@ -9,7 +9,7 @@
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
-        app:layout_constraintDimensionRatio="H,20:10"
+        app:layout_constraintDimensionRatio="H,18:10"
         android:layout_height="0dp">
     </View>
     <com.youth.banner.Banner
@@ -86,7 +86,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewSsfy"
+                    android:id="@+id/viewPmzc"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -97,13 +97,14 @@
                     <ImageView
                         android:layout_width="@dimen/dp_32"
                         android:layout_height="@dimen/dp_32"
-                        app:srcCompat="@mipmap/mian_saishify" />
+                        app:srcCompat="@mipmap/main_paimaizc" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_7"
-                        android:text="赛事风云"
+                        android:text="优质二手车"
+                        android:maxLines="1"
                         android:textColor="#505050"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -132,7 +133,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewPmzc"
+                    android:id="@+id/viewSsfy"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -143,13 +144,13 @@
                     <ImageView
                         android:layout_width="@dimen/dp_32"
                         android:layout_height="@dimen/dp_32"
-                        app:srcCompat="@mipmap/main_paimaizc" />
+                        app:srcCompat="@mipmap/mian_saishify" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_7"
-                        android:text="优质二手车"
+                        android:text="积分商城"
                         android:textColor="#505050"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -224,7 +225,7 @@
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="@dimen/dp_19"
+                    android:layout_marginTop="@dimen/dp_14"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:scaleType="fitCenter"
                     app:srcCompat="@mipmap/main_shichengsj" />
@@ -234,9 +235,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_57"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="试乘试驾"
-                    android:textColor="@color/new_important_text"
+                    android:layout_marginTop="@dimen/dp_11"
+                    android:text="洗车美容"
+                    android:textColor="@color/light_red"
                     android:textSize="@dimen/sp_15" />
 
                 <TextView
@@ -247,8 +248,8 @@
                     android:maxLines="1"
                     android:layout_marginEnd="@dimen/dp_3"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/dp_12"
-                    android:text="400匹全时四驱到底"
+                    android:layout_marginBottom="@dimen/dp_13"
+                    android:text="高分子全车镀晶"
                     android:textColor="@color/new_secondary_text"
                     android:textSize="@dimen/sp_13" />
             </RelativeLayout>
@@ -271,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_14"
                     android:scaleType="fitCenter"
                     app:srcCompat="@mipmap/main_huodongxx" />
 
@@ -280,9 +281,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_57"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_11"
                     android:text="活动讯息"
-                    android:textColor="@color/new_important_text"
+                    android:textColor="#fe9733"
                     android:textSize="@dimen/sp_15" />
 
                 <TextView
@@ -290,10 +291,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_13"
                     android:layout_marginLeft="@dimen/dp_57"
                     android:maxLines="1"
-                    android:text="活动讯息详情"
+                    android:text="活动讯息动态"
                     android:textColor="@color/new_secondary_text"
                     android:textSize="@dimen/sp_13" />
             </RelativeLayout>

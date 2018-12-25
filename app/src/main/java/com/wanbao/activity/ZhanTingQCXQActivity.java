@@ -80,6 +80,8 @@ public class ZhanTingQCXQActivity extends BaseActivity {
     ImageView textJiSuanQi;
     @BindView(R.id.viewJiSuanQi)
     LinearLayout viewJiSuanQi;
+    @BindView(R.id.titleRight)
+    TextView titleRight;
     private String id;
     private WebSettings mSettings;
     private MySumAdapter mySumAdapter;
@@ -108,6 +110,8 @@ public class ZhanTingQCXQActivity extends BaseActivity {
     @Override
     protected void initViews() {
         titleText.setText("汽车详情");
+        titleRight.setVisibility(View.VISIBLE);
+        titleRight.setText("试驾");
         webView.setWebViewClient(new WebViewClient());//覆盖第三方浏览器
         mSettings = webView.getSettings();
         mSettings.setJavaScriptEnabled(true);
@@ -142,12 +146,17 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         getCar();
     }
 
-    @OnClick({R.id.imageback, R.id.linearCoupon, R.id.viewJiSuanQi})
+    @OnClick({R.id.titleRight,R.id.imageback, R.id.linearCoupon, R.id.viewJiSuanQi})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.titleRight:
+                intent=new Intent(context,ShiChengShiJiaActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                break;
             case R.id.viewJiSuanQi:
-                if (showbrand_car==null){
+                if (showbrand_car == null) {
                     return;
                 }
                 intent = new Intent(context, JiSuanQActivity.class);
@@ -159,10 +168,10 @@ public class ZhanTingQCXQActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.linearCoupon:
-                if (showbrand_car==null){
+                if (showbrand_car == null) {
                     return;
                 }
-                if (showbrand_car.getCoupon()==null){
+                if (showbrand_car.getCoupon() == null) {
                     return;
                 }
                 new MaterialDialog.Builder(context)
@@ -262,6 +271,7 @@ public class ZhanTingQCXQActivity extends BaseActivity {
         params.put("id", id);
         return new OkObject(params, url);
     }
+
 
 
     class MySumAdapter extends BaseAdapter {

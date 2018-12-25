@@ -118,7 +118,7 @@ public class MainXActivity extends BaseNoLeftActivity {
             });
         }
 
-        LogUtils.getConfig().setLogSwitch(true);
+        LogUtils.getConfig().setLogSwitch(false);
     }
 
     @Override

@@ -50,9 +50,10 @@ import com.wanbao.activity.ShiMinRzActivity;
 import com.wanbao.activity.TouTiaoLBActivity;
 import com.wanbao.activity.WebHongBaoActivity;
 import com.wanbao.activity.WebViewActivity;
+import com.wanbao.activity.WeiBaoDDActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.activity.XinCheZTActivity;
-import com.wanbao.activity.XuanZheCheXSJActivity;
+import com.wanbao.activity.YangCheLBActivity;
 import com.wanbao.activity.YouZhiESCActivity;
 import com.wanbao.adapter.GlideImageLoader;
 import com.wanbao.base.AppContext;
@@ -329,7 +330,10 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 viewSsfy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, TouTiaoLBActivity.class);
+//                        Intent intent = new Intent(context, TouTiaoLBActivity.class);
+//                        startActivity(intent);
+//                        ToastUtils.showShort("暂无功能！");
+                        Intent intent=new Intent(context,YangCheLBActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -369,9 +373,22 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                             startActivity(intent);
                             return;
                         }
-                        Intent intent = new Intent();
-                        intent.setClass(context, XuanZheCheXSJActivity.class);
-                        startActivity(intent);
+                        if (carNum == 0) {
+                            Intent intent = new Intent();
+                            intent.setClass(context, BanDingCLActivity.class);
+                            startActivity(intent);
+                        } else {
+//                            Intent intent = new Intent();
+//                            intent.setClass(context, WeiXiuBYActivity.class);
+//                            startActivity(intent);
+
+                            Intent intent=new Intent(context,MianFeiYCActivity.class);
+                            intent.putExtra("ctid","16");
+                            startActivity(intent);
+                        }
+//                        Intent intent = new Intent();
+//                        intent.setClass(context, XuanZheCheXSJActivity.class);
+//                        startActivity(intent);
                     }
                 });
                 viewHdxx.setOnClickListener(new View.OnClickListener() {
@@ -647,7 +664,15 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 getCameraAddressPermissions();
                 break;
             case R.id.imageGouWuChe:
-                ToastUtils.showShort("暂无功能！");
+                intent = new Intent();
+                if (SPUtils.getInstance().getInt(Constant.SF.Uid, 0) == 0) {
+                    intent.setClass(context, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                intent.putExtra("currentItem", 2);
+                intent.setClass(getActivity(), WeiBaoDDActivity.class);
+                startActivity(intent);
                 break;
             case R.id.viewSouSuo:
                 ToastUtils.showShort("暂无功能！");

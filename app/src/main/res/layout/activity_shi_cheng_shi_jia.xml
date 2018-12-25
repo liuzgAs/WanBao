@@ -24,11 +24,10 @@
             <ImageView
                 android:id="@+id/imageCar"
                 android:layout_width="@dimen/dp_100"
-                android:scaleType="centerCrop"
                 android:layout_height="@dimen/dp_100"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_20"
-                />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/textTitle"
@@ -54,8 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_10"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="#444444"
                 app:cardCornerRadius="@dimen/dp_5"
@@ -78,7 +77,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="1"
                         android:text="预约4S店"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_14" />
@@ -88,6 +86,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_13" />
 
@@ -137,7 +137,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_weight="1"
                         android:text="选择取车时间"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_14" />
@@ -146,6 +145,8 @@
                         android:id="@+id/textSj"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_13" />
@@ -163,10 +164,78 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:gravity="center_vertical"
-                android:text="可选取车时间为45天，试驾期限为三天"
+                android:text="可选预约试驾时间为45天，试驾期限为三天"
                 android:textColor="@color/new_secondary_text"
                 android:textSize="@dimen/sp_12" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="@color/background"></View>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_34"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="试驾人信息"
+                android:textSize="@dimen/sp_12"
+                android:textColor="@color/new_secondary_text"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/dp_10">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13"
+                    android:text="姓名"/>
+                <EditText
+                    android:id="@+id/editName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/sp_13"
+                    android:textColor="@color/new_important_text"
+                    android:hint="请输入试驾人姓名"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@color/background"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/dp_10">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/new_important_text"
+                    android:textSize="@dimen/sp_13"
+                    android:text="手机号"/>
+                <EditText
+                    android:id="@+id/editPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/sp_13"
+                    android:inputType="number"
+                    android:textColor="@color/new_important_text"
+                    android:hint="请输入手机号"/>
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
@@ -210,8 +279,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
                 android:background="@drawable/yuanjiao_scsj"
                 android:orientation="vertical">
 
@@ -295,8 +364,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_40"
-                android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_10"
                 android:text="若试驾后，成功购买同款车型，凭购车合同和发票，7个工作日内全额退还试驾金"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
@@ -328,8 +397,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_40"
-                android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_10"
                 android:text="芝麻分700分以上可享受意向金减半"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
@@ -405,8 +474,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_34"
-                android:layout_marginBottom="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
@@ -432,35 +501,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_45"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/dp_10"
         android:background="@color/background"
-        android:paddingRight="@dimen/dp_10"
-        android:orientation="horizontal">
-    <ImageView
-        android:layout_width="@dimen/dp_18"
-        android:layout_height="@dimen/dp_18"
-        android:src="@mipmap/scsjyhxy"/>
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:src="@mipmap/scsjyhxy" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_13"
             android:layout_marginLeft="@dimen/dp_10"
+            android:text="同意"
             android:textColor="@color/new_secondary_text"
-            android:text="同意"/>
+            android:textSize="@dimen/sp_13" />
+
         <TextView
             android:id="@+id/textsjxy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_13"
+            android:text="《万宝汽车》"
             android:textColor="@color/new_important_text"
-            android:text="《万宝汽车》"/>
+            android:textSize="@dimen/sp_13" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_13"
+            android:text="用户协议"
             android:textColor="@color/new_secondary_text"
-            android:text="用户协议"/>
+            android:textSize="@dimen/sp_13" />
     </LinearLayout>
 
     <LinearLayout

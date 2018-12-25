@@ -10,25 +10,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
+import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.base.util.IntChange;
+import com.wanbao.modle.Comment;
 import com.wanbao.modle.Index_Store;
 import com.wanbao.modle.OkObject;
+import com.wanbao.modle.Order_NewOrder;
 import com.wanbao.modle.Testdrive_Details;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -66,6 +70,10 @@ public class ShiChengShiJiaActivity extends BaseActivity {
     Button btnLjyy;
     @BindView(R.id.textsjxy)
     TextView textsjxy;
+    @BindView(R.id.editName)
+    EditText editName;
+    @BindView(R.id.editPhone)
+    EditText editPhone;
     private String id;
     private String book_time;
     private String store_id;
@@ -111,14 +119,14 @@ public class ShiChengShiJiaActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.imageback, R.id.viewDp, R.id.viewSj, R.id.btnLjyy,R.id.textsjxy})
+    @OnClick({R.id.imageback, R.id.viewDp, R.id.viewSj, R.id.btnLjyy, R.id.textsjxy})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
             case R.id.textsjxy:
                 intent = new Intent();
-                intent.putExtra("title","试驾协议");
-                intent.putExtra("mUrl",Constant.Url.ShiJiaXY);
+                intent.putExtra("title", "试驾协议");
+                intent.putExtra("mUrl", Constant.Url.ShiJiaXY);
                 intent.setClass(context, WebViewActivity.class);
                 startActivity(intent);
                 break;
@@ -141,12 +149,12 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                         TimePickerDialog dialog = new TimePickerDialog(ShiChengShiJiaActivity.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                int hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                                int day=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                                int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                                int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-                                if (day==dayOfMonth&&hourOfDay<=hour){
+                                if (day == dayOfMonth && hourOfDay <= hour) {
                                     ToastUtils.showShort("试驾时间不能在当前时间以前！");
-                                }else {
+                                } else {
                                     textSj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + IntChange.iChange(hourOfDay) + ":" + IntChange.iChange(minute));
                                     book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
                                 }
@@ -156,7 +164,7 @@ public class ShiChengShiJiaActivity extends BaseActivity {
 
                     }
                 }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()+1000);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + 1000);
                 datePickerDialog.show();
                 break;
             case R.id.btnLjyy:
@@ -168,17 +176,21 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                     ToastUtils.showShort("请选择预约时间！");
                     return;
                 }
+                if (TextUtils.isEmpty(editName.getText().toString())) {
+                    ToastUtils.showShort("请输入试驾人姓名！");
+                    return;
+                }
+                if (TextUtils.isEmpty(editPhone.getText().toString())) {
+                    ToastUtils.showShort("请输入手机号！");
+                    return;
+                }
                 messages.clear();
                 messages.put("sid", store_id);
                 messages.put("item_id", id);
                 messages.put("book_time", book_time);
                 messages.put("type", "2");
                 messages.put("online_pay", "1");
-
-                intent = new Intent();
-                intent.putExtra("messages", (Serializable) messages);
-                intent.setClass(context, LuRuXXActivity.class);
-                startActivity(intent);
+                AddTuser();
                 break;
             default:
                 break;
@@ -248,4 +260,119 @@ public class ShiChengShiJiaActivity extends BaseActivity {
         return new OkObject(params, url);
     }
 
+    private void AddTuser() {
+        HttpApi.post(context, getOkObjectAddTuser(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("录入中..");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                Log.e("AddTuser", s);
+                try {
+                    Comment data = GsonUtils.parseJSON(s, Comment.class);
+                    if (data.getStatus() == 1) {
+                        getOrder();
+                    } else {
+                        ToastUtils.showShort("数据出错");
+                    }
+
+                } catch (Exception e) {
+                    ToastUtils.showShort("数据出错");
+
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常！");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+        });
+    }
+
+    private OkObject getOkObjectAddTuser() {
+        String url = Constant.HOST + Constant.Url.TestDrive_AddTuser;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("name", editName.getText().toString());
+        params.put("phone", editPhone.getText().toString());
+        params.put("idcard", "");
+        params.put("emergency","");
+        params.put("ephone", "");
+        return new OkObject(params, url);
+    }
+
+    private void getOrder() {
+        HttpApi.post(context, getOkObjectOrder(), new HttpApi.CallBack() {
+            @Override
+            public void onStart() {
+                showDialog("");
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                addDisposable(d);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                dismissDialog();
+                try {
+                    LogUtils.e("保养套餐", s);
+                    Order_NewOrder order_newOrder = GsonUtils.parseJSON(s, Order_NewOrder.class);
+                    if (order_newOrder.getStatus() == 1) {
+                        AppContext.getIntance().dates = messages.get("book_time");
+                        Intent intent = new Intent();
+                        intent.putExtra("Oid", order_newOrder.getOid());
+                        intent.putExtra("paytype", 1);
+                        intent.setClass(context, LiJiZhiFuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        ToastUtils.showShort(order_newOrder.getInfo());
+                    }
+                } catch (Exception e) {
+                    dismissDialog();
+                    ToastUtils.showShort("数据异常");
+                }
+            }
+
+            @Override
+            public void onError() {
+                dismissDialog();
+                ToastUtils.showShort("网络异常");
+            }
+
+            @Override
+            public void onComplete() {
+                dismissDialog();
+            }
+
+        });
+    }
+
+    private OkObject getOkObjectOrder() {
+        String url = Constant.HOST + Constant.Url.Order_NewOrder;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
+        params.put("sid", messages.get("sid"));
+        params.put("book_time", messages.get("book_time"));
+        params.put("item_id", messages.get("item_id"));
+        params.put("type", "2");
+        params.put("online_pay", "1");
+        return new OkObject(params, url);
+    }
 }
