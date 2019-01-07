@@ -189,7 +189,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/dp_10"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/dp_10">
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -203,6 +203,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/sp_13"
+                    android:paddingEnd="@dimen/dp_10"
                     android:textColor="@color/new_important_text"
                     android:hint="请输入试驾人姓名"/>
             </LinearLayout>
@@ -218,7 +219,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/dp_10"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/dp_10">
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -232,6 +233,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical|right"
                     android:textSize="@dimen/sp_13"
+                    android:paddingEnd="@dimen/dp_10"
                     android:inputType="number"
                     android:textColor="@color/new_important_text"
                     android:hint="请输入手机号"/>
@@ -239,12 +241,14 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
-                android:background="@color/background"></View>
+                android:background="@color/background">
+            </View>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44"
                 android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10">
@@ -270,6 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_30"
                 android:layout_marginRight="@dimen/dp_10"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:text="线上预约试驾并完成支付"
                 android:textColor="@color/new_important_text"
@@ -281,6 +286,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
+                android:visibility="gone"
                 android:background="@drawable/yuanjiao_scsj"
                 android:orientation="vertical">
 
@@ -341,6 +347,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_24"
                 android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
+
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
@@ -365,6 +373,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_40"
                 android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/dp_10"
                 android:text="若试驾后，成功购买同款车型，凭购车合同和发票，7个工作日内全额退还试驾金"
                 android:textColor="@color/new_important_text"
@@ -374,6 +383,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_24"
                 android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_10"
@@ -398,6 +408,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_40"
                 android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/dp_10"
                 android:text="芝麻分700分以上可享受意向金减半"
                 android:textColor="@color/new_important_text"
@@ -407,6 +418,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44"
                 android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10">
@@ -432,6 +444,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_30"
                 android:layout_marginRight="@dimen/dp_10"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:text="请你按预约时间，携带国内驾驶证（正副本），准时至门店取车（证件有效期至少超过当次试驾体验期30天以上）"
                 android:textColor="@color/new_important_text"
@@ -443,6 +456,7 @@
                 android:layout_marginTop="@dimen/dp_5"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
+                android:visibility="gone"
                 android:paddingRight="@dimen/dp_10">
 
                 <ImageView
@@ -467,6 +481,7 @@
                 android:layout_marginLeft="@dimen/dp_30"
                 android:layout_marginRight="@dimen/dp_10"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:text="试驾结束，还车至门店，并进行违章押金和其他费用结算。我们将冻结你的预授权，作为违约违章押金。\n违章结算后（约30天）解冻"
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
@@ -478,6 +493,7 @@
                 android:layout_marginBottom="@dimen/dp_10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_10">
 

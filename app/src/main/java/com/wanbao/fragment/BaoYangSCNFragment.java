@@ -6,52 +6,49 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.kelin.scrollablepanel.library.ScrollablePanel;
 import com.wanbao.R;
-import com.wanbao.adapter.CustomAdapter;
+import com.wanbao.adapter.BaoYangSCNAdapter;
 import com.wanbao.base.dialog.MyDialog;
-import com.wanbao.base.fragment.PSFragment;
+import com.wanbao.base.fragment.BaseFragment;
 import com.wanbao.base.http.Constant;
 import com.wanbao.base.http.HttpApi;
 import com.wanbao.base.util.GsonUtils;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Usercar_Manual;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.zhouchaoyuan.excelpanel.ExcelPanel;
 import io.reactivex.disposables.Disposable;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Use the {@link BaoYangSCNFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class BaoYangSCFragment extends PSFragment {
+public class BaoYangSCNFragment extends BaseFragment {
+    private static final String ARG_PARAM1 = "id";
     Unbinder unbinder;
-    @BindView(R.id.content_container)
-    ExcelPanel contentContainer;
-    @BindView(R.id.textDes)
-    TextView textDes;
-    private View view;
-    private String id;
-    private CustomAdapter adapter;
+    @BindView(R.id.scrollable_panel)
+    ScrollablePanel scrollablePanel;
 
-    public BaoYangSCFragment() {
+    private String id;
+    private View view;
+    BaoYangSCNAdapter adapter;
+    public BaoYangSCNFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static BaoYangSCFragment newInstance(String id) {
-        BaoYangSCFragment fragment = new BaoYangSCFragment();
+    public static BaoYangSCNFragment newInstance(String id) {
+        BaoYangSCNFragment fragment = new BaoYangSCNFragment();
         Bundle args = new Bundle();
-        args.putSerializable("id", id);
+        args.putString(ARG_PARAM1, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,7 +57,7 @@ public class BaoYangSCFragment extends PSFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            id = (String) getArguments().getSerializable("id");
+            id = getArguments().getString(ARG_PARAM1);
         }
     }
 
@@ -69,10 +66,41 @@ public class BaoYangSCFragment extends PSFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_bao_yang_sc, container, false);
+            view = inflater.inflate(R.layout.fragment_bao_yang_scn, container, false);
+            unbinder = ButterKnife.bind(this, view);
+            init();
         }
-        unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    protected void initIntent() {
+
+    }
+
+    @Override
+    protected void initSP() {
+
+    }
+
+    @Override
+    protected void findID() {
+
+    }
+
+    @Override
+    protected void initViews() {
+        adapter=new BaoYangSCNAdapter();
+    }
+
+    @Override
+    protected void setListeners() {
+
+    }
+
+    @Override
+    protected void initData() {
+        getStore();
     }
 
     private void getStore() {
@@ -95,30 +123,10 @@ public class BaoYangSCFragment extends PSFragment {
                     Usercar_Manual uManual = GsonUtils.parseJSON(s, Usercar_Manual.class);
                     int status = uManual.getStatus();
                     if (status == 1) {
-                        StringBuffer stringBuffer=new StringBuffer();
-                        for (int j=0;j<uManual.getDes().size();j++){
-                            if (j==0){
-                                stringBuffer.append(uManual.getDes().get(j).getV());
-                            }else {
-                                stringBuffer.append("\n"+uManual.getDes().get(j).getV());
-                            }
-                        }
-                        textDes.setText(stringBuffer.toString());
-                        adapter = new CustomAdapter(context, uManual.getData(),new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-                            }
-                        });
-                        contentContainer.setAdapter(adapter);
-                        List<List<String>> majorData = new ArrayList<>();
-                        for (int i = 0; i < uManual.getData().size(); i++) {
-                            majorData.add(uManual.getData().get(i).getV0());
-                        }
-                        LogUtils.e("majorData", majorData.toString());
-                        adapter.setAllData(uManual.getData(), uManual.getCm21km(), majorData);
-//                        adapter.enableFooter();//load more
-//                        adapter.enableHeader();//load history
+                        adapter.setRoomInfoList(uManual.getCm21km());
+                        adapter.setDateInfoList(uManual.getData());
+                        adapter.setOrdersList(uManual.getData());
+                        scrollablePanel.setPanelAdapter(adapter);
                     } else {
                         ToastUtils.showShort(uManual.getInfo());
                     }
@@ -147,17 +155,6 @@ public class BaoYangSCFragment extends PSFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("id", id);
         return new OkObject(params, url);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @Override
-    public void fetchData() {
-        getStore();
     }
 
 }

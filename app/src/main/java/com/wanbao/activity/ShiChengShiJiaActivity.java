@@ -221,6 +221,8 @@ public class ShiChengShiJiaActivity extends BaseActivity {
                         textSjj.setText("¥" + data.getData().getInfo().getDriveprice());
                         textSjj0.setText("¥" + data.getData().getInfo().getDriveprice());
                         textYxj.setText("¥" + data.getData().getInfo().getDeposit());
+                        editName.setText(data.getData().getInfo().getName());
+                        editPhone.setText(data.getData().getInfo().getPhone());
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(data.getData().getInfo().getThumb())

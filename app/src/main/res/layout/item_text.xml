@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_90"
-    android:layout_height="@dimen/dp_45">
+    android:layout_width="@dimen/dp_120"
+    android:layout_height="@dimen/dp_50">
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"

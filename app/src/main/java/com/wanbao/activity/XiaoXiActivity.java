@@ -306,7 +306,7 @@ public class XiaoXiActivity extends BaseActivity implements SwipeRefreshLayout.O
                     return;
                 }
                 intent.putExtra("id",String.valueOf(myMessage.getItem_id()));
-                intent.setClass(context, WBDingDanXQActivity.class);
+                intent.setClass(context, WeiBaoDDXQActivity.class);
                 context.startActivity(intent);
                 break;
             case "app_to":

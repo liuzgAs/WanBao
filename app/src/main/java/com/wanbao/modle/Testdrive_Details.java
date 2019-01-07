@@ -71,6 +71,8 @@ public class Testdrive_Details {
             private String thumb;
             private String sid;
             private String storeName;
+            private String name;
+            private String phone;
 
             public int getId() {
                 return id;
@@ -158,6 +160,20 @@ public class Testdrive_Details {
 
             public void setStoreName(String storeName) {
                 this.storeName = storeName;
+            }
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+            public String getPhone() {
+                return phone;
+            }
+
+            public void setPhone(String phone) {
+                this.phone = phone;
             }
         }
     }

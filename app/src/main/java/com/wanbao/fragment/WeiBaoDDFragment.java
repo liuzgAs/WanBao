@@ -20,7 +20,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.wanbao.R;
-import com.wanbao.activity.WBDingDanXQActivity;
+import com.wanbao.activity.WeiBaoDDXQActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.fragment.PSFragment;
 import com.wanbao.base.http.Constant;
@@ -180,7 +180,7 @@ public class WeiBaoDDFragment extends PSFragment implements SwipeRefreshLayout.O
             public void onItemClick(int position) {
                 Intent intent = new Intent();
                 intent.putExtra("id",String.valueOf(adapter.getItem(position).getId()));
-                intent.setClass(context, WBDingDanXQActivity.class);
+                intent.setClass(context, WeiBaoDDXQActivity.class);
                 startActivity(intent);
             }
         });

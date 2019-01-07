@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.wanbao.R;
 import com.wanbao.modle.Usercar_Manual;
 
+import java.util.List;
+
 import cn.zhouchaoyuan.excelpanel.BaseExcelPanelAdapter;
 
 /**
@@ -23,11 +25,12 @@ import cn.zhouchaoyuan.excelpanel.BaseExcelPanelAdapter;
 public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBean, Usercar_Manual.DataBean, String> {
     private Context context;
     private View.OnClickListener blockListener;
-
-    public CustomAdapter(Context context, View.OnClickListener blockListener) {
+    private List<Usercar_Manual.DataBean> dataBeans;
+    public CustomAdapter(Context context, List<Usercar_Manual.DataBean> dataBeans, View.OnClickListener blockListener) {
         super(context);
         this.context = context;
         this.blockListener = blockListener;
+        this.dataBeans=dataBeans;
     }
 
     //=========================================normal cell=========================================
@@ -43,12 +46,25 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
         CellHold cellHold = (CellHold) holder;
         if ("0".equals(s)) {
             cellHold.image.setVisibility(View.INVISIBLE);
+            cellHold.textTitle.setVisibility(View.GONE);
+            cellHold.view1.setVisibility(View.VISIBLE);
         } else if ("1".equals(s)) {
+            cellHold.textTitle.setVisibility(View.GONE);
             cellHold.image.setVisibility(View.VISIBLE);
+            cellHold.view1.setVisibility(View.VISIBLE);
             cellHold.image.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_baoyang_yuan));
         } else if ("2".equals(s)) {
+            cellHold.textTitle.setVisibility(View.GONE);
             cellHold.image.setVisibility(View.VISIBLE);
+            cellHold.view1.setVisibility(View.VISIBLE);
             cellHold.image.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_baoyang_dred));
+        }else {
+            cellHold.image.setVisibility(View.INVISIBLE);
+            cellHold.view1.setVisibility(View.GONE);
+            if (horizontalPosition==1){
+                cellHold.textTitle.setVisibility(View.VISIBLE);
+                cellHold.textTitle.setText(dataBeans.get(verticalPosition).getV1());
+            }
         }
     }
 
@@ -108,10 +124,14 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
 
     static class CellHold extends RecyclerView.ViewHolder {
         ImageView image;
+        TextView textTitle;
+        View view1;
 
         public CellHold(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
+            textTitle = itemView.findViewById(R.id.textTitle);
+            view1 = itemView.findViewById(R.id.view1);
         }
     }
 }

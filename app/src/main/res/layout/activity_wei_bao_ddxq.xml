@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.WeiBaoDDXQActivity">
+    <include layout="@layout/newtitle"></include>
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/viewBar"
+        app:layout_constraintBottom_toTopOf="@+id/btn1"
+        app:layout_progress="@layout/view_progress"
+        app:layout_empty="@layout/view_empty"
+        android:fillViewport="true"
+        app:scrollbars="none"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    </com.jude.easyrecyclerview.EasyRecyclerView>
+    <com.wanbao.base.ui.StateButton
+        android:id="@+id/btn1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        app:normalBackgroundColor="@color/light_red"
+        app:normalTextColor="@color/white"
+        app:pressedBackgroundColor="@color/new_secondary_text"
+        app:pressedTextColor="@color/white" />
+</android.support.constraint.ConstraintLayout>

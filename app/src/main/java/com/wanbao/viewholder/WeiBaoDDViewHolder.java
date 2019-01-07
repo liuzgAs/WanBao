@@ -19,7 +19,7 @@ import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
 import com.wanbao.activity.PinTaunCGActivity;
 import com.wanbao.activity.QueRenWeiBaoXMActivity;
-import com.wanbao.activity.WBDingDanXQActivity;
+import com.wanbao.activity.WeiBaoDDXQActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
 import com.wanbao.base.http.Constant;
@@ -141,7 +141,7 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
                 intent.putExtra("id",String.valueOf(data.getId()));
-                intent.setClass(getContext(), WBDingDanXQActivity.class);
+                intent.setClass(getContext(), WeiBaoDDXQActivity.class);
                 getContext().startActivity(intent);
             }
         });

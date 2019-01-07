@@ -396,16 +396,22 @@
         <activity
             android:name=".activity.ErShouCheBJActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.SearchDPActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.SosJLActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.SosXQActivity"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.WebHongBaoActivity"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.HongBaoMXActivity"
-            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".activity.SearchDPActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.SosJLActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.SosXQActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.WebHongBaoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.HongBaoMXActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.WeiBaoDDXQActivity"></activity>
     </application>
 
 </manifest>

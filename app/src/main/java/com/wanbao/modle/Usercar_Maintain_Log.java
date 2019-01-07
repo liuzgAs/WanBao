@@ -155,17 +155,17 @@ public class Usercar_Maintain_Log {
          * intro : [{"n":"项目","v":"品牌机滤,上门服务费,机油"},{"n":"材料","v":""}]
          */
 
-        private int id;
+        private String id;
         private String create_time;
         private String bag_name;
         private List<DesBean> des;
         private List<IntroBean> intro;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
