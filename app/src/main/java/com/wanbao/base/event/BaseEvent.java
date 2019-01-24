@@ -27,6 +27,7 @@ public class BaseEvent {
 	public final static String XingShiZFY = "XingShiZFY";
 	public final static String ImageZJ = "ImageZJ";
 	public final static String Change_SjOrder = "ChangeSjOrder";
+	public final static String SSID = "SSID";
 	public final static String ChangeWbOrder = "ChangeWbOrder";
 	public final static String PaySureOrder = "PaySureOrder";
 
@@ -40,6 +41,7 @@ public class BaseEvent {
 	public final static String AddBank = "AddBank";
 	public final static String AddAccount = "AddAccount";
 	public final static String ErShouChe = "ErShouChe";
+	public final static String TimeAndName = "TimeAndName";
 	public final static String ChangeBank = "ChangeBank";
 	public final static String TiXian = "TiXian";
 	public final static String LatLng = "LatLng";
@@ -53,6 +55,7 @@ public class BaseEvent {
 	public final static String DeleteImg = "DeleteImg";
 	public final static String CarImage = "CarImage";
 	public final static String ShowTips = "ShowTips";
+	public final static String StringState = "StringState";
 
 	public final static String INDEX = "index";
 

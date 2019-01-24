@@ -1,7 +1,5 @@
 package com.wanbao.activity;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.blankj.utilcode.util.LogUtils;
@@ -41,7 +37,6 @@ import com.wanbao.modle.Order_NewOrder;
 import com.wanbao.modle.Usercar_Index;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -119,6 +114,7 @@ public class WeiXiuBYActivity extends BaseActivity {
     private String maintain_id;
     private String seller_id;
     private String book_time;
+    private String ssid;
     private String bag_id;
     private int isOnline;
     private int isBx;
@@ -132,7 +128,7 @@ public class WeiXiuBYActivity extends BaseActivity {
     private String team_id = "0";
     private String ctid = "0";
     private boolean isShowDialog = true;
-
+    private boolean isFirst = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,8 +145,8 @@ public class WeiXiuBYActivity extends BaseActivity {
 
     @Override
     protected void initIntent() {
-        HashMap<String, String> states=(HashMap) getIntent().getSerializableExtra("states");
-        if (states!=null){
+        HashMap<String, String> states = (HashMap) getIntent().getSerializableExtra("states");
+        if (states != null) {
             team_state = states.get("team_state");
             id = states.get("id");
             if ("1".equals(team_state)) {
@@ -201,6 +197,15 @@ public class WeiXiuBYActivity extends BaseActivity {
                 textFwry.setText(index_Seller.getName());
                 seller_id = String.valueOf(index_Seller.getId());
             }
+        }
+        if (BaseEvent.TimeAndName.equals(event.getAction())) {
+            HashMap<String, String> timeAndNames = (HashMap<String, String>) event.getData();
+            book_time = timeAndNames.get("book_time");
+            seller_id = timeAndNames.get("seller_id");
+            ssid = timeAndNames.get("ssid");
+            textYysj.setText(timeAndNames.get("show_time"));
+            textFwry.setText(timeAndNames.get("sellerName"));
+            getTc();
         }
     }
 
@@ -259,26 +264,35 @@ public class WeiXiuBYActivity extends BaseActivity {
                         .show();
                 break;
             case R.id.viewYysj:
-                final Calendar c1 = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(WeiXiuBYActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, final int year, final int month, final int dayOfMonth) {
-
-
-                        TimePickerDialog dialog = new TimePickerDialog(WeiXiuBYActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                textYysj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute);
-                                book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
-                                getTc();
-                            }
-                        }, c1.get(Calendar.HOUR_OF_DAY), c1.get(Calendar.MINUTE), true);
-                        dialog.show();
-
-                    }
-                }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                datePickerDialog.show();
+                if (TextUtils.isEmpty(store_id)) {
+                    ToastUtils.showShort("请先选择店铺！");
+                    return;
+                }
+                intent = new Intent();
+                intent.putExtra("sid", store_id);
+                intent.setClass(context, YuYueXZActivity.class);
+//                intent.setClass(context, XiaoShouGWActivity.class);
+                startActivity(intent);
+//                final Calendar c1 = Calendar.getInstance();
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(WeiXiuBYActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, final int year, final int month, final int dayOfMonth) {
+//
+//
+//                        TimePickerDialog dialog = new TimePickerDialog(WeiXiuBYActivity.this, new TimePickerDialog.OnTimeSetListener() {
+//                            @Override
+//                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                                textYysj.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute);
+//                                book_time = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute;
+//                                getTc();
+//                            }
+//                        }, c1.get(Calendar.HOUR_OF_DAY), c1.get(Calendar.MINUTE), true);
+//                        dialog.show();
+//
+//                    }
+//                }, c1.get(Calendar.YEAR), c1.get(Calendar.MONTH), c1.get(Calendar.DAY_OF_MONTH));
+//                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//                datePickerDialog.show();
                 break;
             case R.id.viewFwry:
                 if (TextUtils.isEmpty(store_id)) {
@@ -287,7 +301,8 @@ public class WeiXiuBYActivity extends BaseActivity {
                 }
                 intent = new Intent();
                 intent.putExtra("sid", store_id);
-                intent.setClass(context, XiaoShouGWActivity.class);
+                intent.setClass(context, YuYueXZActivity.class);
+//                intent.setClass(context, XiaoShouGWActivity.class);
                 startActivity(intent);
                 break;
             case R.id.viewZx:
@@ -380,16 +395,19 @@ public class WeiXiuBYActivity extends BaseActivity {
                         textLc.setText(maintain_index.getKm());
                         textDp.setText(maintain_index.getStore_name());
                         textYyxm.setText(maintain_index.getMaintain_name());
-                        textYysj.setText(maintain_index.getBook_time());
                         textFwry.setText(maintain_index.getSeller_name());
                         textWcsj.setText(maintain_index.getEnd_time() + "");
                         editmsgDes.setHint(maintain_index.getMsgDes());
-
+                        if (isFirst) {
+                            textYysj.setText(maintain_index.getBook_time());
+                            book_time = String.valueOf(maintain_index.getBook_time());
+                            isFirst=false;
+                        }
                         ucid = String.valueOf(maintain_index.getUcid());
                         store_id = String.valueOf(maintain_index.getStore_id());
                         maintain_id = String.valueOf(maintain_index.getMaintain_id());
                         seller_id = String.valueOf(maintain_index.getSeller_id());
-                        book_time = String.valueOf(maintain_index.getBook_time());
+//                        book_time = String.valueOf(maintain_index.getBook_time());
                         bag_id = String.valueOf(maintain_index.getBag_id());
 //                        btnYc.setText(maintain_index.getRightBtnTxt());
                         if (maintain_index.getData().size() > 0) {
@@ -406,7 +424,7 @@ public class WeiXiuBYActivity extends BaseActivity {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.dismiss();
-                                            Intent intent=new Intent(context,YangCheLBActivity.class);
+                                            Intent intent = new Intent(context, YangCheLBActivity.class);
                                             startActivity(intent);
                                             finish();
                                         }
@@ -456,7 +474,7 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("team_state", team_state);
         params.put("team_id", team_id);
         params.put("ctid", ctid);
-
+        params.put("ssid", ssid);
         return new OkObject(params, url);
     }
 
@@ -661,6 +679,7 @@ public class WeiXiuBYActivity extends BaseActivity {
         params.put("team_state", team_state);
         params.put("team_id", team_id);
         params.put("ctid", ctid);
+        params.put("ssid", ssid);
         return new OkObject(params, url);
     }
 

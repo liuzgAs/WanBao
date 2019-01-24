@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <com.wanbao.ui.HorizontalView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/transparent">
+        <com.wanbao.ui.MyEasyRecyclerView
+            android:id="@+id/myHRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:scrollbarStyle="insideOverlay"
+            app:scrollbars="none">
+        </com.wanbao.ui.MyEasyRecyclerView>
+    </com.wanbao.ui.HorizontalView>
+</LinearLayout>

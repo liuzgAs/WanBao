@@ -13,7 +13,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_8"
-        android:background="@color/background"></View>
+        android:background="@color/background">
+    </View>
 
     <ScrollView
         android:layout_width="match_parent"

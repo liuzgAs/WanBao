@@ -61,9 +61,10 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
         }else {
             cellHold.image.setVisibility(View.INVISIBLE);
             cellHold.view1.setVisibility(View.GONE);
-            if (horizontalPosition==1){
+            if (horizontalPosition==0){
                 cellHold.textTitle.setVisibility(View.VISIBLE);
                 cellHold.textTitle.setText(dataBeans.get(verticalPosition).getV1());
+            }else {
             }
         }
     }
@@ -126,12 +127,18 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
         ImageView image;
         TextView textTitle;
         View view1;
+        View view2;
+        View view3;
+        View relativeLayout;
 
         public CellHold(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             textTitle = itemView.findViewById(R.id.textTitle);
             view1 = itemView.findViewById(R.id.view1);
+            view2 = itemView.findViewById(R.id.view2);
+            view3 = itemView.findViewById(R.id.view3);
+            relativeLayout = itemView.findViewById(R.id.relativeLayout);
         }
     }
 }

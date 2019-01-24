@@ -18,7 +18,9 @@ import com.wanbao.R;
 import com.wanbao.activity.LiJiPPActivity;
 import com.wanbao.activity.LiJiZhiFuActivity;
 import com.wanbao.activity.PinTaunCGActivity;
+import com.wanbao.activity.QueRenSQActivity;
 import com.wanbao.activity.QueRenWeiBaoXMActivity;
+import com.wanbao.activity.QueRenYSActivity;
 import com.wanbao.activity.WeiBaoDDXQActivity;
 import com.wanbao.activity.WeiXiuBYActivity;
 import com.wanbao.base.event.BaseEvent;
@@ -124,9 +126,17 @@ public class WeiBaoDDViewHolder extends BaseViewHolder<User_Maintain_order.DataB
                 } else if (data.getIsConfirmCar() == 1) {
                     setState(BaseEvent.Is_Confirm, String.valueOf(data.getId()));
                 } else if (data.getIsAuth() == 1) {
-                    setState(BaseEvent.IsAuth, String.valueOf(data.getId()));
+//                    setState(BaseEvent.IsAuth, String.valueOf(data.getId()));
+                    Intent intent = new Intent();
+                    intent.putExtra("id", String.valueOf(data.getId()));
+                    intent.setClass(getContext(), QueRenSQActivity.class);
+                    getContext().startActivity(intent);
                 } else if (data.getIsAccepting() == 1) {
-                    setState(BaseEvent.IsAccepting, String.valueOf(data.getId()));
+//                    setState(BaseEvent.IsAccepting, String.valueOf(data.getId()));
+                    Intent intent = new Intent();
+                    intent.putExtra("id", String.valueOf(data.getId()));
+                    intent.setClass(getContext(), QueRenYSActivity.class);
+                    getContext().startActivity(intent);
                 }
             }
         });

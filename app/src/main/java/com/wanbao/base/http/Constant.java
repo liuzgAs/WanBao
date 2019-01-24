@@ -126,6 +126,18 @@ public class Constant {
          */
         public static final String Usercar_Index = "Usercar/index";
         /**
+         * 授权
+         */
+        public static final String MAINTAIN_ORDER_AUTH = "/User/maintain_order_auth";
+        /**
+         * 验收并支付
+         */
+        public static final String MAINTAIN_ORDER_ACCEPTING = "/User/maintain_order_accepting";
+        /**
+         * 预约时段
+         */
+        public static final String Maintain_book = "/Maintain/book";
+        /**
          * 头条资讯
          */
         public static final String News_Headline = "News/headline";

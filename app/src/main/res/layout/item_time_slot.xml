@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10"
+    android:background="@color/white"
+    android:layout_height="@dimen/dp_50">
+    <TextView
+        android:id="@+id/textTimes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/new_important_text"
+        android:textSize="@dimen/sp_13"
+        android:text="08:55-09:55"/>
+    <TextView
+        android:id="@+id/textZhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_red"
+        android:textSize="@dimen/sp_11"
+        android:background="@drawable/weibao_zk"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingStart="@dimen/dp_5"
+        android:paddingEnd="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_10"
+        android:text="8.6折"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </View>
+    <Button
+        android:id="@+id/btnState"
+        android:layout_width="@dimen/dp_70"
+        android:background="@drawable/weibao_ym"
+        android:text="已满"
+        android:textColor="@color/new_secondary_text"
+        android:textSize="@dimen/sp_13"
+        android:layout_height="@dimen/dp_32" />
+</LinearLayout>

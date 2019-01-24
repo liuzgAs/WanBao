@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_marginBottom="@dimen/dp_50"
-        app:left_cell_width="@dimen/dp_90"
-        app:normal_cell_width="@dimen/dp_90"
-        app:top_cell_height="@dimen/dp_45" />
+        app:left_cell_width="@dimen/dp_120"
+        app:normal_cell_width="@dimen/dp_120"
+        app:top_cell_height="@dimen/dp_50" />
     <TextView
         android:id="@+id/textDes"
         android:layout_width="match_parent"

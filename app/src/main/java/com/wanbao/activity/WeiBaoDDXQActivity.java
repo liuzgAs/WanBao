@@ -286,9 +286,19 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                 if (data.getIsConfirmCar() == 1) {
                     setState(BaseEvent.Is_Confirm, id);
                 } else if (data.getIsAuth() == 1) {
-                    setState(BaseEvent.IsAuth, id);
+//                    setState(BaseEvent.IsAuth, id);
+                    Intent intent = new Intent();
+                    intent.putExtra("id", id);
+                    intent.setClass(context, QueRenSQActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else if (data.getIsAccepting() == 1) {
-                    setState(BaseEvent.IsAccepting, id);
+//                    setState(BaseEvent.IsAccepting, id);
+                    Intent intent = new Intent();
+                    intent.putExtra("id", id);
+                    intent.setClass(context, QueRenYSActivity.class);
+                    context.startActivity(intent);
+                    finish();
                 }
                 break;
             default:
