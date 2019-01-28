@@ -63,18 +63,21 @@ public class DingDanImageViewHolder extends BaseViewHolder<User_Maintain_order_i
     @Override
     public void setData(final User_Maintain_order_info.ImgShowBean data) {
         super.setData(data);
+        imgShowBean.clear();
         imgShowBean.addAll(data.getImgs());
         textName.setText(data.getName());
         adapter.clear();
         adapter.addAll(data.getImgs());
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
     }
 
     /**
      * 初始化recyclerview
      */
     private void initRecycler() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager manager=new LinearLayoutManager(getContext());
+        manager.setAutoMeasureEnabled(true);
+        recyclerView.setLayoutManager(manager);
         DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) activity.getResources().getDimension(R.dimen.dp_1), 0, 0);
         itemDecoration.setDrawLastItem(false);
         recyclerView.addItemDecoration(itemDecoration);

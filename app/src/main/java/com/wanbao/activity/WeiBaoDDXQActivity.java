@@ -32,6 +32,7 @@ import com.wanbao.modle.Comment;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.User_Maintain_order_info;
 import com.wanbao.viewholder.DingDanImageViewHolder;
+import com.wanbao.viewholder.FooterWBDDViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,7 +46,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author Administrator
  */
-public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.titleText)
     TextView titleText;
@@ -99,7 +100,7 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_dingdan_img;
-                return new DingDanImageViewHolder(parent, layout,WeiBaoDDXQActivity.this);
+                return new DingDanImageViewHolder(parent, layout, WeiBaoDDXQActivity.this);
             }
         });
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
@@ -116,25 +117,28 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
             private ListView listBagDes;
             private ListView listSumDes;
             private ListView listDes;
+            private TextView textIsShow;
             private MyAdapter myBagAdapter;
             private MyAdapter myAdapter;
             private MySumAdapter mySumAdapter;
+
             @Override
             public View onCreateView(ViewGroup parent) {
                 View view = LayoutInflater.from(context).inflate(R.layout.header_weibao_ddxq, null);
-                viewState=view.findViewById(R.id.viewState);
-                imageState=view.findViewById(R.id.imageState);
-                imageView8=view.findViewById(R.id.imageView8);
-                textState=view.findViewById(R.id.textState);
-                textStateTo=view.findViewById(R.id.textStateTo);
-                textStoreName=view.findViewById(R.id.textStoreName);
-                textAddress=view.findViewById(R.id.textAddress);
-                textBookTime=view.findViewById(R.id.textBookTime);
-                textPerson=view.findViewById(R.id.textPerson);
-                textBagName=view.findViewById(R.id.textBagName);
-                listBagDes=view.findViewById(R.id.listBagDes);
-                listSumDes=view.findViewById(R.id.listSumDes);
-                listDes=view.findViewById(R.id.listDes);
+                viewState = view.findViewById(R.id.viewState);
+                textIsShow = view.findViewById(R.id.textIsShow);
+                imageState = view.findViewById(R.id.imageState);
+                imageView8 = view.findViewById(R.id.imageView8);
+                textState = view.findViewById(R.id.textState);
+                textStateTo = view.findViewById(R.id.textStateTo);
+                textStoreName = view.findViewById(R.id.textStoreName);
+                textAddress = view.findViewById(R.id.textAddress);
+                textBookTime = view.findViewById(R.id.textBookTime);
+                textPerson = view.findViewById(R.id.textPerson);
+                textBagName = view.findViewById(R.id.textBagName);
+                listBagDes = view.findViewById(R.id.listBagDes);
+                listSumDes = view.findViewById(R.id.listSumDes);
+                listDes = view.findViewById(R.id.listDes);
                 viewState.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -160,7 +164,7 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
 
             @Override
             public void onBindView(View headerView) {
-                if (data!=null){
+                if (data != null) {
                     myBagAdapter = new MyAdapter(data.getData(), 0);
                     myAdapter = new MyAdapter(data.getData(), 1);
                     mySumAdapter = new MySumAdapter(data.getData());
@@ -197,7 +201,55 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                         textStateTo.setText("再次预约");
                         imageView8.setVisibility(View.VISIBLE);
                     }
+                    if (data.getIsShow() == 1) {
+                        textIsShow.setVisibility(View.VISIBLE);
+                    } else {
+                        textIsShow.setVisibility(View.GONE);
+                    }
                 }
+            }
+        });
+        adapter.addFooter(new RecyclerArrayAdapter.ItemView() {
+            private EasyRecyclerView footerRecyclerView;
+            private RecyclerArrayAdapter<User_Maintain_order_info.BtnBean> footerAdapter;
+
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                View view = LayoutInflater.from(context).inflate(R.layout.footer_weibaodd, null);
+                footerRecyclerView=view.findViewById(R.id.footerRecyclerView);
+                initFooterRecycler();
+                return view;
+            }
+
+            @Override
+            public void onBindView(View headerView) {
+                if (data!=null){
+                    footerAdapter.clear();
+                    footerAdapter.addAll(data.getBtn());
+                }
+            }
+
+            /**
+             * 初始化recyclerview
+             */
+            private void initFooterRecycler() {
+                footerRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, (int) getResources().getDimension(R.dimen.dp_10), 0, 0);
+                itemDecoration.setDrawLastItem(false);
+                footerRecyclerView.addItemDecoration(itemDecoration);
+                footerRecyclerView.setRefreshingColorResources(R.color.basic_color);
+                footerRecyclerView.setAdapter(footerAdapter = new RecyclerArrayAdapter<User_Maintain_order_info.BtnBean>(WeiBaoDDXQActivity.this) {
+                    @Override
+                    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+                        int layout = R.layout.item_footer_weibaodd;
+                        return new FooterWBDDViewHolder(parent, layout,id,WeiBaoDDXQActivity.this);
+                    }
+                });
+                footerAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                    }
+                });
             }
         });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
@@ -207,10 +259,12 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
         });
         recyclerView.setRefreshListener(this);
     }
+
     @Override
     public void onRefresh() {
         getOrderInfo();
     }
+
     private void getOrderInfo() {
         HttpApi.post(context, getOkObjectOrderInfo(), new HttpApi.CallBack() {
             @Override
@@ -265,10 +319,10 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
         adapter.notifyDataSetChanged();
         if (data.getIsAuth() == 1) {
             btn1.setText("确认授权");
-            btn1.setVisibility(View.VISIBLE);
+            btn1.setVisibility(View.GONE);
         } else if (data.getIsAccepting() == 1) {
             btn1.setText("验收并支付");
-            btn1.setVisibility(View.VISIBLE);
+            btn1.setVisibility(View.GONE);
         } else if (data.getIsConfirmCar() == 1) {
             btn1.setText("确认牵车");
             btn1.setVisibility(View.VISIBLE);
@@ -276,6 +330,7 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
             btn1.setVisibility(View.GONE);
         }
     }
+
     @OnClick({R.id.imageback, R.id.btn1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -305,6 +360,8 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
                 break;
         }
     }
+
+
     class MyAdapter extends BaseAdapter {
 
         private User_Maintain_order_info.DataBean dataBean;
@@ -341,15 +398,15 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            MyAdapter.ViewHolder holder;
+            ViewHolder holder;
             if (convertView == null) {
-                holder = new MyAdapter.ViewHolder();
+                holder = new ViewHolder();
                 convertView = getLayoutInflater().inflate(R.layout.item_childdd, null);
                 holder.textName = (TextView) convertView.findViewById(R.id.textName);
                 holder.textJinel = (TextView) convertView.findViewById(R.id.textJinel);
                 convertView.setTag(holder);
             } else {
-                holder = (MyAdapter.ViewHolder) convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
             if (type == 0) {
                 holder.textName.setText(dataBean.getBag_des().get(position).getN());
@@ -392,15 +449,15 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            MySumAdapter.ViewHolder holder;
+            ViewHolder holder;
             if (convertView == null) {
-                holder = new MySumAdapter.ViewHolder();
+                holder = new ViewHolder();
                 convertView = getLayoutInflater().inflate(R.layout.item_ddzj, null);
                 holder.textName = (TextView) convertView.findViewById(R.id.textName);
                 holder.textJinel = (TextView) convertView.findViewById(R.id.textJinel);
                 convertView.setTag(holder);
             } else {
-                holder = (MySumAdapter.ViewHolder) convertView.getTag();
+                holder = (ViewHolder) convertView.getTag();
             }
             holder.textName.setText(dataBean.getSum_des().get(position).getN());
             holder.textJinel.setText(dataBean.getSum_des().get(position).getV());

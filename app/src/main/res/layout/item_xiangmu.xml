@@ -10,20 +10,25 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/icon_baoyang_yuan"/>
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/new_secondary_text"
-        android:textSize="@dimen/sp_12"
-        android:gravity="center"
+    <com.wanbao.base.view.AutoScrollView
+        android:layout_width="match_parent"
+        android:scrollbars="none"
         android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/dp_2"
-        android:layout_marginEnd="@dimen/dp_2"
-        android:maxLines="3"
-        />
+        android:layout_marginTop="@dimen/dp_3"
+        android:layout_marginBottom="@dimen/dp_3"
+        android:id="@+id/autoScrollView"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/new_secondary_text"
+            android:textSize="@dimen/sp_11"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_5"
+            />
+    </com.wanbao.base.view.AutoScrollView>
     <View
         android:id="@+id/view1"
         android:layout_width="1px"

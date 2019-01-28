@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.WeiBaoDDXQActivity">
     <include layout="@layout/newtitle"></include>
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/viewBar"
-        app:layout_constraintBottom_toTopOf="@+id/btn1"
         app:layout_progress="@layout/view_progress"
         app:layout_empty="@layout/view_empty"
         android:fillViewport="true"
         app:scrollbars="none"
+        android:layout_weight="1"
         android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
         android:layout_height="0dp">
@@ -30,4 +30,4 @@
         app:normalTextColor="@color/white"
         app:pressedBackgroundColor="@color/new_secondary_text"
         app:pressedTextColor="@color/white" />
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

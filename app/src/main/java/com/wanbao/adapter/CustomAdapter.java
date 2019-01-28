@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wanbao.R;
+import com.wanbao.base.view.AutoScrollView;
 import com.wanbao.modle.Usercar_Manual;
 
 import java.util.List;
@@ -40,31 +41,50 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
         return myHold;
     }
 
+
     @Override
     public void onBindCellViewHolder(RecyclerView.ViewHolder holder, int verticalPosition, int horizontalPosition) {
         String s = getMajorItem(verticalPosition, horizontalPosition);
         CellHold cellHold = (CellHold) holder;
+//        ViewGroup.LayoutParams layoutParams=cellHold.relativeLayout.getLayoutParams();
         if ("0".equals(s)) {
+//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120);
+//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+
             cellHold.image.setVisibility(View.INVISIBLE);
-            cellHold.textTitle.setVisibility(View.GONE);
+            cellHold.autoScrollView.setVisibility(View.GONE);
             cellHold.view1.setVisibility(View.VISIBLE);
         } else if ("1".equals(s)) {
-            cellHold.textTitle.setVisibility(View.GONE);
+//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120);
+//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+
+            cellHold.autoScrollView.setVisibility(View.GONE);
             cellHold.image.setVisibility(View.VISIBLE);
             cellHold.view1.setVisibility(View.VISIBLE);
             cellHold.image.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_baoyang_yuan));
         } else if ("2".equals(s)) {
-            cellHold.textTitle.setVisibility(View.GONE);
+//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120);
+//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+
+            cellHold.autoScrollView.setVisibility(View.GONE);
             cellHold.image.setVisibility(View.VISIBLE);
             cellHold.view1.setVisibility(View.VISIBLE);
             cellHold.image.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_baoyang_dred));
         }else {
+//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120)*dataBeans.get(verticalPosition).getV0().size();
+//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+
             cellHold.image.setVisibility(View.INVISIBLE);
             cellHold.view1.setVisibility(View.GONE);
             if (horizontalPosition==0){
-                cellHold.textTitle.setVisibility(View.VISIBLE);
+                cellHold.autoScrollView.setVisibility(View.VISIBLE);
+                cellHold.autoScrollView.setAutoToScroll(true);//设置可以自动滑动
+                cellHold.autoScrollView.setFistTimeScroll(2000);//设置第一次自动滑动的时间
+                cellHold.autoScrollView.setScrollRate(50);//设置滑动的速率
+                cellHold.autoScrollView.setScrollLoop(true);//设置是否循环滑动
                 cellHold.textTitle.setText(dataBeans.get(verticalPosition).getV1());
             }else {
+                cellHold.autoScrollView.setVisibility(View.GONE);
             }
         }
     }
@@ -126,6 +146,7 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
     static class CellHold extends RecyclerView.ViewHolder {
         ImageView image;
         TextView textTitle;
+        AutoScrollView autoScrollView;
         View view1;
         View view2;
         View view3;
@@ -135,6 +156,7 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
             super(itemView);
             image = itemView.findViewById(R.id.image);
             textTitle = itemView.findViewById(R.id.textTitle);
+            autoScrollView = itemView.findViewById(R.id.autoScrollView);
             view1 = itemView.findViewById(R.id.view1);
             view2 = itemView.findViewById(R.id.view2);
             view3 = itemView.findViewById(R.id.view3);

@@ -316,6 +316,10 @@ public class WeiXiuBYActivity extends BaseActivity {
                     ToastUtils.showShort("请设置里程");
                     return;
                 }
+                if ("0".equals(ssid)||TextUtils.isEmpty(ssid)){
+                    ToastUtils.showShort("请设置正确的维保时间！");
+                    return;
+                }
                 getOrder();
                 break;
             case R.id.textFreeV:

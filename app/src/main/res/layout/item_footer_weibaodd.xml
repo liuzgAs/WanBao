@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.wanbao.base.ui.StateButton
+        android:id="@+id/btnState"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_43"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:textSize="@dimen/sp_13"
+        app:radius="@dimen/dp_5"
+        app:normalBackgroundColor="@color/light_red"
+        app:normalTextColor="@color/white"
+        app:pressedBackgroundColor="@color/new_secondary_text"
+        app:pressedTextColor="@color/white"
+        app:unableBackgroundColor="@color/new_secondary_text"
+        app:unableTextColor="@color/white"/>
+</LinearLayout>

@@ -411,7 +411,9 @@
         <activity
             android:name=".activity.HongBaoMXActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.WeiBaoDDXQActivity" />
+        <activity android:name=".activity.WeiBaoDDXQActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"/>
         <activity android:name=".activity.YuYueXZActivity" />
         <activity android:name=".activity.QueRenSQActivity"
             android:launchMode="singleTask">

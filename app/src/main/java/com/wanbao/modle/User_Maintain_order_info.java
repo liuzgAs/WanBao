@@ -28,6 +28,7 @@ public class User_Maintain_order_info {
     private DataBean data;
     private int status;
     private String info;
+    private List<BtnBean> btn;
     private List<ImgShowBean> imgShow;
 
     public int getIsAuth() {
@@ -93,7 +94,13 @@ public class User_Maintain_order_info {
     public void setImgShow(List<ImgShowBean> imgShow) {
         this.imgShow = imgShow;
     }
+    public List<BtnBean> getBtn() {
+        return btn;
+    }
 
+    public void setBtn(List<BtnBean> btn) {
+        this.btn = btn;
+    }
     public static class DataBean {
         /**
          * stateType : 4
@@ -343,6 +350,41 @@ public class User_Maintain_order_info {
             public void setH(int h) {
                 this.h = h;
             }
+        }
+    }
+    public static class BtnBean {
+        /**
+         * n : 查看维保授权确认详情
+         * is_v : 1
+         * url : maintain_order_auth
+         */
+
+        private String n;
+        private int is_v;
+        private String url;
+
+        public String getN() {
+            return n;
+        }
+
+        public void setN(String n) {
+            this.n = n;
+        }
+
+        public int getIs_v() {
+            return is_v;
+        }
+
+        public void setIs_v(int is_v) {
+            this.is_v = is_v;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 }
