@@ -1,14 +1,9 @@
 package com.wanbao.viewholder;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.wanbao.GlideApp;
 import com.wanbao.R;
@@ -40,20 +35,6 @@ public class ImageViewHolder extends BaseViewHolder<Usercar_LogPics.ListBean> {
                 .thumbnail( 0.6f )
                 .placeholder(R.mipmap.ic_empty)
                 .dontAnimate()
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(final Bitmap resource, Transition<? super Bitmap> transition) {
-
-                        int width = resource.getWidth();
-                        int height = resource.getHeight();
-                        imageImg.setImageBitmap(resource);
-                    }
-
-                    @Override
-                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                        super.onLoadFailed(errorDrawable);
-                        imageImg.setImageResource(R.mipmap.ic_empty);
-                    }
-                });
+                .into(imageImg);
     }
 }

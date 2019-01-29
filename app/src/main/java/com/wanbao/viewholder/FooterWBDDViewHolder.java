@@ -38,12 +38,14 @@ public class FooterWBDDViewHolder extends BaseViewHolder<User_Maintain_order_inf
                 if ("maintain_order_auth".equals(btnBean.getUrl())){
                     Intent intent = new Intent();
                     intent.putExtra("id", oid);
+                    intent.putExtra("type", 1);
                     intent.setClass(getContext(), QueRenSQActivity.class);
                     getContext().startActivity(intent);
                     myActivity.finish();
                 }else if ("maintain_order_accepting".equals(btnBean.getUrl())){
                     Intent intent = new Intent();
                     intent.putExtra("id", oid);
+                    intent.putExtra("type", 1);
                     intent.setClass(getContext(), QueRenYSActivity.class);
                     getContext().startActivity(intent);
                     myActivity.finish();

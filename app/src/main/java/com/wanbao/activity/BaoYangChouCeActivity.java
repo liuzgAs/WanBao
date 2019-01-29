@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.wanbao.R;
 import com.wanbao.base.activity.BaseNoLeftActivity;
 import com.wanbao.fragment.BaoYangJLFragment;
-import com.wanbao.fragment.BaoYangSCFragment;
+import com.wanbao.fragment.BaoYangSCXFragment;
 import com.wanbao.fragment.WeiXiuJLFragment;
 import com.wanbao.ui.NoScrollViewPager;
 
@@ -154,7 +154,7 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
             Fragment mfragment;
             switch (position){
                 case 0:
-                    mfragment= BaoYangSCFragment.newInstance(id);
+                    mfragment= BaoYangSCXFragment.newInstance(id);
                 break;
                 case 1:
                     mfragment= BaoYangJLFragment.newInstance(id);
@@ -163,7 +163,7 @@ public class BaoYangChouCeActivity extends BaseNoLeftActivity {
                     mfragment= WeiXiuJLFragment.newInstance(id);
                     break;
                 default:
-                    mfragment= BaoYangSCFragment.newInstance(id);
+                    mfragment= BaoYangSCXFragment.newInstance(id);
                     break;
             }
             return mfragment;

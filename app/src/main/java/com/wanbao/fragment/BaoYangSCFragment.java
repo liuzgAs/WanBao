@@ -112,9 +112,10 @@ public class BaoYangSCFragment extends PSFragment {
                         });
                         contentContainer.setAdapter(adapter);
                         ArrayList<String> major=new ArrayList<>();
-                        for (int i=0;i<uManual.getCm21km().size();i++){
-                            major.add("");
-                        }
+//                        for (int i=0;i<uManual.getCm21km().size();i++){
+//                            major.add("");
+//                        }
+                        major.add("4");
                         List<List<String>> majorData = new ArrayList<>();
                         for (int i = 0; i < uManual.getData().size(); i++) {
                             if (uManual.getData().get(i).getV0().size()==0){

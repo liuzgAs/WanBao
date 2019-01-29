@@ -319,10 +319,10 @@ public class WeiBaoDDXQActivity extends BaseActivity implements SwipeRefreshLayo
         adapter.notifyDataSetChanged();
         if (data.getIsAuth() == 1) {
             btn1.setText("确认授权");
-            btn1.setVisibility(View.GONE);
+            btn1.setVisibility(View.VISIBLE);
         } else if (data.getIsAccepting() == 1) {
             btn1.setText("验收并支付");
-            btn1.setVisibility(View.GONE);
+            btn1.setVisibility(View.VISIBLE);
         } else if (data.getIsConfirmCar() == 1) {
             btn1.setText("确认牵车");
             btn1.setVisibility(View.VISIBLE);

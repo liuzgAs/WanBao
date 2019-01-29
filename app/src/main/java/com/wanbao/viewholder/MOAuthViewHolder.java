@@ -50,10 +50,12 @@ public class MOAuthViewHolder extends BaseViewHolder<MaintainOrdeAuth.DataBean> 
     private RecyclerArrayAdapter<MaintainOrdeAuth.DataBean.ImgsBean> adapter;
     private List<LocalMedia> imageList = new ArrayList<>();
     private MaintainOrdeAuth.DataBean dataBean;
+    private int type;
 
-    public MOAuthViewHolder(ViewGroup parent, @LayoutRes int res, Activity activity) {
+    public MOAuthViewHolder(ViewGroup parent, @LayoutRes int res, Activity activity,int type) {
         super(parent, res);
         this.activity = activity;
+        this.type=type;
         checkN = $(R.id.checkN);
         textV = $(R.id.textV);
         listView = $(R.id.listView);
@@ -63,6 +65,13 @@ public class MOAuthViewHolder extends BaseViewHolder<MaintainOrdeAuth.DataBean> 
         textSum_n = $(R.id.textSum_n);
         textSum_v = $(R.id.textSum_v);
         initRecycler();
+        if (type==1){
+            checkN.setClickable(false);
+            checkN.setEnabled(false);
+        }else {
+            checkN.setClickable(true);
+            checkN.setEnabled(true);
+        }
         checkN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

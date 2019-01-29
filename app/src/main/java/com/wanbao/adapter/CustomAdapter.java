@@ -46,36 +46,37 @@ public class CustomAdapter extends BaseExcelPanelAdapter<Usercar_Manual.Cm21kmBe
     public void onBindCellViewHolder(RecyclerView.ViewHolder holder, int verticalPosition, int horizontalPosition) {
         String s = getMajorItem(verticalPosition, horizontalPosition);
         CellHold cellHold = (CellHold) holder;
-//        ViewGroup.LayoutParams layoutParams=cellHold.relativeLayout.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams=cellHold.relativeLayout.getLayoutParams();
         if ("0".equals(s)) {
-//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120);
-//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+            layoutParams.width=(int) context.getResources().getDimension(R.dimen.dp_120);
+            cellHold.relativeLayout.setLayoutParams(layoutParams);
 
             cellHold.image.setVisibility(View.INVISIBLE);
             cellHold.autoScrollView.setVisibility(View.GONE);
             cellHold.view1.setVisibility(View.VISIBLE);
         } else if ("1".equals(s)) {
-//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120);
-//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+            layoutParams.width=(int)context.getResources().getDimension(R.dimen.dp_120);
+            cellHold.relativeLayout.setLayoutParams(layoutParams);
 
             cellHold.autoScrollView.setVisibility(View.GONE);
             cellHold.image.setVisibility(View.VISIBLE);
             cellHold.view1.setVisibility(View.VISIBLE);
             cellHold.image.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_baoyang_yuan));
         } else if ("2".equals(s)) {
-//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120);
-//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+            layoutParams.width=(int)context.getResources().getDimension(R.dimen.dp_120);
+            cellHold.relativeLayout.setLayoutParams(layoutParams);
 
             cellHold.autoScrollView.setVisibility(View.GONE);
             cellHold.image.setVisibility(View.VISIBLE);
             cellHold.view1.setVisibility(View.VISIBLE);
             cellHold.image.setImageDrawable(ContextCompat.getDrawable(context,R.mipmap.icon_baoyang_dred));
         }else {
-//            layoutParams.width=context.getResources().getDimensionPixelOffset(R.dimen.dp_120)*dataBeans.get(verticalPosition).getV0().size();
-//            cellHold.relativeLayout.setLayoutParams(layoutParams);
+            layoutParams.width=(int)context.getResources().getDimension(R.dimen.dp_120)*8;
+            cellHold.relativeLayout.setLayoutParams(layoutParams);
 
             cellHold.image.setVisibility(View.INVISIBLE);
             cellHold.view1.setVisibility(View.GONE);
+            cellHold.autoScrollView.setVisibility(View.VISIBLE);
             if (horizontalPosition==0){
                 cellHold.autoScrollView.setVisibility(View.VISIBLE);
                 cellHold.autoScrollView.setAutoToScroll(true);//设置可以自动滑动

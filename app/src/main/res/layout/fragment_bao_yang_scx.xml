@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        tools:context=".fragment.BaoYangSCXFragment">
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_60"
+                android:gravity="center"
+                android:text="保养计划"
+                android:textColor="@color/new_important_text"
+                android:textSize="@dimen/sp_13" />
+
+            <com.jude.easyrecyclerview.EasyRecyclerView
+                android:id="@+id/recyclerLeft"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="match_parent"
+                app:scrollbars="none"></com.jude.easyrecyclerview.EasyRecyclerView>
+        </LinearLayout>
+
+
+        <com.wanbao.base.view.ObservableHorizontalScrollView
+            android:id="@+id/HorizontalTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:descendantFocusability="blocksDescendants"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    app:scrollbars="none"></android.support.v7.widget.RecyclerView>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+        </com.wanbao.base.view.ObservableHorizontalScrollView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textDes"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/new_secondary_text"
+        android:textSize="@dimen/sp_12" />
+</LinearLayout>

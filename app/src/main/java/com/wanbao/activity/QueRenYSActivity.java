@@ -50,6 +50,7 @@ public class QueRenYSActivity extends BaseActivity implements SwipeRefreshLayout
     Button btnSubmit;
     private RecyclerArrayAdapter<MaintainOrderAccepting.DataBean> adapter;
     private String id;
+    private int type;
     List<MaintainOrderAccepting.DataBean> dataBeans = new ArrayList<>();
 
     @Override
@@ -68,11 +69,17 @@ public class QueRenYSActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     protected void initIntent() {
         id = getIntent().getStringExtra("id");
+        type = getIntent().getIntExtra("type", 0);
     }
 
     @Override
     protected void initViews() {
         titleText.setText("验车报告");
+        if (type==0){
+            btnSubmit.setVisibility(View.VISIBLE);
+        }else {
+            btnSubmit.setVisibility(View.GONE);
+        }
         btnSubmit.setText("确认验收");
         initRecycler();
     }
@@ -111,7 +118,7 @@ public class QueRenYSActivity extends BaseActivity implements SwipeRefreshLayout
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_que_ren_ys;
-                return new MOAcceptingViewHolder(parent, layout, QueRenYSActivity.this);
+                return new MOAcceptingViewHolder(parent, layout, QueRenYSActivity.this,type);
             }
         });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {

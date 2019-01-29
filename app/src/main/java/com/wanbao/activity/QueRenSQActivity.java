@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -38,15 +39,19 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 
-public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.titleText)
     TextView titleText;
     @BindView(R.id.recyclerView)
     EasyRecyclerView recyclerView;
+    @BindView(R.id.btnSubmit)
+    Button btnSubmit;
     private RecyclerArrayAdapter<MaintainOrdeAuth.DataBean> adapter;
     private String id;
-    List<MaintainOrdeAuth.DataBean> dataBeans=new ArrayList<>();
+    private int type;
+    List<MaintainOrdeAuth.DataBean> dataBeans = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +67,18 @@ public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Override
     protected void initIntent() {
-        id=getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
+        type = getIntent().getIntExtra("type", 0);
     }
 
     @Override
     protected void initViews() {
         titleText.setText("确认授权");
+        if (type==0){
+            btnSubmit.setVisibility(View.VISIBLE);
+        }else {
+            btnSubmit.setVisibility(View.GONE);
+        }
         initRecycler();
     }
 
@@ -78,14 +89,14 @@ public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Override
     public void onEventMainThread(BaseEvent event) {
-        if (BaseEvent.StringState.equals(event.getAction())){
-            HashMap<String,Object> stringState= (HashMap<String, Object>) event.getData();
-            if (stringState!=null){
-                int pos= (int) stringState.get("pos");
-                boolean isChecked= (boolean) stringState.get("isChecked");
-                if (isChecked){
+        if (BaseEvent.StringState.equals(event.getAction())) {
+            HashMap<String, Object> stringState = (HashMap<String, Object>) event.getData();
+            if (stringState != null) {
+                int pos = (int) stringState.get("pos");
+                boolean isChecked = (boolean) stringState.get("isChecked");
+                if (isChecked) {
                     dataBeans.get(pos).setIs_check(1);
-                }else {
+                } else {
                     dataBeans.get(pos).setIs_check(0);
                 }
             }
@@ -105,7 +116,7 @@ public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout
             @Override
             public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
                 int layout = R.layout.item_que_ren_sq;
-                return new MOAuthViewHolder(parent, layout,QueRenSQActivity.this);
+                return new MOAuthViewHolder(parent, layout, QueRenSQActivity.this,type);
             }
         });
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
@@ -123,8 +134,8 @@ public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout
                 finish();
                 break;
             case R.id.btnSubmit:
-                for (int i=0;i<dataBeans.size();i++){
-                    if (dataBeans.get(i).getIs_check()==0){
+                for (int i = 0; i < dataBeans.size(); i++) {
+                    if (dataBeans.get(i).getIs_check() == 0) {
                         ToastUtils.showShort("请确认所有项目");
                         return;
                     }
@@ -206,9 +217,10 @@ public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout
         String url = Constant.HOST + Constant.Url.MAINTAIN_ORDER_AUTH;
         HashMap<String, String> params = new HashMap<>();
         params.put("uid", SPUtils.getInstance().getInt(Constant.SF.Uid) + "");
-        params.put("id",id);
+        params.put("id", id);
         return new OkObject(params, url);
     }
+
     private void setState(final String even, String id) {
         HttpApi.post(context, getOkObjectState(even, id), new HttpApi.CallBack() {
             @Override
@@ -274,6 +286,7 @@ public class QueRenSQActivity extends BaseActivity implements SwipeRefreshLayout
         params.put("id", id);
         return new OkObject(params, url);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
