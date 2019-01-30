@@ -27,11 +27,12 @@
                 android:textColor="@color/new_important_text"
                 android:textSize="@dimen/sp_13" />
 
-            <com.jude.easyrecyclerview.EasyRecyclerView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerLeft"
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="match_parent"
-                app:scrollbars="none"></com.jude.easyrecyclerview.EasyRecyclerView>
+                app:scrollbars="none">
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
 

@@ -16,12 +16,10 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.easyrecyclerview.decoration.DividerDecoration;
 import com.jude.easyrecyclerview.decoration.SpaceDecoration;
 import com.wanbao.R;
+import com.wanbao.adapter.BaoYangLeftAdapter;
 import com.wanbao.adapter.BaoYangTopAdapter;
 import com.wanbao.adapter.MultipleItemQuickAdapter;
 import com.wanbao.base.dialog.MyDialog;
@@ -34,7 +32,6 @@ import com.wanbao.base.view.ObservableHorizontalScrollView;
 import com.wanbao.modle.MultipleItem;
 import com.wanbao.modle.OkObject;
 import com.wanbao.modle.Usercar_Manual;
-import com.wanbao.viewholder.BaoYangSCLeftViewHolder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +52,7 @@ public class BaoYangSCXFragment extends BaseFragment {
     @BindView(R.id.textTitle)
     TextView textTitle;
     @BindView(R.id.recyclerLeft)
-    EasyRecyclerView recyclerLeft;
+    RecyclerView recyclerLeft;
     @BindView(R.id.recyclerTop)
     RecyclerView recyclerTop;
     @BindView(R.id.recyclerView)
@@ -68,8 +65,7 @@ public class BaoYangSCXFragment extends BaseFragment {
     private String id;
     private View view;
     private BaoYangTopAdapter adapterTop;
-    //    private RecyclerArrayAdapter<Usercar_Manual.Cm21kmBean> adapterTop;
-    private RecyclerArrayAdapter<Usercar_Manual.DataBean> adapterLeft;
+    private BaoYangLeftAdapter adapterLeft;
 
 
     public BaoYangSCXFragment() {
@@ -115,14 +111,32 @@ public class BaoYangSCXFragment extends BaseFragment {
     @Override
     protected void setListeners() {
         setSyncScrollListener();
+//        recyclerLeft.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerViews, int dx, int dy) {
+//                if (recyclerViews.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
+//                    recyclerView.scrollBy(dx, dy);
+//                }
+//            }
+//        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerViews, int dx, int dy) {
+//                if (recyclerViews.getScrollState() != RecyclerView.SCROLL_STATE_IDLE) {
+//                    recyclerLeft.scrollBy(dx, dy);
+//                }
+//            }
+//        });
         hScrollView.setScrollViewListener(new ObservableHorizontalScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(ObservableHorizontalScrollView scrollView, int x, int y, int oldx, int oldy) {
-                recyclerLeft.getRecyclerView().removeOnScrollListener(mRoomOSL);
+                recyclerLeft.removeOnScrollListener(mRoomOSL);
                 recyclerView.removeOnScrollListener(mLayerOSL);
             }
         });
     }
+
+
 
     @Override
     protected void initData() {
@@ -137,19 +151,6 @@ public class BaoYangSCXFragment extends BaseFragment {
         SpaceDecoration spaceDecoration = new SpaceDecoration((int) DpUtils.convertDpToPixel(0f, context));
         spaceDecoration.setPaddingEdgeSide(false);
         recyclerTop.addItemDecoration(spaceDecoration);
-
-//        recyclerTop.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recycler, int dx, int dy) {
-//                super.onScrolled(recycler, dx, dy);
-//                recyclerTop.setScroll(true);
-//            }
-//        });
-//        recyclerTop.setOnDaoDiLeListener(new MyEasyRecyclerView.OnDaoDiLeListener() {
-//            @Override
-//            public void daoDiLe() {
-//            }
-//        });
     }
 
     /**
@@ -160,14 +161,6 @@ public class BaoYangSCXFragment extends BaseFragment {
         DividerDecoration itemDecoration = new DividerDecoration(Color.TRANSPARENT, 0, 0, 0);
         itemDecoration.setDrawLastItem(false);
         recyclerLeft.addItemDecoration(itemDecoration);
-        recyclerLeft.setRefreshingColorResources(R.color.basic_color);
-        recyclerLeft.setAdapter(adapterLeft = new RecyclerArrayAdapter<Usercar_Manual.DataBean>(context) {
-            @Override
-            public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-                int layout = R.layout.item_baoyang_sc_left;
-                return new BaoYangSCLeftViewHolder(parent, layout);
-            }
-        });
     }
 
 
@@ -204,8 +197,8 @@ public class BaoYangSCXFragment extends BaseFragment {
                         textDes.setText(stringBuffer.toString());
                         adapterTop = new BaoYangTopAdapter(uManual.getCm21km());
                         recyclerTop.setAdapter(adapterTop);
-                        adapterLeft.clear();
-                        adapterLeft.addAll(uManual.getData());
+                        adapterLeft=new BaoYangLeftAdapter(uManual.getData());
+                        recyclerLeft.setAdapter(adapterLeft);
                         final List<MultipleItem> data = new ArrayList<>();
                         for (int i = 0; i < uManual.getData().size(); i++) {
                             if (uManual.getData().get(i).getIsv() == 1) {
@@ -295,7 +288,8 @@ public class BaoYangSCXFragment extends BaseFragment {
         public void onScrolled(RecyclerView recyclerViews, int dx, int dy) {
             super.onScrolled(recyclerViews, dx, dy);
             // 当楼层列表滑动时，单元（房间）列表也滑动
-            recyclerLeft.getRecyclerView().scrollBy(dx, dy);
+            recyclerLeft.scrollBy(dx, dy);
+            recyclerLeft.scrollTo(dx, dy);
         }
     };
     private final RecyclerView.OnScrollListener mRoomOSL = new MyOnScrollListener() {
@@ -304,6 +298,8 @@ public class BaoYangSCXFragment extends BaseFragment {
             super.onScrolled(recyclerViews, dx, dy);
             // 当单元（房间）列表滑动时，楼层列表也滑动
             recyclerView.scrollBy(dx, dy);
+            recyclerView.scrollTo(dx, dy);
+
         }
     };
 
@@ -327,7 +323,7 @@ public class BaoYangSCXFragment extends BaseFragment {
             @Override
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
                 // 若是手指按下的动作，且另一个列表处于空闲状态
-                if (e.getAction() == MotionEvent.ACTION_DOWN && recyclerLeft.getRecyclerView().getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN && recyclerLeft.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
                     // 记录当前另一个列表的y坐标并对当前列表设置滚动监听
                     mLastY = rv.getScrollY();
                     rv.addOnScrollListener(mLayerOSL);
@@ -337,6 +333,7 @@ public class BaoYangSCXFragment extends BaseFragment {
                         rv.removeOnScrollListener(mLayerOSL);
                     }
                 }
+
             }
 
             @Override
@@ -345,7 +342,7 @@ public class BaoYangSCXFragment extends BaseFragment {
             }
         });
 
-        recyclerLeft.getRecyclerView().addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        recyclerLeft.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
 
             private int mLastY;
 
@@ -375,5 +372,24 @@ public class BaoYangSCXFragment extends BaseFragment {
             }
         });
     }
+    private boolean touchEventInView(View view, float x, float y) {
+        if (view == null) {
+            return false;
+        }
 
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+
+        int left = location[0];
+        int top = location[1];
+
+        int right = left + view.getMeasuredWidth();
+        int bottom = top + view.getMeasuredHeight();
+
+        if (y >= top && y <= bottom && x >= left && x <= right) {
+            return true;
+        }
+
+        return false;
+    }
 }
