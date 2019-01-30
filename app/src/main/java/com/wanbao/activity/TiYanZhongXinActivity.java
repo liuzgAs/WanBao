@@ -185,7 +185,7 @@ public class TiYanZhongXinActivity extends BaseActivity {
                                 .into(imageHeader);
                         textCarName.setText(uCensor.getData().getCar_name());
                         textCarNo.setText(uCensor.getData().getCar_no());
-                        textFenShu.setText(uCensor.getVal() + "");
+                        textFenShu.setText(uCensor.getVal_des());
                         textPjhy.setText(uCensor.getVal1() + "");
                         textXh.setText(uCensor.getVal2() + "");
                         textState.setText(uCensor.getVal3() + "");

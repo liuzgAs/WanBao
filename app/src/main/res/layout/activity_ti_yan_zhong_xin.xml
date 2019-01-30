@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp_62"
+                    android:layout_marginTop="@dimen/dp_82"
                     android:orientation="horizontal">
 
                     <com.wanbao.base.ui.GradientTextView
@@ -133,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/light_fenshu"
-                        android:textSize="@dimen/sp_38"
+                        android:textSize="@dimen/sp_14"
                         android:textStyle="bold" />
 
                     <com.wanbao.base.ui.GradientTextView
@@ -141,6 +141,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_4"
                         android:text="分"
+                        android:visibility="gone"
                         android:textColor="@color/light_fenshu"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>

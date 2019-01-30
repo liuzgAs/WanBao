@@ -24,9 +24,10 @@ public class Usercar_Censor {
 
     private DataBean data;
     private int val;
-    private double val1;
-    private int val2;
+    private String val1;
+    private String val2;
     private String val3;
+    private String val_des;
     private String km;
     private int status;
     private String info;
@@ -49,19 +50,27 @@ public class Usercar_Censor {
         this.val = val;
     }
 
-    public double getVal1() {
+    public String getVal1() {
         return val1;
     }
 
-    public void setVal1(double val1) {
+    public void setVal1(String val1) {
         this.val1 = val1;
     }
 
-    public int getVal2() {
+    public String getVal_des() {
+        return val_des;
+    }
+
+    public void setVal_des(String val_des) {
+        this.val_des = val_des;
+    }
+
+    public String getVal2() {
         return val2;
     }
 
-    public void setVal2(int val2) {
+    public void setVal2(String val2) {
         this.val2 = val2;
     }
 
@@ -122,7 +131,7 @@ public class Usercar_Censor {
 
         private String img;
         private String car_name;
-        private int km;
+        private String km;
         private String car_no;
 
         public String getImg() {
@@ -141,11 +150,11 @@ public class Usercar_Censor {
             this.car_name = car_name;
         }
 
-        public int getKm() {
+        public String getKm() {
             return km;
         }
 
-        public void setKm(int km) {
+        public void setKm(String km) {
             this.km = km;
         }
 
