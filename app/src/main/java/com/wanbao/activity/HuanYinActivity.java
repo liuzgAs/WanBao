@@ -1,17 +1,28 @@
 package com.wanbao.activity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -21,6 +32,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.luoxudong.app.threadpool.ThreadPoolHelp;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wanbao.R;
 import com.wanbao.base.AppContext;
 import com.wanbao.base.activity.BaseNoLeftActivity;
@@ -36,9 +48,10 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class HuanYinActivity extends BaseNoLeftActivity {
+public class HuanYinActivity extends BaseNoLeftActivity implements AMapLocationListener {
     @BindView(R.id.imageImg)
     ImageView imageImg;
     @BindView(R.id.textDaoJiShi)
@@ -47,6 +60,12 @@ public class HuanYinActivity extends BaseNoLeftActivity {
     private long currentTimeMillis;
     private int daoJiShi = 5;
     private boolean isBreak = true;
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
+    private double lng;
+    private double lat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +88,22 @@ public class HuanYinActivity extends BaseNoLeftActivity {
     @Override
     protected void initViews() {
         textDaoJiShi.setVisibility(View.GONE);
+        //初始化定位
+        mLocationClient = new AMapLocationClient(AppContext.getIntance());
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
     }
 
     @Override
     protected void initData() {
         currentTimeMillis = System.currentTimeMillis();
-        getData();
+        if (checkGPSIsOpen()){
+            getAddressPermissions();
+        }else {
+            openGPSSettings();
+        }
     }
 
     private void getData() {
@@ -246,8 +275,8 @@ public class HuanYinActivity extends BaseNoLeftActivity {
         String url = Constant.HOST + Constant.Url.Index_Start;
         HashMap<String, String> params = new HashMap<>();
         params.put("isFirst", isFirst + "");
-        params.put("lng", "");
-        params.put("lat", "");
+        params.put("lng", lng+"");
+        params.put("lat", lat+"");
         params.put("intro", "model=" + Build.MODEL + "sdk=" + Build.VERSION.SDK);
         params.put("mid", "");
         params.put("deviceId", PushServiceFactory.getCloudPushService().getDeviceId());
@@ -273,4 +302,116 @@ public class HuanYinActivity extends BaseNoLeftActivity {
 //        }
     }
 
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation!=null){
+            if (aMapLocation.getErrorCode()==0){
+                lng=aMapLocation.getLongitude();
+                lat=aMapLocation.getLatitude();
+                getData();
+            }else {
+                MyDialog.dialogFinish(this,"定位失败！");
+            }
+        }
+    }
+
+    private void getAddressPermissions() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions
+                .request(Manifest.permission.ACCESS_COARSE_LOCATION)
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if (aBoolean) {
+                            setDingw();
+                        } else {
+                            dismissDialog();
+                            Toast.makeText(context, "拒绝权限,点击重新申请！", Toast.LENGTH_SHORT).show();
+//                            address.setText("定位失败，点击重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void setDingw() {
+        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationOption.setOnceLocation(true);
+        mLocationOption.setOnceLocationLatest(true);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+    }
+
+    /**
+     * 检测GPS是否打开
+     *
+     * @return
+     */
+    private boolean checkGPSIsOpen() {
+        boolean isOpen;
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        isOpen = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return isOpen;
+    }
+
+    private int GPS_REQUEST_CODE = 10;
+
+    /**
+     * 跳转GPS设置
+     */
+    private void openGPSSettings() {
+        //没有打开则弹出对话框
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.notifyTitle)
+                .setMessage("请打开GPS")
+                // 拒绝, 退出应用
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                .setPositiveButton(R.string.setting,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //跳转GPS设置界面
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                startActivityForResult(intent, GPS_REQUEST_CODE);
+                            }
+                        })
+
+                .setCancelable(false)
+                .show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==GPS_REQUEST_CODE){
+            if (checkGPSIsOpen()){
+                getAddressPermissions();
+            }else {
+                openGPSSettings();
+            }
+        }
+    }
 }

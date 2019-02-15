@@ -476,6 +476,8 @@ public class ErShouCheYYActivity extends BaseActivity {
                         video_second = seller_online_before.getVideo_second();
                         textTips.setText(seller_online_before.getTips());
                         store_logo = seller_online_before.getStore_logo();
+                        textKanCheCS.setText(seller_online_before.getSee_city());
+                        cityId = seller_online_before.getSee_city_id();
                         GlideApp.with(context)
                                 .asBitmap()
                                 .load(seller_online_before.getStore_logo())
@@ -842,7 +844,7 @@ public class ErShouCheYYActivity extends BaseActivity {
                 // 进入相册 以下是例子：不需要的api可以不写
                 PictureSelector.create(ErShouCheYYActivity.this)
                         .openGallery(PictureMimeType.ofImage())
-                        .maxSelectNum(9)
+                        .maxSelectNum(18)
                         .minSelectNum(1)
                         .selectionMode(PictureConfig.MULTIPLE)
                         .previewImage(true)

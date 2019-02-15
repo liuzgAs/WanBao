@@ -112,7 +112,7 @@ public class XianYouCLBDFragment extends PSFragment {
     @BindView(R.id.viewSzy)
     LinearLayout viewSzy;
     @BindView(R.id.textCph)
-    TextView textCph;
+    EditText textCph;
     @BindView(R.id.textFdjh)
     TextView textFdjh;
     @BindView(R.id.textCjh)

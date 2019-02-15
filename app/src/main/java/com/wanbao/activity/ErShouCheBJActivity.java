@@ -834,7 +834,7 @@ public class ErShouCheBJActivity extends BaseActivity {
                 // 进入相册 以下是例子：不需要的api可以不写
                 PictureSelector.create(ErShouCheBJActivity.this)
                         .openGallery(PictureMimeType.ofImage())
-                        .maxSelectNum(9)
+                        .maxSelectNum(18)
                         .minSelectNum(1)
                         .selectionMode(PictureConfig.MULTIPLE)
                         .previewImage(true)

@@ -630,23 +630,24 @@
                     android:layout_height="@dimen/dp_45"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="车牌号"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textCph"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_36"
+                        android:layout_weight="1"
+                        android:paddingRight="@dimen/dp_10"
                         android:background="@color/white"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="请填写正确的车牌号"
                         android:textColor="@color/new_important_text"
                         android:textSize="@dimen/sp_13" />

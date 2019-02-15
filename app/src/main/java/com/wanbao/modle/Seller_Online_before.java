@@ -22,9 +22,25 @@ public class Seller_Online_before {
     private String store_tel;
     private String store_logo;
     private String store_intro;
+    private String see_city_id;
+    private String see_city;
     private int video_second;
     private int status;
     private String info;
+    public String getSee_city_id() {
+        return see_city_id;
+    }
+
+    public void setSee_city_id(String see_city_id) {
+        this.see_city_id = see_city_id;
+    }
+    public String getSee_city() {
+        return see_city;
+    }
+
+    public void setSee_city(String see_city) {
+        this.see_city = see_city;
+    }
 
     public String getStore_name() {
         return store_name;
